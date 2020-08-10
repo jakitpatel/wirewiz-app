@@ -1,0 +1,6 @@
+REACT_APP_apiKey=AIzaSyCoejB7PYp6_vB3oCPfsLshE9dhWCZeLuM
+REACT_APP_authDomain=bank-demo-app.firebaseapp.com
+REACT_APP_databaseURL='https://bank-demo-app.firebaseio.com'
+REACT_APP_projectId=bank-demo-app
+REACT_APP_storageBucket=bank-demo-app.appspot.com
+REACT_APP_messagingSenderId=67801441591

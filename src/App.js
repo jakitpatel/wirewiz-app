@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Homepage from "./components/Homepage";
+import Login from "./components/Login/login";
+import Dashboard from "./components/Dashboard/App";
+import firebase from "./components/Firebase/firebase";
+function App(props) {
+  const [firebaseInit, setFirebaseInit] = useState(false);
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  useEffect(() => {
+    firebase.isInitialized().then(val => setFirebaseInit(val));
+  });
+  //alert("firebaseInit : "+firebaseInit);
+  console.log("firebaseInit : "+firebaseInit);
+  return firebaseInit !== false ? (
+    <React.Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Login} />
+        </Switch>
+      </Router>
+    </React.Fragment>
+  ) : (
+    <div id="loader">Loader</div>
   );
 }
 

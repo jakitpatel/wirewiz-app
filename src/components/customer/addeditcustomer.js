@@ -5,12 +5,13 @@ import CustForm from "../custForm";
 function Addeditcustomer(props) {
   let initialstateObj = {
     name: "",
-    gstn: "",
+    custType: "",
     state: "gujarat",
     address1: "",
     address2: "",
     place: "",
-    pincode: ""
+    pincode: "",
+    active: true
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);
@@ -19,6 +20,10 @@ function Addeditcustomer(props) {
     console.log(props);
     if (props.disType === "edit") {
       setCustObj(props.custdata);
+    } else if (props.disType === "clone") {
+      let cloneCustObj = props.custdata;
+      cloneCustObj.key = null;
+      setCustObj(cloneCustObj);
     }
   }, [props.disType, props.custdata]);
 
@@ -32,6 +37,10 @@ function Addeditcustomer(props) {
   function handleSubmit(e) {
     console.log(custObj);
     if (props.disType === "add") {
+      handleAddCustomer();
+      setCustObj(initialstateObj);
+    } else if (props.disType === "clone") {
+      //setCustObj({ ...custObj, [e.target.name]: e.target.value });
       handleAddCustomer();
       setCustObj(initialstateObj);
     } else {
@@ -49,6 +58,7 @@ function Addeditcustomer(props) {
           console.log(error);
         } else {
           // Data saved successfully!
+          alert("Data saved successfully!");
           console.log("Data saved successfully!");
         }
       }
@@ -59,6 +69,7 @@ function Addeditcustomer(props) {
     console.log("handleAddCustomer");
     let dbCon = firebase.db.ref("/customers");
     dbCon.push(custObj);
+    alert("Data saved successfully!");
     //setList(list.concat([custObj]));
   }
   function getTitle() {

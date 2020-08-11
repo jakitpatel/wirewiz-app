@@ -4,15 +4,83 @@ import firebase from "./../Firebase/firebase";
 import { Link } from "react-router-dom";
 import Listview from "./Listview";
 import * as Icon from "react-feather";
+import "./customers.css";
 
 function Customers(props) {
   const [loading, setLoading] = useState(true);
   const [custlist, setCustlist] = useState([]);
   const [toEditcustomer, setToEditcustomer] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
+
+  function activeCustomerChange(currObj, e) {
+    console.log("Option Change Checkbox Click");
+    //console.log(e);
+    let optAction = "activate";
+    let activeVal = true;
+    if (currObj.active) {
+      optAction = "deactivate";
+      activeVal = false;
+    }
+    /*
+    let confMsg =
+      "Do you want to " +
+      optAction +
+      " this customer" +
+      "?";
+    
+    if (window.confirm(confMsg)) {
+      */
+      //Perform Opration
+      let custObj = currObj;
+      custObj.active = activeVal;
+      firebase.db.ref("customers/" + custObj.key).set(
+        {
+          ...custObj
+        },
+        function(error) {
+          if (error) {
+            // The write failed...
+            console.log(error);
+          } else {
+            // Data saved successfully!
+            alert("Customer "+optAction+" successfully.");
+            console.log("Data saved successfully!");
+          }
+        }
+      );
+    /*
+    } else {
+      return false;
+    }*/
+  }
+
   const columnDefs = [
     {
-      Header: "",
+      Header: "Active",
+      width: 70,
+      field: "exists",
+      filterable: false, // Overrides the table option
+      className: "text-center",
+      Cell: obj => {
+        //console.log(obj.row);
+        let opId = obj.row.original.key;
+        let opExists = false;
+        if (obj.row.original.active) {
+          opExists = true;
+        }
+        const chboEl = (
+          <input
+            type="checkbox"
+            onChange={(e) => {activeCustomerChange(obj.row.original, e)}}
+            name={opId}
+            checked={opExists}
+          />
+        );
+        return chboEl;
+      }
+    },
+    {
+      Header: "Edit",
       width: 40,
       id: 'colEdit',
       accessor: row => row.attrbuiteName,
@@ -37,6 +105,12 @@ function Customers(props) {
       field: "name",
       Header: "Name",
       accessor: "name"
+    },
+    {
+      name: "Type",
+      field: "custType",
+      Header: "Type",
+      accessor: "custType"
     },
     {
       headerName: "Address1",
@@ -67,7 +141,31 @@ function Customers(props) {
       field: "pincode",
       Header: "Pincode",
       accessor: "pincode"
-    }/*,
+    },
+    {
+      Header: "Clone",
+      width: 40,
+      id: 'colCopy',
+      accessor: row => row.attrbuiteName,
+      filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log("Edit");
+        //console.log(obj.row);
+        let custObj = obj.row.original;
+        //custObj.key = null;
+        return (
+          <Link
+            to={{
+              pathname: "/clonecustomer",
+              state: custObj
+            }}
+          >
+            <Icon.Copy />
+          </Link>
+        );
+      }
+    },
+    /*,
     {
       Header: "",
       field: "delete",
@@ -145,7 +243,7 @@ function Customers(props) {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="text-center">Customers List</h3>
+            <h3 className="title-center">Customers List</h3>
             {disCmp}
           </div>
         </div>

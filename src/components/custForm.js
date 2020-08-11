@@ -30,15 +30,15 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.name}
           />
-          {/*
+          
           <CustTextInput
-            placeholdertext="GSTN"
-            labelText="GSTN"
-            nameref="gstn"
+            placeholdertext="Type"
+            labelText="Type"
+            nameref="custType"
             inputchange={props.oncustinputchange}
-            val={props.custstate.gstn}
+            val={props.custstate.custType}
           />
-          */}
+          
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">State</label>
             <div className="col-sm-10">

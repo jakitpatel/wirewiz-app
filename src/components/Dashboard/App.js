@@ -12,6 +12,11 @@ const CustomerWrap = props => {
   return <Addeditcustomer disType="edit" custdata={props.location.state} />;
 };
 
+const CustomerCloneWrap = props => {
+  console.log(props);
+  return <Addeditcustomer disType="clone" custdata={props.location.state} />;
+};
+
 const routes = [
   {
     path: "/dashboard",
@@ -25,6 +30,10 @@ const routes = [
   {
     path: "/addcustomer",
     main: () => <Addeditcustomer disType="add" />
+  },
+  {
+    path: "/clonecustomer",
+    main: CustomerCloneWrap //() => <Customers disType="edit" />
   },
   {
     path: "/editcustomer",

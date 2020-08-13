@@ -3,8 +3,8 @@ import React from "react";
 function CustTextInput(props) {
   return (
     <div className="form-group row">
-      <label className="col-sm-2 col-form-label">{props.labelText}</label>
-      <div className="col-sm-10">
+      <label className="col-sm-3 col-form-label">{props.labelText}</label>
+      <div className="col-sm-9">
         <input
           type="text"
           name={props.nameref}
@@ -26,9 +26,9 @@ function CustForm(props) {
           <CustTextInput
             placeholdertext="Name"
             labelText="Name"
-            nameref="name"
+            nameref="CustomerFriendlyName"
             inputchange={props.oncustinputchange}
-            val={props.custstate.name}
+            val={props.custstate.CustomerFriendlyName}
           />
           
           <CustTextInput
@@ -36,56 +36,38 @@ function CustForm(props) {
             labelText="Type"
             nameref="custType"
             inputchange={props.oncustinputchange}
-            val={props.custstate.custType}
+            val={props.custstate.CustomerType}
+          />
+          <CustTextInput
+            placeholdertext="CompanyID"
+            labelText="CompanyID"
+            nameref="CompanyID"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.CompanyID}
           />
           
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">State</label>
-            <div className="col-sm-10">
-              <select
-                className="form-control custom-select"
-                placeholder="State"
-                name="state"
-                value={props.custstate.state}
-                onChange={e => props.oncustinputchange(e)}
-              >
-                <option value="gujarat">Gujarat</option>                
-                <option value="haryana">Haryana</option>
-                <option value="madhyapradesh">Madhya Pradesh</option>
-                <option value="rajasthan">Rajasthan</option>
-                <option value="tamilnadu">Tamilnadu</option>
-              </select>
-            </div>
-          </div>
         </div>
         <div className="col-sm-6 mb-3">
-          <CustTextInput
-            placeholdertext="Address"
-            labelText="Address"
-            nameref="address1"
+        <CustTextInput
+            placeholdertext="IncomingFundsAccount"
+            labelText="IncomingFundsAcct"
+            nameref="IncomingFundsAccount"
             inputchange={props.oncustinputchange}
-            val={props.custstate.address1}
+            val={props.custstate.IncomingFundsAccount}
           />
           <CustTextInput
-            placeholdertext="Address"
-            labelText=""
-            nameref="address2"
+            placeholdertext="OutgoingFundsAccount"
+            labelText="OutgoingFundsAcct"
+            nameref="OutgoingFundsAccount"
             inputchange={props.oncustinputchange}
-            val={props.custstate.address2}
+            val={props.custstate.OutgoingFundsAccount}
           />
           <CustTextInput
-            placeholdertext="Place"
-            labelText="Place"
-            nameref="place"
+            placeholdertext="ReturnCreditAcct"
+            labelText="ReturnCreditAcct"
+            nameref="ReturnCreditAcct"
             inputchange={props.oncustinputchange}
-            val={props.custstate.place}
-          />
-          <CustTextInput
-            placeholdertext="Pincode"
-            labelText="Pincode"
-            nameref="pincode"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.pincode}
+            val={props.custstate.ReturnCreditAcct}
           />
         </div>
       </div>

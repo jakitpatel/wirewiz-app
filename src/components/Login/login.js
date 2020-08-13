@@ -23,10 +23,14 @@ function Login(props) {
         password: password
       };
   
-      
+      const options = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      };
       //let loginUrl = API_URL+"session.json";
       //let res = await axios.get(loginUrl, userCred);
-      let loginUrl = API_URL+"user/session?service=demo";
+      let loginUrl = API_URL+"user/session?service=cfsb_ldap";
       let res = await axios.post(loginUrl, userCred);
       console.log(res.data);
       console.log(res.data.name);

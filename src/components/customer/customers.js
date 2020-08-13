@@ -68,14 +68,14 @@ function Customers(props) {
     {
       Header: "Active",
       width: 70,
-      field: "exists",
+      field: "IsActiveCustomer",
       filterable: false, // Overrides the table option
       className: "text-center",
       Cell: obj => {
         //console.log(obj.row);
-        let opId = obj.row.original.key;
+        let opId = obj.row.original.ID;
         let opExists = false;
-        if (obj.row.original.active) {
+        if (obj.row.original.IsActiveCustomer) {
           opExists = true;
         }
         const chboEl = (
@@ -111,48 +111,6 @@ function Customers(props) {
       }
     },
     {
-      name: "Name",
-      field: "name",
-      Header: "Name",
-      accessor: "CustomerFriendlyName"
-    },
-    {
-      name: "Type",
-      field: "CustomerType",
-      Header: "Type",
-      accessor: "CustomerType"
-    },
-    {
-      headerName: "Address1",
-      field: "address1",
-      Header: "Address1",
-      accessor: "address1"
-    },
-    {
-      headerName: "Address2",
-      field: "address2",
-      Header: "Address2",
-      accessor: "address2"
-    },
-    {
-      headerName: "State",
-      field: "state",
-      Header: "State",
-      accessor: "state"
-    },
-    {
-      headerName: "Place",
-      field: "place",
-      Header: "Place",
-      accessor: "place"
-    },
-    {
-      headerName: "Pincode",
-      field: "pincode",
-      Header: "Pincode",
-      accessor: "pincode"
-    },
-    {
       Header: "Clone",
       width: 40,
       id: 'colCopy',
@@ -174,6 +132,42 @@ function Customers(props) {
           </Link>
         );
       }
+    },
+    {
+      name: "Name",
+      field: "name",
+      Header: "Name",
+      accessor: "CustomerFriendlyName"
+    },
+    {
+      name: "Type",
+      field: "CustomerType",
+      Header: "Type",
+      accessor: "CustomerType"
+    },
+    {
+      headerName: "CompanyID",
+      field: "CompanyID",
+      Header: "CompanyID",
+      accessor: "CompanyID"
+    },
+    {
+      headerName: "IncomingFundsAccount",
+      field: "IncomingFundsAccount",
+      Header: "IncomingFundsAcct",
+      accessor: "IncomingFundsAccount"
+    },
+    {
+      headerName: "OutgoingFundsAccount",
+      field: "OutgoingFundsAccount",
+      Header: "OutgoingFundsAcct",
+      accessor: "OutgoingFundsAccount"
+    },
+    {
+      headerName: "ReturnCreditAcct",
+      field: "ReturnCreditAcct",
+      Header: "ReturnCreditAcct",
+      accessor: "ReturnCreditAcct"
     },
     /*,
     {
@@ -219,7 +213,7 @@ function Customers(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let url = API_URL+"sqlservertest/_table/ACHCustomers";
+      let url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";
       //let url = API_URL+"ACHCustomers.json";
       let res = await axios.get(url, options);
       console.log(res.data);

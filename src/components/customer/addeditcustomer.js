@@ -4,14 +4,13 @@ import CustForm from "../custForm";
 
 function Addeditcustomer(props) {
   let initialstateObj = {
-    name: "",
-    custType: "",
-    state: "gujarat",
-    address1: "",
-    address2: "",
-    place: "",
-    pincode: "",
-    active: true
+    CustomerFriendlyName: "",
+    CustomerType: "",
+    CompanyID: "",
+    IncomingFundsAccount: "",
+    OutgoingFundsAccount: "",
+    ReturnCreditAcct: "",
+    IsActiveCustomer: true
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);

@@ -31,15 +31,14 @@ function Customers(props) {
       optAction = "deactivate";
       activeVal = false;
     }
-    /*
+    
     let confMsg =
-      "Do you want to " +
+      "Are you sure you want to " +
       optAction +
       " this customer" +
       "?";
     
     if (window.confirm(confMsg)) {
-      */
       //Perform Opration
       let custObj = currObj;
       custObj.active = activeVal;
@@ -58,10 +57,9 @@ function Customers(props) {
           }
         }
       );
-    /*
     } else {
       return false;
-    }*/
+    }
   }
 
   const columnDefs = [

@@ -22,12 +22,7 @@ function Login(props) {
         username: email,
         password: password
       };
-  
-      const options = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      };
+
       //let loginUrl = API_URL+"session.json";
       //let res = await axios.get(loginUrl, userCred);
       let loginUrl = API_URL+"user/session?service=cfsb_ldap";
@@ -53,6 +48,12 @@ function Login(props) {
       setRedirectToDashboard(true);
     } catch (error) {
       alert(error);
+      console.log(error);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          console.log(error.response);
+          console.log(error.response.text);
+      }
     }
   }
 

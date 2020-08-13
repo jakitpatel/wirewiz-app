@@ -5,12 +5,22 @@ import { Link } from "react-router-dom";
 import Listview from "./Listview";
 import * as Icon from "react-feather";
 import "./customers.css";
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {API_URL} from './../../const';
+import {API_KEY} from './../../const';
 
 function Customers(props) {
   const [loading, setLoading] = useState(true);
   const [custlist, setCustlist] = useState([]);
   const [toEditcustomer, setToEditcustomer] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
+
+  const { session_token, name, email, host} = useSelector(state => {
+      return {
+          ...state.userReducer
+      }
+  });
 
   function activeCustomerChange(currObj, e) {
     console.log("Option Change Checkbox Click");
@@ -104,13 +114,13 @@ function Customers(props) {
       name: "Name",
       field: "name",
       Header: "Name",
-      accessor: "name"
+      accessor: "CustomerFriendlyName"
     },
     {
       name: "Type",
-      field: "custType",
+      field: "CustomerType",
       Header: "Type",
-      accessor: "custType"
+      accessor: "CustomerType"
     },
     {
       headerName: "Address1",
@@ -182,6 +192,7 @@ function Customers(props) {
   ];
 
   useEffect(() => {
+    /*
     const custRef = firebase.db.ref("customers");
     custRef.on("value", snapshot => {
       let customers = snapshot.val();
@@ -199,6 +210,27 @@ function Customers(props) {
     return function() {
       custRef.off();
     };
+    */
+    let ignore = false;
+    async function fetchCustomersList() {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let url = API_URL+"sqlservertest/_table/ACHCustomers";
+      //let url = API_URL+"ACHCustomers.json";
+      let res = await axios.get(url, options);
+      console.log(res.data);
+      console.log(res.data.resource);
+      let custArray = res.data.resource;
+      console.log(custArray);
+      setLoading(false);
+      setCustlist(custArray);
+    }
+    fetchCustomersList();
+    return () => { ignore = true };
   }, []);
 
   function handleEditCustomer(key) {

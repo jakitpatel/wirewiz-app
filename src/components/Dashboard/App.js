@@ -6,6 +6,9 @@ import Customers from "./../customer/customers.js";
 import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
+import DashboardMain from "./DashboardMain";
+
+import { useSelector, useDispatch } from 'react-redux';
 
 const CustomerWrap = props => {
   console.log(props);
@@ -21,7 +24,7 @@ const routes = [
   {
     path: "/dashboard",
     exact: true,
-    main: () => "Hello , " + firebase.getCurrentUsername()
+    main: () => <DashboardMain />
   },
   {
     path: "/customers",
@@ -40,20 +43,28 @@ const routes = [
     main: CustomerWrap //() => <Customers disType="edit" />
   }
 ];
+
 function App(props) {
   const [mainpage, setMainpage] = useState(true);
   const [redirectToLogin, setRedirectToLogin] = useState(false);
+  
+  const { session_token, name, email, host} = useSelector(state => {
+      return {
+          ...state.userReducer
+      }
+  });
+
   if (redirectToLogin === true) {
     return <Redirect to="/login" />;
   }
-  
-  if (!firebase.getCurrentUsername()) {
+
+  if (session_token === null) {
     //User Not Logged In
     alert("Please login first");
     setRedirectToLogin(true);
     return null;
   }
-  
+
   async function handleLogout() {
     console.log("Handle Logout & Redirect to Login");
     await firebase.logout();

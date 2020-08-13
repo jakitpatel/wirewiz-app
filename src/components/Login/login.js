@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import firebase from "./../Firebase/firebase";
 import { NavLink, Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {API_URL} from './../../const';
+
 import "./login.css";
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -9,10 +13,39 @@ function Login(props) {
   const [error, setError] = useState("");
   const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
+  const dispatch = useDispatch();
+
   async function handleLogin(e) {
     e.preventDefault();
     try {
-      await firebase.login(email, password);
+      const userCred = {
+        username: email,
+        password: password
+      };
+  
+      
+      //let loginUrl = API_URL+"session.json";
+      //let res = await axios.get(loginUrl, userCred);
+      let loginUrl = API_URL+"user/session?service=demo";
+      let res = await axios.post(loginUrl, userCred);
+      console.log(res.data);
+      console.log(res.data.name);
+      console.log(res.data.session_token);
+      //await firebase.login(email, password);
+      dispatch({
+        type:'UPDATEUSER',
+        payload:{
+          session_token : res.data.session_token,
+          session_id : res.data.session_id,  
+          id  : res.data.id, 
+          name: res.data.name,
+          first_name : res.data.first_name,
+          last_name  : res.data.last_name,
+          email : res.data.email,
+          is_sys_admin : res.data.is_sys_admin,
+          host : res.data.host
+        }
+      });
       setRedirectToDashboard(true);
     } catch (error) {
       alert(error);

@@ -4,7 +4,7 @@ import { NavLink, Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_URL} from './../../const';
+import {Login_Url} from './../../const';
 
 import "./login.css";
 function Login(props) {
@@ -23,10 +23,7 @@ function Login(props) {
         password: password
       };
 
-      //let loginUrl = API_URL+"session.json";
-      //let res = await axios.get(loginUrl, userCred);
-      let loginUrl = API_URL+"user/session?service=cfsb_ldap";
-      let res = await axios.post(loginUrl, userCred);
+      let res = await axios.post(Login_Url, userCred);
       console.log(res.data);
       console.log(res.data.name);
       console.log(res.data.session_token);
@@ -47,12 +44,13 @@ function Login(props) {
       });
       setRedirectToDashboard(true);
     } catch (error) {
-      alert(error);
-      console.log(error);
+      console.log(error.response);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
-          console.log(error.response);
-          console.log(error.response.text);
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
       }
     }
   }

@@ -7,7 +7,7 @@ import * as Icon from "react-feather";
 import "./customers.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_URL} from './../../const';
+import {Customer_Url} from './../../const';
 import {API_KEY} from './../../const';
 
 function Customers(props) {
@@ -184,25 +184,6 @@ function Customers(props) {
   ];
 
   useEffect(() => {
-    /*
-    const custRef = firebase.db.ref("customers");
-    custRef.on("value", snapshot => {
-      let customers = snapshot.val();
-      console.log(customers);
-      const custArray = Object.keys(customers).map(function(i) {
-        customers[i].key = i;
-        return customers[i];
-      });
-      console.log(custArray);
-      setLoading(false);
-      setCustlist(custArray);
-    });
-
-    // Set Clean Up
-    return function() {
-      custRef.off();
-    };
-    */
     let ignore = false;
     async function fetchCustomersList() {
       const options = {
@@ -211,9 +192,7 @@ function Customers(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";
-      //let url = API_URL+"ACHCustomers.json";
-      let res = await axios.get(url, options);
+      let res = await axios.get(Customer_Url, options);
       console.log(res.data);
       console.log(res.data.resource);
       let custArray = res.data.resource;

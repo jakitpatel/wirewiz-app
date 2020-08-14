@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import firebase from "./../Firebase/firebase.js";
 import CustForm from "../custForm";
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {Customer_Url} from './../../const';
+import {API_KEY} from './../../const';
 
 function Addeditcustomer(props) {
   let initialstateObj = {
     CustomerFriendlyName: "",
     CustomerType: "",
     CompanyID: "",
+    AccountPrefixes:"",
+    PrefixLength:"",
+    AccountLength:"",
+    StatementName:"",
     IncomingFundsAccount: "",
     OutgoingFundsAccount: "",
     ReturnCreditAcct: "",
@@ -14,7 +22,12 @@ function Addeditcustomer(props) {
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);
-
+  
+  const { session_token, name, email, host} = useSelector(state => {
+      return {
+          ...state.userReducer
+      }
+  });
   useEffect(() => {
     console.log(props);
     if (props.disType === "edit") {
@@ -64,11 +77,32 @@ function Addeditcustomer(props) {
     );
   }
 
-  function handleAddCustomer() {
+  async function handleAddCustomer() {
     console.log("handleAddCustomer");
-    let dbCon = firebase.db.ref("/customers");
-    dbCon.push(custObj);
-    alert("Data saved successfully!");
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let postObj = {
+        "resource":[custObj]
+      };
+      console.log(postObj);
+      let res = await axios.post(Customer_Url, postObj, options);
+      console.log(res);
+      alert("Data saved successfully!");
+    } catch (error) {
+      console.log(error.response);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
     //setList(list.concat([custObj]));
   }
   function getTitle() {

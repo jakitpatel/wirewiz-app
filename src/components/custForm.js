@@ -32,6 +32,7 @@ function CustCheckBoxInput(props) {
             value={props.val}
             checked={props.checkedVal}
             onChange={e => props.inputchange(e)}
+            readOnly={props.readOnlyVal}
           />
         </div>
       </div>
@@ -115,6 +116,7 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.IsActiveCustomer}
             checkedVal={props.custstate.IsActiveCustomer}
+            readOnlyVal={true}
           />
           <CustTextInput
             placeholdertext="OutgoingFundsAccount"

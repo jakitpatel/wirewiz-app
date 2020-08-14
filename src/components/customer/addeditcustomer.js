@@ -8,6 +8,7 @@ import {API_KEY} from './../../const';
 
 function Addeditcustomer(props) {
   let initialstateObj = {
+    ID: null,
     CustomerFriendlyName: "",
     CustomerType: "",
     CompanyID: "",
@@ -18,7 +19,7 @@ function Addeditcustomer(props) {
     IncomingFundsAccount: "",
     OutgoingFundsAccount: "",
     ReturnCreditAcct: "",
-    IsActiveCustomer: true
+    IsActiveCustomer: false
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);
@@ -59,22 +60,29 @@ function Addeditcustomer(props) {
       handleEditCustomer();
     }
   }
-  function handleEditCustomer() {
-    firebase.db.ref("customers/" + custObj.key).set(
-      {
-        ...custObj
-      },
-      function(error) {
-        if (error) {
-          // The write failed...
-          console.log(error);
-        } else {
-          // Data saved successfully!
-          alert("Data saved successfully!");
-          console.log("Data saved successfully!");
+
+  async function handleEditCustomer() {
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
         }
+      };
+      console.log(custObj);
+      let res = await axios.put(Customer_Url+"/"+custObj.ID, custObj, options);
+      console.log(res);
+      alert("Data saved successfully!");
+    } catch (error) {
+      console.log(error.response);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
       }
-    );
+    }
   }
 
   async function handleAddCustomer() {
@@ -103,7 +111,6 @@ function Addeditcustomer(props) {
         alert(error);
       }
     }
-    //setList(list.concat([custObj]));
   }
   function getTitle() {
     console.log("Get Title : " + props.disType);

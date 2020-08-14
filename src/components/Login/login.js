@@ -88,6 +88,11 @@ function Login(props) {
                   placeholder="Password"
                   className="form-control"
                   onChange={e => setPassword(e.target.value)}
+                  onKeyPress={e => {
+                    if (e.key === 'Enter') {
+                      handleLogin(e);
+                    }
+                  }}
                 />
               </div>
 

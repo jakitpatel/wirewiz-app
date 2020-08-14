@@ -22,12 +22,12 @@ function Customers(props) {
       }
   });
 
-  function activeCustomerChange(currObj, e) {
+  async function activeCustomerChange(currObj, e) {
     console.log("Option Change Checkbox Click");
     //console.log(e);
     let optAction = "activate";
     let activeVal = true;
-    if (currObj.active) {
+    if (currObj.IsActiveCustomer) {
       optAction = "deactivate";
       activeVal = false;
     }
@@ -40,23 +40,32 @@ function Customers(props) {
     
     if (window.confirm(confMsg)) {
       //Perform Opration
-      let custObj = currObj;
-      custObj.active = activeVal;
-      firebase.db.ref("customers/" + custObj.key).set(
-        {
-          ...custObj
-        },
-        function(error) {
-          if (error) {
-            // The write failed...
-            console.log(error);
-          } else {
-            // Data saved successfully!
-            alert("Customer "+optAction+" successfully.");
-            console.log("Data saved successfully!");
+      try {
+        let custObj = currObj;
+        custObj.active = activeVal;
+
+        const options = {
+          headers: {
+            'X-DreamFactory-API-Key': API_KEY,
+            'X-DreamFactory-Session-Token': session_token
           }
+        };
+        let postObj = {
+          "IsActiveCustomer" : activeVal
+        };
+        let res = await axios.put(Customer_Url+"/"+custObj.ID, postObj, options);
+        console.log(res);
+        alert("Customer "+optAction+" successfully!");
+      } catch (error) {
+        console.log(error.response);
+        if (401 === error.response.status) {
+            // handle error: inform user, go to login, etc
+            let res = error.response.data;
+            alert(res.error.message);
+        } else {
+          alert(error);
         }
-      );
+      }
     } else {
       return false;
     }

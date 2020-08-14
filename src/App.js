@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login/login";
-import Dashboard from "./components/Dashboard/App";
+import Dashboard from "./components/Dashboard/DashboardContainer";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducer/rootreducer';
-import { useSelector, useDispatch } from 'react-redux';
 
 const INITIAL_STATE = {};
 
 const store = createStore(rootReducer, INITIAL_STATE);
 
 function App(props) {
-  //const [firebaseInit, setFirebaseInit] = useState(false);
-
-  useEffect(() => {
-    //firebase.isInitialized().then(val => setFirebaseInit(val));
-  });
-  
   return (
     <React.Fragment>
       <Router>
@@ -25,6 +18,7 @@ function App(props) {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/customers" component={Dashboard} />
           <Route exact path="/" component={Login} />
         </Switch>
       </Provider>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import firebase from "./../Firebase/firebase";
 import { Link } from "react-router-dom";
 import Listview from "./Listview";
 import * as Icon from "react-feather";
@@ -220,7 +219,7 @@ function Customers(props) {
 
   function handleRemoveCustomer(index) {
     console.log("handleRemoveCustomer : " + index);
-
+    /*
     var custRef = firebase.db.ref("customers/" + index);
     custRef
       .remove()
@@ -230,6 +229,7 @@ function Customers(props) {
       .catch(function(error) {
         console.log("Remove failed: " + error.message);
       });
+      */
   }
 
   if (toEditcustomer === true) {

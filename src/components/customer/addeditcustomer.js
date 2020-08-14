@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import firebase from "./../Firebase/firebase.js";
-import CustForm from "../custForm";
+import CustForm from "./custForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {Customer_Url} from './../../const';
@@ -19,7 +18,15 @@ function Addeditcustomer(props) {
     IncomingFundsAccount: "",
     OutgoingFundsAccount: "",
     ReturnCreditAcct: "",
-    IsActiveCustomer: false
+    IsActiveCustomer: false,
+    FeeIncomeAcct : "",
+    FeeIncomeAcctType : "",
+    WireIncomingAccount : "",
+    WireOutgoingAccount : "",
+    FeePerItem : "",
+    FeePerFile : "",
+    FeePerReturn : "",
+    FeePerDay : ""
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);
@@ -129,11 +136,13 @@ function Addeditcustomer(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()}</h3>
-            <div className="col-sm-12 text-center">
+            <div className="col-sm-12">
               <CustForm custstate={custObj} oncustinputchange={handleChange} />
-              <button onClick={handleSubmit} className="btn btn-primary btn-sm">
-                Submit
-              </button>
+              <div className="form-group text-center">
+                <button onClick={handleSubmit} className=" btn btn-primary btn-sm">
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>

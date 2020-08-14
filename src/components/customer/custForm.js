@@ -32,7 +32,7 @@ function CustCheckBoxInput(props) {
             value={props.val}
             checked={props.checkedVal}
             onChange={e => props.inputchange(e)}
-            readOnly={props.readOnlyVal}
+            readOnly={props.readOnlyVal ? 1 : 0}
           />
         </div>
       </div>
@@ -87,6 +87,34 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.ReturnCreditAcct}
           />
+           <CustTextInput
+            placeholdertext="FeeIncomeAcct"
+            labelText="FeeIncomeAcct"
+            nameref="FeeIncomeAcct"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeeIncomeAcct}
+          />
+          <CustTextInput
+            placeholdertext="WireIncomingAccount"
+            labelText="WireIncomingAccount"
+            nameref="WireIncomingAccount"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.WireIncomingAccount}
+          />
+          <CustTextInput
+            placeholdertext="FeePerItem"
+            labelText="FeePerItem"
+            nameref="FeePerItem"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeePerItem}
+          />
+          <CustTextInput
+            placeholdertext="FeePerFile"
+            labelText="FeePerFile"
+            nameref="FeePerFile"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeePerFile}
+          />
         </div>
         <div className="col-sm-6 mb-3">
         <CustTextInput
@@ -131,6 +159,34 @@ function CustForm(props) {
             nameref="ReturnDebitAcct"
             inputchange={props.oncustinputchange}
             val={props.custstate.ReturnDebitAcct}
+          />
+          <CustTextInput
+            placeholdertext="FeeIncomeAcctType"
+            labelText="FeeIncomeAcctType"
+            nameref="FeeIncomeAcctType"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeeIncomeAcctType}
+          />
+          <CustTextInput
+            placeholdertext="WireOutgoingAccount"
+            labelText="WireOutgoingAccount"
+            nameref="WireOutgoingAccount"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.WireOutgoingAccount}
+          />
+          <CustTextInput
+            placeholdertext="FeePerReturn"
+            labelText="FeePerReturn"
+            nameref="FeePerReturn"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeePerReturn}
+          />
+          <CustTextInput
+            placeholdertext="FeePerDay"
+            labelText="FeePerDay"
+            nameref="FeePerDay"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FeePerDay}
           />
         </div>
       </div>

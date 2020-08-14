@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import firebase from "./../Firebase/firebase.js";
 import "./dashboard.css";
 import Customers from "./../customer/customers.js";
 import Addeditcustomer from "./../customer/addeditcustomer";
@@ -44,7 +43,7 @@ const routes = [
   }
 ];
 
-function App(props) {
+function DashboardContainer(props) {
   const [mainpage, setMainpage] = useState(true);
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   
@@ -64,10 +63,9 @@ function App(props) {
     setRedirectToLogin(true);
     return null;
   }
-
-  async function handleLogout() {
+  //alert("Dashboard Container");
+  function handleLogout() {
     console.log("Handle Logout & Redirect to Login");
-    await firebase.logout();
     setRedirectToLogin(true);
   }
   return (
@@ -105,4 +103,4 @@ function App(props) {
   );
 }
 
-export default App;
+export default DashboardContainer;

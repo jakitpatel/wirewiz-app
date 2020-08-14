@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import firebase from "./../Firebase/firebase";
 import { NavLink, Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
 import axios from 'axios';
@@ -27,7 +26,6 @@ function Login(props) {
       console.log(res.data);
       console.log(res.data.name);
       console.log(res.data.session_token);
-      //await firebase.login(email, password);
       dispatch({
         type:'UPDATEUSER',
         payload:{

@@ -13,6 +13,7 @@ function Customers(props) {
   const [loading, setLoading] = useState(true);
   const [custlist, setCustlist] = useState([]);
   const [toEditcustomer, setToEditcustomer] = useState(false);
+  const [toAddcustomer, setToAddcustomer] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token, name, email, host} = useSelector(state => {
@@ -232,6 +233,18 @@ function Customers(props) {
       */
   }
 
+  function addNewCustomer(){
+    console.log("Add New Customer");
+    setToAddcustomer(true);
+  }
+
+  if (toAddcustomer === true) {
+    console.log("toAddcustomer : "+toAddcustomer);
+    return (
+      <Redirect to={{ pathname: "/addcustomer"}} />
+    );
+  }
+
   if (toEditcustomer === true) {
     return (
       <Redirect to={{ pathname: "/editcustomer", state: props.original }} />
@@ -256,6 +269,11 @@ function Customers(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">Customers List</h3>
+            <div className="btnCls">
+              <button type="button" onClick={addNewCustomer} className="btn btn-primary btn-sm">
+                Add New
+              </button>
+            </div>
             {disCmp}
           </div>
         </div>

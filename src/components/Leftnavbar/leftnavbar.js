@@ -37,12 +37,13 @@ function LeftNavBar(props) {
             routePath="/customers"
             iconName="users"
           />
+          {/*
           <MenuListItem
             menuName="Add New Customer"
             routePath="/addcustomer"
             iconName="useradd"
           />
-          
+          */}
         </ul>
       </div>
     </nav>

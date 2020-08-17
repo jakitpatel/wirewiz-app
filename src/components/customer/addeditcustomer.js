@@ -26,7 +26,11 @@ function Addeditcustomer(props) {
     FeePerItem : "",
     FeePerFile : "",
     FeePerReturn : "",
-    FeePerDay : ""
+    FeePerDay : "",
+    chkFeePerItem : "",
+    chkFeePerReturn : "",
+    chkFeePerFile : "",
+    chkFeePerDay : ""
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);

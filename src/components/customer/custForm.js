@@ -115,6 +115,22 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.FeePerFile}
           />
+          <CustCheckBoxInput 
+            labelText="FeePerItem"
+            nameref="chkFeePerItem"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.chkFeePerItem}
+            checkedVal={props.custstate.chkFeePerItem}
+            readOnlyVal={true}
+          />
+          <CustCheckBoxInput 
+            labelText="FeePerFile"
+            nameref="chkFeePerFile"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.chkFeePerFile}
+            checkedVal={props.custstate.chkFeePerFile}
+            readOnlyVal={true}
+          />
         </div>
         <div className="col-sm-6 mb-3">
         <CustTextInput
@@ -187,6 +203,22 @@ function CustForm(props) {
             nameref="FeePerDay"
             inputchange={props.oncustinputchange}
             val={props.custstate.FeePerDay}
+          />
+          <CustCheckBoxInput 
+            labelText="FeePerReturn"
+            nameref="chkFeePerReturn"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.chkFeePerReturn}
+            checkedVal={props.custstate.chkFeePerReturn}
+            readOnlyVal={true}
+          />
+          <CustCheckBoxInput 
+            labelText="FeePerDay"
+            nameref="chkFeePerDay"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.chkFeePerDay}
+            checkedVal={props.custstate.chkFeePerDay}
+            readOnlyVal={true}
           />
         </div>
       </div>

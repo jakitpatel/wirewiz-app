@@ -7,3 +7,6 @@
 .btnCls {
     padding: 1rem;
 }
+.sm-vert-form .form-group {
+    margin-bottom: 0.5rem;
+}

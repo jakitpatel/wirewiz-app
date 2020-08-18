@@ -48,7 +48,7 @@ function Addeditcustomer(props) {
       setCustObj(props.custdata);
     } else if (props.disType === "clone") {
       let cloneCustObj = props.custdata;
-      cloneCustObj.key = null;
+      //cloneCustObj.key = null;
       setCustObj(cloneCustObj);
     }
   }, [props.disType, props.custdata]);
@@ -100,6 +100,17 @@ function Addeditcustomer(props) {
 
   async function handleAddCustomer() {
     console.log("handleAddCustomer");
+    let tmpCustAddObj = custObj;
+    delete tmpCustAddObj.ID;
+    /*
+    for (var prop in custObj) {
+      if (custObj.hasOwnProperty(prop)) {
+        if(prop!=="ID"){
+          tmpCustAddObj[prop] = custObj[prop];
+        }
+      }
+    }
+    */
     try {
       const options = {
         headers: {
@@ -108,7 +119,7 @@ function Addeditcustomer(props) {
         }
       };
       let postObj = {
-        "resource":[custObj]
+        "resource":[tmpCustAddObj]
       };
       console.log(postObj);
       let res = await axios.post(Customer_Url, postObj, options);

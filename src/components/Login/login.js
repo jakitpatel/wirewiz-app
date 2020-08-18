@@ -70,12 +70,12 @@ function Login(props) {
           <div>
             <form onSubmit={handleLogin}>
               <div className="form-group">
-                <label>Email</label>
+                <label>UID</label>
                 <input
                   type="text"
                   name="email"
                   autoFocus
-                  placeholder="Email"
+                  placeholder="UserId"
                   value={email}
                   className="form-control"
                   onChange={e => setEmail(e.target.value)}

@@ -1,4 +1,5 @@
 import React from "react";
+import "./customers.css";
 
 function CustDateInput(props) {
   return (
@@ -28,7 +29,7 @@ function CustTextInput(props) {
           type="text"
           name={props.nameref}
           className="form-control"
-          placeholder={props.placeholdertext}
+          //placeholder={props.placeholdertext}
           value={props.val}
           onChange={e => props.inputchange(e)}
           readOnly={props.readOnlyVal}
@@ -63,7 +64,7 @@ function CustCheckBoxInput(props) {
 function CustForm(props) {
   return (
     <React.Fragment>
-      <div className="form-row">
+      <div className="sm-vert-form form-row">
         <div className="col-sm-6 mb-3">
           <CustTextInput
             placeholdertext="Name"
@@ -168,13 +169,20 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.StatementName}
           />
-        <CustTextInput
-            placeholdertext="Type"
-            labelText="Type"
-            nameref="custType"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.CustomerType}
-          />
+          <div className="form-group row">
+            <label className="col-sm-3 col-form-label">CustomerType</label>
+            <div className="col-sm-9">
+              <select
+                className="form-control custom-select"
+                name="CustomerType"
+                value={props.custstate.CustomerType}
+                onChange={e => props.oncustinputchange(e)}
+              >
+                <option value="MSP">MSP</option>                
+                <option value="PPD">PPD</option>
+              </select>
+            </div>
+          </div>
           <CustTextInput
             placeholdertext="PrefixLength"
             labelText="PrefixLength"
@@ -204,13 +212,19 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.ReturnDebitAcct}
           />
-          <CustTextInput
-            placeholdertext="FeeIncomeAcctType"
-            labelText="FeeIncomeAcctType"
-            nameref="FeeIncomeAcctType"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.FeeIncomeAcctType}
-          />
+          <div className="form-group row">
+            <label className="col-sm-3 col-form-label">FeeIncomeAcctType</label>
+            <div className="col-sm-9">
+              <select
+                className="form-control custom-select"
+                name="FeeIncomeAcctType"
+                value={props.custstate.FeeIncomeAcctType}
+                onChange={e => props.oncustinputchange(e)}
+              >
+                <option value="GL">GL</option>                
+              </select>
+            </div>
+          </div>
           <CustTextInput
             placeholdertext="WireOutgoingAccount"
             labelText="WireOutgoingAccount"

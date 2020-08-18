@@ -37,7 +37,11 @@ function Login(props) {
           last_name  : res.data.last_name,
           email : res.data.email,
           is_sys_admin : res.data.is_sys_admin,
-          host : res.data.host
+          host : res.data.host,
+          CUSTOMER_CREATOR : true, //res.data.CUSTOMER_CREATOR
+          CUSTOMER_VIEWER : true, //res.data.CUSTOMER_VIEWER
+          CUSTOMER_ENABLER : true, //res.data.CUSTOMER_ENABLER
+          CUSTOMER_MODIFIER : true //res.data.CUSTOMER_MODIFIER
         }
       });
       setRedirectToDashboard(true);

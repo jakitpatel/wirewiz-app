@@ -1,5 +1,24 @@
 import React from "react";
 
+function CustDateInput(props) {
+  return (
+    <div className="form-group row">
+      <label className="col-sm-3 col-form-label">{props.labelText}</label>
+      <div className="col-sm-9">
+        <input
+          type="date"
+          name={props.nameref}
+          className="form-control"
+          placeholder={props.placeholdertext}
+          value={props.val}
+          onChange={e => props.inputchange(e)}
+          readOnly={props.readOnlyVal}
+        />
+      </div>
+    </div>
+  );
+}
+
 function CustTextInput(props) {
   return (
     <div className="form-group row">
@@ -12,6 +31,7 @@ function CustTextInput(props) {
           placeholder={props.placeholdertext}
           value={props.val}
           onChange={e => props.inputchange(e)}
+          readOnly={props.readOnlyVal}
         />
       </div>
     </div>
@@ -32,7 +52,7 @@ function CustCheckBoxInput(props) {
             value={props.val}
             checked={props.checkedVal}
             onChange={e => props.inputchange(e)}
-            readOnly={props.readOnlyVal ? 1 : 0}
+            disabled={props.disableVal}
           />
         </div>
       </div>
@@ -131,6 +151,14 @@ function CustForm(props) {
             checkedVal={props.custstate.chkFeePerFile}
             readOnlyVal={true}
           />
+          <CustDateInput
+            placeholdertext="LastUpdateDate"
+            labelText="LastUpdateDate"
+            nameref="LastUpdateDate"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.LastUpdateDate}
+            readOnlyVal={true}
+          />
         </div>
         <div className="col-sm-6 mb-3">
         <CustTextInput
@@ -160,7 +188,7 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.IsActiveCustomer}
             checkedVal={props.custstate.IsActiveCustomer}
-            readOnlyVal={true}
+            disableVal={true}
           />
           <CustTextInput
             placeholdertext="OutgoingFundsAccount"
@@ -218,6 +246,14 @@ function CustForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.chkFeePerDay}
             checkedVal={props.custstate.chkFeePerDay}
+            readOnlyVal={true}
+          />
+          <CustTextInput
+            placeholdertext="LastUpdateUser"
+            labelText="LastUpdateUser"
+            nameref="LastUpdateUser"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.LastUpdateUser}
             readOnlyVal={true}
           />
         </div>

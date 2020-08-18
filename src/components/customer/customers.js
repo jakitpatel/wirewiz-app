@@ -16,7 +16,7 @@ function Customers(props) {
   const [toAddcustomer, setToAddcustomer] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
-  const { session_token, name, email, host} = useSelector(state => {
+  const { session_token, name, email, host, CUSTOMER_CREATOR} = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -263,6 +263,8 @@ function Customers(props) {
         onEditClick={handleEditCustomer}
       />
     );
+  
+    console.log("CUSTOMER_CREATOR : "+ CUSTOMER_CREATOR);
   return (
     <React.Fragment>
       <div className="container">
@@ -270,9 +272,12 @@ function Customers(props) {
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">Customers List</h3>
             <div className="btnCls">
-              <button type="button" onClick={addNewCustomer} className="btn btn-primary btn-sm">
-                Add New
-              </button>
+              {CUSTOMER_CREATOR && (
+                <button type="button" display onClick={addNewCustomer} className="btn btn-primary btn-sm">
+                  Add New
+                </button>
+              )}
+              
             </div>
             {disCmp}
           </div>

@@ -22,6 +22,20 @@ function Customers(props) {
       }
   });
 
+  function handleActiveCustomerList(id,activeVal) {
+    const newList = custlist.map((item) => {
+      if (item.ID === id) {
+        const updatedItem = {
+          ...item,
+          IsActiveCustomer: activeVal,
+        };
+        return updatedItem;
+      }
+      return item;
+    });
+    setCustlist(newList);
+  }
+
   async function activeCustomerChange(currObj, e) {
     console.log("Option Change Checkbox Click");
     //console.log(e);
@@ -55,6 +69,9 @@ function Customers(props) {
         };
         let res = await axios.put(Customer_Url+"/"+custObj.ID, postObj, options);
         console.log(res);
+        
+        handleActiveCustomerList(custObj.ID,activeVal);
+
         alert("Customer "+optAction+" successfully!");
       } catch (error) {
         console.log(error.response);
@@ -67,6 +84,7 @@ function Customers(props) {
         }
       }
     } else {
+      handleActiveCustomerList(currObj.ID,currObj.IsActiveCustomer);
       return false;
     }
   }
@@ -273,7 +291,7 @@ function Customers(props) {
             <h3 className="title-center">Customers List</h3>
             <div className="btnCls">
               {CUSTOMER_CREATOR && (
-                <button type="button" display onClick={addNewCustomer} className="btn btn-primary btn-sm">
+                <button type="button" onClick={addNewCustomer} className="btn btn-primary btn-sm">
                   Add New
                 </button>
               )}

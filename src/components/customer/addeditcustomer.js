@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import CustForm from "./custForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -36,7 +37,8 @@ function Addeditcustomer(props) {
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);
-  
+  const [toCustomer, setToCustomer] = useState(false);
+
   const { session_token, name, email, host} = useSelector(state => {
       return {
           ...state.userReducer
@@ -48,16 +50,20 @@ function Addeditcustomer(props) {
       setCustObj(props.custdata);
     } else if (props.disType === "clone") {
       let cloneCustObj = props.custdata;
-      //cloneCustObj.key = null;
+      cloneCustObj.IsActiveCustomer = false;
       setCustObj(cloneCustObj);
     }
   }, [props.disType, props.custdata]);
 
   function handleChange(e) {
-    console.log("On Handle Change");
-    console.log(e.target.name);
-    //setCustObj({ [e.target.name]: e.target.value });
-    setCustObj({ ...custObj, [e.target.name]: e.target.value });
+    console.log("On Handle Change : "+ e.target.name);
+    let targetVal = "";
+    if(e.target.type === "checkbox"){
+      targetVal = e.target.checked;
+    } else {
+      targetVal = e.target.value;
+    }
+    setCustObj({ ...custObj, [e.target.name]: targetVal });
   }
 
   function handleSubmit(e) {
@@ -86,6 +92,7 @@ function Addeditcustomer(props) {
       let res = await axios.put(Customer_Url+"/"+custObj.ID, custObj, options);
       console.log(res);
       alert("Data saved successfully!");
+      setToCustomer(true);
     } catch (error) {
       console.log(error.response);
       if (401 === error.response.status) {
@@ -125,6 +132,7 @@ function Addeditcustomer(props) {
       let res = await axios.post(Customer_Url, postObj, options);
       console.log(res);
       alert("Data saved successfully!");
+      setToCustomer(true);
     } catch (error) {
       console.log(error.response);
       if (401 === error.response.status) {
@@ -147,6 +155,14 @@ function Addeditcustomer(props) {
         return "Add New Customer";
     }
   }
+
+  if (toCustomer === true) {
+    console.log("toCustomer : "+toCustomer);
+    return (
+      <Redirect to={{ pathname: "/customers"}} />
+    );
+  }
+
   return (
     <React.Fragment>
       <div className="container">
@@ -154,7 +170,7 @@ function Addeditcustomer(props) {
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()}</h3>
             <div className="col-sm-12">
-              <CustForm custstate={custObj} oncustinputchange={handleChange} />
+              <CustForm formMode={props.disType} custstate={custObj} oncustinputchange={handleChange} />
               <div className="form-group text-center">
                 <button onClick={handleSubmit} className=" btn btn-primary btn-sm">
                   Submit

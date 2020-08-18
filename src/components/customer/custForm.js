@@ -50,7 +50,7 @@ function CustCheckBoxInput(props) {
             name={props.nameref}
             className="form-check-input"
             placeholder={props.placeholdertext}
-            value={props.val}
+            //value={props.val}
             checked={props.checkedVal}
             onChange={e => props.inputchange(e)}
             disabled={props.disableVal}
@@ -194,9 +194,9 @@ function CustForm(props) {
             labelText="Active"
             nameref="IsActiveCustomer"
             inputchange={props.oncustinputchange}
-            val={props.custstate.IsActiveCustomer}
+            //val={props.custstate.IsActiveCustomer}
             checkedVal={props.custstate.IsActiveCustomer}
-            disableVal={true}
+            disableVal={props.formMode==="edit" ? true : false}
           />
           <CustTextInput
             placeholdertext="OutgoingFundsAccount"

@@ -1,10 +1,23 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Install Node Js : https://nodejs.org/en/download/
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) like below.
+
+Install Create React APP Globally
+
+### npm install -g create-react-app   
+
+For Creating the new application with create-react-app
+### npx create-react-app my-app
+### cd my-app
+### npm start
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn start`  (yarn package manager)
+OR 
+### `npm run start`   (npm package manager)
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -13,11 +26,15 @@ The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 ### `yarn test`
+OR 
+### `npm run test`   (npm package manager)
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `yarn build`
+OR 
+### `npm run build`   (npm package manager)
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -66,3 +83,24 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+For Getting & pushing the code to Source Control GitHub Repository
+
+For cloning any existing repository from remote
+
+### git clone git@github.com:User/UserRepo.git
+
+Below is used to a add a new remote to existing repository if there is no remote link exist : https://git-scm.com/docs/git-remote
+
+### git remote add origin git@github.com:User/UserRepo.git
+
+Below is used to change the url of an existing remote repository: https://git-scm.com/docs/git-remote
+
+### git remote set-url origin git@github.com:User/UserRepo.git
+
+Below will push your code to the master branch of the remote repository defined with origin and -u let you point your current local branch to the remote master branch:
+
+### git add --all
+### git commit -m "Any message related to changes done in files"
+### git push -u origin master

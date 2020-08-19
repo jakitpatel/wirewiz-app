@@ -152,12 +152,22 @@ function CustForm(props) {
             checkedVal={props.custstate.chkFeePerFile}
             readOnlyVal={true}
           />
-          <CustDateInput
-            placeholdertext="LastUpdateDate"
-            labelText="LastUpdateDate"
-            nameref="LastUpdateDate"
+          {props.formMode==="edit" ? (
+            <CustDateInput
+              placeholdertext="LastUpdateDate"
+              labelText="LastUpdateDate"
+              nameref="LastUpdateDate"
+              inputchange={props.oncustinputchange}
+              val={props.custstate.LastUpdateDate}
+              readOnlyVal={true}
+            />
+          ) : null }
+          <CustCheckBoxInput 
+            labelText="chkRejectCredits"
+            nameref="chkRejectCredits"
             inputchange={props.oncustinputchange}
-            val={props.custstate.LastUpdateDate}
+            val={props.custstate.chkRejectCredits}
+            checkedVal={props.custstate.chkRejectCredits}
             readOnlyVal={true}
           />
         </div>
@@ -262,12 +272,22 @@ function CustForm(props) {
             checkedVal={props.custstate.chkFeePerDay}
             readOnlyVal={true}
           />
-          <CustTextInput
-            placeholdertext="LastUpdateUser"
-            labelText="LastUpdateUser"
-            nameref="LastUpdateUser"
+          {props.formMode==="edit" ? (
+            <CustTextInput
+              placeholdertext="LastUpdateUser"
+              labelText="LastUpdateUser"
+              nameref="LastUpdateUser"
+              inputchange={props.oncustinputchange}
+              val={props.custstate.LastUpdateUser}
+              readOnlyVal={true}
+            />
+          ) : null}
+          <CustCheckBoxInput 
+            labelText="chkExcludeReturns"
+            nameref="chkExcludeReturns"
             inputchange={props.oncustinputchange}
-            val={props.custstate.LastUpdateUser}
+            val={props.custstate.chkExcludeReturns}
+            checkedVal={props.custstate.chkExcludeReturns}
             readOnlyVal={true}
           />
         </div>

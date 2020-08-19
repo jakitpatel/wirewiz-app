@@ -39,12 +39,19 @@ function Table({getTbdProps, columns, data }) {
     rows,
     getTdProps,
     prepareRow,
+    setHiddenColumns
   } = useTable({
     getTbdProps,
     columns,
-    data,
+    data
   },
   useSortBy)
+
+  useEffect(() => {
+    setHiddenColumns(
+      columns.filter(column => !column.show).map(column => column.id)
+    );
+  }, [columns]);
 
   // Render the UI for your table
   return (
@@ -90,7 +97,7 @@ function Table({getTbdProps, columns, data }) {
    const data = React.useMemo(() => props.items, [props.items])
  
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
-   
+
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
         onClick: (e, handleOriginal) => {

@@ -16,7 +16,7 @@ function Customers(props) {
   const [toAddcustomer, setToAddcustomer] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
-  const { session_token, name, email, host, CUSTOMER_CREATOR} = useSelector(state => {
+  const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -38,50 +38,55 @@ function Customers(props) {
 
   async function activeCustomerChange(currObj, e) {
     console.log("Option Change Checkbox Click");
-    //console.log(e);
-    let optAction = "activate";
-    let activeVal = true;
-    if (currObj.IsActiveCustomer) {
-      optAction = "deactivate";
-      activeVal = false;
-    }
-    
-    let confMsg =
-      "Are you sure you want to " +
-      optAction +
-      " this customer" +
-      "?";
-    
-    if (window.confirm(confMsg)) {
-      //Perform Opration
-      try {
-        let custObj = currObj;
-        custObj.active = activeVal;
+    if(CUSTOMER_ENABLER){
+      //console.log(e);
+      let optAction = "activate";
+      let activeVal = true;
+      if (currObj.IsActiveCustomer) {
+        optAction = "deactivate";
+        activeVal = false;
+      }
+      
+      let confMsg =
+        "Are you sure you want to " +
+        optAction +
+        " this customer" +
+        "?";
+      
+      if (window.confirm(confMsg)) {
+        //Perform Opration
+        try {
+          let custObj = currObj;
+          custObj.active = activeVal;
 
-        const options = {
-          headers: {
-            'X-DreamFactory-API-Key': API_KEY,
-            'X-DreamFactory-Session-Token': session_token
+          const options = {
+            headers: {
+              'X-DreamFactory-API-Key': API_KEY,
+              'X-DreamFactory-Session-Token': session_token
+            }
+          };
+          let postObj = {
+            "IsActiveCustomer" : activeVal
+          };
+          let res = await axios.put(Customer_Url+"/"+custObj.ID, postObj, options);
+          console.log(res);
+          
+          handleActiveCustomerList(custObj.ID,activeVal);
+
+          alert("Customer "+optAction+" successfully!");
+        } catch (error) {
+          console.log(error.response);
+          if (401 === error.response.status) {
+              // handle error: inform user, go to login, etc
+              let res = error.response.data;
+              alert(res.error.message);
+          } else {
+            alert(error);
           }
-        };
-        let postObj = {
-          "IsActiveCustomer" : activeVal
-        };
-        let res = await axios.put(Customer_Url+"/"+custObj.ID, postObj, options);
-        console.log(res);
-        
-        handleActiveCustomerList(custObj.ID,activeVal);
-
-        alert("Customer "+optAction+" successfully!");
-      } catch (error) {
-        console.log(error.response);
-        if (401 === error.response.status) {
-            // handle error: inform user, go to login, etc
-            let res = error.response.data;
-            alert(res.error.message);
-        } else {
-          alert(error);
         }
+      } else {
+        handleActiveCustomerList(currObj.ID,currObj.IsActiveCustomer);
+        return false;
       }
     } else {
       handleActiveCustomerList(currObj.ID,currObj.IsActiveCustomer);
@@ -106,6 +111,7 @@ function Customers(props) {
         const chboEl = (
           <input
             type="checkbox"
+            disabled={!CUSTOMER_ENABLER}
             onChange={(e) => {activeCustomerChange(obj.row.original, e)}}
             name={opId}
             checked={opExists}
@@ -116,6 +122,7 @@ function Customers(props) {
     },
     {
       Header: "Edit",
+      show : CUSTOMER_MODIFY_CREATE, 
       width: 40,
       id: 'colEdit',
       accessor: row => row.attrbuiteName,
@@ -138,6 +145,7 @@ function Customers(props) {
     {
       Header: "Clone",
       width: 40,
+      show : CUSTOMER_MODIFY_CREATE,
       id: 'colCopy',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
@@ -282,7 +290,7 @@ function Customers(props) {
       />
     );
   
-    console.log("CUSTOMER_CREATOR : "+ CUSTOMER_CREATOR);
+    console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
   return (
     <React.Fragment>
       <div className="container">
@@ -290,7 +298,7 @@ function Customers(props) {
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">Customers List</h3>
             <div className="btnCls">
-              {CUSTOMER_CREATOR && (
+              {CUSTOMER_MODIFY_CREATE && (
                 <button type="button" onClick={addNewCustomer} className="btn btn-primary btn-sm">
                   Add New
                 </button>

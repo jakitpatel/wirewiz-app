@@ -33,7 +33,9 @@ function Addeditcustomer(props) {
     chkFeePerFile : "",
     chkFeePerDay : "",
     LastUpdateDate : "",
-    LastUpdateUser : ""
+    LastUpdateUser : "",
+    chkExcludeReturns : "",
+    chkRejectCredits : ""
   };
   let stateObj = initialstateObj;
   const [custObj, setCustObj] = useState(stateObj);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import CustForm from "./custForm";
 import axios from 'axios';
+import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import {Customer_Url} from './../../const';
 import {API_KEY} from './../../const';
@@ -41,7 +42,7 @@ function Addeditcustomer(props) {
   const [custObj, setCustObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
 
-  const { session_token, name, email, host} = useSelector(state => {
+  const { session_token, name, email, host, uid} = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -91,7 +92,10 @@ function Addeditcustomer(props) {
         }
       };
       console.log(custObj);
-      let res = await axios.put(Customer_Url+"/"+custObj.ID, custObj, options);
+      let tmpCustObj = custObj;
+      tmpCustObj.LastUpdateUser = uid;
+      tmpCustObj.LastUpdateDate = moment().format('YYYY-MM-DD');
+      let res = await axios.put(Customer_Url+"/"+tmpCustObj.ID, tmpCustObj, options);
       console.log(res);
       alert("Data saved successfully!");
       setToCustomer(true);
@@ -111,6 +115,8 @@ function Addeditcustomer(props) {
     console.log("handleAddCustomer");
     let tmpCustAddObj = custObj;
     delete tmpCustAddObj.ID;
+    tmpCustAddObj.LastUpdateUser = uid;
+    tmpCustAddObj.LastUpdateDate = moment().format('YYYY-MM-DD');
     /*
     for (var prop in custObj) {
       if (custObj.hasOwnProperty(prop)) {

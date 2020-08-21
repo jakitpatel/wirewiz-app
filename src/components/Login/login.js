@@ -31,7 +31,8 @@ function Login(props) {
         payload:{
           session_token : res.data.session_token,
           session_id : res.data.session_id,  
-          id  : res.data.id, 
+          id  : res.data.id,
+          uid : email, 
           name: res.data.name,
           first_name : res.data.first_name,
           last_name  : res.data.last_name,

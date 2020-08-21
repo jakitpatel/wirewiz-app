@@ -2,6 +2,7 @@ const userReducer = (state = {
     session_token:null,
     session_id:null, 
     id:null,
+    uid:null,
     name:null,
     first_name:null, 
     last_name:null,

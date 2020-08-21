@@ -50,9 +50,10 @@ function Login(props) {
           'X-DreamFactory-Session-Token': res.data.session_token
         }
       };
-      Usr_Permission_Url = Usr_Permission_Url + "uid='"+email+"'";
-      let resPerm = await axios.get(Usr_Permission_Url, options);
-      
+      console.log(options);
+      console.log(Usr_Permission_Url);
+      let resPerm = await axios.get(Usr_Permission_Url+ "uid='"+email+"'", options);
+      console.log(resPerm)
       if(resPerm.data.cust_enable_permission){
         cust_enabler_val = resPerm.data.cust_enable_permission;
       }

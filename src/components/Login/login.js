@@ -53,12 +53,15 @@ function Login(props) {
       console.log(options);
       console.log(Usr_Permission_Url);
       let resPerm = await axios.get(Usr_Permission_Url+ "uid='"+email+"'", options);
-      console.log(resPerm)
-      if(resPerm.data.cust_enable_permission){
-        cust_enabler_val = resPerm.data.cust_enable_permission;
-      }
-      if(resPerm.data.cust_writer){
-        cust_modify_create_val = resPerm.data.cust_writer;
+      let usrPermArray = resPerm.data.resource;
+      console.log(usrPermArray);
+      if(usrPermArray.length > 0) {
+        if(usrPermArray[0].CUST_ENABLE_PERMISSION){
+          cust_enabler_val = usrPermArray[0].CUST_ENABLE_PERMISSION;
+        }
+        if(usrPermArray[0].CUST_WRITE_PERMISSION){
+          cust_modify_create_val = usrPermArray[0].CUST_WRITE_PERMISSION;
+        }
       }
     } catch (error) {
       console.log(error.response);
@@ -73,6 +76,8 @@ function Login(props) {
       }
     }
 
+    console.log("cust_modify_create_val" +cust_modify_create_val);
+    console.log("cust_enabler_val" +cust_enabler_val);
     dispatch({
       type:'UPDATEUSER',
       payload:{

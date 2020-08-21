@@ -9,8 +9,8 @@ const userReducer = (state = {
     email:null,
     is_sys_admin:null,
     host:null,
-    CUSTOMER_ENABLER: true,
-    CUSTOMER_MODIFY_CREATE: true
+    CUSTOMER_ENABLER: false,
+    CUSTOMER_MODIFY_CREATE: false
 }, action ) => {
     switch(action.type){
         case "UPDATEUSER":

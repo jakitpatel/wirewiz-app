@@ -4,6 +4,8 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {Login_Url} from './../../const';
+import {Usr_Permission_Url} from './../../const';
+import {API_KEY} from './../../const';
 
 import "./login.css";
 function Login(props) {
@@ -16,34 +18,17 @@ function Login(props) {
 
   async function handleLogin(e) {
     e.preventDefault();
+    let res;
     try {
       const userCred = {
         username: email,
         password: password
       };
 
-      let res = await axios.post(Login_Url, userCred);
+      res = await axios.post(Login_Url, userCred);
       console.log(res.data);
       console.log(res.data.name);
       console.log(res.data.session_token);
-      dispatch({
-        type:'UPDATEUSER',
-        payload:{
-          session_token : res.data.session_token,
-          session_id : res.data.session_id,  
-          id  : res.data.id,
-          uid : email, 
-          name: res.data.name,
-          first_name : res.data.first_name,
-          last_name  : res.data.last_name,
-          email : res.data.email,
-          is_sys_admin : res.data.is_sys_admin,
-          host : res.data.host,
-          CUSTOMER_ENABLER : true, //res.data.CUSTOMER_ENABLER
-          CUSTOMER_MODIFY_CREATE : true //res.data.CUSTOMER_MODIFY_CREATE
-        }
-      });
-      setRedirectToDashboard(true);
     } catch (error) {
       console.log(error.response);
       if (401 === error.response.status) {
@@ -54,6 +39,58 @@ function Login(props) {
         alert(error);
       }
     }
+
+    // Get the Permission based on UID
+    let cust_enabler_val = false;
+    let cust_modify_create_val = false;
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': res.data.session_token
+        }
+      };
+      Usr_Permission_Url = Usr_Permission_Url + "uid='"+email+"'";
+      let resPerm = await axios.get(Usr_Permission_Url, options);
+      
+      if(resPerm.data.cust_enable_permission){
+        cust_enabler_val = resPerm.data.cust_enable_permission;
+      }
+      if(resPerm.data.cust_writer){
+        cust_modify_create_val = resPerm.data.cust_writer;
+      }
+    } catch (error) {
+      console.log(error.response);
+      if(error.response){
+        if (401 === error.response.status) {
+            // handle error: inform user, go to login, etc
+            let res = error.response.data;
+            console.log(res.error.message);
+        } else {
+          console.log(error);
+        }
+      }
+    }
+
+    dispatch({
+      type:'UPDATEUSER',
+      payload:{
+        session_token : res.data.session_token,
+        session_id : res.data.session_id,  
+        id  : res.data.id,
+        uid : email, 
+        name: res.data.name,
+        first_name : res.data.first_name,
+        last_name  : res.data.last_name,
+        email : res.data.email,
+        is_sys_admin : res.data.is_sys_admin,
+        host : res.data.host,
+        CUSTOMER_ENABLER : cust_enabler_val, 
+        CUSTOMER_MODIFY_CREATE : cust_modify_create_val 
+      }
+    });
+    setRedirectToDashboard(true);
+
   }
 
   if (redirectToDashboard === true) {

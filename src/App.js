@@ -13,13 +13,13 @@ const store = createStore(rootReducer, INITIAL_STATE);
 function App(props) {
   return (
     <React.Fragment>
-      <Router>
+      <Router basename="/wirewiz">
       <Provider store = {store}>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/wires" component={Dashboard} />
-          <Route exact path="/" component={Login} />
+          <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+          <Route exact path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/wires`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/`} component={Login} />
         </Switch>
       </Provider>
       </Router>

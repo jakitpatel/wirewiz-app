@@ -54,7 +54,7 @@ function DashboardContainer(props) {
   });
 
   if (redirectToLogin === true) {
-    return <Redirect to="/login" />;
+    return <Redirect to={`${process.env.PUBLIC_URL}/login`} />;
   }
 
   if (session_token === null) {
@@ -70,7 +70,7 @@ function DashboardContainer(props) {
   }
   return (
     <React.Fragment>
-      <Router>
+      <Router basename="/wirewiz">
         {mainpage === true ? (
           <React.Fragment>
             <NavBar onHandleLogout={handleLogout} />
@@ -84,7 +84,7 @@ function DashboardContainer(props) {
                       // above, but different components this time.
                       <Route
                         key={index}
-                        path={route.path}
+                        path={`${process.env.PUBLIC_URL}${route.path}`}
                         exact={route.exact}
                         component={route.main}
                       />

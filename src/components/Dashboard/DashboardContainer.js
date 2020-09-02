@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./dashboard.css";
-import Customers from "./../customer/customers.js";
+import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
@@ -26,8 +26,8 @@ const routes = [
     main: () => <DashboardMain />
   },
   {
-    path: "/customers",
-    main: () => <Customers disType="list" />
+    path: "/wires",
+    main: () => <WireBatch disType="list" />
   },
   {
     path: "/addcustomer",

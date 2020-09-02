@@ -33,8 +33,8 @@ function LeftNavBar(props) {
           />
          
           <MenuListItem
-            menuName="Customers"
-            routePath="/customers"
+            menuName="WireBatch"
+            routePath="/wires"
             iconName="users"
           />
           {/*

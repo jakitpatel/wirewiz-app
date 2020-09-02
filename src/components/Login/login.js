@@ -43,6 +43,7 @@ function Login(props) {
     // Get the Permission based on UID
     let cust_enabler_val = false;
     let cust_modify_create_val = false;
+    /*
     try {
       const options = {
         headers: {
@@ -52,7 +53,8 @@ function Login(props) {
       };
       console.log(options);
       console.log(Usr_Permission_Url);
-      let resPerm = await axios.get(Usr_Permission_Url+ "uid='"+email+"'", options);
+      let url = Usr_Permission_Url + "uid='"+email+"'";
+      let resPerm = await axios.get(url, options);
       let usrPermArray = resPerm.data.resource;
       console.log(usrPermArray);
       if(usrPermArray.length > 0) {
@@ -75,7 +77,7 @@ function Login(props) {
         }
       }
     }
-
+    */
     console.log("cust_modify_create_val" +cust_modify_create_val);
     console.log("cust_enabler_val" +cust_enabler_val);
     dispatch({

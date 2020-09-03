@@ -11,10 +11,10 @@ import {API_KEY} from './../../../const';
 
 function Wireslist(props) {
   const [loading, setLoading] = useState(true);
-  const [custlist, setCustlist] = useState([]);
+  const [selWireObj, setSelWireObj] = useState({});
   const [wirelist, setWirelist] = useState([]);
   const [toEditcustomer, setToEditcustomer] = useState(false);
-  const [toAddcustomer, setToAddcustomer] = useState(false);
+  const [toWiredetails, setToWiredetails] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
@@ -72,6 +72,7 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
+      //let res = await axios.get(WireCtl_Url, options);
       let res = await axios.get(WireCtl_Url+ "batchId='"+batchId+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
@@ -89,30 +90,11 @@ function Wireslist(props) {
     setToEditcustomer(true);
   }
 
-  function handleRemoveCustomer(index) {
-    console.log("handleRemoveCustomer : " + index);
-    /*
-    var custRef = firebase.db.ref("customers/" + index);
-    custRef
-      .remove()
-      .then(function() {
-        console.log("Remove succeeded.");
-      })
-      .catch(function(error) {
-        console.log("Remove failed: " + error.message);
-      });
-      */
-  }
-
-  function addNewCustomer(){
-    console.log("Add New Customer");
-    setToAddcustomer(true);
-  }
-
-  if (toAddcustomer === true) {
-    console.log("toAddcustomer : "+toAddcustomer);
+  if (toWiredetails === true) {
+    console.log("toWiredetails : "+toWiredetails);
+    let selWireID = selWireObj.wireID
     return (
-      <Redirect to={{ pathname: "/addcustomer"}} />
+      <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wiredetails/${selWireID}`, state: selWireObj}} />
     );
   }
 
@@ -122,15 +104,18 @@ function Wireslist(props) {
     );
   }
 
-  function onWireBatchListItemClick(batchItem){
-    console.log(batchItem);
+  function onWireListItemClick(wireItem){
+    console.log(wireItem);
+    console.log("Display Wire Details for this wireID : ");
+    setSelWireObj(wireItem);
+    setToWiredetails(true);
   }
 
   function WireListView(props) {
     const wireItems = props.items;
     const listItems = wireItems.map((item) =>
-      <li onClick={e => onWireBatchListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireId}>
-        {item.wireId} - {item.status}
+      <li onClick={e => onWireListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireID}>
+        {item.wireID} - {item.status}
       </li>
     );
     return (

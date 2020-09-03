@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
+import Wiredetails from "./../wire/wiredetails/WireDetails";
 import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
@@ -33,6 +34,10 @@ const routes = [
   {
     path: "/wireslist/:batchId",
     main: () => <Wireslist />
+  },
+  {
+    path: "/wiredetails/:wireID",
+    main: () => <Wiredetails />
   },
   {
     path: "/clonecustomer",

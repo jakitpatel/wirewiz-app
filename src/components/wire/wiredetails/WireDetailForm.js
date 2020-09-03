@@ -23,8 +23,8 @@ function CustDateInput(props) {
 function CustTextInput(props) {
   return (
     <div className="form-group row">
-      <label className="col-sm-3 col-form-label">{props.labelText}</label>
-      <div className="col-sm-9">
+      <label className="col-sm-5 col-form-label">{props.labelText}</label>
+      <div className="col-sm-7">
         <input
           type="text"
           name={props.nameref}
@@ -65,7 +65,7 @@ function WireDetailForm(props) {
   return (
     <React.Fragment>
       <div className="sm-vert-form form-row">
-        <div className="col-sm-6 mb-3">
+        <div className="col-sm-4 mb-3">
           <CustTextInput
             placeholdertext="senderInfoFormatVer"
             labelText="senderInfoFormatVer"
@@ -73,19 +73,12 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.senderInfoFormatVer}
           />
-           <CustTextInput
-            placeholdertext="senderInfoUserReqCorrelation"
-            labelText="senderInfoUserReqCorrelation"
-            nameref="senderInfoUserReqCorrelation"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.senderInfoUserReqCorrelation}
-          />
           <CustTextInput
-            placeholdertext="senderInfoTestProdCode"
-            labelText="senderInfoTestProdCode"
-            nameref="senderInfoTestProdCode"
+            placeholdertext="senderInfoDupCode"
+            labelText="senderInfoDupCode"
+            nameref="senderInfoDupCode"
             inputchange={props.oncustinputchange}
-            val={props.custstate.senderInfoTestProdCode}
+            val={props.custstate.senderInfoDupCode}
           />
           <CustTextInput
             placeholdertext="inputCycleDate"
@@ -94,90 +87,58 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.inputCycleDate}
           />
+           
+          <CustTextInput
+            placeholdertext="amount"
+            labelText="amount"
+            nameref="amount"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.amount}
+          />
+          <CustTextInput
+            placeholdertext="receiverABANum"
+            labelText="receiverABANum"
+            nameref="receiverABANum"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverABANum}
+          />
            <CustTextInput
-            placeholdertext="inputSeqNum"
-            labelText="inputSeqNum"
-            nameref="inputSeqNum"
+            placeholdertext="transactionTypeCode"
+            labelText="transactionTypeCode"
+            nameref="transactionTypeCode"
             inputchange={props.oncustinputchange}
-            val={props.custstate.inputSeqNum}
+            val={props.custstate.transactionTypeCode}
+          />
+          
+          <CustTextInput
+            placeholdertext="localInstrumentCode"
+            labelText="localInstrumentCode"
+            nameref="localInstrumentCode"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.localInstrumentCode}
           />
           <CustTextInput
-            placeholdertext="ReturnCreditAcct"
-            labelText="ReturnCreditAcct"
-            nameref="ReturnCreditAcct"
+            placeholdertext="paymentContactEAddress"
+            labelText="paymentContactEAddress"
+            nameref="paymentContactEAddress"
             inputchange={props.oncustinputchange}
-            val={props.custstate.ReturnCreditAcct}
-          />
-           <CustTextInput
-            placeholdertext="FeeIncomeAcct"
-            labelText="FeeIncomeAcct"
-            nameref="FeeIncomeAcct"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.FeeIncomeAcct}
+            val={props.custstate.paymentContactEAddress}
           />
           <CustTextInput
-            placeholdertext="WireIncomingAccount"
-            labelText="WireIncomingAccount"
-            nameref="WireIncomingAccount"
+            placeholdertext="paymentContactMobile"
+            labelText="paymentContactMobile"
+            nameref="paymentContactMobile"
             inputchange={props.oncustinputchange}
-            val={props.custstate.WireIncomingAccount}
-          />
-          <CustTextInput
-            placeholdertext="FeePerItem"
-            labelText="FeePerItem"
-            nameref="FeePerItem"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.FeePerItem}
-          />
-          <CustTextInput
-            placeholdertext="FeePerFile"
-            labelText="FeePerFile"
-            nameref="FeePerFile"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.FeePerFile}
-          />
-          <CustCheckBoxInput 
-            labelText="FeePerItem"
-            nameref="chkFeePerItem"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.chkFeePerItem}
-            checkedVal={props.custstate.chkFeePerItem}
-            readOnlyVal={true}
-          />
-          <CustCheckBoxInput 
-            labelText="FeePerFile"
-            nameref="chkFeePerFile"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.chkFeePerFile}
-            checkedVal={props.custstate.chkFeePerFile}
-            readOnlyVal={true}
-          />
-          {props.formMode==="edit" ? (
-            <CustDateInput
-              placeholdertext="LastUpdateDate"
-              labelText="LastUpdateDate"
-              nameref="LastUpdateDate"
-              inputchange={props.oncustinputchange}
-              val={props.custstate.LastUpdateDate}
-              readOnlyVal={true}
-            />
-          ) : null }
-          <CustCheckBoxInput 
-            labelText="chkRejectCredits"
-            nameref="chkRejectCredits"
-            inputchange={props.oncustinputchange}
-            val={props.custstate.chkRejectCredits}
-            checkedVal={props.custstate.chkRejectCredits}
-            readOnlyVal={true}
+            val={props.custstate.paymentContactMobile}
           />
         </div>
-        <div className="col-sm-6 mb-3">
+        <div className="col-sm-4 mb-3">
         <CustTextInput
-            placeholdertext="senderInfoDupCode"
-            labelText="senderInfoDupCode"
-            nameref="senderInfoDupCode"
+            placeholdertext="senderInfoUserReqCorrelation"
+            labelText="senderInfoUserReqCorrelation"
+            nameref="senderInfoUserReqCorrelation"
             inputchange={props.oncustinputchange}
-            val={props.custstate.senderInfoDupCode}
+            val={props.custstate.senderInfoUserReqCorrelation}
           />
           <CustTextInput
             placeholdertext="typeCode"
@@ -187,6 +148,65 @@ function WireDetailForm(props) {
             val={props.custstate.typeCode}
           />
           <CustTextInput
+            placeholdertext="inputSource"
+            labelText="inputSource"
+            nameref="inputSource"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.inputSource}
+          />
+          <CustTextInput
+            placeholdertext="senderABANum"
+            labelText="senderABANum"
+            nameref="senderABANum"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.senderABANum}
+          />
+          <CustTextInput
+            placeholdertext="receiverShortName"
+            labelText="receiverShortName"
+            nameref="receiverShortName"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverShortName}
+          />
+          <CustTextInput
+            placeholdertext="senderReference"
+            labelText="senderReference"
+            nameref="senderReference"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.senderReference}
+          />
+          <CustTextInput
+            placeholdertext="proprietaryCode"
+            labelText="proprietaryCode"
+            nameref="proprietaryCode"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.proprietaryCode}
+          />
+          
+          <CustTextInput
+            placeholdertext="paymentContactName"
+            labelText="paymentContactName"
+            nameref="paymentContactName"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.paymentContactName}
+          />
+          <CustTextInput
+            placeholdertext="paymentContactFax"
+            labelText="paymentContactFax"
+            nameref="paymentContactFax"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.paymentContactFax}
+          />
+        </div>
+        <div className="col-sm-4">
+        <CustTextInput
+            placeholdertext="senderInfoTestProdCode"
+            labelText="senderInfoTestProdCode"
+            nameref="senderInfoTestProdCode"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.senderInfoTestProdCode}
+          />
+          <CustTextInput
             placeholdertext="subtypeCode"
             labelText="subtypeCode"
             nameref="subtypeCode"
@@ -194,79 +214,54 @@ function WireDetailForm(props) {
             val={props.custstate.subtypeCode}
           />
           <CustTextInput
-            placeholdertext="inputSource"
-            labelText="inputSource"
-            nameref="inputSource"
+            placeholdertext="inputSeqNum"
+            labelText="inputSeqNum"
+            nameref="inputSeqNum"
             inputchange={props.oncustinputchange}
-            val={props.custstate.inputSource}
+            val={props.custstate.inputSeqNum}
           />
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label">FeeIncomeAcctType</label>
-            <div className="col-sm-9">
-              <select
-                className="form-control custom-select"
-                name="FeeIncomeAcctType"
-                value={props.custstate.FeeIncomeAcctType}
-                onChange={e => props.oncustinputchange(e)}
-              >
-                <option value="GL">GL</option>                
-              </select>
-            </div>
-          </div>
-          <CustTextInput
-            placeholdertext="WireOutgoingAccount"
-            labelText="WireOutgoingAccount"
-            nameref="WireOutgoingAccount"
+           <CustTextInput
+            placeholdertext="senderShortName"
+            labelText="senderShortName"
+            nameref="senderShortName"
             inputchange={props.oncustinputchange}
-            val={props.custstate.WireOutgoingAccount}
+            val={props.custstate.senderShortName}
           />
           <CustTextInput
-            placeholdertext="FeePerReturn"
-            labelText="FeePerReturn"
-            nameref="FeePerReturn"
+            placeholdertext="businessFunctionCode"
+            labelText="businessFunctionCode"
+            nameref="businessFunctionCode"
             inputchange={props.oncustinputchange}
-            val={props.custstate.FeePerReturn}
+            val={props.custstate.businessFunctionCode}
           />
           <CustTextInput
-            placeholdertext="FeePerDay"
-            labelText="FeePerDay"
-            nameref="FeePerDay"
+            placeholdertext="prevMsgID"
+            labelText="prevMsgID"
+            nameref="prevMsgID"
             inputchange={props.oncustinputchange}
-            val={props.custstate.FeePerDay}
+            val={props.custstate.prevMsgID}
           />
           <CustCheckBoxInput 
-            labelText="FeePerReturn"
-            nameref="chkFeePerReturn"
+            labelText="paymentNotificationIndicator"
+            nameref="paymentNotificationIndicator"
             inputchange={props.oncustinputchange}
-            val={props.custstate.chkFeePerReturn}
-            checkedVal={props.custstate.chkFeePerReturn}
+            val={props.custstate.paymentNotificationIndicator}
+            checkedVal={props.custstate.paymentNotificationIndicator}
             readOnlyVal={true}
           />
-          <CustCheckBoxInput 
-            labelText="FeePerDay"
-            nameref="chkFeePerDay"
+          <CustTextInput
+            placeholdertext="paymentContactPhone"
+            labelText="paymentContactPhone"
+            nameref="paymentContactPhone"
             inputchange={props.oncustinputchange}
-            val={props.custstate.chkFeePerDay}
-            checkedVal={props.custstate.chkFeePerDay}
-            readOnlyVal={true}
+            val={props.custstate.paymentContactPhone}
           />
-          {props.formMode==="edit" ? (
-            <CustTextInput
-              placeholdertext="LastUpdateUser"
-              labelText="LastUpdateUser"
-              nameref="LastUpdateUser"
-              inputchange={props.oncustinputchange}
-              val={props.custstate.LastUpdateUser}
-              readOnlyVal={true}
-            />
-          ) : null}
-          <CustCheckBoxInput 
-            labelText="chkExcludeReturns"
-            nameref="chkExcludeReturns"
+          <CustTextInput
+            placeholdertext="paymentEndToEndID"
+            labelText="paymentEndToEndID"
+            nameref="paymentEndToEndID"
             inputchange={props.oncustinputchange}
-            val={props.custstate.chkExcludeReturns}
-            checkedVal={props.custstate.chkExcludeReturns}
-            readOnlyVal={true}
+            val={props.custstate.paymentEndToEndID}
           />
         </div>
       </div>

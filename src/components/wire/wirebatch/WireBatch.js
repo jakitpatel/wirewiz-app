@@ -11,10 +11,8 @@ import {API_KEY} from './../../../const';
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(true);
-  const [custlist, setCustlist] = useState([]);
   const [wirebatchlist, setWirebatchlist] = useState([]);
   const [selWireBatchObj, setSelWireBatchObj] = useState({});
-  const [toEditcustomer, setToEditcustomer] = useState(false);
   const [toWireslist, setToWireslist] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
@@ -23,20 +21,6 @@ function WireBatch(props) {
           ...state.userReducer
       }
   });
-
-  function handleActiveCustomerList(id,activeVal) {
-    const newList = custlist.map((item) => {
-      if (item.ID === id) {
-        const updatedItem = {
-          ...item,
-          IsActiveCustomer: activeVal,
-        };
-        return updatedItem;
-      }
-      return item;
-    });
-    setCustlist(newList);
-  }
 
   const columnDefs = [
     {
@@ -115,22 +99,11 @@ function WireBatch(props) {
     return () => { ignore = true };
   }, [session_token]);
 
-  function handleEditCustomer(key) {
-    console.log("handle Edit Customer : " + key);
-    setToEditcustomer(true);
-  }
-
   if (toWireslist === true) {
     console.log("toWireslist : "+toWireslist);
     let selBatchId = selWireBatchObj.wireBatchID
     return (
       <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${selBatchId}`, state: selWireBatchObj}} />
-    );
-  }
-
-  if (toEditcustomer === true) {
-    return (
-      <Redirect to={{ pathname: "/editcustomer", state: props.original }} />
     );
   }
 

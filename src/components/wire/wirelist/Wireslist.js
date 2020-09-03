@@ -28,19 +28,19 @@ function Wireslist(props) {
 
   const columnDefs = [
     {
-      Header: "Edit",
-      show : CUSTOMER_MODIFY_CREATE, 
+      Header: "View",
+      show : true, 
       width: 40,
-      id: 'colEdit',
+      id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
       Cell: obj => {
-        //console.log("Edit");
         //console.log(obj.row);
+        let wireListObj = obj.row.original;
         return (
           <Link
             to={{
-              pathname: "/editcustomer",
+              pathname: `${process.env.PUBLIC_URL}/wiredetails/${wireListObj.wireID}`,
               state: obj.row.original
             }}
           >
@@ -50,16 +50,40 @@ function Wireslist(props) {
       }
     },
     {
+      name: "wireCtlID",
+      field: "wireCtlID",
+      Header: "wireCtlID",
+      accessor: "wireCtlID"
+    },
+    {
+      name: "wireID",
+      field: "wireID",
+      Header: "wireID",
+      accessor: "wireID"
+    },
+    {
+      headerName: "wireBatchID",
+      field: "wireBatchID",
+      Header: "wireBatchID",
+      accessor: "wireBatchID"
+    },
+    {
       name: "status",
       field: "status",
       Header: "status",
       accessor: "status"
     },
     {
-      headerName: "batchId",
-      field: "batchId",
-      Header: "batchId",
-      accessor: "batchId"
+      headerName: "completeDateTime",
+      field: "completeDateTime",
+      Header: "completeDateTime",
+      accessor: "completeDateTime"
+    },
+    {
+      headerName: "errorMsg",
+      field: "errorMsg",
+      Header: "errorMsg",
+      accessor: "errorMsg"
     }
   ];
 
@@ -73,7 +97,7 @@ function Wireslist(props) {
         }
       };
       //let res = await axios.get(WireCtl_Url, options);
-      let res = await axios.get(WireCtl_Url+ "batchId='"+batchId+"'", options);
+      let res = await axios.get(WireCtl_Url+ "wireBatchID='"+batchId+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let wireArray = res.data.resource;
@@ -115,7 +139,7 @@ function Wireslist(props) {
     const wireItems = props.items;
     const listItems = wireItems.map((item) =>
       <li onClick={e => onWireListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireID}>
-        {item.wireID} - {item.status}
+        {item.wireCtlID} - {item.wireID} - {item.status}
       </li>
     );
     return (
@@ -128,11 +152,11 @@ function Wireslist(props) {
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      <WireListView items={wirelist} />
-      /*<Listview
+      /*<WireListView items={wirelist} />*/
+      <Listview
         items={wirelist}
         columnDefs={columnDefs}
-      />*/
+      />
     );
   
   //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);

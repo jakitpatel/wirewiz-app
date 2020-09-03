@@ -38,79 +38,22 @@ function WireBatch(props) {
     setCustlist(newList);
   }
 
-  async function activeCustomerChange(currObj, e) {
-    console.log("Option Change Checkbox Click");
-    if(CUSTOMER_ENABLER){
-      //console.log(e);
-      let optAction = "activate";
-      let activeVal = true;
-      if (currObj.IsActiveCustomer) {
-        optAction = "deactivate";
-        activeVal = false;
-      }
-      
-      let confMsg =
-        "Are you sure you want to " +
-        optAction +
-        " this customer" +
-        "?";
-      
-      if (window.confirm(confMsg)) {
-        //Perform Opration
-        try {
-          let custObj = currObj;
-          custObj.active = activeVal;
-
-          const options = {
-            headers: {
-              'X-DreamFactory-API-Key': API_KEY,
-              'X-DreamFactory-Session-Token': session_token
-            }
-          };
-          let postObj = {
-            "IsActiveCustomer" : activeVal
-          };
-          let res = await axios.put(WireBatch_Url+"/"+custObj.ID, postObj, options);
-          console.log(res);
-          
-          handleActiveCustomerList(custObj.ID,activeVal);
-
-          alert("Customer "+optAction+" successfully!");
-        } catch (error) {
-          console.log(error.response);
-          if (401 === error.response.status) {
-              // handle error: inform user, go to login, etc
-              let res = error.response.data;
-              alert(res.error.message);
-          } else {
-            alert(error);
-          }
-        }
-      } else {
-        handleActiveCustomerList(currObj.ID,currObj.IsActiveCustomer);
-        return false;
-      }
-    } else {
-      handleActiveCustomerList(currObj.ID,currObj.IsActiveCustomer);
-      return false;
-    }
-  }
-
   const columnDefs = [
     {
-      Header: "Edit",
-      show : CUSTOMER_MODIFY_CREATE, 
+      Header: "View",
+      show : true, 
       width: 40,
-      id: 'colEdit',
+      id: 'colView',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log("Edit");
         //console.log(obj.row);
+        let wireBatchObj = obj.row.original;
         return (
           <Link
             to={{
-              pathname: "/editcustomer",
+              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireBatchObj.wireBatchID}`,
               state: obj.row.original
             }}
           >
@@ -120,28 +63,10 @@ function WireBatch(props) {
       }
     },
     {
-      Header: "Clone",
-      width: 40,
-      show : CUSTOMER_MODIFY_CREATE,
-      id: 'colCopy',
-      accessor: row => row.attrbuiteName,
-      filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log("Edit");
-        //console.log(obj.row);
-        let custObj = obj.row.original;
-        //custObj.key = null;
-        return (
-          <Link
-            to={{
-              pathname: "/clonecustomer",
-              state: custObj
-            }}
-          >
-            <Icon.Copy />
-          </Link>
-        );
-      }
+      headerName: "wireBatchID",
+      field: "wireBatchID",
+      Header: "wireBatchID",
+      accessor: "wireBatchID"
     },
     {
       name: "status",
@@ -150,10 +75,22 @@ function WireBatch(props) {
       accessor: "status"
     },
     {
-      headerName: "batchId",
-      field: "batchId",
-      Header: "batchId",
-      accessor: "batchId"
+      headerName: "createDateTime",
+      field: "createDateTime",
+      Header: "createDateTime",
+      accessor: "createDateTime"
+    },
+    {
+      name: "completeDateTime",
+      field: "completeDateTime",
+      Header: "completeDateTime",
+      accessor: "completeDateTime"
+    },
+    {
+      name: "arrivalMode",
+      field: "arrivalMode",
+      Header: "arrivalMode",
+      accessor: "arrivalMode"
     }
   ];
 
@@ -185,7 +122,7 @@ function WireBatch(props) {
 
   if (toWireslist === true) {
     console.log("toWireslist : "+toWireslist);
-    let selBatchId = selWireBatchObj.batchId
+    let selBatchId = selWireBatchObj.wireBatchID
     return (
       <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${selBatchId}`, state: selWireBatchObj}} />
     );
@@ -207,8 +144,8 @@ function WireBatch(props) {
   function WireBatchList(props) {
     const wireItems = props.items;
     const listItems = wireItems.map((item) =>
-      <li onClick={e => onWireBatchListItemClick(item)} className="list-group-item list-group-item-action" key={item.batchId}>
-        {item.status}
+      <li onClick={e => onWireBatchListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireBatchID}>
+        {item.wireBatchID} - {item.status}
       </li>
     );
     return (
@@ -221,11 +158,11 @@ function WireBatch(props) {
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      <WireBatchList items={wirebatchlist} />
-      /*<Listview
+      /*<WireBatchList items={wirebatchlist} />*/
+      <Listview
         items={wirebatchlist}
         columnDefs={columnDefs}
-      />*/
+      />
     );
   
   //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);

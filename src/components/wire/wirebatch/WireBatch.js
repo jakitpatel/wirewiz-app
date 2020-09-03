@@ -13,8 +13,9 @@ function WireBatch(props) {
   const [loading, setLoading] = useState(true);
   const [custlist, setCustlist] = useState([]);
   const [wirebatchlist, setWirebatchlist] = useState([]);
+  const [selWireBatchObj, setSelWireBatchObj] = useState({});
   const [toEditcustomer, setToEditcustomer] = useState(false);
-  const [toAddcustomer, setToAddcustomer] = useState(false);
+  const [toWireslist, setToWireslist] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
@@ -182,30 +183,11 @@ function WireBatch(props) {
     setToEditcustomer(true);
   }
 
-  function handleRemoveCustomer(index) {
-    console.log("handleRemoveCustomer : " + index);
-    /*
-    var custRef = firebase.db.ref("customers/" + index);
-    custRef
-      .remove()
-      .then(function() {
-        console.log("Remove succeeded.");
-      })
-      .catch(function(error) {
-        console.log("Remove failed: " + error.message);
-      });
-      */
-  }
-
-  function addNewCustomer(){
-    console.log("Add New Customer");
-    setToAddcustomer(true);
-  }
-
-  if (toAddcustomer === true) {
-    console.log("toAddcustomer : "+toAddcustomer);
+  if (toWireslist === true) {
+    console.log("toWireslist : "+toWireslist);
+    let selBatchId = selWireBatchObj.batchId
     return (
-      <Redirect to={{ pathname: "/addcustomer"}} />
+      <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${selBatchId}`, state: selWireBatchObj}} />
     );
   }
 
@@ -215,34 +197,44 @@ function WireBatch(props) {
     );
   }
 
+  function onWireBatchListItemClick(batchItem){
+    console.log(batchItem);
+    console.log("Display Wires List for this Batch");
+    setSelWireBatchObj(batchItem);
+    setToWireslist(true);
+  }
+
+  function WireBatchList(props) {
+    const wireItems = props.items;
+    const listItems = wireItems.map((item) =>
+      <li onClick={e => onWireBatchListItemClick(item)} className="list-group-item list-group-item-action" key={item.batchId}>
+        {item.status}
+      </li>
+    );
+    return (
+      <ul className="list-group">{listItems}</ul>
+    );
+  }
+  
   console.log("Properties", props);
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      <Listview
+      <WireBatchList items={wirebatchlist} />
+      /*<Listview
         items={wirebatchlist}
         columnDefs={columnDefs}
-        remove={handleRemoveCustomer}
-        onEditClick={handleEditCustomer}
-      />
+      />*/
     );
   
-    console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
+  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
   return (
     <React.Fragment>
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">WireBatch List</h3>
-            <div className="btnCls">
-              {CUSTOMER_MODIFY_CREATE && (
-                <button type="button" onClick={addNewCustomer} className="btn btn-primary btn-sm">
-                  Add New
-                </button>
-              )}
-              
-            </div>
             {disCmp}
           </div>
         </div>

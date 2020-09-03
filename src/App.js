@@ -11,15 +11,17 @@ const INITIAL_STATE = {};
 const store = createStore(rootReducer, INITIAL_STATE);
 
 function App(props) {
+  console.log(process.env.PUBLIC_URL);
   return (
     <React.Fragment>
-      <Router basename="/wirewiz">
+      <Router >
       <Provider store = {store}>
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
           <Route exact path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wires`} component={Dashboard} />
-          <Route exact path={`${process.env.PUBLIC_URL}/`} component={Login} />
+          <Route exact path={`${process.env.PUBLIC_URL}/wires/:batchId`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}`} component={Login} />
         </Switch>
       </Provider>
       </Router>

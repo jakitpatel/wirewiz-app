@@ -103,7 +103,7 @@ function Login(props) {
 
   if (redirectToDashboard === true) {
     console.log("Redirect to Dashboard");
-    return <Redirect to="/dashboard" />;
+    return <Redirect to={`${process.env.PUBLIC_URL}/dashboard`} />;
   }
   return (
     <React.Fragment>

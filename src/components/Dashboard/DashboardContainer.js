@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
+import Wireslist from "./../wire/wirelist/Wireslist";
 import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
@@ -30,8 +31,8 @@ const routes = [
     main: () => <WireBatch disType="list" />
   },
   {
-    path: "/addcustomer",
-    main: () => <Addeditcustomer disType="add" />
+    path: "/wireslist/:batchId",
+    main: () => <Wireslist />
   },
   {
     path: "/clonecustomer",
@@ -56,7 +57,7 @@ function DashboardContainer(props) {
   if (redirectToLogin === true) {
     return <Redirect to={`${process.env.PUBLIC_URL}/login`} />;
   }
-
+ 
   if (session_token === null) {
     //User Not Logged In
     alert("Please login first");
@@ -70,7 +71,7 @@ function DashboardContainer(props) {
   }
   return (
     <React.Fragment>
-      <Router basename="/wirewiz">
+      <Router >
         {mainpage === true ? (
           <React.Fragment>
             <NavBar onHandleLogout={handleLogout} />

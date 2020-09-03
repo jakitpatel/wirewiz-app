@@ -28,13 +28,13 @@ function LeftNavBar(props) {
         <ul className="nav flex-column">
           <MenuListItem
             menuName="Dashboard"
-            routePath="/dashboard"
+            routePath={`${process.env.PUBLIC_URL}/dashboard`}
             iconName="home"
           />
          
           <MenuListItem
             menuName="WireBatch"
-            routePath="/wires"
+            routePath={`${process.env.PUBLIC_URL}/wires`}
             iconName="users"
           />
           {/*

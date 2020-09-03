@@ -9,7 +9,6 @@ function DashboardMain(props) {
     });
     console.log("name : ");
     console.log(name);
-
     return (
         <React.Fragment>
             <div className="container">

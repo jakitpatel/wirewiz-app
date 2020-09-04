@@ -52,37 +52,37 @@ function Wireslist(props) {
     {
       name: "wireCtlID",
       field: "wireCtlID",
-      Header: "wireCtlID",
+      Header: "WireCtlID",
       accessor: "wireCtlID"
     },
     {
       name: "wireID",
       field: "wireID",
-      Header: "wireID",
+      Header: "WireID",
       accessor: "wireID"
     },
     {
       headerName: "wireBatchID",
       field: "wireBatchID",
-      Header: "wireBatchID",
+      Header: "WireBatchID",
       accessor: "wireBatchID"
     },
     {
       name: "status",
       field: "status",
-      Header: "status",
+      Header: "Status",
       accessor: "status"
     },
     {
       headerName: "completeDateTime",
       field: "completeDateTime",
-      Header: "completeDateTime",
+      Header: "CompleteDateTime",
       accessor: "completeDateTime"
     },
     {
       headerName: "errorMsg",
       field: "errorMsg",
-      Header: "errorMsg",
+      Header: "ErrorMsg",
       accessor: "errorMsg"
     }
   ];

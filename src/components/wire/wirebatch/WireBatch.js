@@ -49,31 +49,31 @@ function WireBatch(props) {
     {
       headerName: "wireBatchID",
       field: "wireBatchID",
-      Header: "wireBatchID",
+      Header: "WireBatchID",
       accessor: "wireBatchID"
     },
     {
       name: "status",
       field: "status",
-      Header: "status",
+      Header: "Status",
       accessor: "status"
     },
     {
-      headerName: "createDateTime",
+      headerName: "CreateDateTime",
       field: "createDateTime",
-      Header: "createDateTime",
+      Header: "CreateDateTime",
       accessor: "createDateTime"
     },
     {
       name: "completeDateTime",
       field: "completeDateTime",
-      Header: "completeDateTime",
+      Header: "CompleteDateTime",
       accessor: "completeDateTime"
     },
     {
       name: "arrivalMode",
       field: "arrivalMode",
-      Header: "arrivalMode",
+      Header: "ArrivalMode",
       accessor: "arrivalMode"
     }
   ];

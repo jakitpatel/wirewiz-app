@@ -106,6 +106,27 @@ function WireDetails(props) {
     originToBeneficiaryInfo2 : "",
     originToBeneficiaryInfo3 : "",
     originToBeneficiaryInfo4 : "",
+    receiverFIInfo1 : "",
+    receiverFIInfo2 : "",
+    receiverFIInfo3 : "",
+    receiverFIInfo4 : "",
+    receiverFIInfo5 : "",
+    receiverFIInfo6 : "",
+    drawdownDebitAcctCode : "",
+    drawdownDebitInfo1 : "",
+    drawdownDebitInfo2 : "",
+    drawdownDebitInfo3 : "",
+    drawdownDebitInfo4 : "",
+    drawdownDebitInfo5 : "",
+    drawdownDebitInfo6 : "",
+    intermediaryFIInfo1 : "",
+    intermediaryFIInfo2 : "",
+    intermediaryFIInfo3 : "",
+    intermediaryFIInfo4 : "",
+    intermediaryFIInfo5 : "",
+    intermediaryFIInfo6 : "",
+    intermediaryFIAdviceCode : "",
+    intermediaryFIAdviceInfo1 : ""
   };
   let stateObj = initialstateObj;
   const [loading, setLoading] = useState(true);

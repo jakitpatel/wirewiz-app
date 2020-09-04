@@ -292,6 +292,41 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.originToBeneficiaryInfo2}
           />
+          <CustTextInput
+            placeholdertext="receiverFIInfo1"
+            labelText="receiverFIInfo1"
+            nameref="receiverFIInfo1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo1}
+          />
+          <CustTextInput
+            placeholdertext="receiverFIInfo4"
+            labelText="receiverFIInfo4"
+            nameref="receiverFIInfo4"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo4}
+          />
+           <CustTextInput
+            placeholdertext="drawdownDebitAcctCode"
+            labelText="drawdownDebitAcctCode"
+            nameref="drawdownDebitAcctCode"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitAcctCode}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo3"
+            labelText="drawdownDebitInfo3"
+            nameref="drawdownDebitInfo3"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo3}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo6"
+            labelText="drawdownDebitInfo6"
+            nameref="drawdownDebitInfo6"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo6}
+          />
         </div>
 
         <div className="col-sm-4 mb-3">
@@ -520,6 +555,41 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.originToBeneficiaryInfo3}
           />
+          <CustTextInput
+            placeholdertext="receiverFIInfo2"
+            labelText="receiverFIInfo2"
+            nameref="receiverFIInfo2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo2}
+          />
+          <CustTextInput
+            placeholdertext="receiverFIInfo5"
+            labelText="receiverFIInfo5"
+            nameref="receiverFIInfo5"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo5}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo1"
+            labelText="drawdownDebitInfo1"
+            nameref="drawdownDebitInfo1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo1}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo4"
+            labelText="drawdownDebitInfo4"
+            nameref="drawdownDebitInfo4"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo4}
+          />
+          <CustTextInput
+            placeholdertext="intermediaryFIInfo1"
+            labelText="intermediaryFIInfo1"
+            nameref="intermediaryFIInfo1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.intermediaryFIInfo1}
+          />
         </div>
 
         <div className="col-sm-4">
@@ -745,6 +815,41 @@ function WireDetailForm(props) {
             nameref="originToBeneficiaryInfo4"
             inputchange={props.oncustinputchange}
             val={props.custstate.originToBeneficiaryInfo4}
+          />
+          <CustTextInput
+            placeholdertext="receiverFIInfo3"
+            labelText="receiverFIInfo3"
+            nameref="receiverFIInfo3"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo3}
+          />
+          <CustTextInput
+            placeholdertext="receiverFIInfo6"
+            labelText="receiverFIInfo6"
+            nameref="receiverFIInfo6"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.receiverFIInfo6}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo2"
+            labelText="drawdownDebitInfo2"
+            nameref="drawdownDebitInfo2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo2}
+          />
+          <CustTextInput
+            placeholdertext="drawdownDebitInfo5"
+            labelText="drawdownDebitInfo5"
+            nameref="drawdownDebitInfo5"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.drawdownDebitInfo5}
+          />
+           <CustTextInput
+            placeholdertext="intermediaryFIInfo2"
+            labelText="intermediaryFIInfo2"
+            nameref="intermediaryFIInfo2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.intermediaryFIInfo2}
           />
         </div>
       </div>

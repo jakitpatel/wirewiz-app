@@ -1,26 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../Listview";
 import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {WireCtl_Url} from './../../../const';
+import {Wires_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 
 function Wireslist(props) {
+  let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [selWireObj, setSelWireObj] = useState({});
   const [wirelist, setWirelist] = useState([]);
   const [toEditcustomer, setToEditcustomer] = useState(false);
   const [toWiredetails, setToWiredetails] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
+  
+  const dispatch = useDispatch();
 
   const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
       return {
           ...state.userReducer
       }
+  });
+
+  const { wires } = useSelector(state => {
+    return {
+        ...state.wiresReducer
+    }
   });
 
   let { batchId } = useParams();
@@ -50,12 +59,6 @@ function Wireslist(props) {
       }
     },
     {
-      name: "wireCtlID",
-      field: "wireCtlID",
-      Header: "WireCtlID",
-      accessor: "wireCtlID"
-    },
-    {
       name: "wireID",
       field: "wireID",
       Header: "WireID",
@@ -66,6 +69,18 @@ function Wireslist(props) {
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID"
+    },
+    {
+      name: "senderInfoFormatVer",
+      field: "senderInfoFormatVer",
+      Header: "senderInfoFormatVer",
+      accessor: "senderInfoFormatVer"
+    },
+    {
+      name: "senderInfoUserReqCorrelation",
+      field: "senderInfoUserReqCorrelation",
+      Header: "senderInfoUserReqCorrelation",
+      accessor: "senderInfoUserReqCorrelation"
     },
     {
       name: "status",
@@ -96,17 +111,22 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(WireCtl_Url, options);
-      let res = await axios.get(WireCtl_Url+ "wireBatchID='"+batchId+"'", options);
+      //let res = await axios.get(Wires_Url, options);
+      let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let wireArray = res.data.resource;
       console.log(wireArray);
+      dispatch({
+        type:'SETWIRES',
+        payload:wireArray
+      });
       setLoading(false);
-      setWirelist(wireArray);
+      //console.log(wires);
+      //setWirelist(wireArray);
     }
     fetchWireList();
-    return () => { ignore = true };
+    return () => { ignore = true; console.log("WireList Unmonted"); };
   }, [session_token]);
 
   function handleEditCustomer(key) {
@@ -146,7 +166,7 @@ function Wireslist(props) {
       <ul className="list-group">{listItems}</ul>
     );
   }
-  
+  console.log("wires", wires);
   console.log("Properties", props);
   let disCmp =
     loading === true ? (
@@ -154,7 +174,7 @@ function Wireslist(props) {
     ) : (
       /*<WireListView items={wirelist} />*/
       <Listview
-        items={wirelist}
+        items={wires}
         columnDefs={columnDefs}
       />
     );
@@ -166,6 +186,11 @@ function Wireslist(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">Wire List</h3>
+            <div className="btnCls">
+              <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
+                Back
+              </button>
+            </div>
             {disCmp}
           </div>
         </div>

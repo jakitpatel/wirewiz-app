@@ -418,6 +418,55 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.beneficiaryAdviceInfo6}
           />
+          <CustTextInput
+            placeholdertext="FIToFIInfo1"
+            labelText="FIToFIInfo1"
+            nameref="FIToFIInfo1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo1}
+          />
+          <CustTextInput
+            placeholdertext="FIToFIInfo4"
+            labelText="FIToFIInfo4"
+            nameref="FIToFIInfo4"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo4}
+          />
+          <CustTextInput
+            placeholdertext="seqBCurrencyInstructedAmountTag"
+            labelText="seqBCurrencyInstructedAmountTag"
+            nameref="seqBCurrencyInstructedAmountTag"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBCurrencyInstructedAmountTag}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerLine1"
+            labelText="seqBOrderingCustomerLine1"
+            nameref="seqBOrderingCustomerLine1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerLine1}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerLine4"
+            labelText="seqBOrderingCustomerLine4"
+            nameref="seqBOrderingCustomerLine4"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerLine4}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionLine1"
+            labelText="seqBOrderingInstitutionLine1"
+            nameref="seqBOrderingInstitutionLine1"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionLine1}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionLine4"
+            labelText="seqBOrderingInstitutionLine4"
+            nameref="seqBOrderingInstitutionLine4"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionLine4}
+          />
         </div>
 
         <div className="col-sm-4 mb-3">
@@ -772,6 +821,55 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.methodOfPayment}
           />
+          <CustTextInput
+            placeholdertext="FIToFIInfo2"
+            labelText="FIToFIInfo2"
+            nameref="FIToFIInfo2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo2}
+          />
+          <CustTextInput
+            placeholdertext="FIToFIInfo5"
+            labelText="FIToFIInfo5"
+            nameref="FIToFIInfo5"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo5}
+          />
+          <CustTextInput
+            placeholdertext="seqBCurrencyInstructedAmount"
+            labelText="seqBCurrencyInstructedAmount"
+            nameref="seqBCurrencyInstructedAmount"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBCurrencyInstructedAmount}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerLine2"
+            labelText="seqBOrderingCustomerLine2"
+            nameref="seqBOrderingCustomerLine2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerLine2}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerLine5"
+            labelText="seqBOrderingCustomerLine5"
+            nameref="seqBOrderingCustomerLine5"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerLine5}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionLine2"
+            labelText="seqBOrderingInstitutionLine2"
+            nameref="seqBOrderingInstitutionLine2"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionLine2}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionLine5"
+            labelText="seqBOrderingInstitutionLine5"
+            nameref="seqBOrderingInstitutionLine5"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionLine5}
+          />
         </div>
 
         <div className="col-sm-4">
@@ -1123,6 +1221,55 @@ function WireDetailForm(props) {
             nameref="methodOfPaymentInfo"
             inputchange={props.oncustinputchange}
             val={props.custstate.methodOfPaymentInfo}
+          />
+          <CustTextInput
+            placeholdertext="FIToFIInfo3"
+            labelText="FIToFIInfo3"
+            nameref="FIToFIInfo3"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo3}
+          />
+          <CustTextInput
+            placeholdertext="FIToFIInfo6"
+            labelText="FIToFIInfo6"
+            nameref="FIToFIInfo6"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.FIToFIInfo6}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerTag"
+            labelText="seqBOrderingCustomerTag"
+            nameref="seqBOrderingCustomerTag"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerTag}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingCustomerLine3"
+            labelText="seqBOrderingCustomerLine3"
+            nameref="seqBOrderingCustomerLine3"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingCustomerLine3}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionTag"
+            labelText="seqBOrderingInstitutionTag"
+            nameref="seqBOrderingInstitutionTag"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionTag}
+          />
+          <CustTextInput
+            placeholdertext="seqBOrderingInstitutionLine3"
+            labelText="seqBOrderingInstitutionLine3"
+            nameref="seqBOrderingInstitutionLine3"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBOrderingInstitutionLine3}
+          />
+          <CustTextInput
+            placeholdertext="seqBIntermediaryInstitutionTag"
+            labelText="seqBIntermediaryInstitutionTag"
+            nameref="seqBIntermediaryInstitutionTag"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.seqBIntermediaryInstitutionTag}
           />
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import moment from 'moment';
@@ -138,30 +138,52 @@ function WireDetails(props) {
     beneficiaryFIInfo4 : "",
     beneficiaryFIInfo5 : "",
     beneficiaryFIInfo6 : "",
-    beneficiaryFIAdviceCode: null,
-    beneficiaryFIAdviceInfo1: null,
-    beneficiaryFIAdviceInfo2: null,
-    beneficiaryFIAdviceInfo3: null,
-    beneficiaryFIAdviceInfo4: null,
-    beneficiaryFIAdviceInfo5: null,
-    beneficiaryFIAdviceInfo6: null,
+    beneficiaryFIAdviceCode: "",
+    beneficiaryFIAdviceInfo1: "",
+    beneficiaryFIAdviceInfo2: "",
+    beneficiaryFIAdviceInfo3: "",
+    beneficiaryFIAdviceInfo4: "",
+    beneficiaryFIAdviceInfo5: "",
+    beneficiaryFIAdviceInfo6: "",
     beneficiaryInfo1 : "",
     beneficiaryInfo2 : "",
     beneficiaryInfo3 : "",
     beneficiaryInfo4 : "",
     beneficiaryInfo5 : "",
     beneficiaryInfo6 : "",
-    beneficiaryAdviceCode: null,
-    beneficiaryAdviceInfo1: null,
-    beneficiaryAdviceInfo2: null,
-    beneficiaryAdviceInfo3: null,
-    beneficiaryAdviceInfo4: null,
-    beneficiaryAdviceInfo5: null,
-    beneficiaryAdviceInfo6: null,
-    methodOfPayment : null,
-    methodOfPaymentInfo : null
+    beneficiaryAdviceCode: "",
+    beneficiaryAdviceInfo1: "",
+    beneficiaryAdviceInfo2: "",
+    beneficiaryAdviceInfo3: "",
+    beneficiaryAdviceInfo4: "",
+    beneficiaryAdviceInfo5: "",
+    beneficiaryAdviceInfo6: "",
+    methodOfPayment : "",
+    methodOfPaymentInfo : "",
+    FIToFIInfo1: "",
+    FIToFIInfo2: "",
+    FIToFIInfo3: "",
+    FIToFIInfo4: "",
+    FIToFIInfo5: "",
+    FIToFIInfo6: "",
+    seqBCurrencyInstructedAmountTag: "",
+    seqBCurrencyInstructedAmount: "",
+    seqBOrderingCustomerTag: "",
+    seqBOrderingCustomerLine1: "",
+    seqBOrderingCustomerLine2: "",
+    seqBOrderingCustomerLine3: "",
+    seqBOrderingCustomerLine4: "",
+    seqBOrderingCustomerLine5: "",
+    seqBOrderingInstitutionTag: "",
+    seqBOrderingInstitutionLine1: "",
+    seqBOrderingInstitutionLine2: "",
+    seqBOrderingInstitutionLine3: "",
+    seqBOrderingInstitutionLine4: "",
+    seqBOrderingInstitutionLine5: "",
+    seqBIntermediaryInstitutionTag: ""
   };
   let stateObj = initialstateObj;
+  let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
@@ -171,9 +193,17 @@ function WireDetails(props) {
           ...state.userReducer
       }
   });
+
+  const { wires } = useSelector(state => {
+    return {
+        ...state.wiresReducer
+    }
+  });
+
   let { wireID } = useParams();
 
   useEffect(() => {
+    /*
     let ignore = false;
     async function fetchWireDetails() {
       const options = {
@@ -182,8 +212,8 @@ function WireDetails(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(WireDetails_Url, options);
-      let res = await axios.get(WireDetails_Url+ "wireID='"+wireID+"'", options);
+      let res = await axios.get(WireDetails_Url, options);
+      //let res = await axios.get(WireDetails_Url+ "wireID='"+wireID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let wireDetailsArray = res.data.resource;
@@ -195,7 +225,17 @@ function WireDetails(props) {
     }
     fetchWireDetails();
     return () => { ignore = true };
-  }, [wireID, session_token]);
+    */
+   console.log("WireId : "+wireID);
+   //console.log("wires");
+   //console.log(wires);
+   let wireDetailsObj = wires.find((wire) => wire.wireID === parseInt(wireID));
+   //console.log("wireDetailsObj");
+   if(wireDetailsObj){
+    console.log(wireDetailsObj);
+    setWireDetailsObj(wireDetailsObj);
+   }
+  }, [wireID, wires]);
 
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);
@@ -226,13 +266,17 @@ function WireDetails(props) {
       <Redirect to={{ pathname: "/customers"}} />
     );
   }
-
   return (
     <React.Fragment>
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()}</h3>
+            <div className="btnCls">
+              <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
+                Back
+              </button>
+            </div>
             <div className="col-sm-12">
               <WireDetailForm formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
             </div>

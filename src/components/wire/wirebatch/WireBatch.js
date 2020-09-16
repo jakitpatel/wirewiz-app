@@ -59,6 +59,12 @@ function WireBatch(props) {
       accessor: "status"
     },
     {
+      name: "errorMsg",
+      field: "errorMsg",
+      Header: "errorMsg",
+      accessor: "errorMsg"
+    },
+    {
       headerName: "CreateDateTime",
       field: "createDateTime",
       Header: "CreateDateTime",

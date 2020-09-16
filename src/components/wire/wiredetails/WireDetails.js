@@ -271,7 +271,7 @@ function WireDetails(props) {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="text-center">{getTitle()}</h3>
+            <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>
             <div className="btnCls">
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back

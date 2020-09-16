@@ -1,6 +1,6 @@
 {
-  "name": "wirewiz-app",
-  "homepage": "https://devnycweb01.comfed.local/wirewiz",
+  "name": "wireapp",
+  "homepage": "https://devnycweb01.comfed.local/wireapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

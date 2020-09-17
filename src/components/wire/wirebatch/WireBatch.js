@@ -81,6 +81,13 @@ function WireBatch(props) {
       field: "arrivalMode",
       Header: "ArrivalMode",
       accessor: "arrivalMode"
+    },
+
+    {
+      name: "numWires",
+      field: "numWires",
+      Header: "NumWires",
+      accessor: "numWires"
     }
   ];
 

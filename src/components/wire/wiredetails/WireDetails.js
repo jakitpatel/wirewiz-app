@@ -6,6 +6,8 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import {WireDetails_Url} from './../../../const';
 import {API_KEY} from './../../../const';
+import { CSVLink, CSVDownload } from "react-csv";
+
 
 function WireDetails(props) {
   let initialstateObj = {
@@ -266,6 +268,8 @@ function WireDetails(props) {
       <Redirect to={{ pathname: "/customers"}} />
     );
   }
+  let csvArray = [];
+  csvArray.push(wireDetailsObj);
   return (
     <React.Fragment>
       <div className="container">
@@ -273,9 +277,26 @@ function WireDetails(props) {
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>
             <div className="btnCls">
-              <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
+              <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
+              <div className="dropdown text-right" style={{ float: "right" }}>
+                <button className="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Export
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <CSVLink
+                    data={csvArray}
+                    filename={"my-file.csv"}
+                    className="dropdown-item"
+                    target="_blank"
+                  >
+                    CSV
+                  </CSVLink>
+                  <a className="dropdown-item" href="#">Excel</a>
+                </div>
+              </div>
+              <div style={{ clear:"both"}}></div>
             </div>
             <div className="col-sm-12">
               <WireDetailForm formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />

@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {WireDetails_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import { CSVLink, CSVDownload } from "react-csv";
-
+import { Download } from "react-feather";
+import DownloadExcel from "./ExcelDownload";
 
 function WireDetails(props) {
   let initialstateObj = {
@@ -268,6 +269,7 @@ function WireDetails(props) {
       <Redirect to={{ pathname: "/customers"}} />
     );
   }
+
   let csvArray = [];
   csvArray.push(wireDetailsObj);
   return (
@@ -287,13 +289,21 @@ function WireDetails(props) {
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <CSVLink
                     data={csvArray}
-                    filename={"my-file.csv"}
+                    filename={"wire-details.csv"}
                     className="dropdown-item"
                     target="_blank"
                   >
                     CSV
                   </CSVLink>
-                  <a className="dropdown-item" href="#">Excel</a>
+                  <DownloadExcel data={csvArray} />
+                  <CSVLink
+                    data={csvArray}
+                    filename={"wire-details.txt"}
+                    className="dropdown-item"
+                    target="_blank"
+                  >
+                    Text
+                  </CSVLink>
                 </div>
               </div>
               <div style={{ clear:"both"}}></div>

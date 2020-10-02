@@ -23,8 +23,8 @@ function CustDateInput(props) {
 function CustTextInput(props) {
   return (
     <div className="form-group row">
-      <label className="col-sm-5 col-form-label">{props.labelText}</label>
-      <div className="col-sm-7">
+      <label className="col-sm-6 col-form-label">{props.labelText}</label>
+      <div className="col-sm-6">
         <input
           type="text"
           name={props.nameref}
@@ -467,6 +467,7 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.seqBOrderingInstitutionLine4}
           />
+          {/*
           <CustTextInput
             placeholdertext="errorMsg"
             labelText="ErrorMsg"
@@ -474,6 +475,7 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.errorMsg}
           />
+          */}
         </div>
 
         <div className="col-sm-4 mb-3">
@@ -1279,28 +1281,29 @@ function WireDetailForm(props) {
             val={props.custstate.seqBIntermediaryInstitutionTag}
           />
         </div>
-        {/*
+        
         <div className="col-sm-12">
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">ErrorMsg</label>
-            <div className="col-sm-8">
+            <div className="col-sm-10">
                 <textarea 
                 className="form-control" 
-                rows="4" 
+                rows="3" 
                 name="errorMsg"
-                >{props.custstate.errorMsg}</textarea>
-                <input
+                value={props.custstate.errorMsg}
+                ></textarea>
+                {/*<input
                   type="textbox"
                   name="errorMsg"
                   className="form-control"
                   //placeholder={props.placeholdertext}
                   value={props.custstate.errorMsg}
                   onChange={e => props.oncustinputchange(e)}
-                />
+                />*/}
             </div>
           </div>
         </div>
-        */}
+        
         </div>
     </React.Fragment>
   );

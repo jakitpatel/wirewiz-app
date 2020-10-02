@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useTable, useSortBy } from 'react-table'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip';
+import './Listview.css';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -127,7 +128,7 @@ function Table({getTbdProps, columns, data }) {
     }
    return (
     <Styles>
-      <ReactTooltip place="left" type="success" effect="solid" />
+      <ReactTooltip place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline="true" />
       <Table getTdProps={onRowClick} columns={columns} data={data} />
     </Styles>
   )

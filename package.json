@@ -22,6 +22,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-table": "^7.5.0",
+    "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
     "xlsx": "^0.16.7"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useTable, useSortBy } from 'react-table'
 import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -126,6 +127,7 @@ function Table({getTbdProps, columns, data }) {
     }
    return (
     <Styles>
+      <ReactTooltip place="left" type="success" effect="solid" />
       <Table getTdProps={onRowClick} columns={columns} data={data} />
     </Styles>
   )

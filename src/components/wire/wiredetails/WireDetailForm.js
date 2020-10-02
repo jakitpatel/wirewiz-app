@@ -467,6 +467,13 @@ function WireDetailForm(props) {
             inputchange={props.oncustinputchange}
             val={props.custstate.seqBOrderingInstitutionLine4}
           />
+          <CustTextInput
+            placeholdertext="errorMsg"
+            labelText="ErrorMsg"
+            nameref="errorMsg"
+            inputchange={props.oncustinputchange}
+            val={props.custstate.errorMsg}
+          />
         </div>
 
         <div className="col-sm-4 mb-3">
@@ -1272,7 +1279,29 @@ function WireDetailForm(props) {
             val={props.custstate.seqBIntermediaryInstitutionTag}
           />
         </div>
-      </div>
+        {/*
+        <div className="col-sm-12">
+          <div className="form-group row">
+            <label className="col-sm-2 col-form-label">ErrorMsg</label>
+            <div className="col-sm-8">
+                <textarea 
+                className="form-control" 
+                rows="4" 
+                name="errorMsg"
+                >{props.custstate.errorMsg}</textarea>
+                <input
+                  type="textbox"
+                  name="errorMsg"
+                  className="form-control"
+                  //placeholder={props.placeholdertext}
+                  value={props.custstate.errorMsg}
+                  onChange={e => props.oncustinputchange(e)}
+                />
+            </div>
+          </div>
+        </div>
+        */}
+        </div>
     </React.Fragment>
   );
 }

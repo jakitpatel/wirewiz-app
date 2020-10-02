@@ -183,7 +183,8 @@ function WireDetails(props) {
     seqBOrderingInstitutionLine3: "",
     seqBOrderingInstitutionLine4: "",
     seqBOrderingInstitutionLine5: "",
-    seqBIntermediaryInstitutionTag: ""
+    seqBIntermediaryInstitutionTag: "",
+    errorMsg:""
   };
   let stateObj = initialstateObj;
   let history = useHistory();
@@ -272,6 +273,9 @@ function WireDetails(props) {
 
   let csvArray = [];
   csvArray.push(wireDetailsObj);
+  let csvFileName = "wire-"+wireID+".csv";
+  let txtFileName = "wire-"+wireID+".txt";
+  let excelFileName = "wire-"+wireID;
   return (
     <React.Fragment>
       <div className="container">
@@ -289,16 +293,16 @@ function WireDetails(props) {
                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <CSVLink
                     data={csvArray}
-                    filename={"wire-details.csv"}
+                    filename={csvFileName}
                     className="dropdown-item"
                     target="_blank"
                   >
                     CSV
                   </CSVLink>
-                  <DownloadExcel data={csvArray} />
+                  <DownloadExcel data={csvArray} excelFile={excelFileName} />
                   <CSVLink
                     data={csvArray}
-                    filename={"wire-details.txt"}
+                    filename={txtFileName}
                     className="dropdown-item"
                     target="_blank"
                   >

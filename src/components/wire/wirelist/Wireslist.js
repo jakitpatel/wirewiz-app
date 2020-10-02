@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {Wires_Url} from './../../../const';
 import {API_KEY} from './../../../const';
+import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
   let history = useHistory();
@@ -98,7 +99,23 @@ function Wireslist(props) {
       headerName: "errorMsg",
       field: "errorMsg",
       Header: "ErrorMsg",
-      accessor: "errorMsg"
+      accessor: "errorMsg",
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireListObj = obj.row.original;
+        let error = "";
+        let errorTooltip = "";
+        if(wireListObj.errorMsg!== "" && wireListObj.errorMsg !== null){
+          error = "Error";
+          errorTooltip = wireListObj.errorMsg;
+        }
+        return (
+          <div>
+            {/*<span title={errorTooltip} style={{color:"red"}}>{error}</span>*/}
+            <span data-tip={errorTooltip} style={{color:"red"}}>{error}</span>
+          </div>
+        );
+      }
     }
   ];
 

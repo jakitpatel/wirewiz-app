@@ -7,7 +7,7 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 function DownloadExcel(props) {
     return (
-        <ExcelFile filename="wire-details" element={<a className="dropdown-item" href="#">Excel</a>}>
+        <ExcelFile filename={props.excelFile} element={<a className="dropdown-item" href="#">Excel</a>}>
             <ExcelSheet data={props.data} name="WireDetails">
                 <ExcelColumn label="WireID" value="wireID"/>
                 <ExcelColumn label="SenderInfoFormatVer" value="senderInfoFormatVer"/>

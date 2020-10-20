@@ -4,20 +4,25 @@ import ReactTooltip from 'react-tooltip';
 
 function CustTextInput(props) {
   let fieldName = props.nameref;
-  let errorMsg = props.wireDtObj.errorMsg;
-  let n = errorMsg.includes(fieldName);
   let fieldClass = "form-control";
-  if(n === true){
-    fieldClass = fieldClass+" is-invalid";
-  }
-  let errArr = errorMsg.split(";");
-  
-  let tooltip = "";
-  for(let i=0; i<errArr.length; i++){
-    let errLine = errArr[i];
-    let n = errLine.includes(fieldName);
+  //let errorMsg = props.wireDtObj.errorMsg;
+  let errorMsg = props.wireDtObj.derivedErrorMsg;
+  console.log("errorMsg : "+errorMsg);
+  if(errorMsg !== null){
+    let n = errorMsg.includes(fieldName);
     if(n === true){
-      tooltip = tooltip+errLine;
+      fieldClass = fieldClass+" is-invalid";
+    }
+  }
+  let tooltip = "";
+  if(errorMsg !== null){
+    let errArr = errorMsg.split(";");
+    for(let i=0; i<errArr.length; i++){
+      let errLine = errArr[i];
+      let n = errLine.includes(fieldName);
+      if(n === true){
+        tooltip = tooltip+errLine;
+      }
     }
   }
   return (

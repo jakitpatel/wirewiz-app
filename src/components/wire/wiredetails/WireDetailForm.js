@@ -70,6 +70,22 @@ function WireDetailForm(props) {
                     </div>
                   </div>
                 )
+              } else if(key==="derivedErrorMsg"){
+                return (
+                  <div key={key} className="col-sm-12">
+                    <div className="form-group row">
+                      <label className="col-sm-2 col-form-label">DerivedErrorMsg</label>
+                      <div className="col-sm-10">
+                          <textarea 
+                          className="form-control" 
+                          rows="3" 
+                          name="derivedErrorMsg"
+                          value={value}
+                          ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                )
               } else {
                 return (
                   <div key={key} className="col-sm-4">

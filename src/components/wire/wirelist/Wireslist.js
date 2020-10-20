@@ -106,7 +106,7 @@ function Wireslist(props) {
         let error = "";
         let errorTooltip = "";
         if(wireListObj.derivedErrorMsg!== "" && wireListObj.derivedErrorMsg !== null){
-          error = "Error";
+          error = "****";
           errorTooltip = wireListObj.derivedErrorMsg;
         }
         return (

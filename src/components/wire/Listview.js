@@ -32,7 +32,7 @@ const Styles = styled.div`
     }
   }
 `
-function Table({getTbdProps, columns, data }) {
+function Table({getTbdProps, columns, data, initialState }) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -45,7 +45,8 @@ function Table({getTbdProps, columns, data }) {
   } = useTable({
     getTbdProps,
     columns,
-    data
+    data,
+    initialState
   },
   useSortBy)
 
@@ -99,7 +100,9 @@ function Table({getTbdProps, columns, data }) {
    const data = React.useMemo(() => props.items, [props.items])
  
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
-
+   
+   const initialState = props.sortBy;
+   //console.log(initialState);
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
         onClick: (e, handleOriginal) => {
@@ -129,7 +132,7 @@ function Table({getTbdProps, columns, data }) {
    return (
     <Styles>
       <ReactTooltip place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
-      <Table getTdProps={onRowClick} columns={columns} data={data} />
+      <Table getTdProps={onRowClick} columns={columns} data={data} initialState={initialState} />
     </Styles>
   )
  }

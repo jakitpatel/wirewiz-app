@@ -61,6 +61,7 @@ function Wireslist(props) {
     },
     {
       name: "wireID",
+      sortDescFirst: true,
       field: "wireID",
       Header: "WireID",
       accessor: "wireID"
@@ -131,7 +132,7 @@ function Wireslist(props) {
       //let res = await axios.get(Wires_Url, options);
       let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
       console.log(res.data);
-      console.log(res.data.resource);
+      //console.log(res.data.resource);
       let wireArray = res.data.resource;
       console.log(wireArray);
       dispatch({
@@ -185,6 +186,9 @@ function Wireslist(props) {
   }
   console.log("wires", wires);
   console.log("Properties", props);
+  const initialSortState = {
+    sortBy: [{ id: "wireID", desc: true }]
+   }; 
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
@@ -193,6 +197,7 @@ function Wireslist(props) {
       <Listview
         items={wires}
         columnDefs={columnDefs}
+        sortBy={initialSortState}
       />
     );
   

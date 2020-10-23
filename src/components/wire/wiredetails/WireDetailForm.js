@@ -5,8 +5,8 @@ import ReactTooltip from 'react-tooltip';
 function CustTextInput(props) {
   let fieldName = props.nameref;
   let fieldClass = "form-control";
-  //let errorMsg = props.wireDtObj.errorMsg;
-  let errorMsg = props.wireDtObj.derivedErrorMsg;
+  let errorMsg = props.wireDtObj.errorMsg;
+  //let errorMsg = props.wireDtObj.derivedErrorMsg;
   console.log("errorMsg : "+errorMsg);
   if(errorMsg !== null){
     let n = errorMsg.includes(fieldName);
@@ -52,7 +52,7 @@ function WireDetailForm(props) {
       <div className="sm-vert-form form-row">
         {
           Object.entries(wireDetailsObj).map(([key, value]) => {
-            let str = "wireID wireBatchID wireDoc_by_wireID";
+            let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg";
             if(!str.includes(key)){
               if(key==="errorMsg"){
                 return (
@@ -64,22 +64,6 @@ function WireDetailForm(props) {
                           className="form-control" 
                           rows="3" 
                           name="errorMsg"
-                          value={value}
-                          ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                )
-              } else if(key==="derivedErrorMsg"){
-                return (
-                  <div key={key} className="col-sm-12">
-                    <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">DerivedErrorMsg</label>
-                      <div className="col-sm-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="3" 
-                          name="derivedErrorMsg"
                           value={value}
                           ></textarea>
                       </div>

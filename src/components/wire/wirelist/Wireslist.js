@@ -97,18 +97,18 @@ function Wireslist(props) {
       accessor: "completeDateTime"
     },
     {
-      headerName: "derivedErrorMsg",
-      field: "derivedErrorMsg",
+      headerName: "errorMsg",
+      field: "errorMsg",
       Header: "ErrorMsg",
-      accessor: "derivedErrorMsg",
+      accessor: "errorMsg",
       Cell: obj => {
         //console.log(obj.row);
         let wireListObj = obj.row.original;
         let error = "";
         let errorTooltip = "";
-        if(wireListObj.derivedErrorMsg!== "" && wireListObj.derivedErrorMsg !== null){
+        if(wireListObj.errorMsg!== "" && wireListObj.errorMsg !== null){
           error = "****";
-          errorTooltip = wireListObj.derivedErrorMsg;
+          errorTooltip = wireListObj.errorMsg;
         }
         return (
           <div>

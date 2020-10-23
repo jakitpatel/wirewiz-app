@@ -73,16 +73,16 @@ function Wireslist(props) {
       accessor: "wireBatchID"
     },
     {
-      name: "senderInfoFormatVer",
-      field: "senderInfoFormatVer",
-      Header: "senderInfoFormatVer",
-      accessor: "senderInfoFormatVer"
+      name: "senderShortName",
+      field: "senderShortName",
+      Header: "senderShortName",
+      accessor: "senderShortName"
     },
     {
-      name: "senderInfoUserReqCorrelation",
-      field: "senderInfoUserReqCorrelation",
-      Header: "senderInfoUserReqCorrelation",
-      accessor: "senderInfoUserReqCorrelation"
+      name: "receiverShortName",
+      field: "receiverShortName",
+      Header: "receiverShortName",
+      accessor: "receiverShortName"
     },
     {
       name: "status",

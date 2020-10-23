@@ -140,6 +140,9 @@ function WireBatch(props) {
   }
   
   console.log("Properties", props);
+  const initialSortState = {
+    sortBy: [{ id: "wireBatchID", desc: true }]
+   }; 
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
@@ -148,6 +151,7 @@ function WireBatch(props) {
       <Listview
         items={wirebatchlist}
         columnDefs={columnDefs}
+        sortBy={initialSortState}
       />
     );
   

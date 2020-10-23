@@ -186,9 +186,9 @@ function Wireslist(props) {
   }
   console.log("wires", wires);
   console.log("Properties", props);
-  const initialSortState = {
+  /*const initialSortState = {
     sortBy: [{ id: "wireID", desc: true }]
-   }; 
+   };*/
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
@@ -197,7 +197,6 @@ function Wireslist(props) {
       <Listview
         items={wires}
         columnDefs={columnDefs}
-        sortBy={initialSortState}
       />
     );
   

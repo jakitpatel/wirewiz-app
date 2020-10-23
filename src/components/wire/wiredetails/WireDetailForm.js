@@ -58,12 +58,28 @@ function WireDetailForm(props) {
                 return (
                   <div key={key} className="col-sm-12">
                     <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">ErrorMsg</label>
+                      <label className="col-sm-2 col-form-label">errorMsg</label>
                       <div className="col-sm-10">
                           <textarea 
                           className="form-control" 
                           rows="3" 
                           name="errorMsg"
+                          value={value}
+                          ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                )
+              } else if(key==="textWireMsg"){
+                return (
+                  <div key={key} className="col-sm-12">
+                    <div className="form-group row">
+                      <label className="col-sm-2 col-form-label">textWireMsg</label>
+                      <div className="col-sm-10">
+                          <textarea 
+                          className="form-control" 
+                          rows="3" 
+                          name="textWireMsg"
                           value={value}
                           ></textarea>
                       </div>

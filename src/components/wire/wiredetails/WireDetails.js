@@ -316,7 +316,8 @@ function WireDetails(props) {
     errorCategory: "",
     errorCode: "",
     errorDescription: "",
-    errorMsg:""
+    errorMsg:"",
+    textWireMsg:""
   };
   let stateObj = initialstateObj;
   let history = useHistory();

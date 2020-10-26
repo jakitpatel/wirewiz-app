@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import * as Icon from "react-feather";
+import DownloadProtocol from "./../protocol/DownloadProtocol";
 
 function MenuListItem(props) {
   const components = {
@@ -37,9 +38,10 @@ function LeftNavBar(props) {
             routePath={`${process.env.PUBLIC_URL}/wires`}
             iconName="users"
           />
+          <DownloadProtocol />
           {/*
           <MenuListItem
-            menuName="Add New Customer"
+            menuName="Protocol"
             routePath="/addcustomer"
             iconName="useradd"
           />

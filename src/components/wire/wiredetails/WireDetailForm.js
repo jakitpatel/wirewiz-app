@@ -71,6 +71,11 @@ function WireDetailForm(props) {
                   </div>
                 )
               } else if(key==="textWireMsg"){
+                let msgArr = value.split("{");
+                for (let i = 1; i < msgArr.length; i++) {
+                  msgArr[i] = "{"+msgArr[i] + "\n";
+                }
+                let valueSt = msgArr.join("");
                 return (
                   <div key={key} className="col-sm-12">
                     <div className="form-group row">
@@ -80,7 +85,7 @@ function WireDetailForm(props) {
                           className="form-control" 
                           rows="3" 
                           name="textWireMsg"
-                          value={value}
+                          value={valueSt}
                           ></textarea>
                       </div>
                     </div>

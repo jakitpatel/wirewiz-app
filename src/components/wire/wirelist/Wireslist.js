@@ -85,16 +85,34 @@ function Wireslist(props) {
       accessor: "receiverShortName"
     },
     {
-      name: "status",
-      field: "status",
-      Header: "Status",
-      accessor: "status"
+      name: "statusCode",
+      field: "statusCode",
+      Header: "statusCode",
+      accessor: "statusCode"
     },
     {
       headerName: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",
       accessor: "completeDateTime"
+    },
+    {
+      headerName: "numTransfer",
+      field: "numTransfer",
+      Header: "numTransfer",
+      accessor: "numTransfer"
+    },
+    {
+      headerName: "numCancel",
+      field: "numCancel",
+      Header: "numCancel",
+      accessor: "numCancel"
+    },
+    {
+      headerName: "numReversal",
+      field: "numReversal",
+      Header: "numReversal",
+      accessor: "numReversal"
     },
     {
       headerName: "errorMsg",

@@ -71,11 +71,14 @@ function WireDetailForm(props) {
                   </div>
                 )
               } else if(key==="textWireMsg"){
-                let msgArr = value.split("{");
-                for (let i = 1; i < msgArr.length; i++) {
-                  msgArr[i] = "{"+msgArr[i] + "\n";
+                let valueSt = "";
+                if(value !== null && value !== ""){
+                  let msgArr = value.split("{");
+                  for (let i = 1; i < msgArr.length; i++) {
+                    msgArr[i] = "{"+msgArr[i] + "\n";
+                  }
+                  valueSt = msgArr.join("");
                 }
-                let valueSt = msgArr.join("");
                 return (
                   <div key={key} className="col-sm-12">
                     <div className="form-group row">

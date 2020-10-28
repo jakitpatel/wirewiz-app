@@ -5,7 +5,7 @@ export const API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For Pro
 export const Login_Url = API_URL+"user/session?service=cfsb_ldap";  // For Production Env
 export const Customer_Url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";  // For Production Env
 export const WireBatch_Url = API_URL+"cfsb_sqlserver/_table/v_wireBatch";  // For Production Env
-export const Wires_Url = API_URL+"cfsb_sqlserver/_table/wire?filter=";  // For Production Env
+export const Wires_Url = API_URL+"cfsb_sqlserver/_table/v_wire?filter=";  // For Production Env
 export const WireDetails_Url = API_URL+"cfsb_sqlserver/_table/wire?filter=";  // For Production Env
 export const Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/DataWizPermission?filter=";  // For Production Env
 

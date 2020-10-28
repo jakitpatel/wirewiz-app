@@ -128,6 +128,7 @@ function WireBatch(props) {
   ];
 
   useEffect(() => {
+    console.log("WireBatch UseEffect");
     let ignore = false;
     async function fetchWireBatchList() {
       const options = {

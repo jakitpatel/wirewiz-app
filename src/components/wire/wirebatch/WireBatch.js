@@ -53,10 +53,29 @@ function WireBatch(props) {
       accessor: "wireBatchID"
     },
     {
-      name: "status",
-      field: "status",
-      Header: "Status",
-      accessor: "status"
+      name: "statusCode",
+      field: "statusCode",
+      Header: "statusCode",
+      accessor: "statusCode",
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireListObj = obj.row.original;
+        let colorCode = "";
+        let statusCode = wireListObj.statusCode;
+        if(statusCode === null || statusCode === "NEW"){
+          colorCode = "red";
+        } else if(statusCode === "INPROGRESS"){
+          colorCode = "#FFBF00";
+        } else if(statusCode === "DONE"){
+          colorCode = "green";
+        }
+        console.log(colorCode);
+        return (
+          <div>
+            <span style={{color:colorCode}}>{wireListObj.statusCode}</span>
+          </div>
+        );
+      }
     },
     {
       name: "errorMsg",
@@ -82,12 +101,29 @@ function WireBatch(props) {
       Header: "ArrivalMode",
       accessor: "arrivalMode"
     },
-
     {
       name: "numWires",
       field: "numWires",
       Header: "NumWires",
       accessor: "numWires"
+    },
+    {
+      headerName: "numTransfer",
+      field: "numTransfer",
+      Header: "NumTransfer",
+      accessor: "numTransfer"
+    },
+    {
+      headerName: "numCancel",
+      field: "numCancel",
+      Header: "NumCancel",
+      accessor: "numCancel"
+    },
+    {
+      headerName: "numReversal",
+      field: "numReversal",
+      Header: "NumReversal",
+      accessor: "numReversal"
     }
   ];
 

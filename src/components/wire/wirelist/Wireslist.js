@@ -85,34 +85,16 @@ function Wireslist(props) {
       accessor: "receiverShortName"
     },
     {
-      name: "statusCode",
-      field: "statusCode",
-      Header: "statusCode",
-      accessor: "statusCode"
+      name: "status",
+      field: "status",
+      Header: "status",
+      accessor: "status"
     },
     {
       headerName: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",
       accessor: "completeDateTime"
-    },
-    {
-      headerName: "numTransfer",
-      field: "numTransfer",
-      Header: "numTransfer",
-      accessor: "numTransfer"
-    },
-    {
-      headerName: "numCancel",
-      field: "numCancel",
-      Header: "numCancel",
-      accessor: "numCancel"
-    },
-    {
-      headerName: "numReversal",
-      field: "numReversal",
-      Header: "numReversal",
-      accessor: "numReversal"
     },
     {
       headerName: "errorMsg",
@@ -147,8 +129,8 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(Wires_Url, options);
-      let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
+      let res = await axios.get(Wires_Url, options);
+      //let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
       console.log(res.data);
       //console.log(res.data.resource);
       let wireArray = res.data.resource;

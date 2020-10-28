@@ -129,8 +129,8 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let res = await axios.get(Wires_Url, options);
-      //let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
+      //let res = await axios.get(Wires_Url, options);
+      let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
       console.log(res.data);
       //console.log(res.data.resource);
       let wireArray = res.data.resource;

@@ -4,7 +4,7 @@ import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
-import {WireDetails_Url} from './../../../const';
+import {WireDictionary_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import { CSVLink, CSVDownload } from "react-csv";
 import { Download } from "react-feather";
@@ -213,6 +213,7 @@ function WireDetails(props) {
     seqBSenderToRecieverInfoLine3: "",
     seqBSenderToRecieverInfoLine4: "",
     seqBSenderToRecieverInfoLine5: "",
+    seqBSenderToRecieverInfoLine6: "",
     unstructuredAddendaLength: "",
     unstructuredAddendaInfo: "",
     relatedRemittanceID: "",
@@ -324,6 +325,7 @@ function WireDetails(props) {
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
+  const [wireText, setWireText] = useState("");
 
   const { session_token, name, email, host, uid} = useSelector(state => {
       return {
@@ -340,30 +342,7 @@ function WireDetails(props) {
   let { wireID } = useParams();
 
   useEffect(() => {
-    /*
-    let ignore = false;
-    async function fetchWireDetails() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let res = await axios.get(WireDetails_Url, options);
-      //let res = await axios.get(WireDetails_Url+ "wireID='"+wireID+"'", options);
-      console.log(res.data);
-      console.log(res.data.resource);
-      let wireDetailsArray = res.data.resource;
-      console.log(wireDetailsArray);
-      setLoading(false);
-      if(wireDetailsArray.length > 0) {
-        setWireDetailsObj(wireDetailsArray[0]);
-      }
-    }
-    fetchWireDetails();
-    return () => { ignore = true };
-    */
-   console.log("WireId : "+wireID);
+    console.log("WireId : "+wireID);
    //console.log("wires");
    //console.log(wires);
    let wireDetailsObj = wires.find((wire) => wire.wireID === parseInt(wireID));
@@ -372,7 +351,48 @@ function WireDetails(props) {
     console.log(wireDetailsObj);
     setWireDetailsObj(wireDetailsObj);
    }
-  }, [wireID, wires]);
+    let ignore = false;
+    async function fetchWireDictionary() {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let res = await axios.get(WireDictionary_Url, options);
+      //console.log(res.data);
+      //console.log(res.data.resource);
+      let dict = res.data.resource[0].dict;
+      //console.log(dict);
+      var dictObj = JSON.parse(dict);
+      console.log(dictObj);
+      //// Start Code for Wire To Tag Value /////
+      let tagValSt = "";
+      for(var i = 0; i < dictObj.length; i++) {
+        var obj = dictObj[i];
+        let elementArr = obj.elements;
+        let tagVal = "";
+        for(var j = 0; j < elementArr.length; j++) {
+          var objElement = elementArr[j];
+          //console.log(objElement.name);
+          let val = wireDetailsObj[objElement.name];
+          if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
+            console.log(obj.tag+"--"+objElement.name+"--"+val);
+            tagVal += val;
+          }
+        }
+        if(tagVal!==null && tagVal!==""){
+          tagValSt += "{"+obj.tag+"}"+tagVal;
+        }
+      }
+      console.log(tagValSt);
+      setWireText(tagValSt);
+      /////
+      setLoading(false);
+    }
+    fetchWireDictionary();
+    return () => { ignore = true };
+  }, [session_token, wireID, wires]);
 
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);
@@ -434,7 +454,7 @@ function WireDetails(props) {
                   </CSVLink>
                   <DownloadExcel data={csvArray} excelFile={excelFileName} />
                   <CSVLink
-                    data={csvArray}
+                    data={wireText}
                     filename={txtFileName}
                     className="dropdown-item"
                     target="_blank"

@@ -8,6 +8,7 @@ export const WireBatch_Url = API_URL+"cfsb_sqlserver/_table/v_wireBatch";  // Fo
 export const Wires_Url = API_URL+"cfsb_sqlserver/_table/v_wire?filter=";  // For Production Env
 export const WireDetails_Url = API_URL+"cfsb_sqlserver/_table/wire?filter=";  // For Production Env
 export const Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/DataWizPermission?filter=";  // For Production Env
+export const WireDictionary_Url = API_URL+"cfsb_sqlserver/_table/wireDictionary";  // For Production Env
 
 /*
 export const API_URL = "http://localhost:3001/";  // For Local Env
@@ -17,4 +18,5 @@ export const Wires_Url = API_URL+"wire";  // For Local Env
 export const WireDetails_Url = API_URL+"wire";  // For Local Env
 export const Customer_Url = API_URL+"ACHCustomers";  // For Local Env
 export const Usr_Permission_Url = API_URL+"DataWizPermission";  // For Local Env
+export const WireDictionary_Url = API_URL+"wireDictionary";  // For Local Env
 */

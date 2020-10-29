@@ -378,7 +378,10 @@ function WireDetails(props) {
           let val = wireDetailsObj[objElement.name];
           if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
             console.log(obj.tag+"--"+objElement.name+"--"+val);
-            tagVal += val.trim();
+            if(typeof val == "string"){
+              val = val.trim();
+            }
+            tagVal += val;
             if(val.length < objElement.length){
               tagVal += "*";
             }

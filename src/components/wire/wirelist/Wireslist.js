@@ -91,6 +91,12 @@ function Wireslist(props) {
       accessor: "status"
     },
     {
+      name: "wireType",
+      field: "wireType",
+      Header: "wireType",
+      accessor: "wireType"
+    },
+    {
       headerName: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",

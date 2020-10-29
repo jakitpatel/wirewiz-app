@@ -55,7 +55,7 @@ function WireBatch(props) {
     {
       name: "statusCode",
       field: "statusCode",
-      Header: "statusCode",
+      Header: "progressCode",
       accessor: "statusCode",
       Cell: obj => {
         //console.log(obj.row);
@@ -124,6 +124,12 @@ function WireBatch(props) {
       field: "numReversal",
       Header: "NumReversal",
       accessor: "numReversal"
+    },
+    {
+      headerName: "numError",
+      field: "numError",
+      Header: "NumError",
+      accessor: "numError"
     }
   ];
 
@@ -148,7 +154,7 @@ function WireBatch(props) {
     fetchWireBatchList();
     return () => { ignore = true };
   }, [session_token]);
-
+  
   if (toWireslist === true) {
     console.log("toWireslist : "+toWireslist);
     let selBatchId = selWireBatchObj.wireBatchID

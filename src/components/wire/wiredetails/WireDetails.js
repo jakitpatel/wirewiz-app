@@ -376,29 +376,31 @@ function WireDetails(props) {
       let tagValSt = "";
       for(var i = 0; i < dictObj.length; i++) {
         var obj = dictObj[i];
-        let elementArr = obj.elements;
-        let tagVal = "";
-        for(var j = 0; j < elementArr.length; j++) {
-          var objElement = elementArr[j];
-          //console.log(objElement.name);
-          let fieldName = objElement.name;
-          let val = wireDetailsObj[fieldName];
-          if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
-            console.log(obj.tag+"--"+fieldName+"--"+val);
-            if(typeof val == "string"){
-              val = val.trim();
-            }
-            if(fieldName.includes("sendersChargesAmount")){
-              val = val.toString().replace(".", ",");
-            }
-            tagVal += val;
-            if((val.length < objElement.length) || (objElement.delimiter === "*")){
-              tagVal += "*";
+        if(obj.tag !== "6500"){
+          let elementArr = obj.elements;
+          let tagVal = "";
+          for(var j = 0; j < elementArr.length; j++) {
+            var objElement = elementArr[j];
+            //console.log(objElement.name);
+            let fieldName = objElement.name;
+            let val = wireDetailsObj[fieldName];
+            if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
+              console.log(obj.tag+"--"+fieldName+"--"+val);
+              if(typeof val == "string"){
+                val = val.trim();
+              }
+              if(fieldName.includes("sendersChargesAmount")){
+                val = val.toString().replace(".", ",");
+              }
+              tagVal += val;
+              if((val.length < objElement.length) || (objElement.delimiter === "*")){
+                tagVal += "*";
+              }
             }
           }
-        }
-        if(tagVal!==null && tagVal!==""){
-          tagValSt += "{"+obj.tag+"}"+tagVal;
+          if(tagVal!==null && tagVal!==""){
+            tagValSt += "{"+obj.tag+"}"+tagVal;
+          }
         }
       }
       console.log(tagValSt);

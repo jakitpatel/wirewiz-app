@@ -88,7 +88,26 @@ function Wireslist(props) {
       name: "status",
       field: "status",
       Header: "status",
-      accessor: "status"
+      accessor: "status",
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireListObj = obj.row.original;
+        let colorCode = "";
+        let status = wireListObj.status;
+        if(status === null || status === "NEW"){
+          colorCode = "red";
+        } else if(status === "INPROGRESS"){
+          colorCode = "#FFBF00";
+        } else if(status === "DONE"){
+          colorCode = "green";
+        }
+        //console.log(colorCode);
+        return (
+          <div>
+            <span style={{color:colorCode}}>{status}</span>
+          </div>
+        );
+      }
     },
     {
       name: "wireType",

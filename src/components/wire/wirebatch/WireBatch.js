@@ -53,26 +53,26 @@ function WireBatch(props) {
       accessor: "wireBatchID"
     },
     {
-      name: "statusCode",
-      field: "statusCode",
+      name: "progressCode",
+      field: "progressCode",
       Header: "progressCode",
-      accessor: "statusCode",
+      accessor: "progressCode",
       Cell: obj => {
         //console.log(obj.row);
         let wireListObj = obj.row.original;
         let colorCode = "";
-        let statusCode = wireListObj.statusCode;
-        if(statusCode === null || statusCode === "NEW"){
+        let progressCode = wireListObj.progressCode;
+        if(progressCode === null || progressCode === "NEW"){
           colorCode = "red";
-        } else if(statusCode === "INPROGRESS"){
+        } else if(progressCode === "INPROGRESS"){
           colorCode = "#FFBF00";
-        } else if(statusCode === "DONE"){
+        } else if(progressCode === "DONE"){
           colorCode = "green";
         }
-        console.log(colorCode);
+        //console.log(colorCode);
         return (
           <div>
-            <span style={{color:colorCode}}>{wireListObj.statusCode}</span>
+            <span style={{color:colorCode}}>{progressCode}</span>
           </div>
         );
       }

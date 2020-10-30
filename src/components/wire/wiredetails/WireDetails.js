@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
-import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
-import {WireDictionary_Url} from './../../../const';
+import {WireDictionary_Url, Wire_tbl_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import { CSVLink, CSVDownload } from "react-csv";
 import { Download } from "react-feather";
 import DownloadExcel from "./ExcelDownload";
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
 
 function WireDetails(props) {
   let initialstateObj = {
@@ -322,11 +326,13 @@ function WireDetails(props) {
   };
   let stateObj = initialstateObj;
   let history = useHistory();
+  
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
   const [wireText, setWireText] = useState("");
-
+  const [isOpen, setIsOpen] = React.useState(false);
+  
   const { session_token, name, email, host, uid} = useSelector(state => {
       return {
           ...state.userReducer
@@ -375,14 +381,18 @@ function WireDetails(props) {
         for(var j = 0; j < elementArr.length; j++) {
           var objElement = elementArr[j];
           //console.log(objElement.name);
-          let val = wireDetailsObj[objElement.name];
+          let fieldName = objElement.name;
+          let val = wireDetailsObj[fieldName];
           if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
-            console.log(obj.tag+"--"+objElement.name+"--"+val);
+            console.log(obj.tag+"--"+fieldName+"--"+val);
             if(typeof val == "string"){
               val = val.trim();
             }
+            if(fieldName.includes("sendersChargesAmount")){
+              val = val.toString().replace(".", ",");
+            }
             tagVal += val;
-            if(val.length < objElement.length){
+            if((val.length < objElement.length) || (objElement.delimiter === "*")){
               tagVal += "*";
             }
           }
@@ -435,8 +445,62 @@ function WireDetails(props) {
   let csvFileName = "wire-"+wireID+".csv";
   let txtFileName = "wire-"+wireID+".txt";
   let excelFileName = "wire-"+wireID;
+
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const hideModal = () => {
+    setIsOpen(false);
+  };
+
+  function wireStatusChange(){
+    console.log("Wire Status Changed to Done.");
+    hideModal();
+    handleWireStatusChange();
+  }
+
+  async function handleWireStatusChange() {
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      console.log(wireDetailsObj);
+      //let tmpWireObj = wireDetailsObj;
+      let tmpWireObj = {};
+      tmpWireObj.status = 3;
+      tmpWireObj.wireID = wireDetailsObj.wireID;
+      let res = await axios.put(Wire_tbl_Url+"/"+wireDetailsObj.wireID, tmpWireObj, options);
+      console.log(res);
+      alert("Status updated successfully!");
+      history.goBack();
+    } catch (error) {
+      console.log(error.response);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
+  }
+
   return (
     <React.Fragment>
+      <Modal show={isOpen} onHide={hideModal}>
+        <Modal.Header>
+          <Modal.Title>Alert!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Do you want to change the wire status to done?</Modal.Body>
+        <Modal.Footer>
+          <button style={{ width:"70px" }} className="btn btn-primary btn-sm" onClick={() => { wireStatusChange();}}>Ok</button>
+          <button style={{ width:"70px" }} className="btn btn-primary btn-sm" onClick={hideModal}>Cancel</button>
+        </Modal.Footer>
+      </Modal>
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
@@ -444,6 +508,9 @@ function WireDetails(props) {
             <div className="btnCls">
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
+              </button>
+              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
+                Done
               </button>
               <div className="dropdown text-right" style={{ float: "right" }}>
                 <button className="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

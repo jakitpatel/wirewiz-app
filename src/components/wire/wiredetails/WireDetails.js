@@ -511,7 +511,7 @@ function WireDetails(props) {
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
-              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
+              <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
                 Done
               </button>
               <div className="dropdown text-right" style={{ float: "right" }}>

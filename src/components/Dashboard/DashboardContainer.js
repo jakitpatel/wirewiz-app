@@ -8,7 +8,9 @@ import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
 import DashboardMain from "./DashboardMain";
-
+import ACHFileRecord from "./../ACH/ACHFileRecord/ACHFileRecord.js"
+import ACHBatchRecord from "./../ACH/ACHBatchRecord/ACHBatchRecord.js"
+import ACHDetailEntry from "./../ACH/ACHDetailEntry/ACHDetailEntry.js"
 import { useSelector, useDispatch } from 'react-redux';
 
 const CustomerWrap = props => {
@@ -40,12 +42,16 @@ const routes = [
     main: () => <Wiredetails />
   },
   {
-    path: "/clonecustomer",
-    main: CustomerCloneWrap //() => <Customers disType="edit" />
+    path: "/ach",
+    main: () => <ACHFileRecord disType="list" />
   },
   {
-    path: "/editcustomer",
-    main: CustomerWrap //() => <Customers disType="edit" />
+    path: "/ACHBatchRecord/:FileID",
+    main: () => <ACHBatchRecord />
+  },
+  {
+    path: "/ACHDetailEntry/:BatchID",
+    main: () => <ACHDetailEntry />
   }
 ];
 

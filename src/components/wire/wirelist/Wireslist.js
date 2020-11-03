@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Listview from "./../Listview";
+import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';

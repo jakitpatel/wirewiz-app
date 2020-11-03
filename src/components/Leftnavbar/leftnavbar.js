@@ -38,14 +38,14 @@ function LeftNavBar(props) {
             routePath={`${process.env.PUBLIC_URL}/wires`}
             iconName="users"
           />
-          <DownloadProtocol />
-          {/*
+       
           <MenuListItem
-            menuName="Protocol"
-            routePath="/addcustomer"
-            iconName="useradd"
+            menuName="ACH"
+            routePath={`${process.env.PUBLIC_URL}/ach`}
+            iconName="users"
           />
-          */}
+          
+          <DownloadProtocol />
         </ul>
       </div>
     </nav>

@@ -326,13 +326,15 @@ function WireDetails(props) {
   };
   let stateObj = initialstateObj;
   let history = useHistory();
-  
+
+  const [count, setCount] = useState(0);
+  const [downloadexcel, setDownloadexcel] = useState(false);
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
   const [wireText, setWireText] = useState("");
   const [isOpen, setIsOpen] = React.useState(false);
-  
+
   const { session_token, name, email, host, uid} = useSelector(state => {
       return {
           ...state.userReducer
@@ -405,14 +407,13 @@ function WireDetails(props) {
       }
       console.log(tagValSt);
       setWireText(tagValSt);
-      /////
-      setLoading(false);
     }
     fetchWireDictionary();
     return () => { ignore = true };
   }, [session_token, wireID, wires]);
 
   function handleChange(e) {
+    /*
     console.log("On Handle Change : "+ e.target.name);
     let targetVal = "";
     if(e.target.type === "checkbox"){
@@ -421,6 +422,7 @@ function WireDetails(props) {
       targetVal = e.target.value;
     }
     setWireDetailsObj({ ...wireDetailsObj, [e.target.name]: targetVal });
+    */
   }
 
   function getTitle() {
@@ -491,6 +493,30 @@ function WireDetails(props) {
     }
   }
 
+  let showDoneBtn = false;
+  if(wireDetailsObj.wireType==="02" && wireDetailsObj.status!=="DONE"){
+    showDoneBtn = true;
+  }
+  let showExportBtn = false;
+  if((wireDetailsObj.wireType==="00" || wireDetailsObj.wireType==="08") && wireDetailsObj.status!=="DONE"){
+    showExportBtn = true;
+  }
+
+  const onWireExport = () => {
+    console.log("On Wire Export Button Click");
+    //setDownloadexcel(false);
+    setDownloadexcel(!downloadexcel);
+    //setCount(count + 1);
+    handleWireStatusChange();
+  }
+  if(downloadexcel===true && count === 0){
+    setCount(count + 1);
+  }
+  /*if(downloadexcel===false && count!==0){
+    setDownloadexcel(true);
+  }*/
+  console.log("count : "+ count);
+  console.log("setDownloadExcel : "+ downloadexcel);
   return (
     <React.Fragment>
       <Modal show={isOpen} onHide={hideModal}>
@@ -511,33 +537,27 @@ function WireDetails(props) {
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
-              <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
-                Done
-              </button>
-              <div className="dropdown text-right" style={{ float: "right" }}>
-                <button className="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Export
+              {showDoneBtn &&
+                <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
+                  Done
                 </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              }
+              {showExportBtn &&
+                <React.Fragment>
                   <CSVLink
-                    data={csvArray}
-                    filename={csvFileName}
-                    className="dropdown-item"
-                    target="_blank"
-                  >
-                    CSV
-                  </CSVLink>
-                  <DownloadExcel data={csvArray} excelFile={excelFileName} />
-                  <CSVLink
-                    data={wireText}
-                    filename={txtFileName}
-                    className="dropdown-item"
-                    target="_blank"
-                  >
-                    Text
-                  </CSVLink>
-                </div>
-              </div>
+                        data={wireText}
+                        filename={txtFileName}
+                        className="btn btn-primary btn-sm"
+                        style={{ float: "right" }}
+                        target="_blank"
+                        onClick={() => { onWireExport();}}
+                      >Export</CSVLink>
+                </React.Fragment>
+              }
+              {downloadexcel
+                ? <DownloadExcel data={csvArray} excelFile={excelFileName} />
+                : null
+              }
               <div style={{ clear:"both"}}></div>
             </div>
             <div className="col-sm-12">

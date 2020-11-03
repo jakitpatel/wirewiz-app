@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactExport from "react-data-export";
 
 const ExcelFile = ReactExport.ExcelFile;
@@ -7,7 +7,7 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 function DownloadExcel(props) {
     return (
-        <ExcelFile filename={props.excelFile} element={<a className="dropdown-item" href="#">Excel</a>}>
+        <ExcelFile filename={props.excelFile} hideElement={true}>
             <ExcelSheet data={props.data} name="WireDetails">
                 <ExcelColumn label="WireID" value="wireID"/>
                 <ExcelColumn label="SenderInfoFormatVer" value="senderInfoFormatVer"/>

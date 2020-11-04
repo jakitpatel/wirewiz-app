@@ -52,7 +52,7 @@ function ACHDetailForm(props) {
       <div className="sm-vert-form form-row">
         {
           Object.entries(wireDetailsObj).map(([key, value]) => {
-            let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg";
+            let str = "wireID wireBatchID ACHBatchRecord_by_BatchID derivedErrorMsg";
             if(!str.includes(key)){
               if(key==="errorMsg"){
                 return (

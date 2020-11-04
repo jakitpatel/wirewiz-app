@@ -343,7 +343,7 @@ function ACHDetails(props) {
 
   const { achdetails } = useSelector(state => {
     return {
-        ...state.wiresReducer
+        ...state.achReducer
     }
   });
 

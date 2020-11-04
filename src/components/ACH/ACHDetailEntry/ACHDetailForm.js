@@ -8,14 +8,14 @@ function CustTextInput(props) {
   let errorMsg = props.wireDtObj.errorMsg;
   //let errorMsg = props.wireDtObj.derivedErrorMsg;
   console.log("errorMsg : "+errorMsg);
-  if(errorMsg !== null){
+  if(errorMsg !== null && errorMsg !== "undefined" && errorMsg !== undefined){
     let n = errorMsg.includes(fieldName);
     if(n === true){
       fieldClass = fieldClass+" is-invalid";
     }
   }
   let tooltip = "";
-  if(errorMsg !== null){
+  if(errorMsg !== null && errorMsg !== "undefined" && errorMsg !== undefined){
     let errArr = errorMsg.split(";");
     for(let i=0; i<errArr.length; i++){
       let errLine = errArr[i];

@@ -12,7 +12,7 @@ export const Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/DataWizPermissi
 export const WireDictionary_Url = API_URL+"cfsb_sqlserver/_table/wireDictionary";  // For Production Env
 export const ACHFileRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHFileRecord";  // For Production Env
 export const ACHBatchRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHBatchRecord?filter=";  // For Production Env
-export const ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHDetailEntry?filter=";  // For Production Env
+export const ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHEntryDetail?filter=";  // For Production Env
 
 /*
 export const API_URL = "http://localhost:3001/";  // For Local Env
@@ -26,5 +26,5 @@ export const Usr_Permission_Url = API_URL+"DataWizPermission";  // For Local Env
 export const WireDictionary_Url = API_URL+"wireDictionary";  // For Local Env
 export const ACHFileRecord_Url = API_URL+"ACHFileRecord";  // For Local Env
 export const ACHBatchRecord_Url = API_URL+"ACHBatchRecord";  // For Local Env
-export const ACHDetailEntry_Url = API_URL+"ACHDetailEntry";  // For Local Env
+export const ACHDetailEntry_Url = API_URL+"ACHEntryDetail";  // For Local Env
 */

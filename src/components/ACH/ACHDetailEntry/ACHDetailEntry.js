@@ -17,10 +17,18 @@ function ACHDetailEntry(props) {
   const [toACHBatchRecord, setToACHBatchRecord] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
+  const dispatch = useDispatch();
+
   const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
+  });
+
+  const { achdetails } = useSelector(state => {
+    return {
+        ...state.achReducer
+    }
   });
 
   let { BatchID } = useParams();
@@ -152,8 +160,12 @@ function ACHDetailEntry(props) {
       console.log(res.data.resource);
       let achDetailEntryArray = res.data.resource;
       console.log(achDetailEntryArray);
+      dispatch({
+        type:'SETACHDETAILS',
+        payload:achDetailEntryArray
+      });
       setLoading(false);
-      setAchdetailentry(achDetailEntryArray);
+      //setAchdetailentry(achDetailEntryArray);
     }
     fetchACHDetailEntry();
     return () => { ignore = true };
@@ -176,7 +188,7 @@ function ACHDetailEntry(props) {
       <h3> LOADING... </h3>
     ) : (
       <Listview
-        items={achdetailentry}
+        items={achdetails}
         columnDefs={columnDefs}
         sortBy={initialSortState}
       />
@@ -188,7 +200,7 @@ function ACHDetailEntry(props) {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">ACHDetailEntry List - Batch {BatchID}</h3>
+            <h3 className="title-center">ACHEntryDetail List - Batch {BatchID}</h3>
             <div className="btnCls">
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back

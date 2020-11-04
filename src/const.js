@@ -10,8 +10,8 @@ export const Wire_tbl_Url = API_URL+"cfsb_sqlserver/_table/wire";  // For Produc
 export const WireDetails_Url = API_URL+"cfsb_sqlserver/_table/wire?filter=";  // For Production Env
 export const Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/DataWizPermission?filter=";  // For Production Env
 export const WireDictionary_Url = API_URL+"cfsb_sqlserver/_table/wireDictionary";  // For Production Env
-export const ACHFileRecord_Url = API_URL+"cfsb_sqlserver/_table/v_achFiles";  // For Production Env
-export const ACHBatchRecord_Url = API_URL+"cfsb_sqlserver/_table/v_achFiles?filter=";  // For Production Env
+export const ACHFileRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHFileRecord";  // For Production Env
+export const ACHBatchRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHBatchRecord?filter=";  // For Production Env
 export const ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHDetailEntry?filter=";  // For Production Env
 
 /*
@@ -24,7 +24,7 @@ export const WireDetails_Url = API_URL+"wire";  // For Local Env
 export const Customer_Url = API_URL+"ACHCustomers";  // For Local Env
 export const Usr_Permission_Url = API_URL+"DataWizPermission";  // For Local Env
 export const WireDictionary_Url = API_URL+"wireDictionary";  // For Local Env
-export const ACHFileRecord_Url = API_URL+"v_achFiles";  // For Local Env
+export const ACHFileRecord_Url = API_URL+"ACHFileRecord";  // For Local Env
 export const ACHBatchRecord_Url = API_URL+"ACHBatchRecord";  // For Local Env
 export const ACHDetailEntry_Url = API_URL+"ACHDetailEntry";  // For Local Env
 */

@@ -65,7 +65,7 @@ function WireBatch(props) {
         if(progressCode === null || progressCode === "NEW"){
           colorCode = "red";
         } else if(progressCode === "INPROGRESS"){
-          colorCode = "#FFBF00";
+          colorCode = "blue";
         } else if(progressCode === "DONE"){
           colorCode = "green";
         }

@@ -57,12 +57,6 @@ function ACHBatchRecord(props) {
       accessor: "BatchID"
     },
     {
-      headerName: "FileID",
-      field: "FileID",
-      Header: "FileID",
-      accessor: "FileID"
-    },
-    {
       name: "ServiceClassCode",
       field: "ServiceClassCode",
       Header: "ServiceClassCode",

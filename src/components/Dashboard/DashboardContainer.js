@@ -11,6 +11,7 @@ import DashboardMain from "./DashboardMain";
 import ACHFileRecord from "./../ACH/ACHFileRecord/ACHFileRecord.js"
 import ACHBatchRecord from "./../ACH/ACHBatchRecord/ACHBatchRecord.js"
 import ACHDetailEntry from "./../ACH/ACHDetailEntry/ACHDetailEntry.js"
+import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
 import { useSelector, useDispatch } from 'react-redux';
 
 const CustomerWrap = props => {
@@ -52,6 +53,10 @@ const routes = [
   {
     path: "/ACHDetailEntry/:BatchID",
     main: () => <ACHDetailEntry />
+  },
+  {
+    path: "/ACHDetails/:DetailID",
+    main: () => <ACHDetails />
   }
 ];
 

@@ -37,11 +37,11 @@ function ACHDetailEntry(props) {
       Cell: obj => {
         //console.log("Edit");
         //console.log(obj.row);
-        let achFileRecordObj = obj.row.original;
+        let achDetailRecordObj = obj.row.original;
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/ACHBatchRecord/${achFileRecordObj.DetailID}`,
+              pathname: `${process.env.PUBLIC_URL}/ACHDetails/${achDetailRecordObj.DetailID}`,
               state: obj.row.original
             }}
           >

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
-import WireDetailForm from "./WireDetailForm";
+import ACHDetailForm from "./ACHDetailForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {WireDictionary_Url, Wire_tbl_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import { CSVLink, CSVDownload } from "react-csv";
 import { Download } from "react-feather";
-import DownloadExcel from "./ExcelDownload";
+//import DownloadExcel from "./ExcelDownload";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
 
-function WireDetails(props) {
+function ACHDetails(props) {
   let initialstateObj = {
     wireID: null,
     senderInfoFormatVer: "",
@@ -330,7 +330,7 @@ function WireDetails(props) {
   const [count, setCount] = useState(0);
   const [downloadexcel, setDownloadexcel] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
+  const [achDetailsObj, setAchDetailsObj] = useState(stateObj);
   const [toCustomer, setToCustomer] = useState(false);
   const [wireText, setWireText] = useState("");
   const [isOpen, setIsOpen] = React.useState(false);
@@ -341,76 +341,27 @@ function WireDetails(props) {
       }
   });
 
-  const { wires } = useSelector(state => {
+  const { achdetails } = useSelector(state => {
     return {
         ...state.wiresReducer
     }
   });
 
-  let { wireID } = useParams();
+  let { DetailID } = useParams();
 
   useEffect(() => {
-    console.log("WireId : "+wireID);
+    console.log("DetailID : "+DetailID);
+    let ignore = false;
    //console.log("wires");
    //console.log(wires);
-   let wireDetailsObj = wires.find((wire) => wire.wireID === parseInt(wireID));
+   let achDetailsObj = achdetails.find((achdetail) => achdetail.DetailID === parseInt(DetailID));
    //console.log("wireDetailsObj");
-   if(wireDetailsObj){
-    console.log(wireDetailsObj);
-    setWireDetailsObj(wireDetailsObj);
+   if(achDetailsObj){
+    console.log(achDetailsObj);
+    setAchDetailsObj(achDetailsObj);
    }
-    let ignore = false;
-    async function fetchWireDictionary() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let res = await axios.get(WireDictionary_Url, options);
-      //console.log(res.data);
-      //console.log(res.data.resource);
-      let dict = res.data.resource[0].dict;
-      //console.log(dict);
-      var dictObj = JSON.parse(dict);
-      console.log(dictObj);
-      //// Start Code for Wire To Tag Value /////
-      let tagValSt = "";
-      for(var i = 0; i < dictObj.length; i++) {
-        var obj = dictObj[i];
-        if(obj.tag !== "6500"){
-          let elementArr = obj.elements;
-          let tagVal = "";
-          for(var j = 0; j < elementArr.length; j++) {
-            var objElement = elementArr[j];
-            //console.log(objElement.name);
-            let fieldName = objElement.name;
-            let val = wireDetailsObj[fieldName];
-            if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
-              console.log(obj.tag+"--"+fieldName+"--"+val);
-              if(typeof val == "string"){
-                val = val.trim();
-              }
-              if(fieldName.includes("sendersChargesAmount")){
-                val = val.toString().replace(".", ",");
-              }
-              tagVal += val;
-              if((val.length < objElement.length) || (objElement.delimiter === "*")){
-                tagVal += "*";
-              }
-            }
-          }
-          if(tagVal!==null && tagVal!==""){
-            tagValSt += "{"+obj.tag+"}"+tagVal;
-          }
-        }
-      }
-      console.log(tagValSt);
-      setWireText(tagValSt);
-    }
-    fetchWireDictionary();
     return () => { ignore = true };
-  }, [session_token, wireID, wires]);
+  }, [session_token, DetailID, achdetails]);
 
   function handleChange(e) {
     /*
@@ -433,7 +384,7 @@ function WireDetails(props) {
       case "edit":
         return "Edit Customer";
       default:
-        return "Wire Details";
+        return "ACH Details";
     }
   }
 
@@ -445,10 +396,10 @@ function WireDetails(props) {
   }
 
   let csvArray = [];
-  csvArray.push(wireDetailsObj);
-  let csvFileName = "wire-"+wireID+".csv";
-  let txtFileName = "wire-"+wireID+".txt";
-  let excelFileName = "wire-"+wireID;
+  csvArray.push(achDetailsObj);
+  let csvFileName = "wire-"+DetailID+".csv";
+  let txtFileName = "wire-"+DetailID+".txt";
+  let excelFileName = "wire-"+DetailID;
 
   const showModal = () => {
     setIsOpen(true);
@@ -461,44 +412,14 @@ function WireDetails(props) {
   function wireStatusChange(){
     console.log("Wire Status Changed to Done.");
     hideModal();
-    handleWireStatusChange();
-  }
-
-  async function handleWireStatusChange() {
-    try {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      console.log(wireDetailsObj);
-      //let tmpWireObj = wireDetailsObj;
-      let tmpWireObj = {};
-      tmpWireObj.status = 3;
-      tmpWireObj.wireID = wireDetailsObj.wireID;
-      let res = await axios.put(Wire_tbl_Url+"/"+wireDetailsObj.wireID, tmpWireObj, options);
-      console.log(res);
-      alert("Status updated successfully!");
-      history.goBack();
-    } catch (error) {
-      console.log(error.response);
-      if (401 === error.response.status) {
-          // handle error: inform user, go to login, etc
-          let res = error.response.data;
-          alert(res.error.message);
-      } else {
-        alert(error);
-      }
-    }
   }
 
   let showDoneBtn = false;
-  if(wireDetailsObj.subtypeCode==="02" && wireDetailsObj.status!=="DONE"){
+  if(achDetailsObj.wireType==="02" && achDetailsObj.status!=="DONE"){
     showDoneBtn = true;
   }
   let showExportBtn = false;
-  if((wireDetailsObj.subtypeCode==="00" || wireDetailsObj.subtypeCode==="08") && wireDetailsObj.status!=="DONE"){
+  if((achDetailsObj.wireType==="00" || achDetailsObj.wireType==="08") && achDetailsObj.status!=="DONE"){
     showExportBtn = true;
   }
 
@@ -507,14 +428,11 @@ function WireDetails(props) {
     //setDownloadexcel(false);
     setDownloadexcel(!downloadexcel);
     //setCount(count + 1);
-    handleWireStatusChange();
   }
   if(downloadexcel===true && count === 0){
     setCount(count + 1);
   }
-  /*if(downloadexcel===false && count!==0){
-    setDownloadexcel(true);
-  }*/
+  
   console.log("count : "+ count);
   console.log("setDownloadExcel : "+ downloadexcel);
   return (
@@ -532,36 +450,15 @@ function WireDetails(props) {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>
+            <h3 className="text-center">{getTitle()} - {DetailID}</h3>
             <div className="btnCls">
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
-              {showDoneBtn &&
-                <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
-                  Done
-                </button>
-              }
-              {showExportBtn &&
-                <React.Fragment>
-                  <CSVLink
-                        data={wireText}
-                        filename={txtFileName}
-                        className="btn btn-primary btn-sm"
-                        style={{ float: "right" }}
-                        target="_blank"
-                        onClick={() => { onWireExport();}}
-                      >Export</CSVLink>
-                </React.Fragment>
-              }
-              {downloadexcel
-                ? <DownloadExcel data={csvArray} excelFile={excelFileName} />
-                : null
-              }
               <div style={{ clear:"both"}}></div>
             </div>
             <div className="col-sm-12">
-              <WireDetailForm formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
+              <ACHDetailForm formMode={props.disType} custstate={achDetailsObj} oncustinputchange={handleChange} />
             </div>
           </div>
         </div>
@@ -570,4 +467,4 @@ function WireDetails(props) {
   );
 }
 
-export default WireDetails;
+export default ACHDetails;

@@ -97,7 +97,7 @@ function Wireslist(props) {
         if(status === null || status === "NEW"){
           colorCode = "red";
         } else if(status === "INPROGRESS"){
-          colorCode = "#FFBF00";
+          colorCode = "blue";
         } else if(status === "DONE"){
           colorCode = "green";
         }

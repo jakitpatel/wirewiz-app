@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import * as Icon from "react-feather";
 import DownloadProtocol from "./../protocol/DownloadProtocol";
+import WireProtocolPdf from './../../Documents/Fedwire.pdf';
+import ACHProtocolPdf from './../../Documents/NACHA_File_Layout_Guide.pdf';
 
 function MenuListItem(props) {
   const components = {
@@ -45,7 +47,8 @@ function LeftNavBar(props) {
             iconName="users"
           />
           
-          <DownloadProtocol />
+          <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
+          <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />
         </ul>
       </div>
     </nav>

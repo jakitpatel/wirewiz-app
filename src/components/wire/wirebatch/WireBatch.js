@@ -5,7 +5,7 @@ import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
 import "./WireBatch.css";
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {WireBatch_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 
@@ -16,7 +16,7 @@ function WireBatch(props) {
   const [toWireslist, setToWireslist] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
-  const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
+  const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -162,25 +162,6 @@ function WireBatch(props) {
       <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${selBatchId}`, state: selWireBatchObj}} />
     );
   }
-
-  function onWireBatchListItemClick(batchItem){
-    console.log(batchItem);
-    console.log("Display Wires List for this Batch");
-    setSelWireBatchObj(batchItem);
-    setToWireslist(true);
-  }
-
-  function WireBatchList(props) {
-    const wireItems = props.items;
-    const listItems = wireItems.map((item) =>
-      <li onClick={e => onWireBatchListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireBatchID}>
-        {item.wireBatchID} - {item.status}
-      </li>
-    );
-    return (
-      <ul className="list-group">{listItems}</ul>
-    );
-  }
   
   console.log("Properties", props);
   const initialSortState = {
@@ -190,15 +171,13 @@ function WireBatch(props) {
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      /*<WireBatchList items={wirebatchlist} />*/
       <Listview
         items={wirebatchlist}
         columnDefs={columnDefs}
         sortBy={initialSortState}
       />
     );
-  
-  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
+
   return (
     <React.Fragment>
       <div className="container">

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
@@ -12,8 +11,6 @@ import {API_KEY} from './../../../const';
 function ACHFileRecord(props) {
   const [loading, setLoading] = useState(true);
   const [achfilerecord, setAchfilerecord] = useState([]);
-  const [selACHFileRecObj, setSelACHFileRecObj] = useState({});
-  const [toACHBatchRecord, setToACHBatchRecord] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token } = useSelector(state => {
@@ -132,9 +129,9 @@ function ACHFileRecord(props) {
       };
       let res = await axios.get(ACHFileRecord_Url, options);
       console.log(res.data);
-      console.log(res.data.resource);
+      //console.log(res.data.resource);
       let achFileRecArray = res.data.resource;
-      console.log(achFileRecArray);
+      //console.log(achFileRecArray);
       setLoading(false);
       setAchfilerecord(achFileRecArray);
     }
@@ -142,15 +139,7 @@ function ACHFileRecord(props) {
     return () => { ignore = true };
   }, [session_token]);
   
-  if (toACHBatchRecord === true) {
-    console.log("toACHBatchRecord : "+toACHBatchRecord);
-    let FileID = selACHFileRecObj.FileID
-    return (
-      <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${FileID}`, state: selACHFileRecObj}} />
-    );
-  }
-  
-  console.log("Properties", props);
+  //console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "FileCreationDateTime", desc: true }]
    }; 
@@ -165,7 +154,6 @@ function ACHFileRecord(props) {
       />
     );
   
-  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
   return (
     <React.Fragment>
       <div className="container">

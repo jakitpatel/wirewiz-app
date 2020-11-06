@@ -54,6 +54,9 @@ function WireDetailForm(props) {
           Object.entries(wireDetailsObj).map(([key, value]) => {
             let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg";
             if(!str.includes(key)){
+              if(value===null){
+                value = "";
+              }
               if(key==="errorMsg"){
                 return (
                   <div key={key} className="col-sm-12">
@@ -108,6 +111,8 @@ function WireDetailForm(props) {
                   </div>
                 )
               }
+            } else {
+              return null;
             }
           })
         }

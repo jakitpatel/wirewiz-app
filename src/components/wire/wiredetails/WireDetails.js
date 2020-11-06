@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {WireDictionary_Url, Wire_tbl_Url} from './../../../const';
 import {API_KEY} from './../../../const';
-import { CSVLink, CSVDownload } from "react-csv";
-import { Download } from "react-feather";
+import { CSVLink } from "react-csv";
 import DownloadExcel from "./ExcelDownload";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
@@ -331,11 +330,10 @@ function WireDetails(props) {
   const [downloadexcel, setDownloadexcel] = useState(false);
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
-  const [toCustomer, setToCustomer] = useState(false);
   const [wireText, setWireText] = useState("");
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { session_token, name, email, host, uid} = useSelector(state => {
+  const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -437,16 +435,9 @@ function WireDetails(props) {
     }
   }
 
-  if (toCustomer === true) {
-    console.log("toCustomer : "+toCustomer);
-    return (
-      <Redirect to={{ pathname: "/customers"}} />
-    );
-  }
-
   let csvArray = [];
   csvArray.push(wireDetailsObj);
-  let csvFileName = "wire-"+wireID+".csv";
+  //let csvFileName = "wire-"+wireID+".csv";
   let txtFileName = "wire-"+wireID+".txt";
   let excelFileName = "wire-"+wireID;
 

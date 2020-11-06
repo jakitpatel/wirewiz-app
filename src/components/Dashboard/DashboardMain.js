@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector } from 'react-redux';
 import preval from 'preval.macro';
 
 function DashboardMain(props) {
-    const { session_token, name, email, host} = useSelector(state => {
+    const { name } = useSelector(state => {
         return {
             ...state.userReducer
         }
     });
-    console.log("name : ");
-    console.log(name);
+    console.log("name : "+name);
     return (
         <React.Fragment>
             <div className="container">

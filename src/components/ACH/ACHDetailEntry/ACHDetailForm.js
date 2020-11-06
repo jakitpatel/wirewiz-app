@@ -7,7 +7,7 @@ function CustTextInput(props) {
   let fieldClass = "form-control";
   let errorMsg = props.wireDtObj.errorMsg;
   //let errorMsg = props.wireDtObj.derivedErrorMsg;
-  console.log("errorMsg : "+errorMsg);
+  //console.log("errorMsg : "+errorMsg);
   if(errorMsg !== null && errorMsg !== "undefined" && errorMsg !== undefined){
     let n = errorMsg.includes(fieldName);
     if(n === true){
@@ -54,60 +54,23 @@ function ACHDetailForm(props) {
           Object.entries(wireDetailsObj).map(([key, value]) => {
             let str = "wireID wireBatchID ACHBatchRecord_by_BatchID derivedErrorMsg";
             if(!str.includes(key)){
-              if(key==="errorMsg"){
-                return (
-                  <div key={key} className="col-sm-12">
-                    <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">errorMsg</label>
-                      <div className="col-sm-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="3" 
-                          name="errorMsg"
-                          value={value}
-                          ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                )
-              } else if(key==="textWireMsg"){
-                let valueSt = "";
-                if(value !== null && value !== ""){
-                  let msgArr = value.split("{");
-                  for (let i = 1; i < msgArr.length; i++) {
-                    msgArr[i] = "{"+msgArr[i] + "\n";
-                  }
-                  valueSt = msgArr.join("");
-                }
-                return (
-                  <div key={key} className="col-sm-12">
-                    <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">textWireMsg</label>
-                      <div className="col-sm-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="3" 
-                          name="textWireMsg"
-                          value={valueSt}
-                          ></textarea>
-                      </div>
-                    </div>
-                  </div>
-                )
-              } else {
-                return (
-                  <div key={key} className="col-sm-4">
-                    <CustTextInput
-                      placeholdertext={key}
-                      labelText={key}
-                      nameref={key}
-                      inputchange={props.oncustinputchange}
-                      val={value}
-                      wireDtObj={wireDetailsObj}
-                    />
-                  </div>
-                )
+              if(value===null){
+                value = "";
               }
+              return (
+                <div key={key} className="col-sm-4">
+                  <CustTextInput
+                    placeholdertext={key}
+                    labelText={key}
+                    nameref={key}
+                    inputchange={props.oncustinputchange}
+                    val={value}
+                    wireDtObj={wireDetailsObj}
+                  />
+                </div>
+              )
+            } else {
+              return null;
             }
           })
         }

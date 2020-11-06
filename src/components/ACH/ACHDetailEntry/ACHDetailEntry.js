@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
@@ -12,9 +12,6 @@ import {API_KEY} from './../../../const';
 function ACHDetailEntry(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [achdetailentry, setAchdetailentry] = useState([]);
-  const [selACHFileRecObj, setSelACHFileRecObj] = useState({});
-  const [toACHBatchRecord, setToACHBatchRecord] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const dispatch = useDispatch();
@@ -169,15 +166,7 @@ function ACHDetailEntry(props) {
     }
     fetchACHDetailEntry();
     return () => { ignore = true };
-  }, [session_token]);
-  
-  if (toACHBatchRecord === true) {
-    console.log("toACHBatchRecord : "+toACHBatchRecord);
-    let FileID = selACHFileRecObj.FileID
-    return (
-      <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${FileID}`, state: selACHFileRecObj}} />
-    );
-  }
+  }, [BatchID, dispatch, session_token]);
   
   console.log("Properties", props);
   const initialSortState = {
@@ -193,8 +182,7 @@ function ACHDetailEntry(props) {
         sortBy={initialSortState}
       />
     );
-  
-  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
+
   return (
     <React.Fragment>
       <div className="container">

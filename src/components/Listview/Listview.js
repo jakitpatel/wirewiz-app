@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useTable, useSortBy } from 'react-table'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip';
@@ -54,7 +54,7 @@ function Table({getTbdProps, columns, data, initialState }) {
     setHiddenColumns(
       columns.filter(column => !column.show).map(column => column.id)
     );
-  }, [columns]);
+  }, [columns, setHiddenColumns]);
 
   // Render the UI for your table
   return (

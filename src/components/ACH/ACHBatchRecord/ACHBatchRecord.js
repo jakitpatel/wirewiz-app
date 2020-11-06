@@ -145,7 +145,7 @@ function ACHBatchRecord(props) {
     }
     fetchACHBatchRecord();
     return () => { ignore = true };
-  }, [session_token]);
+  }, [FileID, session_token]);
   
   if (toACHBatchRecord === true) {
     console.log("toACHBatchRecord : "+toACHBatchRecord);
@@ -170,7 +170,6 @@ function ACHBatchRecord(props) {
       />
     );
   
-  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
   return (
     <React.Fragment>
       <div className="container">

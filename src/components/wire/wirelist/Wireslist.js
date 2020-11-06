@@ -14,14 +14,12 @@ function Wireslist(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [selWireObj, setSelWireObj] = useState({});
-  const [wirelist, setWirelist] = useState([]);
-  const [toEditcustomer, setToEditcustomer] = useState(false);
   const [toWiredetails, setToWiredetails] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
   
   const dispatch = useDispatch();
 
-  const { session_token, name, email, host, CUSTOMER_ENABLER, CUSTOMER_MODIFY_CREATE} = useSelector(state => {
+  const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -170,12 +168,8 @@ function Wireslist(props) {
     }
     fetchWireList();
     return () => { ignore = true; console.log("WireList Unmonted"); };
-  }, [session_token]);
+  }, [batchId, dispatch, session_token]);
 
-  function handleEditCustomer(key) {
-    console.log("handle Edit Customer : " + key);
-    setToEditcustomer(true);
-  }
 
   if (toWiredetails === true) {
     console.log("toWiredetails : "+toWiredetails);
@@ -185,30 +179,6 @@ function Wireslist(props) {
     );
   }
 
-  if (toEditcustomer === true) {
-    return (
-      <Redirect to={{ pathname: "/editcustomer", state: props.original }} />
-    );
-  }
-
-  function onWireListItemClick(wireItem){
-    console.log(wireItem);
-    console.log("Display Wire Details for this wireID : ");
-    setSelWireObj(wireItem);
-    setToWiredetails(true);
-  }
-
-  function WireListView(props) {
-    const wireItems = props.items;
-    const listItems = wireItems.map((item) =>
-      <li onClick={e => onWireListItemClick(item)} className="list-group-item list-group-item-action" key={item.wireID}>
-        {item.wireCtlID} - {item.wireID} - {item.status}
-      </li>
-    );
-    return (
-      <ul className="list-group">{listItems}</ul>
-    );
-  }
   console.log("wires", wires);
   console.log("Properties", props);
   /*const initialSortState = {
@@ -218,14 +188,12 @@ function Wireslist(props) {
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      /*<WireListView items={wirelist} />*/
       <Listview
         items={wires}
         columnDefs={columnDefs}
       />
     );
-  
-  //console.log("CUSTOMER_MODIFY_CREATE : "+ CUSTOMER_MODIFY_CREATE);
+
   return (
     <React.Fragment>
       <div className="container">

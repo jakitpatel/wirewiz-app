@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactExport from "react-data-export";
 
 const ExcelFile = ReactExport.ExcelFile;

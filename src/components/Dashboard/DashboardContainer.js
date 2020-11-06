@@ -4,7 +4,6 @@ import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
 import Wiredetails from "./../wire/wiredetails/WireDetails";
-import Addeditcustomer from "./../customer/addeditcustomer";
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
 import DashboardMain from "./DashboardMain";
@@ -12,17 +11,7 @@ import ACHFileRecord from "./../ACH/ACHFileRecord/ACHFileRecord.js"
 import ACHBatchRecord from "./../ACH/ACHBatchRecord/ACHBatchRecord.js"
 import ACHDetailEntry from "./../ACH/ACHDetailEntry/ACHDetailEntry.js"
 import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
-import { useSelector, useDispatch } from 'react-redux';
-
-const CustomerWrap = props => {
-  console.log(props);
-  return <Addeditcustomer disType="edit" custdata={props.location.state} />;
-};
-
-const CustomerCloneWrap = props => {
-  console.log(props);
-  return <Addeditcustomer disType="clone" custdata={props.location.state} />;
-};
+import { useSelector } from 'react-redux';
 
 const routes = [
   {
@@ -64,7 +53,7 @@ function DashboardContainer(props) {
   const [mainpage, setMainpage] = useState(true);
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   
-  const { session_token, name, email, host} = useSelector(state => {
+  const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }

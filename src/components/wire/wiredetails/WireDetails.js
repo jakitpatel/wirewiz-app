@@ -326,7 +326,6 @@ function WireDetails(props) {
   let stateObj = initialstateObj;
   let history = useHistory();
 
-  const [count, setCount] = useState(0);
   const [downloadexcel, setDownloadexcel] = useState(false);
   const [loading, setLoading] = useState(true);
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
@@ -346,6 +345,12 @@ function WireDetails(props) {
   });
 
   let { wireID } = useParams();
+  
+  useEffect(() => {
+    if (downloadexcel) {
+      setDownloadexcel(false);
+    }
+  }, [downloadexcel]);
 
   useEffect(() => {
     console.log("WireId : "+wireID);
@@ -495,19 +500,10 @@ function WireDetails(props) {
 
   const onWireExport = () => {
     console.log("On Wire Export Button Click");
-    //setDownloadexcel(false);
     setDownloadexcel(!downloadexcel);
-    //setCount(count + 1);
     handleWireStatusChange();
   }
-  if(downloadexcel===true && count === 0){
-    setCount(count + 1);
-  }
-  /*if(downloadexcel===false && count!==0){
-    setDownloadexcel(true);
-  }*/
-  console.log("count : "+ count);
-  console.log("setDownloadExcel : "+ downloadexcel);
+  console.log("DownloadExcel Val: "+ downloadexcel);
   return (
     <React.Fragment>
       <Modal show={isOpen} onHide={hideModal}>

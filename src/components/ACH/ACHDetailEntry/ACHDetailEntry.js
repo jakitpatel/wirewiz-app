@@ -46,7 +46,7 @@ function ACHDetailEntry(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/ACHDetails/${achDetailRecordObj.DetailID}`,
+              pathname: `${process.env.PUBLIC_URL}/ACHDetails/${achDetailRecordObj.entryDetailID}`,
               state: obj.row.original
             }}
           >
@@ -57,9 +57,9 @@ function ACHDetailEntry(props) {
     },
     {
       headerName: "DetailID",
-      field: "DetailID",
+      field: "entryDetailID",
       Header: "DetailID",
-      accessor: "DetailID"
+      accessor: "entryDetailID"
     },
     {
       headerName: "BatchID",

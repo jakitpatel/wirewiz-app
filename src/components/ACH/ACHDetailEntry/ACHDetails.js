@@ -29,7 +29,7 @@ function ACHDetails(props) {
     let ignore = false;
    //console.log("wires");
    //console.log(wires);
-   let achDetailsObj = achdetails.find((achdetail) => achdetail.DetailID === parseInt(DetailID));
+   let achDetailsObj = achdetails.find((achdetail) => achdetail.entryDetailID === parseInt(DetailID));
    //console.log("wireDetailsObj");
    if(achDetailsObj){
     console.log(achDetailsObj);

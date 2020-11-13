@@ -134,8 +134,8 @@ function ACHBatchRecord(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHBatchRecord_Url, options);
-      let res = await axios.get(ACHBatchRecord_Url+ "FileID='"+FileID+"'", options);
+      let res = await axios.get(ACHBatchRecord_Url, options);
+      //let res = await axios.get(ACHBatchRecord_Url+ "FileID='"+FileID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achBatchRecArray = res.data.resource;
@@ -172,7 +172,7 @@ function ACHBatchRecord(props) {
   
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">ACHBatchRecord List - File {FileID}</h3>

@@ -151,8 +151,8 @@ function ACHDetailEntry(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHDetailEntry_Url, options);
-      let res = await axios.get(ACHDetailEntry_Url+ "BatchID='"+BatchID+"'", options);
+      let res = await axios.get(ACHDetailEntry_Url, options);
+      //let res = await axios.get(ACHDetailEntry_Url+ "BatchID='"+BatchID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achDetailEntryArray = res.data.resource;
@@ -185,7 +185,7 @@ function ACHDetailEntry(props) {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">ACHEntryDetail List - Batch {BatchID}</h3>

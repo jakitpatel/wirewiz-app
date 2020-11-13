@@ -67,12 +67,12 @@ function ACHDetailEntry(props) {
       Header: "BatchID",
       accessor: "batchRecordID"
     },
-    {
+    /*{
       headerName: "FileID",
       field: "fileRecordID",
       Header: "FileID",
       accessor: "fileRecordID"
-    },
+    },*/
     {
       name: "TransactionCode",
       field: "TransactionCode",

@@ -63,15 +63,15 @@ function ACHDetailEntry(props) {
     },
     {
       headerName: "BatchID",
-      field: "BatchID",
+      field: "batchRecordID",
       Header: "BatchID",
-      accessor: "BatchID"
+      accessor: "batchRecordID"
     },
     {
       headerName: "FileID",
-      field: "FileID",
+      field: "fileRecordID",
       Header: "FileID",
-      accessor: "FileID"
+      accessor: "fileRecordID"
     },
     {
       name: "TransactionCode",
@@ -152,7 +152,7 @@ function ACHDetailEntry(props) {
         }
       };
       //let res = await axios.get(ACHDetailEntry_Url, options);
-      let res = await axios.get(ACHDetailEntry_Url+ "BatchID='"+BatchID+"'", options);
+      let res = await axios.get(ACHDetailEntry_Url+ "batchRecordID='"+BatchID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achDetailEntryArray = res.data.resource;

@@ -41,7 +41,7 @@ function ACHBatchRecord(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/ACHDetailEntry/${achBatchRecordObj.BatchID}`,
+              pathname: `${process.env.PUBLIC_URL}/ACHDetailEntry/${achBatchRecordObj.batchRecordID}`,
               state: obj.row.original
             }}
           >
@@ -52,9 +52,9 @@ function ACHBatchRecord(props) {
     },
     {
       headerName: "BatchID",
-      field: "BatchID",
+      field: "batchRecordID",
       Header: "BatchID",
-      accessor: "BatchID"
+      accessor: "batchRecordID"
     },
     {
       name: "ServiceClassCode",
@@ -135,7 +135,7 @@ function ACHBatchRecord(props) {
         }
       };
       //let res = await axios.get(ACHBatchRecord_Url, options);
-      let res = await axios.get(ACHBatchRecord_Url+ "FileID='"+FileID+"'", options);
+      let res = await axios.get(ACHBatchRecord_Url+ "fileRecordID='"+FileID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achBatchRecArray = res.data.resource;

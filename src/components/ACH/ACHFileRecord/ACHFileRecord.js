@@ -34,7 +34,7 @@ function ACHFileRecord(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/ACHBatchRecord/${achFileRecordObj.FileID}`,
+              pathname: `${process.env.PUBLIC_URL}/ACHBatchRecord/${achFileRecordObj.fileRecordID}`,
               state: obj.row.original
             }}
           >
@@ -45,9 +45,9 @@ function ACHFileRecord(props) {
     },
     {
       headerName: "FileID",
-      field: "FileID",
+      field: "fileRecordID",
       Header: "FileID",
-      accessor: "FileID"
+      accessor: "fileRecordID"
     },
     {
       name: "PriorityCode",

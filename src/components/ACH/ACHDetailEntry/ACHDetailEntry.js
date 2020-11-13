@@ -151,8 +151,8 @@ function ACHDetailEntry(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let res = await axios.get(ACHDetailEntry_Url, options);
-      //let res = await axios.get(ACHDetailEntry_Url+ "BatchID='"+BatchID+"'", options);
+      //let res = await axios.get(ACHDetailEntry_Url, options);
+      let res = await axios.get(ACHDetailEntry_Url+ "BatchID='"+BatchID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achDetailEntryArray = res.data.resource;

@@ -134,8 +134,8 @@ function ACHBatchRecord(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let res = await axios.get(ACHBatchRecord_Url, options);
-      //let res = await axios.get(ACHBatchRecord_Url+ "FileID='"+FileID+"'", options);
+      //let res = await axios.get(ACHBatchRecord_Url, options);
+      let res = await axios.get(ACHBatchRecord_Url+ "FileID='"+FileID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achBatchRecArray = res.data.resource;

@@ -3,12 +3,14 @@ import userReducer from './userReducer';
 import customerReducer from './customerReducer';
 import wiresReducer from './wiresReducer';
 import achReducer from './achReducer';
+import achAddendaReducer from './achAddendaReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
     userReducer,
     wiresReducer,
-    achReducer
+    achReducer,
+    achAddendaReducer
 });
 
 export default rootReducer;

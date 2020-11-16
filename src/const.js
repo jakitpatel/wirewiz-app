@@ -13,6 +13,7 @@ export const WireDictionary_Url = API_URL+"cfsb_sqlserver/_table/wireDictionary"
 export const ACHFileRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHFileRecord_NEW";  // For Production Env
 export const ACHBatchRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHBatchRecord_NEW?filter=";  // For Production Env
 export const ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHEntryDetail_NEW?filter=";  // For Production Env
+export const ACHAddendaList_Url = API_URL+"cfsb_sqlserver/_table/ACHAddendaRecord_NEW?filter=";  // For Production Env
 
 /*
 export const API_URL = "http://localhost:3001/";  // For Local Env
@@ -27,4 +28,5 @@ export const WireDictionary_Url = API_URL+"wireDictionary";  // For Local Env
 export const ACHFileRecord_Url = API_URL+"ACHFileRecord";  // For Local Env
 export const ACHBatchRecord_Url = API_URL+"ACHBatchRecord";  // For Local Env
 export const ACHDetailEntry_Url = API_URL+"ACHEntryDetail";  // For Local Env
+export const ACHAddendaList_Url = API_URL+"ACHAddendaRecord_NEW";  // For Local Env
 */

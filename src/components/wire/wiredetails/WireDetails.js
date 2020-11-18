@@ -473,6 +473,17 @@ function WireDetails(props) {
       let tmpWireObj = {};
       tmpWireObj.status = 3;
       tmpWireObj.wireID = wireDetailsObj.wireID;
+      
+      var d = new Date();
+      var yr = d.getFullYear();
+      var month = d.getMonth()+1;
+      var hh = d.getHours();
+      var mm = d.getMinutes();
+      var ss = d.getSeconds();
+      var dt = d.getDate();
+      var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
+      tmpWireObj.completeDateTime = datefull;
+
       let res = await axios.put(Wire_tbl_Url+"/"+wireDetailsObj.wireID, tmpWireObj, options);
       console.log(res);
       alert("Status updated successfully!");
@@ -516,7 +527,7 @@ function WireDetails(props) {
           <button style={{ width:"70px" }} className="btn btn-primary btn-sm" onClick={hideModal}>Cancel</button>
         </Modal.Footer>
       </Modal>
-      <div className="container">
+      <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>

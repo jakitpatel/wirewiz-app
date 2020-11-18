@@ -77,17 +77,20 @@ function WireBatch(props) {
         );
       }
     },
+    /*
     {
       name: "errorMsg",
       field: "errorMsg",
       Header: "errorMsg",
       accessor: "errorMsg"
     },
+    */
     {
       headerName: "CreateDateTime",
       field: "createDateTime",
       Header: "CreateDateTime",
-      accessor: "createDateTime"
+      accessor: "createDateTime",
+      width: 200
     },
     {
       name: "completeDateTime",
@@ -180,7 +183,7 @@ function WireBatch(props) {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">WireBatch List</h3>

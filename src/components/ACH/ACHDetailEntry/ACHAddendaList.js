@@ -113,8 +113,8 @@ function ACHAddendaList(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHAddendaList_Url, options);
-      let res = await axios.get(ACHAddendaList_Url+ "entryDetailID='"+entryDetailID+"'", options);
+      let res = await axios.get(ACHAddendaList_Url, options);
+      //let res = await axios.get(ACHAddendaList_Url+ "entryDetailID='"+entryDetailID+"'", options);
       console.log(res.data);
       console.log(res.data.resource);
       let achAddendaList = res.data.resource;

@@ -196,7 +196,7 @@ function Wireslist(props) {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">Wire List - Batch {batchId}</h3>

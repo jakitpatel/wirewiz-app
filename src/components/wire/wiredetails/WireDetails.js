@@ -392,7 +392,7 @@ function WireDetails(props) {
             if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
               console.log(obj.tag+"--"+fieldName+"--"+val);
               if(typeof val == "string"){
-                val = val.trim();
+                //val = val.trim();
               }
               if(fieldName.includes("sendersChargesAmount")){
                 val = val.toString().replace(".", ",");

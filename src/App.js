@@ -14,7 +14,7 @@ function App(props) {
   console.log(process.env.PUBLIC_URL);
   return (
     <React.Fragment>
-      <Router >
+      <Router>
       <Provider store = {store}>
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />

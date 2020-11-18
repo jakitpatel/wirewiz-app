@@ -8,13 +8,16 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import {WireBatch_Url} from './../../../const';
 import {API_KEY} from './../../../const';
+import { useLocation } from 'react-router-dom';
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(true);
+  const [wireBatchLoad, setWireBatchLoad] = useState(false);
   const [wirebatchlist, setWirebatchlist] = useState([]);
   const [selWireBatchObj, setSelWireBatchObj] = useState({});
   const [toWireslist, setToWireslist] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
+  const location = useLocation();
 
   const { session_token } = useSelector(state => {
       return {
@@ -135,7 +138,7 @@ function WireBatch(props) {
       accessor: "numError"
     }
   ];
-
+ 
   useEffect(() => {
     console.log("WireBatch UseEffect");
     let ignore = false;
@@ -153,10 +156,11 @@ function WireBatch(props) {
       console.log(wireArray);
       setLoading(false);
       setWirebatchlist(wireArray);
+      setWireBatchLoad(true);
     }
     fetchWireBatchList();
     return () => { ignore = true };
-  }, [session_token]);
+  }, [session_token,location.key]);
   
   if (toWireslist === true) {
     console.log("toWireslist : "+toWireslist);
@@ -167,6 +171,7 @@ function WireBatch(props) {
   }
   
   console.log("Properties", props);
+  console.log("wireBatchLoad : "+location.key);
   const initialSortState = {
     sortBy: [{ id: "wireBatchID", desc: true }]
    }; 

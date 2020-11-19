@@ -540,7 +540,7 @@ function WireDetails(props) {
           <button style={{ width:"70px" }} className="btn btn-primary btn-sm" onClick={hideModal}>Cancel</button>
         </Modal.Footer>
       </Modal>
-      <div className="container" style={{marginLeft:"0px"}}>
+      <div className="container" style={{marginLeft:"0px", maxWidth: "100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>

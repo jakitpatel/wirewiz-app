@@ -33,19 +33,21 @@ function CustTextInput(props) {
     fieldVal = "";
   }
   return (
-    <div className="form-group row">
-      <label className="col-sm-6 col-form-label">{props.labelText}</label>
-      <div className="col-sm-6">
-        <input
-          type="text"
-          data-tip={tooltip}
-          name={fieldName}
-          className={fieldClass}
-          //placeholder={props.placeholdertext}
-          value={fieldVal}
-          onChange={e => props.inputchange(e)}
-          readOnly={props.readOnlyVal}
-        />
+    <div key={props.nameref} className="col-sm-4">
+      <div className="form-group row">
+        <label className="col-sm-6 col-form-label">{props.labelText}</label>
+        <div className="col-sm-6">
+          <input
+            type="text"
+            data-tip={tooltip}
+            name={fieldName}
+            className={fieldClass}
+            //placeholder={props.placeholdertext}
+            value={fieldVal}
+            onChange={e => props.inputchange(e)}
+            readOnly={props.readOnlyVal}
+          />
+        </div>
       </div>
     </div>
   );
@@ -103,7 +105,7 @@ function WireDetailForm(props) {
                 )
               } else {
                 return (
-                  <div key={key} className="col-sm-4">
+                  <React.Fragment key={key}>
                     <CustTextInput
                       placeholdertext={key}
                       labelText={key}
@@ -112,7 +114,7 @@ function WireDetailForm(props) {
                       val={value}
                       wireDtObj={wireDetailsObj}
                     />
-                  </div>
+                  </React.Fragment>
                 )
               }
             } else {

@@ -58,8 +58,8 @@ function CustTextInput(props) {
   return (
     <div key={props.nameref} className="col-sm-4">
       <div className="form-group row">
-        <label data-tip={labelTooltip} className="col-sm-6 col-form-label">{props.labelText}</label>
-        <div className="col-sm-6">
+        <label data-tip={labelTooltip} className="col-sm-5 col-form-label">{props.labelText}</label>
+        <div className="col-sm-7">
           <input
             type="text"
             data-tip={tooltip}

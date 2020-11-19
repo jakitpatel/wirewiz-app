@@ -4,13 +4,15 @@ import customerReducer from './customerReducer';
 import wiresReducer from './wiresReducer';
 import achReducer from './achReducer';
 import achAddendaReducer from './achAddendaReducer';
+import wireDictReducer from './wireDictReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
     userReducer,
     wiresReducer,
     achReducer,
-    achAddendaReducer
+    achAddendaReducer,
+    wireDictReducer
 });
 
 export default rootReducer;

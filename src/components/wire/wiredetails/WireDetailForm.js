@@ -25,6 +25,13 @@ function CustTextInput(props) {
       }
     }
   }
+  let fieldVal = props.val;
+  if(fieldVal === null && fieldClass === "form-control" && tooltip === ""){
+    return null;
+  }
+  if(fieldVal===null){
+    fieldVal = "";
+  }
   return (
     <div className="form-group row">
       <label className="col-sm-6 col-form-label">{props.labelText}</label>
@@ -35,7 +42,7 @@ function CustTextInput(props) {
           name={fieldName}
           className={fieldClass}
           //placeholder={props.placeholdertext}
-          value={props.val}
+          value={fieldVal}
           onChange={e => props.inputchange(e)}
           readOnly={props.readOnlyVal}
         />
@@ -54,9 +61,6 @@ function WireDetailForm(props) {
           Object.entries(wireDetailsObj).map(([key, value]) => {
             let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg";
             if(!str.includes(key)){
-              if(value===null){
-                value = "";
-              }
               if(key==="errorMsg"){
                 return (
                   <div key={key} className="col-sm-12">

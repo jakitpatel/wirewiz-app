@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {WireDictionary_Url, Wire_tbl_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import { CSVLink } from "react-csv";
@@ -331,6 +331,7 @@ function WireDetails(props) {
   const [wireDetailsObj, setWireDetailsObj] = useState(stateObj);
   const [wireText, setWireText] = useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
       return {
@@ -338,9 +339,10 @@ function WireDetails(props) {
       }
   });
 
-  const { wires } = useSelector(state => {
+  const { wires, wiredict } = useSelector(state => {
     return {
-        ...state.wiresReducer
+        ...state.wiresReducer,
+        ...state.wireDictReducer
     }
   });
 
@@ -377,10 +379,17 @@ function WireDetails(props) {
       //console.log(dict);
       var dictObj = JSON.parse(dict);
       console.log(dictObj);
-      //// Start Code for Wire To Tag Value /////
+      dispatch({
+        type:'SETWIREDICTIONARY',
+        payload:dictObj
+      });
+      buildWireTagValue();
+    }
+    //// Start Code for Wire To Tag Value /////
+    function buildWireTagValue(){
       let tagValSt = "";
-      for(var i = 0; i < dictObj.length; i++) {
-        var obj = dictObj[i];
+      for(var i = 0; i < wiredict.length; i++) {
+        var obj = wiredict[i];
         if(obj.tag !== "6500"){
           let elementArr = obj.elements;
           let tagVal = "";
@@ -411,9 +420,13 @@ function WireDetails(props) {
       console.log(tagValSt);
       setWireText(tagValSt);
     }
-    fetchWireDictionary();
+    if(wiredict.length === 0){
+      fetchWireDictionary();
+    } else {
+      buildWireTagValue();
+    }
     return () => { ignore = true };
-  }, [session_token, wireID, wires]);
+  }, [dispatch, session_token, wireID, wiredict.length, wires]);
 
   function handleChange(e) {
     /*

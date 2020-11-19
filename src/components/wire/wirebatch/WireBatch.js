@@ -29,7 +29,7 @@ function WireBatch(props) {
     {
       Header: "View",
       show : true, 
-      width: 40,
+      //width: 40,
       id: 'colView',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option

@@ -1,8 +1,16 @@
 import React from "react";
 import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
+import { useSelector, useDispatch } from 'react-redux';
 
 function CustTextInput(props) {
+
+  const { wiredict } = useSelector(state => {
+    return {
+        ...state.wireDictReducer
+    }
+  });
+
   let fieldName = props.nameref;
   let fieldClass = "form-control";
   let errorMsg = props.wireDtObj.errorMsg;
@@ -25,6 +33,21 @@ function CustTextInput(props) {
       }
     }
   }
+  //// Label Tooltip
+  let labelTooltip = "";
+  let fieldLabel = props.labelText;
+  for(var i = 0; i < wiredict.length; i++) {
+    var obj = wiredict[i];
+    let elementArr = obj.elements;
+    for(var j = 0; j < elementArr.length; j++) {
+      var objElement = elementArr[j];
+      let fieldName = objElement.name;
+      if(fieldName===fieldLabel){
+        labelTooltip += "Protocol Tag = "+obj.tag;
+      }
+    }
+  }
+
   let fieldVal = props.val;
   if(fieldVal === null && fieldClass === "form-control" && tooltip === ""){
     return null;
@@ -35,7 +58,7 @@ function CustTextInput(props) {
   return (
     <div key={props.nameref} className="col-sm-4">
       <div className="form-group row">
-        <label className="col-sm-6 col-form-label">{props.labelText}</label>
+        <label data-tip={labelTooltip} className="col-sm-6 col-form-label">{props.labelText}</label>
         <div className="col-sm-6">
           <input
             type="text"

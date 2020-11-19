@@ -2,6 +2,7 @@ import React from "react";
 import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch } from 'react-redux';
+import WireDocList from './WireDocList';
 
 function CustTextInput(props) {
 
@@ -78,6 +79,7 @@ function CustTextInput(props) {
 
 function WireDetailForm(props) {
   let wireDetailsObj = props.custstate;
+  let wireID = wireDetailsObj.wireID;
   return (
     <React.Fragment>
       <ReactTooltip />
@@ -88,19 +90,22 @@ function WireDetailForm(props) {
             if(!str.includes(key)){
               if(key==="errorMsg"){
                 return (
-                  <div key={key} className="col-sm-12">
-                    <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">errorMsg</label>
-                      <div className="col-sm-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="3" 
-                          name="errorMsg"
-                          value={value}
-                          ></textarea>
+                  <React.Fragment>
+                    <WireDocList wireID={wireID} />
+                    <div key={key} className="col-sm-12">
+                      <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">errorMsg</label>
+                        <div className="col-sm-10">
+                            <textarea 
+                            className="form-control" 
+                            rows="3" 
+                            name="errorMsg"
+                            value={value}
+                            ></textarea>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </React.Fragment>
                 )
               } else if(key==="textWireMsg"){
                 let valueSt = "";

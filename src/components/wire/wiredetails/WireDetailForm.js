@@ -2,7 +2,7 @@ import React from "react";
 import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch } from 'react-redux';
-import WireDocList from './WireDocList';
+import WireRemittanceList from './WireRemittanceList';
 
 function CustTextInput(props) {
 
@@ -16,7 +16,7 @@ function CustTextInput(props) {
   let fieldClass = "form-control";
   let errorMsg = props.wireDtObj.errorMsg;
   //let errorMsg = props.wireDtObj.derivedErrorMsg;
-  console.log("errorMsg : "+errorMsg);
+  //console.log("errorMsg : "+errorMsg);
   if(errorMsg !== null){
     let n = errorMsg.includes(fieldName);
     if(n === true){
@@ -86,13 +86,13 @@ function WireDetailForm(props) {
       <div className="sm-vert-form form-row">
         {
           Object.entries(wireDetailsObj).map(([key, value]) => {
-            let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg";
+            let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
             if(!str.includes(key)){
               if(key==="errorMsg"){
                 return (
                   <React.Fragment>
-                    <WireDocList wireID={wireID} />
                     <div key={key} className="col-sm-12">
+                    <WireRemittanceList wireID={wireID} />
                       <div className="form-group row">
                         <label className="col-sm-2 col-form-label">errorMsg</label>
                         <div className="col-sm-10">

@@ -36,7 +36,7 @@ function WireRemittanceList(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/WireRemittanceView/${wireRemittanceObj.wireRemittanceID}`,
+              pathname: `${process.env.PUBLIC_URL}/WireRemittanceDetails/${wireRemittanceObj.wireRemittanceID}`,
               state: obj.row.original
             }}
           >

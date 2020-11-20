@@ -10,7 +10,7 @@ import {API_KEY} from './../../../const';
 
 function WireDocList(props) {
   //let history = useHistory();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -102,7 +102,8 @@ function WireDocList(props) {
       accessor: "CFEntryDetailSEQ"
     }*/
   ];
-
+  
+  /*
   useEffect(() => {
     console.log("Wire Doc List UseEffect");
     let ignore = false;
@@ -129,7 +130,8 @@ function WireDocList(props) {
     fetchWireDocList();
     return () => { ignore = true };
   }, [wireID, dispatch, session_token]);
-  
+  */
+
   console.log("Properties", props);
   const initialSortState = {}; 
   let disCmp =

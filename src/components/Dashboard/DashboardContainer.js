@@ -4,6 +4,7 @@ import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
 import Wiredetails from "./../wire/wiredetails/WireDetails";
+import WireRemittanceDetails from "./../wire/wiredetails/WireRemittanceDetails.js"
 import NavBar from "./../Navbar/navbar";
 import LeftNavBar from "./../Leftnavbar/leftnavbar";
 import DashboardMain from "./DashboardMain";
@@ -30,6 +31,10 @@ const routes = [
   {
     path: "/wiredetails/:wireID",
     main: () => <Wiredetails />
+  },
+  {
+    path: "/WireRemittanceDetails/:wireRemittanceID",
+    main: () => <WireRemittanceDetails />
   },
   {
     path: "/ach",

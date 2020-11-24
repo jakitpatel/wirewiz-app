@@ -54,10 +54,10 @@ function WireDocList(props) {
       }
     },*/
     {
-      headerName: "wireDocID",
-      field: "wireDocID",
-      Header: "wireDocID",
-      accessor: "wireDocID"
+      headerName: "wireRemittanceDocID",
+      field: "wireRemittanceDocID",
+      Header: "wireRemittanceDocID",
+      accessor: "wireRemittanceDocID"
     },
     {
       headerName: "primaryDocumentTypeCode",
@@ -94,13 +94,109 @@ function WireDocList(props) {
       field: "actualPaidAmount",
       Header: "actualPaidAmount",
       accessor: "actualPaidAmount"
-    }/*,
+    },
     {
-      name: "CFEntryDetailSEQ",
-      field: "CFEntryDetailSEQ",
-      Header: "CFEntryDetailSEQ",
-      accessor: "CFEntryDetailSEQ"
-    }*/
+      name: "grossAmountCurrency",
+      field: "grossAmountCurrency",
+      Header: "grossAmountCurrency",
+      accessor: "grossAmountCurrency"
+    },
+    {
+      name: "grossAmountAmount",
+      field: "grossAmountAmount",
+      Header: "grossAmountAmount",
+      accessor: "grossAmountAmount"
+    },
+    {
+      name: "discountCurrency",
+      field: "discountCurrency",
+      Header: "discountCurrency",
+      accessor: "discountCurrency"
+    },
+    {
+      name: "discountAmount",
+      field: "discountAmount",
+      Header: "discountAmount",
+      accessor: "discountAmount"
+    },
+    {
+      name: "adjustmentReason",
+      field: "adjustmentReason",
+      Header: "adjustmentReason",
+      accessor: "adjustmentReason"
+    },
+    {
+      name: "creditDebit",
+      field: "creditDebit",
+      Header: "creditDebit",
+      accessor: "creditDebit"
+    },
+    {
+      name: "adjustmentCurrency",
+      field: "adjustmentCurrency",
+      Header: "adjustmentCurrency",
+      accessor: "adjustmentCurrency"
+    },
+    {
+      name: "adjustmentAmount",
+      field: "adjustmentAmount",
+      Header: "adjustmentAmount",
+      accessor: "adjustmentAmount"
+    },
+    {
+      name: "adjustmentInfo",
+      field: "adjustmentInfo",
+      Header: "adjustmentInfo",
+      accessor: "adjustmentInfo"
+    },
+    {
+      name: "remitanceDate",
+      field: "remitanceDate",
+      Header: "remitanceDate",
+      accessor: "remitanceDate"
+    },
+    {
+      name: "secondaryDocumentTypeCode",
+      field: "secondaryDocumentTypeCode",
+      Header: "secondaryDocumentTypeCode",
+      accessor: "secondaryDocumentTypeCode"
+    },
+    {
+      name: "secondaryDocumentProprietary",
+      field: "secondaryDocumentProprietary",
+      Header: "secondaryDocumentProprietary",
+      accessor: "secondaryDocumentProprietary"
+    },
+    {
+      name: "secondaryDocumentID",
+      field: "secondaryDocumentID",
+      Header: "secondaryDocumentID",
+      accessor: "secondaryDocumentID"
+    },
+    {
+      name: "secondaryDocumentIssuer",
+      field: "secondaryDocumentIssuer",
+      Header: "secondaryDocumentIssuer",
+      accessor: "secondaryDocumentIssuer"
+    },
+    {
+      name: "freeText1",
+      field: "freeText1",
+      Header: "freeText1",
+      accessor: "freeText1"
+    },
+    {
+      name: "freeText2",
+      field: "freeText2",
+      Header: "freeText2",
+      accessor: "freeText2"
+    },
+    {
+      name: "freeText3",
+      field: "freeText3",
+      Header: "freeText3",
+      accessor: "freeText3"
+    }
   ];
   
   /*

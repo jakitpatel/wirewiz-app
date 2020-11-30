@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo } from "react";
-import { useTable, useSortBy } from 'react-table'
-import styled from 'styled-components'
+import React, { useEffect, useMemo, useState } from "react";
+import { useTable, useSortBy, useRowSelect } from 'react-table'
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import './Listview.css';
+import './WireListView.css';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -32,8 +33,26 @@ const Styles = styled.div`
     }
   }
 `
-function Table({getTbdProps, columns, data, initialState }) {
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef()
+    const resolvedRef = ref || defaultRef
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate
+    }, [resolvedRef, indeterminate])
+
+    return (
+      <>
+        <input type="checkbox" ref={resolvedRef} {...rest} />
+      </>
+    )
+  }
+)
+
+function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSelectedRowsTb }) {
   // Use the state and functions returned from useTable to build your UI
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -41,23 +60,91 @@ function Table({getTbdProps, columns, data, initialState }) {
     rows,
     getTdProps,
     prepareRow,
-    setHiddenColumns
+    setHiddenColumns,
+    selectedFlatRows,
+    state: { selectedRowIds }
   } = useTable({
     getTbdProps,
     columns,
     data,
-    initialState
+    initialState/*,
+    state: {
+      selectedRowIds: selectedRowsTb
+    }*/
   },
-  useSortBy)
+  useSortBy,
+  useRowSelect,
+  hooks => {
+    hooks.visibleColumns.push(columns => [
+      // Let's make a column for selection
+      {
+        id: 'selection',
+        show : true,
+        minWidth: 45,
+        width: 45,
+        maxWidth: 45,
+        // The header can use the table's getToggleAllRowsSelectedProps method
+        // to render a checkbox
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+          <div>
+            <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+          </div>
+        ),
+        // The cell can use the individual row's getToggleRowSelectedProps method
+        // to the render a checkbox
+        Cell: ({ row }) => {
+          //console.log("Cell Render");
+          //console.log(row);
+          if (row.original.status !== "DONE" && (row.original.errorMsg == null || row.original.errorMsg === "")) {
+            return (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            );
+          } else {
+            row.isSelected = false;
+            return (
+              <div>
+                <IndeterminateCheckbox
+                  checked={false}
+                  readOnly
+                  style={row.getToggleRowSelectedProps().style}
+                />
+              </div>
+            );
+          }
+        }
+        /*
+        Cell: ({ row }) => (
+          <div>
+            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+          </div>
+        ),*/
+      },
+      ...columns,
+    ])
+  })
 
+  useEffect(() => {
+    let selWireArr = [];
+      for(let i=0; i<selectedFlatRows.length; i++){
+        if(selectedFlatRows[i].isSelected)
+        selWireArr.push(selectedFlatRows[i].original);
+      }
+    setSelectedRowsTb(selWireArr);
+    //setSelectedRows(selectedFlatRows);
+    console.log(selectedRowIds);
+  }, [setSelectedRowsTb, selectedRowIds]);
+  /*
   useEffect(() => {
     setHiddenColumns(
       columns.filter(column => !column.show).map(column => column.id)
     );
   }, [columns, setHiddenColumns]);
-
+  */
   // Render the UI for your table
   return (
+    <React.Fragment>
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
@@ -92,15 +179,21 @@ function Table({getTbdProps, columns, data, initialState }) {
         })}
       </tbody>
     </table>
+    </React.Fragment>
   )
 }
 
- function Listview(props) {
+ function WireListView(props) {
    console.log(props.items);
    const data = React.useMemo(() => props.items, [props.items])
  
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
    
+   //const [selectedRows, setSelectedRows] = useState([]);
+
+   //const dispatch = useDispatch();
+   let { selectedRows, setSelectedRows } = props;
+
    const initialState = props.sortBy;
    //console.log(initialState);
    const onRowClick = (state, rowInfo, column, instance) => {
@@ -129,12 +222,17 @@ function Table({getTbdProps, columns, data, initialState }) {
         }
       }
     }
+    console.log(selectedRows);    
    return (
     <Styles>
       <ReactTooltip place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
-      <Table getTdProps={onRowClick} columns={columns} data={data} initialState={initialState} />
+      <Table getTdProps={onRowClick} 
+        columns={columns} data={data} 
+        initialState={initialState} 
+        selectedRowsTb={selectedRows}
+        setSelectedRowsTb={setSelectedRows} />
     </Styles>
   )
  }
 
- export default Listview;
+ export default WireListView;

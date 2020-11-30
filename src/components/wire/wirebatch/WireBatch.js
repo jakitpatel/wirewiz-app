@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
@@ -12,11 +11,7 @@ import { useLocation } from 'react-router-dom';
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(true);
-  const [wireBatchLoad, setWireBatchLoad] = useState(false);
   const [wirebatchlist, setWirebatchlist] = useState([]);
-  const [selWireBatchObj, setSelWireBatchObj] = useState({});
-  const [toWireslist, setToWireslist] = useState(false);
-  const button = <button className="btn btn-primary btn-sm">Edit</button>;
   const location = useLocation();
 
   const { session_token } = useSelector(state => {
@@ -29,8 +24,8 @@ function WireBatch(props) {
     {
       Header: "View",
       show : true, 
-      //width: 40,
-      id: 'colView',
+      width: 55,
+      //id: 'colView',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
       Cell: obj => {
@@ -50,7 +45,6 @@ function WireBatch(props) {
       }
     },
     {
-      headerName: "wireBatchID",
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID"
@@ -80,26 +74,19 @@ function WireBatch(props) {
         );
       }
     },
-    /*
     {
-      name: "errorMsg",
-      field: "errorMsg",
-      Header: "errorMsg",
-      accessor: "errorMsg"
-    },
-    */
-    {
-      headerName: "CreateDateTime",
+      //headerName: "CreateDateTime",
       field: "createDateTime",
       Header: "CreateDateTime",
       accessor: "createDateTime",
-      width: 200
+      width:190
     },
     {
       name: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",
-      accessor: "completeDateTime"
+      accessor: "completeDateTime",
+      width:190
     },
     {
       name: "arrivalMode",
@@ -114,25 +101,21 @@ function WireBatch(props) {
       accessor: "numWires"
     },
     {
-      headerName: "numTransfer",
       field: "numTransfer",
       Header: "NumTransfer",
       accessor: "numTransfer"
     },
     {
-      headerName: "numCancel",
       field: "numCancel",
       Header: "NumCancel",
       accessor: "numCancel"
     },
     {
-      headerName: "numReversal",
       field: "numReversal",
       Header: "NumReversal",
       accessor: "numReversal"
     },
     {
-      headerName: "numError",
       field: "numError",
       Header: "NumError",
       accessor: "numError"
@@ -150,25 +133,16 @@ function WireBatch(props) {
         }
       };
       let res = await axios.get(WireBatch_Url, options);
-      console.log(res.data);
+      //console.log(res.data);
       console.log(res.data.resource);
       let wireArray = res.data.resource;
-      console.log(wireArray);
-      setLoading(false);
+      //console.log(wireArray);
       setWirebatchlist(wireArray);
-      setWireBatchLoad(true);
+      setLoading(false);
     }
     fetchWireBatchList();
     return () => { ignore = true };
   }, [session_token,location.key]);
-  
-  if (toWireslist === true) {
-    console.log("toWireslist : "+toWireslist);
-    let selBatchId = selWireBatchObj.wireBatchID
-    return (
-      <Redirect to={{ pathname: `${process.env.PUBLIC_URL}/wireslist/${selBatchId}`, state: selWireBatchObj}} />
-    );
-  }
   
   console.log("Properties", props);
   console.log("wireBatchLoad : "+location.key);
@@ -188,7 +162,7 @@ function WireBatch(props) {
 
   return (
     <React.Fragment>
-      <div className="container" style={{marginLeft:"0px"}}>
+      <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">WireBatch List</h3>

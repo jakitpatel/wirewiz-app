@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Listview from "./../../Listview/Listview";
+import { CSVLink } from "react-csv";
+//import Listview from "./../../Listview/Listview";
+import WireListView from "./WireListView.js";
 import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {Wires_Url} from './../../../const';
+import {Wires_Url, WireDictionary_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [wireText, setWireText] = useState("");
+  const [selectedRows, setSelectedRows] = useState([]);
+
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
@@ -25,9 +30,10 @@ function Wireslist(props) {
       }
   });
 
-  const { wires } = useSelector(state => {
+  const { wires, wiredict } = useSelector(state => {
     return {
-        ...state.wiresReducer
+        ...state.wiresReducer,
+        ...state.wireDictReducer
     }
   });
 
@@ -38,7 +44,7 @@ function Wireslist(props) {
     {
       Header: "View",
       show : true, 
-      width: 40,
+      width: 55,
       id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
@@ -145,6 +151,25 @@ function Wireslist(props) {
 
   useEffect(() => {
     let ignore = false;
+    async function fetchWireDictionary() {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let res = await axios.get(WireDictionary_Url, options);
+      //console.log(res.data);
+      //console.log(res.data.resource);
+      let dict = res.data.resource[0].dict;
+      //console.log(dict);
+      var dictObj = JSON.parse(dict);
+      console.log(dictObj);
+      dispatch({
+        type:'SETWIREDICTIONARY',
+        payload:dictObj
+      });
+    }
     async function fetchWireList() {
       const options = {
         headers: {
@@ -163,8 +188,10 @@ function Wireslist(props) {
         payload:wireArray
       });
       setLoading(false);
-      //console.log(wires);
-      //setWirelist(wireArray);
+      /// Load Dictionary & build tag value
+      if(wiredict.length === 0){
+        fetchWireDictionary();
+      }
     }
     fetchWireList();
     return () => { ignore = true; console.log("WireList Unmonted"); };
@@ -179,18 +206,74 @@ function Wireslist(props) {
     );
   }
 
+  let txtFileName = "wireapp.export."+batchId+".txt";
+  let showExportBtn = true;
+  const onWireExport = (event) => {
+    console.log("On Wire Export Button Click");
+    console.log(selectedRows);
+    if(selectedRows.length > 0){
+      buildWireTagValue();
+    } else {
+      console.log("Return From File Export");
+      return false;
+    }
+  }
+
+  //// Start Code for Wire To Tag Value /////
+  function buildWireTagValue(){
+    let tagValSt = "";
+    for(let k=0; k<selectedRows.length;k++){
+      let wireDetailsObj = selectedRows[k];
+      for(var i = 0; i < wiredict.length; i++) {
+        var obj = wiredict[i];
+        if(obj.tag !== "6500"){
+          let elementArr = obj.elements;
+          let tagVal = "";
+          for(var j = 0; j < elementArr.length; j++) {
+            var objElement = elementArr[j];
+            //console.log(objElement.name);
+            let fieldName = objElement.name;
+            let val = wireDetailsObj[fieldName];
+            if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
+              //console.log(obj.tag+"--"+fieldName+"--"+val);
+              if(typeof val == "string"){
+                //val = val.trim();
+              }
+              if(fieldName.includes("sendersChargesAmount")){
+                val = val.toString().replace(".", ",");
+              }
+              tagVal += val;
+              if((val.length < objElement.length) || (objElement.delimiter === "*")){
+                tagVal += "*";
+              }
+            }
+          }
+          if(tagVal!==null && tagVal!==""){
+            tagValSt += "{"+obj.tag+"}"+tagVal;
+          }
+        }
+      }
+      console.log(tagValSt);
+      tagValSt += "\r\n";
+    }
+    setWireText(tagValSt);
+  }
+  
   console.log("wires", wires);
   console.log("Properties", props);
-  /*const initialSortState = {
-    sortBy: [{ id: "wireID", desc: true }]
-   };*/
+  const initialSortState = {
+    //sortBy: [{ id: "wireID", desc: true }]
+   };
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      <Listview
+      <WireListView
         items={wires}
         columnDefs={columnDefs}
+        sortBy={initialSortState}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
       />
     );
 
@@ -204,6 +287,22 @@ function Wireslist(props) {
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
+              {showExportBtn &&
+                <React.Fragment>
+                  <CSVLink
+                        data={wireText}
+                        filename={txtFileName}
+                        className="btn btn-primary btn-sm"
+                        style={{ float: "right" }}
+                        target="_blank"
+                        onClick={(event) => { 
+                          return onWireExport(event);
+                        }
+                      }
+                      >Export</CSVLink>
+                </React.Fragment>
+              }
+              <div style={{ clear:"both"}}></div>
             </div>
             {disCmp}
           </div>

@@ -20,6 +20,7 @@ function WireDetails(props) {
   const [loading, setLoading] = useState(true);
   const [wireText, setWireText] = useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+  const [modWireDtObj, setModWireDtObj] = useState({});
   const dispatch = useDispatch();
 
   const { session_token, WIRE_MODIFY_CREATE, WIRE_EXPORT } = useSelector(state => {
@@ -151,11 +152,37 @@ function WireDetails(props) {
       type:'UPDATEWIREDETAILSFORM',
       payload:{ ...wireDetailsObj, [e.target.name]: targetVal }
     });
-    //setWireDetailsObj({ ...wireDetailsObj, [e.target.name]: targetVal });
+    setModWireDtObj({ ...modWireDtObj, [e.target.name]: targetVal });
   }
 
-  const handleWireSave = () => {
+  const handleWireSave = async () => {
     console.log("Handle Wire Save");
+    console.log(modWireDtObj);
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let tmpWireObj = modWireDtObj;
+      tmpWireObj.wireID = wireID;
+      //tmpCustObj.LastUpdateUser = uid;
+      //tmpCustObj.LastUpdateDate = moment().format('YYYY-MM-DD');
+      let res = await axios.put(Wire_tbl_Url+"/"+wireID, tmpWireObj, options);
+      console.log(res);
+      alert("Data saved successfully!");
+      //setToCustomer(true);
+    } catch (error) {
+      console.log(error.response);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
   }
 
   const handleWireRestore = () => {

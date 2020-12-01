@@ -8,13 +8,14 @@ import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {Wires_Url, WireDictionary_Url} from './../../../const';
+import {Wires_Url, Wire_tbl_Url, WireDictionary_Url} from './../../../const';
 import {API_KEY} from './../../../const';
 import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [isRefresh, setIsRefresh] = useState(true)
   const [wireText, setWireText] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -195,7 +196,7 @@ function Wireslist(props) {
     }
     fetchWireList();
     return () => { ignore = true; console.log("WireList Unmonted"); };
-  }, [batchId, dispatch, session_token]);
+  }, [batchId, dispatch, session_token, isRefresh]);
 
 
   if (toWiredetails === true) {
@@ -206,6 +207,53 @@ function Wireslist(props) {
     );
   }
 
+  async function handleWireStatusChange() {
+    console.log("handleWireStatusChange");
+    try {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+      let wiresResourceArr = [];
+      for(let k=0; k<selectedRows.length;k++){
+        let wireDetailsObj = selectedRows[k];
+        let tmpWireObj = {};
+        tmpWireObj.status = 3;
+        tmpWireObj.wireID = wireDetailsObj.wireID;
+      
+        var d = new Date();
+        var yr = d.getFullYear();
+        var month = d.getMonth()+1;
+        var hh = d.getHours();
+        var mm = d.getMinutes();
+        var ss = d.getSeconds();
+        var dt = d.getDate();
+        var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
+        tmpWireObj.completeDateTime = datefull;
+
+        wiresResourceArr.push(tmpWireObj);
+      }
+      let wiresUpdateObj = {
+        "resource" : wiresResourceArr
+      };
+      let res = await axios.put(Wire_tbl_Url, wiresUpdateObj, options);
+      console.log(res);
+      alert("Status updated successfully!");
+      setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
+  }
+
   let txtFileName = "wireapp.export."+batchId+".txt";
   let showExportBtn = true;
   const onWireExport = (event) => {
@@ -213,6 +261,7 @@ function Wireslist(props) {
     console.log(selectedRows);
     if(selectedRows.length > 0){
       buildWireTagValue();
+      handleWireStatusChange();
     } else {
       console.log("Return From File Export");
       return false;

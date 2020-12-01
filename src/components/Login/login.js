@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {Login_Url} from './../../const';
+import {Login_Url, API_KEY, Usr_Permission_Url} from './../../const';
 
 import "./login.css";
 function Login(props) {
@@ -41,7 +41,10 @@ function Login(props) {
     // Get the Permission based on UID
     let cust_enabler_val = false;
     let cust_modify_create_val = false;
-    /*
+    let wire_enabler_val       = false;
+    let wire_modify_create_val = false;
+    let wire_export_val = false;
+    let ach_enabler_val = false;
     try {
       const options = {
         headers: {
@@ -52,6 +55,7 @@ function Login(props) {
       console.log(options);
       console.log(Usr_Permission_Url);
       let url = Usr_Permission_Url + "uid='"+email+"'";
+      //let url = Usr_Permission_Url;
       let resPerm = await axios.get(url, options);
       let usrPermArray = resPerm.data.resource;
       console.log(usrPermArray);
@@ -61,6 +65,18 @@ function Login(props) {
         }
         if(usrPermArray[0].CUST_WRITE_PERMISSION){
           cust_modify_create_val = usrPermArray[0].CUST_WRITE_PERMISSION;
+        }
+        if(usrPermArray[0].WIRE_ENABLE_PERMISSION){
+          wire_enabler_val = usrPermArray[0].WIRE_ENABLE_PERMISSION;
+        }
+        if(usrPermArray[0].WIRE_WRITE_PERMISSION){
+          wire_modify_create_val = usrPermArray[0].WIRE_WRITE_PERMISSION;
+        }
+        if(usrPermArray[0].WIRE_EXPORT_PERMISSION){
+          wire_export_val = usrPermArray[0].WIRE_EXPORT_PERMISSION;
+        }
+        if(usrPermArray[0].ACH_ENABLE_PERMISSION){
+          ach_enabler_val = usrPermArray[0].ACH_ENABLE_PERMISSION;
         }
       }
     } catch (error) {
@@ -75,9 +91,14 @@ function Login(props) {
         }
       }
     }
-    */
+    
     console.log("cust_modify_create_val" +cust_modify_create_val);
     console.log("cust_enabler_val" +cust_enabler_val);
+    console.log("wire_enabler_val" +wire_enabler_val);
+    console.log("wire_modify_create_val" +wire_modify_create_val);
+    console.log("wire_export_val" +wire_export_val);
+    console.log("ach_enabler_val" +ach_enabler_val);
+    
     dispatch({
       type:'UPDATEUSER',
       payload:{
@@ -91,8 +112,12 @@ function Login(props) {
         email : res.data.email,
         is_sys_admin : res.data.is_sys_admin,
         host : res.data.host,
-        CUSTOMER_ENABLER : cust_enabler_val, 
-        CUSTOMER_MODIFY_CREATE : cust_modify_create_val 
+        CUSTOMER_ENABLER       : cust_enabler_val, 
+        CUSTOMER_MODIFY_CREATE : cust_modify_create_val,
+        WIRE_ENABLER           : wire_enabler_val,
+        WIRE_MODIFY_CREATE     : wire_modify_create_val,
+        WIRE_EXPORT            : wire_export_val,
+        ACH_ENABLER            : ach_enabler_val,
       }
     });
     setRedirectToDashboard(true);

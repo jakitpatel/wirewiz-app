@@ -10,7 +10,10 @@ const userReducer = (state = {
     is_sys_admin:null,
     host:null,
     CUSTOMER_ENABLER: false,
-    CUSTOMER_MODIFY_CREATE: false
+    CUSTOMER_MODIFY_CREATE : false,
+    WIRE_ENABLER           : false,
+    WIRE_MODIFY_CREATE     : false,
+    WIRE_EXPORT            : false
 }, action ) => {
     switch(action.type){
         case "UPDATEUSER":

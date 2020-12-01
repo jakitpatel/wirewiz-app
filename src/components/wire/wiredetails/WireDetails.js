@@ -22,7 +22,7 @@ function WireDetails(props) {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE, WIRE_EXPORT } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -229,8 +229,10 @@ function WireDetails(props) {
     showDoneBtn = true;
   }
   let showExportBtn = false;
-  if((wireDetailsObj.subtypeCode==="00" || wireDetailsObj.subtypeCode==="08") && wireDetailsObj.status!=="DONE"){
-    showExportBtn = true;
+  if(WIRE_EXPORT===true){
+    if((wireDetailsObj.subtypeCode==="00" || wireDetailsObj.subtypeCode==="08") && wireDetailsObj.status!=="DONE"){
+      showExportBtn = true;
+    }
   }
 
   const onWireExport = () => {

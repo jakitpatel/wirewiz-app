@@ -25,7 +25,7 @@ function Wireslist(props) {
   
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_EXPORT } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -255,7 +255,8 @@ function Wireslist(props) {
   }
 
   let txtFileName = "wireapp.export."+batchId+".txt";
-  let showExportBtn = true;
+  let showExportBtn = WIRE_EXPORT;
+  
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);

@@ -141,18 +141,25 @@ function WireDetails(props) {
 
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);
-    /*let targetVal = "";
+    let targetVal = "";
     if(e.target.type === "checkbox"){
       targetVal = e.target.checked;
     } else {
       targetVal = e.target.value;
     }
-    setWireDetailsObj({ ...wireDetailsObj, [e.target.name]: targetVal });
-    */
+    dispatch({
+      type:'UPDATEWIREDETAILSFORM',
+      payload:{ ...wireDetailsObj, [e.target.name]: targetVal }
+    });
+    //setWireDetailsObj({ ...wireDetailsObj, [e.target.name]: targetVal });
   }
 
   const handleWireSave = () => {
     console.log("Handle Wire Save");
+  }
+
+  const handleWireRestore = () => {
+    console.log("Handle Wire Restore");
   }
 
   function getTitle() {
@@ -269,6 +276,9 @@ function WireDetails(props) {
               </button>
               <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireSave} className="btn btn-primary btn-sm">
                 Save
+              </button>
+              <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireRestore} className="btn btn-primary btn-sm">
+                Restore
               </button>
               {showDoneBtn &&
                 <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">

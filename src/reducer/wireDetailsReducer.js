@@ -262,6 +262,11 @@ const wireDetailsReducer = (state = {wireDetailsObj:{
                 ...state,
                 wireDetailsObj: action.payload //[].concat(action.payload)//[...state.wires,action.payload],
             };
+        case "UPDATEWIREDETAILSFORM":
+            return {
+                ...state,
+                wireDetailsObj: action.payload //{ ...state.wireDetailsObj, [e.target.name]: targetVal }[,action.payload],
+            };
         case "SETWIREREMITTANCEDETAILS":
             return {
                 ...state,

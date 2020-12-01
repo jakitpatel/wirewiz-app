@@ -265,6 +265,7 @@ function Wireslist(props) {
       handleWireStatusChange();
     } else {
       console.log("Return From File Export");
+      alert("No Wire is selected");
       return false;
     }
   }
@@ -337,21 +338,19 @@ function Wireslist(props) {
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
-              {showExportBtn &&
-                <React.Fragment>
-                  <CSVLink
-                        data={wireText}
-                        filename={txtFileName}
-                        className="btn btn-primary btn-sm"
-                        style={{ float: "right" }}
-                        target="_blank"
-                        onClick={(event) => { 
-                          return onWireExport(event);
-                        }
+              <React.Fragment>
+                <CSVLink
+                      data={wireText}
+                      filename={txtFileName}
+                      className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}
+                      style={{ float: "right" }}
+                      target="_blank"
+                      onClick={(event) => { 
+                        return onWireExport(event);
                       }
-                      >Export</CSVLink>
-                </React.Fragment>
-              }
+                    }
+                    >Export</CSVLink>
+              </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>
             {disCmp}

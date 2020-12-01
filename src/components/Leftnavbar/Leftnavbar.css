@@ -1,0 +1,4 @@
+.nav-item .nav-link.disabled {
+    opacity: .65;
+    color: #6c757d;
+}

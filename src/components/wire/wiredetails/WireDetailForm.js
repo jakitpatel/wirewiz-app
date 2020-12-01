@@ -69,7 +69,7 @@ function CustTextInput(props) {
             //placeholder={props.placeholdertext}
             value={fieldVal}
             onChange={e => props.inputchange(e)}
-            readOnly={props.readOnlyVal}
+            readOnly={props.readOnlyValue}
           />
         </div>
       </div>
@@ -80,6 +80,11 @@ function CustTextInput(props) {
 function WireDetailForm(props) {
   let wireDetailsObj = props.custstate;
   let wireID = wireDetailsObj.wireID;
+  const { WIRE_MODIFY_CREATE } = useSelector(state => {
+      return {
+          ...state.userReducer
+      }
+  });
   return (
     <React.Fragment>
       <ReactTooltip />
@@ -101,6 +106,7 @@ function WireDetailForm(props) {
                             rows="3" 
                             name="errorMsg"
                             value={value}
+                            readOnly
                             ></textarea>
                         </div>
                       </div>
@@ -126,12 +132,17 @@ function WireDetailForm(props) {
                           rows="3" 
                           name="textWireMsg"
                           value={valueSt}
+                          readOnly
                           ></textarea>
                       </div>
                     </div>
                   </div>
                 )
               } else {
+                let readOnlyVal = !WIRE_MODIFY_CREATE;
+                if(key==="status" || key==="wireType"){
+                  readOnlyVal = true;
+                }
                 return (
                   <React.Fragment key={key}>
                     <CustTextInput
@@ -141,6 +152,7 @@ function WireDetailForm(props) {
                       inputchange={props.oncustinputchange}
                       val={value}
                       wireDtObj={wireDetailsObj}
+                      readOnlyValue={readOnlyVal}
                     />
                   </React.Fragment>
                 )

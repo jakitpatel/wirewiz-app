@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import * as Icon from "react-feather";
 import { useSelector } from 'react-redux';
+import './Leftnavbar.css';
 import DownloadProtocol from "./../protocol/DownloadProtocol";
 import WireProtocolPdf from './../../Documents/Fedwire.pdf';
 import ACHProtocolPdf from './../../Documents/NACHA_File_Layout_Guide.pdf';
@@ -16,7 +17,7 @@ function MenuListItem(props) {
   const IconCmp = components[props.iconName || "home"];
   return (
     <li className="nav-item">
-      <NavLink className="nav-link" exact to={props.routePath}>
+      <NavLink className={`nav-link ${props.enableVal ? "" : "disabled"} `} exact to={props.routePath}>
         <IconCmp />
         <span style={{ marginLeft: 10 }}>{props.menuName}</span>
       </NavLink>
@@ -41,21 +42,20 @@ function LeftNavBar(props) {
             menuName="Dashboard"
             routePath={`${process.env.PUBLIC_URL}/dashboard`}
             iconName="home"
+            enableVal={true}
           />
-          {WIRE_ENABLER &&
           <MenuListItem
             menuName="WireBatch"
             routePath={`${process.env.PUBLIC_URL}/wires`}
             iconName="users"
+            enableVal={WIRE_ENABLER}
           />
-          }
-          {ACH_ENABLER &&
           <MenuListItem
             menuName="ACH"
             routePath={`${process.env.PUBLIC_URL}/ach`}
             iconName="users"
+            enableVal={ACH_ENABLER}
           />
-          }
           <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />
         </ul>

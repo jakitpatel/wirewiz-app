@@ -140,9 +140,8 @@ function WireDetails(props) {
   }, []);
 
   function handleChange(e) {
-    /*
     console.log("On Handle Change : "+ e.target.name);
-    let targetVal = "";
+    /*let targetVal = "";
     if(e.target.type === "checkbox"){
       targetVal = e.target.checked;
     } else {
@@ -150,6 +149,10 @@ function WireDetails(props) {
     }
     setWireDetailsObj({ ...wireDetailsObj, [e.target.name]: targetVal });
     */
+  }
+
+  const handleWireSave = () => {
+    console.log("Handle Wire Save");
   }
 
   function getTitle() {
@@ -225,15 +228,18 @@ function WireDetails(props) {
   }
 
   let showDoneBtn = false;
+  /*
   if(wireDetailsObj.subtypeCode==="02" && wireDetailsObj.status!=="DONE"){
     showDoneBtn = true;
-  }
+  }*/
   let showExportBtn = false;
+  /*
   if(WIRE_EXPORT===true){
     if((wireDetailsObj.subtypeCode==="00" || wireDetailsObj.subtypeCode==="08") && wireDetailsObj.status!=="DONE"){
       showExportBtn = true;
     }
   }
+  */
 
   const onWireExport = () => {
     console.log("On Wire Export Button Click");
@@ -260,6 +266,9 @@ function WireDetails(props) {
             <div className="btnCls">
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
+              </button>
+              <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireSave} className="btn btn-primary btn-sm">
+                Save
               </button>
               {showDoneBtn &&
                 <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">

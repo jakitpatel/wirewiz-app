@@ -1,7 +1,7 @@
 import React from "react";
 import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import WireRemittanceList from './WireRemittanceList';
 
 function CustTextInput(props) {
@@ -57,7 +57,7 @@ function CustTextInput(props) {
     fieldVal = "";
   }
   return (
-    <div key={props.nameref} className="col-sm-4">
+    <div className="col-sm-4">
       <div className="form-group row">
         <label data-tip={labelTooltip} className="col-sm-5 col-form-label">{props.labelText}</label>
         <div className="col-sm-7">
@@ -69,7 +69,7 @@ function CustTextInput(props) {
             //placeholder={props.placeholdertext}
             value={fieldVal}
             onChange={e => props.inputchange(e)}
-            readOnly={props.readOnlyValue}
+            //readOnly={props.readOnlyValue}
           />
         </div>
       </div>
@@ -95,9 +95,8 @@ function WireDetailForm(props) {
             if(!str.includes(key)){
               if(key==="errorMsg"){
                 return (
-                  <React.Fragment>
                     <div key={key} className="col-sm-12">
-                    <WireRemittanceList wireID={wireID} />
+                      <WireRemittanceList wireID={wireID} />
                       <div className="form-group row">
                         <label className="col-sm-2 col-form-label">errorMsg</label>
                         <div className="col-sm-10">
@@ -106,12 +105,11 @@ function WireDetailForm(props) {
                             rows="3" 
                             name="errorMsg"
                             value={value}
-                            readOnly
+                            //readOnly
                             ></textarea>
                         </div>
                       </div>
                     </div>
-                  </React.Fragment>
                 )
               } else if(key==="textWireMsg"){
                 let valueSt = "";
@@ -132,7 +130,7 @@ function WireDetailForm(props) {
                           rows="3" 
                           name="textWireMsg"
                           value={valueSt}
-                          readOnly
+                          //readOnly
                           ></textarea>
                       </div>
                     </div>

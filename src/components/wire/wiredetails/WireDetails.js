@@ -3,8 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {WireDictionary_Url, Wire_tbl_Url, WireDetails_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url} from './../../../const';
 import { CSVLink } from "react-csv";
 import DownloadExcel from "./ExcelDownload";
 import Modal from "react-bootstrap/Modal";
@@ -23,7 +22,7 @@ function WireDetails(props) {
   const [modWireDtObj, setModWireDtObj] = useState({});
   const dispatch = useDispatch();
 
-  const { session_token, WIRE_MODIFY_CREATE, WIRE_EXPORT } = useSelector(state => {
+  const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -142,6 +141,7 @@ function WireDetails(props) {
 
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);
+    /*
     let targetVal = "";
     if(e.target.type === "checkbox"){
       targetVal = e.target.checked;
@@ -153,6 +153,7 @@ function WireDetails(props) {
       payload:{ ...wireDetailsObj, [e.target.name]: targetVal }
     });
     setModWireDtObj({ ...modWireDtObj, [e.target.name]: targetVal });
+    */
   }
 
   const handleWireSave = async () => {
@@ -301,12 +302,14 @@ function WireDetails(props) {
               <button style={{ float: "left" }} type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
+              {/*
               <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireSave} className="btn btn-primary btn-sm">
                 Save
               </button>
               <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireRestore} className="btn btn-primary btn-sm">
                 Restore
               </button>
+              */}
               {showDoneBtn &&
                 <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
                   Done

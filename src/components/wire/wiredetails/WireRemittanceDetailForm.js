@@ -1,7 +1,7 @@
 import React from "react";
 import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function CustTextInput(props) {
 

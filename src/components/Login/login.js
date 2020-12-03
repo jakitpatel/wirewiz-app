@@ -29,12 +29,14 @@ function Login(props) {
       console.log(res.data.session_token);
     } catch (error) {
       console.log(error.response);
-      if (401 === error.response.status) {
-          // handle error: inform user, go to login, etc
-          let res = error.response.data;
-          alert(res.error.message);
-      } else {
-        alert(error);
+      if(error.response){
+        if (401 === error.response.status) {
+            // handle error: inform user, go to login, etc
+            let res = error.response.data;
+            alert(res.error.message);
+        } else {
+          alert(error);
+        }
       }
     }
 

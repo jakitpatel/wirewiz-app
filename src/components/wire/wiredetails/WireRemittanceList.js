@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
 import "./WireDetailForm.css";
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY} from './../../../const';
+import { useSelector } from 'react-redux';
 
 function WireRemittanceList(props) {
   //let history = useHistory();

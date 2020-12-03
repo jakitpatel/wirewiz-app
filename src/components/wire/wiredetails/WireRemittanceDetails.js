@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY} from './../../../const';
 import WireRemittanceDetailForm from './WireRemittanceDetailForm.js';
 import WireDocList from './WireDocList';
 

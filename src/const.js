@@ -37,4 +37,4 @@ if(env==="PROD"){
 
 export { API_URL, Login_Url, WireBatch_Url, Wires_Url, Wire_tbl_Url, WireDetails_Url, Customer_Url, 
     Usr_Permission_Url, WireDictionary_Url, ACHFileRecord_Url, ACHBatchRecord_Url, ACHDetailEntry_Url,
-    ACHAddendaList_Url, WireDocList_Url };
+    ACHAddendaList_Url, WireDocList_Url, env };

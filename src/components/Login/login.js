@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {Login_Url, API_KEY, Usr_Permission_Url} from './../../const';
+import {Login_Url, API_KEY, Usr_Permission_Url, env} from './../../const';
 
 import "./login.css";
 function Login(props) {
@@ -57,7 +57,9 @@ function Login(props) {
       console.log(options);
       console.log(Usr_Permission_Url);
       let url = Usr_Permission_Url + "uid='"+email+"'";
-      //let url = Usr_Permission_Url;
+      if(env==="DEV"){
+        url = Usr_Permission_Url;
+      }
       let resPerm = await axios.get(url, options);
       let usrPermArray = resPerm.data.resource;
       console.log(usrPermArray);

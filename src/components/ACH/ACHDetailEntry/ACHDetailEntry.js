@@ -6,8 +6,7 @@ import * as Icon from "react-feather";
 import "./ACHDetailEntry.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {ACHDetailEntry_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, ACHDetailEntry_Url, env} from './../../../const';
 
 function ACHDetailEntry(props) {
   let history = useHistory();
@@ -151,8 +150,11 @@ function ACHDetailEntry(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHDetailEntry_Url, options);
-      let res = await axios.get(ACHDetailEntry_Url+ "batchRecordID='"+BatchID+"'", options);
+      let url = ACHDetailEntry_Url+ "batchRecordID='"+BatchID+"'";
+      if(env==="DEV"){
+        url = ACHDetailEntry_Url;
+      }
+      let res = await axios.get(url, options);
       console.log(res.data);
       console.log(res.data.resource);
       let achDetailEntryArray = res.data.resource;

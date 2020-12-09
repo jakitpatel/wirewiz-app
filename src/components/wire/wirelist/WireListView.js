@@ -134,6 +134,7 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
     setSelectedRowsTb(selWireArr);
     //setSelectedRows(selectedFlatRows);
     console.log(selectedRowIds);
+    
   }, [setSelectedRowsTb, selectedRowIds]);
   /*
   useEffect(() => {
@@ -222,10 +223,15 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
         }
       }
     }
-    console.log(selectedRows);    
+    console.log(selectedRows);
+
+    useEffect(() => {
+      ReactTooltip.rebuild();
+    });
+    
    return (
     <Styles>
-      <ReactTooltip place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
+      <ReactTooltip delayShow={200} id='wireListTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
       <Table getTdProps={onRowClick} 
         columns={columns} data={data} 
         initialState={initialState} 

@@ -8,8 +8,7 @@ import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {Wires_Url, Wire_tbl_Url, WireDictionary_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, env} from './../../../const';
 import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
@@ -121,6 +120,12 @@ function Wireslist(props) {
       accessor: "wireType"
     },
     {
+      name: "amount",
+      field: "amount",
+      Header: "amount",
+      accessor: "amount"
+    },
+    {
       headerName: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",
@@ -143,7 +148,7 @@ function Wireslist(props) {
         return (
           <div>
             {/*<span title={errorTooltip} style={{color:"red"}}>{error}</span>*/}
-            <span data-tip={errorTooltip} style={{color:"red"}}>{error}</span>
+            <span data-tip={errorTooltip} data-for='wireListTtip' style={{color:"red"}}>{error}</span>
           </div>
         );
       }
@@ -178,8 +183,11 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(Wires_Url, options);
-      let res = await axios.get(Wires_Url+ "wireBatchID='"+batchId+"'", options);
+      let url = Wires_Url+ "wireBatchID='"+batchId+"'";
+      if(env==="DEV"){
+        url = Wires_Url;
+      }
+      let res = await axios.get(url, options);
       console.log(res.data);
       //console.log(res.data.resource);
       let wireArray = res.data.resource;

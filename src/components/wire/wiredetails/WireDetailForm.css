@@ -10,3 +10,9 @@
 .sm-vert-form .form-group {
     margin-bottom: 0.5rem;
 }
+.tooltipcls {
+    width: 230px;
+    "word-break": break-all;
+    "overflow-wrap": break-word;
+    display : block;
+}

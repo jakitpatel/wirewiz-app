@@ -131,7 +131,6 @@ function Table({getTbdProps, columns, data, initialState }) {
     }
    return (
     <Styles>
-      <ReactTooltip place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
       <Table getTdProps={onRowClick} columns={columns} data={data} initialState={initialState} />
     </Styles>
   )

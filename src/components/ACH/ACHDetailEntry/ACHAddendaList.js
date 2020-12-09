@@ -5,8 +5,7 @@ import * as Icon from "react-feather";
 import "./ACHDetailEntry.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {ACHAddendaList_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, ACHAddendaList_Url, env} from './../../../const';
 
 function ACHAddendaList(props) {
   //let history = useHistory();
@@ -113,8 +112,11 @@ function ACHAddendaList(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHAddendaList_Url, options);
-      let res = await axios.get(ACHAddendaList_Url+ "entryDetailID='"+entryDetailID+"'", options);
+      let url = ACHAddendaList_Url+ "entryDetailID='"+entryDetailID+"'";
+      if(env==="DEV"){
+        url = ACHAddendaList_Url;
+      }
+      let res = await axios.get(url, options);
       console.log(res.data);
       console.log(res.data.resource);
       let achAddendaList = res.data.resource;

@@ -59,11 +59,12 @@ function CustTextInput(props) {
   return (
     <div className="col-sm-4">
       <div className="form-group row">
-        <label data-tip={labelTooltip} className="col-sm-5 col-form-label">{props.labelText}</label>
+        <label data-for='wireDetailForm' data-tip={labelTooltip} className="col-sm-5 col-form-label">{props.labelText}</label>
         <div className="col-sm-7">
           <input
             type="text"
             data-tip={tooltip}
+            data-for='wireDetailForm'
             name={fieldName}
             className={fieldClass}
             //placeholder={props.placeholdertext}
@@ -87,7 +88,7 @@ function WireDetailForm(props) {
   });
   return (
     <React.Fragment>
-      <ReactTooltip />
+      <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
       <div className="sm-vert-form form-row">
         {
           Object.entries(wireDetailsObj).map(([key, value]) => {

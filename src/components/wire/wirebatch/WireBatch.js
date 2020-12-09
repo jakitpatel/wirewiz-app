@@ -50,6 +50,11 @@ function WireBatch(props) {
       accessor: "wireBatchID"
     },
     {
+      field: "userID",
+      Header: "userID",
+      accessor: "userID"
+    },
+    {
       name: "progressCode",
       field: "progressCode",
       Header: "progressCode",

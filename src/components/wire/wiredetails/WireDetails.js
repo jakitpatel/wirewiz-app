@@ -3,9 +3,9 @@ import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url} from './../../../const';
+import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} from './../../../const';
 import { CSVLink } from "react-csv";
-import DownloadExcel from "./ExcelDownload";
+//import DownloadExcel from "./ExcelDownload";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -36,12 +36,13 @@ function WireDetails(props) {
   });
 
   let { wireID } = useParams();
-  
+  /*
   useEffect(() => {
     if (downloadexcel) {
       setDownloadexcel(false);
     }
   }, [downloadexcel]);
+  */
 
   useEffect(() => {
     console.log("WireId : "+wireID);
@@ -110,8 +111,11 @@ function WireDetails(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(WireDetails_Url, options);
-      let res = await axios.get(WireDetails_Url+ "wireID='"+wireID+"'", options);
+      let url = WireDetails_Url+ "wireID='"+wireID+"'";
+      if(env==="DEV"){
+        url = WireDetails_Url;
+      }
+      let res = await axios.get(url, options);
       //console.log(res.data.resource);
       let wireDetailsArr = res.data.resource;
       console.log(wireDetailsArr);
@@ -274,7 +278,6 @@ function WireDetails(props) {
       showExportBtn = true;
     }
   }
-  */
 
   const onWireExport = () => {
     console.log("On Wire Export Button Click");
@@ -282,6 +285,7 @@ function WireDetails(props) {
     handleWireStatusChange();
   }
   console.log("DownloadExcel Val: "+ downloadexcel);
+  */
   return (
     <React.Fragment>
       <Modal show={isOpen} onHide={hideModal}>
@@ -309,7 +313,7 @@ function WireDetails(props) {
               <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireRestore} className="btn btn-primary btn-sm">
                 Restore
               </button>
-              */}
+              
               {showDoneBtn &&
                 <button disabled={wireDetailsObj.status==="DONE"} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={() => { showModal();}} className="btn btn-primary btn-sm">
                   Done
@@ -331,6 +335,7 @@ function WireDetails(props) {
                 ? <DownloadExcel data={csvArray} excelFile={excelFileName} />
                 : null
               }
+              */}
               <div style={{ clear:"both"}}></div>
             </div>
             <div className="col-sm-12">

@@ -6,8 +6,7 @@ import * as Icon from "react-feather";
 import "./ACHBatchRecord.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {ACHBatchRecord_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, ACHBatchRecord_Url, env} from './../../../const';
 
 function ACHBatchRecord(props) {
   let history = useHistory();
@@ -134,8 +133,11 @@ function ACHBatchRecord(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let res = await axios.get(ACHBatchRecord_Url, options);
-      let res = await axios.get(ACHBatchRecord_Url+ "fileRecordID='"+FileID+"'", options);
+      let url = ACHBatchRecord_Url+ "fileRecordID='"+FileID+"'";
+      if(env==="DEV"){
+        url = ACHBatchRecord_Url;
+      }
+      let res = await axios.get(url, options);
       console.log(res.data);
       console.log(res.data.resource);
       let achBatchRecArray = res.data.resource;

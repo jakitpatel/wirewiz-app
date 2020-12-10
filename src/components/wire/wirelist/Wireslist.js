@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { CSVLink } from "react-csv";
+import { CSVLink, CSVDownload } from "react-csv";
 //import Listview from "./../../Listview/Listview";
 import WireListView from "./WireListView.js";
 import * as Icon from "react-feather";
@@ -14,8 +14,10 @@ import ReactTooltip from 'react-tooltip';
 function Wireslist(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [isRefresh, setIsRefresh] = useState(true)
+  const [downloadOfac, setDownloadOfac] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(true);
   const [wireText, setWireText] = useState("");
+  const [wireOfacText, setWireOfacText] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
 
   const [selWireObj, setSelWireObj] = useState({});
@@ -264,7 +266,8 @@ function Wireslist(props) {
     }
   }
 
-  let txtFileName = "wireapp.export."+batchId+".txt";
+  let txtFileName = "wireapp.fund."+batchId+".txt";
+  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
   let showExportBtn = WIRE_EXPORT;
   
   const onWireExport = (event) => {
@@ -318,6 +321,8 @@ function Wireslist(props) {
       tagValSt += "\r\n";
     }
     setWireText(tagValSt);
+    //setWireOfacText(tagValSt);
+    //setDownloadOfac(true);
   }
   
   console.log("wires", wires);
@@ -360,6 +365,7 @@ function Wireslist(props) {
                       }
                     }
                     >Export</CSVLink>
+                {downloadOfac ? <CSVDownload filename={txtOfacFileName} data={wireOfacText} target="_blank" /> : null }
               </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>

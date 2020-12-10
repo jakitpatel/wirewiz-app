@@ -14,6 +14,11 @@ import ACHDetailEntry from "./../ACH/ACHDetailEntry/ACHDetailEntry.js"
 import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
 import { useSelector } from 'react-redux';
 
+const WireListWrap = props => {
+  //console.log(props);
+  return <Wireslist batchRec={props.location.state} />;
+};
+
 const routes = [
   {
     path: "/dashboard",
@@ -26,7 +31,7 @@ const routes = [
   },
   {
     path: "/wireslist/:batchId",
-    main: () => <Wireslist />
+    main: WireListWrap
   },
   {
     path: "/wiredetails/:wireID",

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 //import Listview from "./../../Listview/Listview";
 import WireListView from "./WireListView.js";
 import * as Icon from "react-feather";
@@ -13,11 +13,13 @@ import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
   let history = useHistory();
+  const textlink = useRef(null);
   const [loading, setLoading] = useState(true);
+  //const ofecLinkRef = useRef(false);
   const [downloadOfac, setDownloadOfac] = useState(false);
   const [isRefresh, setIsRefresh] = useState(true);
   const [wireText, setWireText] = useState("");
-  const [wireOfacText, setWireOfacText] = useState("");
+  const [wireOfacText, setWireOfacText] = useState("Demomoo");
   const [selectedRows, setSelectedRows] = useState([]);
 
   const [selWireObj, setSelWireObj] = useState({});
@@ -160,6 +162,17 @@ function Wireslist(props) {
   ];
 
   useEffect(() => {
+    if (downloadOfac) {
+      console.log("wireOfacText");
+      console.log(wireOfacText);
+      setDownloadOfac(false);
+      setTimeout(() => {
+        textlink.current.link.click();
+      }, 1000);
+    }
+  }, [downloadOfac, wireOfacText]);
+  
+  useEffect(() => {
     let ignore = false;
     async function fetchWireDictionary() {
       const options = {
@@ -270,11 +283,27 @@ function Wireslist(props) {
   let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
   let showExportBtn = WIRE_EXPORT;
   
+  /*
+  const onWireOFACExport = (event) => {
+    console.log("On Wire OFAC Export Button Click");
+    console.log(selectedRows);
+    if(selectedRows.length > 0){
+      //buildWireOfacData();
+      ofecLinkRef.current = false;
+    } else {
+      console.log("Return From File Export");
+      alert("No Wire is selected");
+      return false;
+    }
+  }
+  */
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);
     if(selectedRows.length > 0){
+      buildWireOfacData();
       buildWireTagValue();
+      //textlink.current.link.click(event);
       handleWireStatusChange();
     } else {
       console.log("Return From File Export");
@@ -321,10 +350,64 @@ function Wireslist(props) {
       tagValSt += "\r\n";
     }
     setWireText(tagValSt);
-    //setWireOfacText(tagValSt);
-    //setDownloadOfac(true);
   }
-  
+
+  //// Start Code for Wire To OFAC Value /////
+  function buildWireOfacData(){
+    let wireLineSt = "";
+    for(let k=0; k<selectedRows.length;k++){
+      let wireDetailsObj = selectedRows[k];
+      let L1St = generateInbound(wireDetailsObj);
+      let L2St = generateCancel(wireDetailsObj);
+      wireLineSt += L1St+"\r\n"+L2St;
+      console.log("Single Wire Line OFAC");
+      console.log(wireLineSt);
+      wireLineSt += "\r\n";
+    }
+    setWireOfacText(wireLineSt);
+    setDownloadOfac(true);
+  }
+
+  function generateInbound(wireObj){
+    let inboudSt = "";
+    let val = wireObj['subtypeCode'];
+    inboudSt += "Inbound Wire";
+    if(val==="00"){
+      inboudSt += "Fixed - 1011010091";
+      inboudSt += "DDA - Direct or Lookup from Pseudo";
+      inboudSt += "Today?";
+      inboudSt += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
+      inboudSt += "'Wire IN -' + Beneficiary Name";
+      inboudSt += "Amount {2000}";
+      inboudSt += " ";
+      inboudSt += "500";
+      inboudSt += " ";
+      inboudSt += " ";
+      inboudSt += "Amount {2000}";
+    }
+    return inboudSt;
+  }
+
+  function generateCancel(wireObj){
+    let cancelSt = "";
+    let val = wireObj['subtypeCode'];
+    cancelSt += "Return Wire";
+    if(val==="02" || val==="08"){
+      cancelSt += "DDA - Direct or Lookup from Pseudo";
+      cancelSt += "Fixed - 1011010091";
+      cancelSt += "Today?";
+      cancelSt += "'RTN WIRE- ' + Beneficiary Name + Date?";
+      cancelSt += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
+      cancelSt += "Amount {2000}";
+      cancelSt += " ";
+      cancelSt += "082";
+      cancelSt += " ";
+      cancelSt += " ";
+      cancelSt += "Amount {2000}";
+    }
+    return cancelSt;
+  }
+
   console.log("wires", wires);
   console.log("Properties", props);
   const initialSortState = {
@@ -360,12 +443,21 @@ function Wireslist(props) {
                       className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}
                       style={{ float: "right" }}
                       target="_blank"
-                      onClick={(event) => { 
+                      onClick={(event) => {
                         return onWireExport(event);
                       }
                     }
                     >Export</CSVLink>
-                {downloadOfac ? <CSVDownload filename={txtOfacFileName} data={wireOfacText} target="_blank" /> : null }
+                  
+                    <CSVLink
+                      data={wireOfacText}
+                      filename={txtOfacFileName}
+                      className={`btn btn-primary btn-sm invisible`}
+                      style={{ float: "right" }}
+                      target="_blank"
+                      ref={textlink}
+                    >ExportOfac</CSVLink>
+                {/*downloadOfac ? <CSVDownload filename={wireOfacFileName} data={wireOfacText} target="_blank" /> : null */}
               </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>

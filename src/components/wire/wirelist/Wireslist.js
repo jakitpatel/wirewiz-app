@@ -357,9 +357,12 @@ function Wireslist(props) {
     let wireLineSt = "";
     for(let k=0; k<selectedRows.length;k++){
       let wireDetailsObj = selectedRows[k];
-      let L1St = generateInbound(wireDetailsObj);
-      let L2St = generateCancel(wireDetailsObj);
-      wireLineSt += L1St+"\r\n"+L2St;
+      let subtypeCodeVal = wireDetailsObj['subtypeCode'];
+      if(subtypeCodeVal==="00"){
+        wireLineSt = generateInbound(wireDetailsObj);
+      } else if(subtypeCodeVal==="02" || subtypeCodeVal==="08"){
+        wireLineSt = generateCancel(wireDetailsObj);
+      }
       console.log("Single Wire Line OFAC");
       console.log(wireLineSt);
       wireLineSt += "\r\n";
@@ -369,43 +372,69 @@ function Wireslist(props) {
   }
 
   function generateInbound(wireObj){
-    let inboudSt = "";
     let val = wireObj['subtypeCode'];
-    inboudSt += "Inbound Wire";
-    if(val==="00"){
-      inboudSt += "Fixed - 1011010091";
-      inboudSt += "DDA - Direct or Lookup from Pseudo";
-      inboudSt += "Today?";
-      inboudSt += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
-      inboudSt += "'Wire IN -' + Beneficiary Name";
-      inboudSt += "Amount {2000}";
-      inboudSt += " ";
-      inboudSt += "500";
-      inboudSt += " ";
-      inboudSt += " ";
-      inboudSt += "Amount {2000}";
-    }
-    return inboudSt;
+    let L1St = "";
+    L1St += "Inbound Wire";
+    L1St += "Fixed - 1011010091";
+    L1St += "DDA - Direct or Lookup from Pseudo";
+    L1St += "Today?";
+    L1St += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
+    L1St += "'Wire IN -' + Beneficiary Name";
+    L1St += "Amount {2000}";
+    L1St += " ";
+    L1St += "500";
+    L1St += " ";
+    L1St += " ";
+    L1St += "Amount {2000}";
+    //////
+    let L2St = "";
+    L2St += "Return Wire";
+    L2St += "DDA - Direct or Lookup from Pseudo";
+    L2St += "Fixed - 1011010091";
+    L2St += "Today?";
+    L2St += "'RTN WIRE- ' + Beneficiary Name + Date?";
+    L2St += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
+    L2St += "Amount {2000}";
+    L2St += " ";
+    L2St += "082";
+    L2St += " ";
+    L2St += " ";
+    L2St += "Amount {2000}";
+    let wireLineSt = L1St+"\r\n"+L2St;
+    return wireLineSt;
   }
 
   function generateCancel(wireObj){
-    let cancelSt = "";
     let val = wireObj['subtypeCode'];
-    cancelSt += "Return Wire";
-    if(val==="02" || val==="08"){
-      cancelSt += "DDA - Direct or Lookup from Pseudo";
-      cancelSt += "Fixed - 1011010091";
-      cancelSt += "Today?";
-      cancelSt += "'RTN WIRE- ' + Beneficiary Name + Date?";
-      cancelSt += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
-      cancelSt += "Amount {2000}";
-      cancelSt += " ";
-      cancelSt += "082";
-      cancelSt += " ";
-      cancelSt += " ";
-      cancelSt += "Amount {2000}";
-    }
-    return cancelSt;
+    let L1St = "";
+    L1St += "Inbound Wire";
+    L1St += "Fixed - 1011010091";
+    L1St += "DDA - Direct or Lookup from Pseudo";
+    L1St += "Today?";
+    L1St += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
+    L1St += "'Wire IN -' + Beneficiary Name";
+    L1St += "Amount {2000}";
+    L1St += " ";
+    L1St += "500";
+    L1St += " ";
+    L1St += " ";
+    L1St += "Amount {2000}";
+    //////
+    let L2St = "";
+    L2St += "Return Wire";
+    L2St += "DDA - Direct or Lookup from Pseudo";
+    L2St += "Fixed - 1011010091";
+    L2St += "Today?";
+    L2St += "'RTN WIRE- ' + Beneficiary Name + Date?";
+    L2St += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
+    L2St += "Amount {2000}";
+    L2St += " ";
+    L2St += "082";
+    L2St += " ";
+    L2St += " ";
+    L2St += "Amount {2000}";
+    let wireLineSt = L1St+"\r\n"+L2St;
+    return wireLineSt;
   }
 
   console.log("wires", wires);

@@ -8,7 +8,7 @@ import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, env} from './../../../const';
+import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 import ReactTooltip from 'react-tooltip';
 
 function Wireslist(props) {
@@ -280,23 +280,9 @@ function Wireslist(props) {
   }
 
   let txtFileName = "wireapp.fund."+batchId+".txt";
-  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
+  let txtOfacFileName = "wireapp.fiserv."+batchId+".txt";
   let showExportBtn = WIRE_EXPORT;
   
-  /*
-  const onWireOFACExport = (event) => {
-    console.log("On Wire OFAC Export Button Click");
-    console.log(selectedRows);
-    if(selectedRows.length > 0){
-      //buildWireOfacData();
-      ofecLinkRef.current = false;
-    } else {
-      console.log("Return From File Export");
-      alert("No Wire is selected");
-      return false;
-    }
-  }
-  */
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);
@@ -353,88 +339,31 @@ function Wireslist(props) {
   }
 
   //// Start Code for Wire To OFAC Value /////
-  function buildWireOfacData(){
-    let wireLineSt = "";
+  async function buildWireOfacData(){
+    let wireIdArr = [];
     for(let k=0; k<selectedRows.length;k++){
       let wireDetailsObj = selectedRows[k];
-      let subtypeCodeVal = wireDetailsObj['subtypeCode'];
-      if(subtypeCodeVal==="00"){
-        wireLineSt = generateInbound(wireDetailsObj);
-      } else if(subtypeCodeVal==="02" || subtypeCodeVal==="08"){
-        wireLineSt = generateCancel(wireDetailsObj);
-      }
-      console.log("Single Wire Line OFAC");
-      console.log(wireLineSt);
-      wireLineSt += "\r\n";
+      wireIdArr.push({"wireId":wireDetailsObj.wireID});
     }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": wireIdArr
+    };
+    let url = WireExport_Url;
+    if(env==="DEV"){
+      url = WireExport_Url;
+    }
+    let res = await axios.post(url, data, options);
+    console.log(res.data);
+    //console.log(res.data.resource);
+    let wireLineSt = res.data.fiserv;
     setWireOfacText(wireLineSt);
     setDownloadOfac(true);
-  }
-
-  function generateInbound(wireObj){
-    let val = wireObj['subtypeCode'];
-    let L1St = "";
-    L1St += "Inbound Wire";
-    L1St += "Fixed - 1011010091";
-    L1St += "DDA - Direct or Lookup from Pseudo";
-    L1St += "Today?";
-    L1St += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
-    L1St += "'Wire IN -' + Beneficiary Name";
-    L1St += "Amount {2000}";
-    L1St += " ";
-    L1St += "500";
-    L1St += " ";
-    L1St += " ";
-    L1St += "Amount {2000}";
-    //////
-    let L2St = "";
-    L2St += "Return Wire";
-    L2St += "DDA - Direct or Lookup from Pseudo";
-    L2St += "Fixed - 1011010091";
-    L2St += "Today?";
-    L2St += "'RTN WIRE- ' + Beneficiary Name + Date?";
-    L2St += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
-    L2St += "Amount {2000}";
-    L2St += " ";
-    L2St += "082";
-    L2St += " ";
-    L2St += " ";
-    L2St += "Amount {2000}";
-    let wireLineSt = L1St+"\r\n"+L2St;
-    return wireLineSt;
-  }
-
-  function generateCancel(wireObj){
-    let val = wireObj['subtypeCode'];
-    let L1St = "";
-    L1St += "Inbound Wire";
-    L1St += "Fixed - 1011010091";
-    L1St += "DDA - Direct or Lookup from Pseudo";
-    L1St += "Today?";
-    L1St += "IMAD + 'Wire IN' + Lookup of Partner Name + '- AH'";
-    L1St += "'Wire IN -' + Beneficiary Name";
-    L1St += "Amount {2000}";
-    L1St += " ";
-    L1St += "500";
-    L1St += " ";
-    L1St += " ";
-    L1St += "Amount {2000}";
-    //////
-    let L2St = "";
-    L2St += "Return Wire";
-    L2St += "DDA - Direct or Lookup from Pseudo";
-    L2St += "Fixed - 1011010091";
-    L2St += "Today?";
-    L2St += "'RTN WIRE- ' + Beneficiary Name + Date?";
-    L2St += "'RTN WIRE- ' + Lookup of Partner Name + '- AF'";
-    L2St += "Amount {2000}";
-    L2St += " ";
-    L2St += "082";
-    L2St += " ";
-    L2St += " ";
-    L2St += "Amount {2000}";
-    let wireLineSt = L1St+"\r\n"+L2St;
-    return wireLineSt;
   }
 
   console.log("wires", wires);

@@ -14,6 +14,8 @@ import ReactTooltip from 'react-tooltip';
 function Wireslist(props) {
   let history = useHistory();
   const textlink = useRef(null);
+  const fundExportLink = useRef(null);
+  
   const [loading, setLoading] = useState(true);
   //const ofecLinkRef = useRef(false);
   const [downloadOfac, setDownloadOfac] = useState(false);
@@ -168,6 +170,7 @@ function Wireslist(props) {
       setDownloadOfac(false);
       setTimeout(() => {
         textlink.current.link.click();
+        fundExportLink.current.link.click();
       }, 1000);
     }
   }, [downloadOfac, wireOfacText]);
@@ -288,7 +291,7 @@ function Wireslist(props) {
     console.log(selectedRows);
     if(selectedRows.length > 0){
       buildWireOfacData();
-      buildWireTagValue();
+      //buildWireTagValue();
       //textlink.current.link.click(event);
       handleWireStatusChange();
     } else {
@@ -299,6 +302,7 @@ function Wireslist(props) {
   }
 
   //// Start Code for Wire To Tag Value /////
+  /*
   function buildWireTagValue(){
     let tagValSt = "";
     for(let k=0; k<selectedRows.length;k++){
@@ -337,6 +341,7 @@ function Wireslist(props) {
     }
     setWireText(tagValSt);
   }
+  */
 
   //// Start Code for Wire To OFAC Value /////
   async function buildWireOfacData(){
@@ -361,8 +366,16 @@ function Wireslist(props) {
     let res = await axios.post(url, data, options);
     console.log(res.data);
     //console.log(res.data.resource);
-    let wireLineSt = res.data.fiserv;
-    setWireOfacText(wireLineSt);
+    let fiservSt = res.data.fiserv;
+    let fedfundSt  = res.data.fedfund;
+    if(fedfundSt==null){
+      fedfundSt = "";
+    }
+    if(fiservSt==null){
+      fiservSt = "";
+    }
+    setWireText(fedfundSt);
+    setWireOfacText(fiservSt);
     setDownloadOfac(true);
   }
 
@@ -395,16 +408,20 @@ function Wireslist(props) {
                 Back
               </button>
               <React.Fragment>
+                <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
+                  Export
+                </button>
                 <CSVLink
                       data={wireText}
+                      ref={fundExportLink}
                       filename={txtFileName}
-                      className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}
+                      className={`btn btn-primary btn-sm invisible`}
                       style={{ float: "right" }}
                       target="_blank"
-                      onClick={(event) => {
-                        return onWireExport(event);
+                      /*onClick={(event, done) => {
+                        return onWireExport(event, done);
                       }
-                    }
+                    }*/
                     >Export</CSVLink>
                   
                     <CSVLink

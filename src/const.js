@@ -34,7 +34,7 @@ if(env==="PROD"){
     ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHEntryDetail_NEW?filter=";  // For Production Env
     ACHAddendaList_Url = API_URL+"cfsb_sqlserver/_table/ACHAddendaRecord_NEW?filter=";  // For Production Env
     WireDocList_Url = API_URL+"cfsb_sqlserver/_table/wireDoc?filter=";  // For Production Env
-    WireExport_Url = API_URL+"getExportData?filter=";  // For Production Env
+    WireExport_Url = API_URL+"getExportData";  // For Production Env
 }
 
 export { API_URL, Login_Url, WireBatch_Url, Wires_Url, Wire_tbl_Url, WireDetails_Url, Customer_Url, 

@@ -91,10 +91,10 @@ function Wireslist(props) {
       accessor: "senderShortName"
     },
     {
-      name: "receiverShortName",
-      field: "receiverShortName",
-      Header: "receiverShortName",
-      accessor: "receiverShortName"
+      name: "originatorName",
+      field: "originatorName",
+      Header: "originatorName",
+      accessor: "originatorName"
     },
     {
       name: "status",

@@ -5,5 +5,8 @@
     display : block;
 }
 .pagination {
-    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+.pagination .btn {
+    width: 48px;
 }

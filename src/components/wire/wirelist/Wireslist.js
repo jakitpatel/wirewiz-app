@@ -15,13 +15,15 @@ function Wireslist(props) {
   let history = useHistory();
   const textlink = useRef(null);
   const fundExportLink = useRef(null);
-  
+  const ofacExportLink = useRef(null);
+
   const [loading, setLoading] = useState(true);
   //const ofecLinkRef = useRef(false);
   const [downloadOfac, setDownloadOfac] = useState(false);
   const [isRefresh, setIsRefresh] = useState(true);
   const [wireText, setWireText] = useState("");
-  const [wireOfacText, setWireOfacText] = useState("Demomoo");
+  const [wireFiservText, setWireFiservText] = useState("");
+  const [wireOfacText, setWireOfacText] = useState("olddata");
   const [selectedRows, setSelectedRows] = useState([]);
 
   const [selWireObj, setSelWireObj] = useState({});
@@ -165,15 +167,18 @@ function Wireslist(props) {
 
   useEffect(() => {
     if (downloadOfac) {
-      console.log("wireOfacText");
-      console.log(wireOfacText);
+      console.log("wireFiservText");
+      console.log(wireFiservText);
       setDownloadOfac(false);
       setTimeout(() => {
         textlink.current.link.click();
         fundExportLink.current.link.click();
+        if(wireOfacText!=="olddata"){
+          ofacExportLink.current.link.click();
+        }
       }, 1000);
     }
-  }, [downloadOfac, wireOfacText]);
+  }, [downloadOfac, wireFiservText, wireOfacText]);
   
   useEffect(() => {
     let ignore = false;
@@ -283,7 +288,8 @@ function Wireslist(props) {
   }
 
   let txtFileName = "wireapp.fund."+batchId+".txt";
-  let txtOfacFileName = "wireapp.fiserv."+batchId+".txt";
+  let txtFiservFileName = "wireapp.fiserv."+batchId+".txt";
+  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
   let showExportBtn = WIRE_EXPORT;
   
   const onWireExport = (event) => {
@@ -368,6 +374,7 @@ function Wireslist(props) {
     //console.log(res.data.resource);
     let fiservSt = res.data.fiserv;
     let fedfundSt  = res.data.fedfund;
+    let ofacSt  = res.data.ofac;
     if(fedfundSt==null){
       fedfundSt = "";
     }
@@ -375,7 +382,13 @@ function Wireslist(props) {
       fiservSt = "";
     }
     setWireText(fedfundSt);
-    setWireOfacText(fiservSt);
+    setWireFiservText(fiservSt);
+    if(ofacSt){
+      if(ofacSt===null){
+        ofacSt = "";
+      }
+      setWireOfacText(ofacSt);
+    }
     setDownloadOfac(true);
   }
 
@@ -425,14 +438,21 @@ function Wireslist(props) {
                     >Export</CSVLink>
                   
                     <CSVLink
-                      data={wireOfacText}
-                      filename={txtOfacFileName}
+                      data={wireFiservText}
+                      filename={txtFiservFileName}
                       className={`btn btn-primary btn-sm invisible`}
                       style={{ float: "right" }}
                       target="_blank"
                       ref={textlink}
                     >ExportOfac</CSVLink>
-                {/*downloadOfac ? <CSVDownload filename={wireOfacFileName} data={wireOfacText} target="_blank" /> : null */}
+                <CSVLink
+                      data={wireOfacText}
+                      filename={txtOfacFileName}
+                      className={`btn btn-primary btn-sm invisible`}
+                      style={{ float: "right" }}
+                      target="_blank"
+                      ref={ofacExportLink}
+                    >ExportOfac</CSVLink>
               </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>

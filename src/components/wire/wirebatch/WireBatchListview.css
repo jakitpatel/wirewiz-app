@@ -1,0 +1,9 @@
+.tooltipcls {
+    width: 230px;
+    "word-break": break-all;
+    "overflow-wrap": break-word;
+    display : block;
+}
+.pagination {
+    padding: 0.5rem;
+}

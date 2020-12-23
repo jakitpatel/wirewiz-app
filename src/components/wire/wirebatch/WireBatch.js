@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Listview from "./../../Listview/Listview";
+//import Listview from "./../../Listview/Listview";
+import WireBatchListview from "./WireBatchListview";
 import * as Icon from "react-feather";
 import "./WireBatch.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {WireBatch_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
+import SelectColumnFilter from './Filter/SelectColumnFilter.js'
 
 function WireBatch(props) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [wirebatchlist, setWirebatchlist] = useState([]);
   const location = useLocation();
 
@@ -27,7 +28,9 @@ function WireBatch(props) {
       width: 55,
       //id: 'colView',
       accessor: row => row.attrbuiteName,
-      filterable: false, // Overrides the table option
+      disableFilters: true,
+      //defaultCanFilter:false,
+      //filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log("Edit");
         //console.log(obj.row);
@@ -52,7 +55,9 @@ function WireBatch(props) {
     {
       field: "userID",
       Header: "userID",
-      accessor: "userID"
+      accessor: "userID",
+      Filter: SelectColumnFilter,
+      filter: 'includes'
     },
     {
       name: "progressCode",
@@ -126,7 +131,7 @@ function WireBatch(props) {
       accessor: "numError"
     }
   ];
- 
+  /*
   useEffect(() => {
     console.log("WireBatch UseEffect");
     let ignore = false;
@@ -148,7 +153,7 @@ function WireBatch(props) {
     fetchWireBatchList();
     return () => { ignore = true };
   }, [session_token,location.key]);
-  
+  */
   console.log("Properties", props);
   console.log("wireBatchLoad : "+location.key);
   const initialSortState = {
@@ -158,7 +163,7 @@ function WireBatch(props) {
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
-      <Listview
+      <WireBatchListview
         items={wirebatchlist}
         columnDefs={columnDefs}
         sortBy={initialSortState}

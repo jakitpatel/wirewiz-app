@@ -4,3 +4,9 @@
     "overflow-wrap": break-word;
     display : block;
 }
+.pagination {
+    margin-bottom: 0.4rem;
+}
+.pagination .btn {
+    width: 48px;
+}

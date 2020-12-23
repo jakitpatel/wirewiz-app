@@ -34,7 +34,13 @@ const routes = [
     main: WireListWrap
   },
   {
+    path: "/wireslist",
+    exact: true,
+    main: WireListWrap
+  },
+  {
     path: "/wiredetails/:wireID",
+    exact: true,
     main: () => <Wiredetails />
   },
   {

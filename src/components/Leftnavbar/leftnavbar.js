@@ -12,7 +12,8 @@ function MenuListItem(props) {
     home: Icon.Home,
     camera: Icon.Camera,
     users: Icon.Users,
-    useradd: Icon.UserPlus
+    useradd: Icon.UserPlus,
+    trello : Icon.Trello
   };
   const IconCmp = components[props.iconName || "home"];
   return (
@@ -48,6 +49,12 @@ function LeftNavBar(props) {
             menuName="WireBatch"
             routePath={`${process.env.PUBLIC_URL}/wires`}
             iconName="users"
+            enableVal={WIRE_ENABLER}
+          />
+          <MenuListItem
+            menuName="Wires"
+            routePath={`${process.env.PUBLIC_URL}/wireslist`}
+            iconName="trello"
             enableVal={WIRE_ENABLER}
           />
           <MenuListItem

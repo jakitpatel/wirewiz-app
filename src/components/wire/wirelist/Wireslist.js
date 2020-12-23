@@ -48,7 +48,6 @@ function Wireslist(props) {
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
   let { batchRec } = props;
-  console.log("userID : "+batchRec.userID);
 
   const columnDefs = [
     {
@@ -208,7 +207,10 @@ function Wireslist(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let url = Wires_Url+ "wireBatchID='"+batchId+"'";
+      let url = Wires_Url;
+      if(batchRec){
+        url += "wireBatchID='"+batchRec.wireBatchID+"'";
+      }
       if(env==="DEV"){
         url = Wires_Url;
       }
@@ -286,11 +288,6 @@ function Wireslist(props) {
       }
     }
   }
-
-  let txtFileName = "wireapp.fund."+batchId+".txt";
-  let txtFiservFileName = "wireapp.fiserv."+batchId+".txt";
-  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
-  let showExportBtn = WIRE_EXPORT;
   
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
@@ -306,49 +303,7 @@ function Wireslist(props) {
       return false;
     }
   }
-
-  //// Start Code for Wire To Tag Value /////
-  /*
-  function buildWireTagValue(){
-    let tagValSt = "";
-    for(let k=0; k<selectedRows.length;k++){
-      let wireDetailsObj = selectedRows[k];
-      for(var i = 0; i < wiredict.length; i++) {
-        var obj = wiredict[i];
-        if(obj.tag !== "6500"){
-          let elementArr = obj.elements;
-          let tagVal = "";
-          for(var j = 0; j < elementArr.length; j++) {
-            var objElement = elementArr[j];
-            //console.log(objElement.name);
-            let fieldName = objElement.name;
-            let val = wireDetailsObj[fieldName];
-            if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
-              //console.log(obj.tag+"--"+fieldName+"--"+val);
-              if(typeof val == "string"){
-                //val = val.trim();
-              }
-              if(fieldName.includes("sendersChargesAmount")){
-                val = val.toString().replace(".", ",");
-              }
-              tagVal += val;
-              if((val.length < objElement.length) || (objElement.delimiter === "*")){
-                tagVal += "*";
-              }
-            }
-          }
-          if(tagVal!==null && tagVal!==""){
-            tagValSt += "{"+obj.tag+"}"+tagVal;
-          }
-        }
-      }
-      console.log(tagValSt);
-      tagValSt += "\r\n";
-    }
-    setWireText(tagValSt);
-  }
-  */
-
+  
   //// Start Code for Wire To OFAC Value /////
   async function buildWireOfacData(){
     let wireIdArr = [];
@@ -410,16 +365,30 @@ function Wireslist(props) {
       />
     );
 
+  let txtFileName = "wireapp.fund."+batchId+".txt";
+  let txtFiservFileName = "wireapp.fiserv."+batchId+".txt";
+  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
+  let showExportBtn = WIRE_EXPORT;
+  let byWireBatchId = false;
+  let headerTitle = "Wire List";
+  if(batchRec){
+    //console.log("batchRec");
+    console.log(batchRec);
+    headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
+    byWireBatchId = true;
+  }
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">Wire List - Batch {batchId} - from {batchRec.userID}</h3>
+            <h3 className="title-center">{headerTitle}</h3>
             <div className="btnCls">
+              {byWireBatchId && 
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
                 Back
               </button>
+              }
               <React.Fragment>
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export

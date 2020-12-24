@@ -433,7 +433,7 @@ function Wireslist(props) {
   
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    pageSize : 2
+    pageSize : 10
   };
   let disCmp =
     /*loading === true ? (

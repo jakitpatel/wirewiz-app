@@ -156,9 +156,7 @@ function WireBatch(props) {
   */
   console.log("Properties", props);
   console.log("wireBatchLoad : "+location.key);
-  const initialSortState = {
-    sortBy: [{ id: "wireBatchID", desc: true }]
-   }; 
+  const initialSortState = [{ id: "wireBatchID", desc: true }]; 
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>

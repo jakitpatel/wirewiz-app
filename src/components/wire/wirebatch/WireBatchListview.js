@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
 import DefaultColumnFilter from './Filter/DefaultColumnFilter';
+import {buildSortByUrl, buildPageUrl} from './../../Functions/functions.js';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -43,7 +44,7 @@ function Table({
   data,
   filtersarr, 
   setFiltersarr,
-  initialState,
+  initialSortState,
   fetchData,
   loading,
   pageCount: controlledPageCount 
@@ -94,21 +95,22 @@ function Table({
     nextPage,
     previousPage,
     setPageSize,
-    state: { filters, pageIndex, pageSize } // Get the state from the instance
+    state: { filters, pageIndex, pageSize, sortBy } // Get the state from the instance
   } = useTable({
     getTbdProps,
     columns,
     data,
     defaultColumn, // Be sure to pass the defaultColumn option
     manualFilters: true,
+    manualSortBy: true,
     //filterTypes,
-    initialState: { filtersarr, pageIndex: 0, pageSize: 10 },
+    initialState: { filtersarr, pageIndex: 0, pageSize: 10, sortBy: initialSortState },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
     pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
   },
   useFilters, // useFilters!
-  //useSortBy,
+  useSortBy,
   usePagination
   )
 
@@ -123,8 +125,8 @@ function Table({
   React.useEffect(() => {
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
-    fetchData({ pageIndex, pageSize, filters });
-  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr]);
+    fetchData({ pageIndex, pageSize, filters, sortBy });
+  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy]);
 
   // Render the UI for your table
   return (
@@ -218,15 +220,8 @@ function Table({
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-               <th width={column.width} >{column.render('Header')}
-               {/* Render the columns filter UI 
-                <div>{column.canFilter ? column.render('Filter') : null}</div>
-                */}
-               </th>
-               ))}
-               {/*
               <th width={column.width} {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
-              {/* Add a sort direction indicator 
+              {/* Add a sort direction indicator */}
               <span>
                   {column.isSorted
                     ? column.isSortedDesc
@@ -234,12 +229,10 @@ function Table({
                       : ' 🔼'
                     : ''}
                 </span>
-              {/* Render the columns filter UI 
-              <div>{column.canFilter ? column.render('Filter') : null}</div>
+              {/* Render the columns filter UI */}
+              {/*<div>{column.canFilter ? column.render('Filter') : null}</div>*/}
               </th>
-              
             ))}
-            */}
           </tr>
         ))}
       </thead>
@@ -285,12 +278,11 @@ function Table({
 
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
    
-   const initialState = props.sortBy;
-   //console.log(initialState);
+   const { sortBy } = props;
 
    const resetFilters = React.useCallback(() => setFiltersarr([]), [setFiltersarr]);
 
-   const fetchData = React.useCallback(({ pageSize, pageIndex, filters }) => {
+   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
       // This will get called when the table needs new data
       // You could fetch your data from literally anywhere,
       // even a server. But for this example, we'll just fake it.
@@ -309,13 +301,14 @@ function Table({
           }
         };
 
-        let startRow = (pageSize * pageIndex) + 1;
-        //const endRow = startRow + pageSize;
         let url = WireBatch_Url;
-        url += "?limit="+pageSize;
-        url += "&offset="+startRow;
-        url += "&include_count=true";
+        url += buildPageUrl(pageSize,pageIndex);
         console.log(filters);
+        if(sortBy.length>0){
+          console.log(sortBy);
+          url += buildSortByUrl(sortBy);
+        }
+        url += "&include_count=true";
         let res = await axios.get(url, options);
         //console.log(res.data);
         console.log(res.data.resource);
@@ -335,7 +328,7 @@ function Table({
       if (fetchId === fetchIdRef.current) {
         fetchWireBatchList();
       }
-    }, [])
+    }, [session_token])
 
 
    const onRowClick = (state, rowInfo, column, instance) => {
@@ -372,7 +365,7 @@ function Table({
         data={data}
         filtersarr={filtersarr}
         setFiltersarr={setFiltersarr}
-        initialState={initialState}
+        initialSortState={sortBy}
         fetchData={fetchData}
         loading={loading}
         pageCount={pageCount}

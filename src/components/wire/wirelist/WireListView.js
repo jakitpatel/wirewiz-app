@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useTable, useSortBy, useRowSelect } from 'react-table'
+import { useTable, useSortBy, useFilters, usePagination, useRowSelect } from 'react-table';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import './WireListView.css';
+import DefaultColumnFilter from './../../Filter/DefaultColumnFilter';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -50,29 +51,69 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSelectedRowsTb }) {
+function Table({
+  getTbdProps, 
+  columns, 
+  data, 
+  filtersarr, 
+  setFiltersarr,
+  initialState,
+  fetchData,
+  loading,
+  pageCount: controlledPageCount, 
+  selectedRowsTb, 
+  setSelectedRowsTb 
+}) {
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  )
+
   // Use the state and functions returned from useTable to build your UI
 
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    // rows, -> we change 'rows' to 'page'
+    page,
     getTdProps,
     prepareRow,
     setHiddenColumns,
     selectedFlatRows,
-    state: { selectedRowIds }
+    // below new props related to 'usePagination' hook
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { filters, pageIndex, pageSize, sortBy, selectedRowIds } // Get the state from the instance
   } = useTable({
     getTbdProps,
     columns,
     data,
-    initialState/*,
-    state: {
+    defaultColumn, // Be sure to pass the defaultColumn option
+    manualFilters: true,
+    manualSortBy: true,
+    //filterTypes,
+    initialState: { filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
+    manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
+    //autoResetPage: false,
+    pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
+    /*,state: {
       selectedRowIds: selectedRowsTb
     }*/
   },
+  useFilters, // useFilters!
   useSortBy,
+  usePagination,
   useRowSelect,
   hooks => {
     hooks.visibleColumns.push(columns => [
@@ -114,17 +155,11 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
             );
           }
         }
-        /*
-        Cell: ({ row }) => (
-          <div>
-            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-          </div>
-        ),*/
       },
       ...columns,
     ])
   })
-
+  
   useEffect(() => {
     let selWireArr = [];
       for(let i=0; i<selectedFlatRows.length; i++){
@@ -136,6 +171,14 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
     console.log(selectedRowIds);
     
   }, [setSelectedRowsTb, selectedRowIds]);
+
+  // Listen for changes in pagination and use the state to fetch our new data
+  React.useEffect(() => {
+    //fetchData({ pageIndex, pageSize });
+    setFiltersarr(filters);
+    fetchData({ pageIndex, pageSize, filters, sortBy });
+  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy]);
+
   /*
   useEffect(() => {
     setHiddenColumns(
@@ -145,11 +188,99 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
   */
   // Render the UI for your table
   return (
-    <React.Fragment>
+    <>
+    {/*
+    <pre>
+        <code>
+          {JSON.stringify(
+            {
+              pageIndex,
+              pageSize,
+              pageCount,
+              canNextPage,
+              canPreviousPage,
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+      <div>
+        <pre>
+          <code>
+            {JSON.stringify(
+              {
+                "initialState.filters": filtersarr,
+                "state.filters": filters
+              },
+              null,
+              2
+            )}
+          </code>
+        </pre>
+      </div>
+      */}
+    {/* 
+      Pagination can be built however you'd like. 
+      This is just a very basic UI implementation:
+    */}
+    <div className="pagination row">
+      <div className="col-md-3">
+        <button className={`btn btn-primary btn-md`} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
+        <button className={`btn btn-primary btn-md`} onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>{' '}
+      </div>
+      <div className="col-md-3">
+        <button className={`btn btn-primary btn-md`} onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
+        <button className={`btn btn-primary btn-md`} onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+      </div>
+      <div className="col-md-4">
+        <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <span>
+          | Go to page:{' '}
+          <input
+            type="number"
+            className="form-control custom-control-inline"
+            defaultValue={pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              gotoPage(page)
+            }}
+            style={{ width: '100px' }}
+          />
+        </span>{' '}
+      </div>
+      <div className="col-md-2">
+        <select className="form-control"
+          value={pageSize}
+          onChange={e => {
+            setPageSize(Number(e.target.value))
+          }}
+        >
+          {[10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th width={column.width} {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
               {/* Add a sort direction indicator */}
@@ -160,13 +291,15 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
                       : ' 🔼'
                     : ''}
                 </span>
+              {/* Render the columns filter UI */}
+              {/*<div>{column.canFilter ? column.render('Filter') : null}</div>*/}
               </th>
             ))}
           </tr>
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
+        {page.map((row, i) => {
           prepareRow(row)
           return (
             <tr {...row.getRowProps()}>
@@ -180,23 +313,21 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
         })}
       </tbody>
     </table>
-    </React.Fragment>
+    </>
   )
 }
 
  function WireListView(props) {
-   console.log(props.items);
-   const data = React.useMemo(() => props.items, [props.items])
+   //console.log(props.items);
+   //const data = React.useMemo(() => props.items, [props.items])
  
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
    
    //const [selectedRows, setSelectedRows] = useState([]);
 
    //const dispatch = useDispatch();
-   let { selectedRows, setSelectedRows } = props;
-
-   const initialState = props.sortBy;
-   //console.log(initialState);
+   let { initialState, selectedRows, setSelectedRows, filtersarr, setFiltersarr, loading, fetchData, pageCount, data } = props;
+   
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
         onClick: (e, handleOriginal) => {
@@ -224,7 +355,7 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
       }
     }
     console.log(selectedRows);
-
+    
     useEffect(() => {
       ReactTooltip.rebuild();
     });
@@ -232,9 +363,16 @@ function Table({getTbdProps, columns, data, initialState, selectedRowsTb, setSel
    return (
     <Styles>
       <ReactTooltip delayShow={200} id='wireListTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
-      <Table getTdProps={onRowClick} 
-        columns={columns} data={data} 
-        initialState={initialState} 
+      <Table 
+        getTdProps={onRowClick} 
+        columns={columns} 
+        data={data}
+        filtersarr={filtersarr}
+        setFiltersarr={setFiltersarr}
+        initialState={initialState}
+        fetchData={fetchData}
+        loading={loading}
+        pageCount={pageCount}
         selectedRowsTb={selectedRows}
         setSelectedRowsTb={setSelectedRows} />
     </Styles>

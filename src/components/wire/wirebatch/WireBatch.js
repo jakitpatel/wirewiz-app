@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
-import SelectColumnFilter from './Filter/SelectColumnFilter.js'
+import SelectColumnFilter from './../../Filter/SelectColumnFilter.js'
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(false);
@@ -156,7 +156,10 @@ function WireBatch(props) {
   */
   console.log("Properties", props);
   console.log("wireBatchLoad : "+location.key);
-  const initialSortState = [{ id: "wireBatchID", desc: true }]; 
+  const initialState = {
+    sortBy : [{ id: "wireBatchID", desc: true }],
+    pageSize : 10
+  };
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
@@ -164,7 +167,7 @@ function WireBatch(props) {
       <WireBatchListview
         items={wirebatchlist}
         columnDefs={columnDefs}
-        sortBy={initialSortState}
+        initialState={initialState}
       />
     );
 

@@ -24,7 +24,7 @@ if(env==="PROD"){
     Login_Url = API_URL+"user/session?service=cfsb_ldap";  // For Production Env
     Customer_Url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";  // For Production Env
     WireBatch_Url = API_URL+"cfsb_sqlserver/_table/v_wireBatch";  // For Production Env
-    Wires_Url = API_URL+"cfsb_sqlserver/_table/v_wire?filter=";  // For Production Env
+    Wires_Url = API_URL+"cfsb_sqlserver/_table/v_wire";  // For Production Env
     Wire_tbl_Url = API_URL+"cfsb_sqlserver/_table/wire";  // For Production Env
     WireDetails_Url = API_URL+"getWireDetails?filter=";  // For Production Env
     Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/wireAppPermission?filter=";  // For Production Env

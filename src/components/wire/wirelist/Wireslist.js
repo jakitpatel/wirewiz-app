@@ -8,8 +8,9 @@ import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 import ReactTooltip from 'react-tooltip';
+import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
+import {buildSortByUrl, buildPageUrl} from './../../Functions/functions.js';
 
 function Wireslist(props) {
   let history = useHistory();
@@ -17,8 +18,14 @@ function Wireslist(props) {
   const fundExportLink = useRef(null);
   const ofacExportLink = useRef(null);
 
-  const [loading, setLoading] = useState(true);
-  //const ofecLinkRef = useRef(false);
+  //const [loading, setLoading] = useState(true);
+  // We'll start our table without any data
+  const [filtersarr, setFiltersarr] = React.useState([]);
+  //const [data, setData] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [pageCount, setPageCount] = React.useState(0);
+  const fetchIdRef = React.useRef(0);
+
   const [downloadOfac, setDownloadOfac] = useState(false);
   const [isRefresh, setIsRefresh] = useState(true);
   const [wireText, setWireText] = useState("");
@@ -28,7 +35,6 @@ function Wireslist(props) {
 
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
-  const button = <button className="btn btn-primary btn-sm">Edit</button>;
   
   const dispatch = useDispatch();
 
@@ -164,6 +170,65 @@ function Wireslist(props) {
     }
   ];
 
+  const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
+    // This will get called when the table needs new data
+    // You could fetch your data from literally anywhere,
+    // even a server. But for this example, we'll just fake it.
+
+    // Give this fetch an ID
+    const fetchId = ++fetchIdRef.current
+
+    // Set the loading state
+    setLoading(true);
+
+    async function fetchWireList() {
+      const options = {
+        headers: {
+          'X-DreamFactory-API-Key': API_KEY,
+          'X-DreamFactory-Session-Token': session_token
+        }
+      };
+
+      let url = Wires_Url;
+      url += buildPageUrl(pageSize,pageIndex);
+      console.log(filters);
+      if(batchRec){
+        url += "&filter=wireBatchID='"+batchRec.wireBatchID+"'";
+      }
+      if(sortBy.length>0){
+        console.log(sortBy);
+        url += buildSortByUrl(sortBy);
+      }
+      url += "&include_count=true";
+      /*
+      if(env==="DEV"){
+        url = Wires_Url;
+      }*/
+      let res = await axios.get(url, options);
+      //console.log(res.data);
+      console.log(res.data.resource);
+      let wireArray = res.data.resource;
+      //console.log(wireArray);
+      //setData(wireArray);
+      dispatch({
+        type:'SETWIRES',
+        payload:wireArray
+      });
+      // Your server could send back total page count.
+      // For now we'll just fake it, too
+      let totalCnt = res.data.meta.count;
+      let pageCnt = Math.ceil(totalCnt / pageSize);
+      console.log("pageCnt : "+pageCnt);
+      setPageCount(Math.ceil(totalCnt / pageSize));
+
+      setLoading(false);
+    }
+    // Only update the data if this is the latest fetch
+    if (fetchId === fetchIdRef.current) {
+      fetchWireList();
+    }
+  }, [batchRec, dispatch, session_token]);
+
   useEffect(() => {
     if (downloadOfac) {
       console.log("wireFiservText");
@@ -179,6 +244,7 @@ function Wireslist(props) {
     }
   }, [downloadOfac, wireFiservText, wireOfacText]);
   
+  /*
   useEffect(() => {
     let ignore = false;
     async function fetchWireDictionary() {
@@ -232,7 +298,7 @@ function Wireslist(props) {
     fetchWireList();
     return () => { ignore = true; console.log("WireList Unmonted"); };
   }, [batchId, dispatch, session_token, isRefresh]);
-
+  */
 
   if (toWiredetails === true) {
     console.log("toWiredetails : "+toWiredetails);
@@ -347,28 +413,10 @@ function Wireslist(props) {
     setDownloadOfac(true);
   }
 
-  console.log("wires", wires);
-  console.log("Properties", props);
-  const initialSortState = {
-    //sortBy: [{ id: "wireID", desc: true }]
-   };
-  let disCmp =
-    loading === true ? (
-      <h3> LOADING... </h3>
-    ) : (
-      <WireListView
-        items={wires}
-        columnDefs={columnDefs}
-        sortBy={initialSortState}
-        selectedRows={selectedRows}
-        setSelectedRows={setSelectedRows}
-      />
-    );
-
-  let txtFileName = "wireapp.fund."+batchId+".txt";
-  let txtFiservFileName = "wireapp.fiserv."+batchId+".txt";
-  let txtOfacFileName = "wireapp.ofac."+batchId+".txt";
   let showExportBtn = WIRE_EXPORT;
+  let txtFileName = "wireapp.fund.txt";
+  let txtFiservFileName = "wireapp.fiserv.txt";
+  let txtOfacFileName = "wireapp.ofac.txt";
   let byWireBatchId = false;
   let headerTitle = "Wire List";
   if(batchRec){
@@ -376,7 +424,34 @@ function Wireslist(props) {
     console.log(batchRec);
     headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
     byWireBatchId = true;
+    txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";
+    txtFiservFileName = "wireapp.fiserv."+batchRec.wireBatchID+".txt";
+    txtOfacFileName = "wireapp.ofac."+batchRec.wireBatchID+".txt";
   }
+
+  console.log("wires", wires);
+  
+  const initialState = {
+    sortBy : [{ id: "wireID", desc: true }],
+    pageSize : 2
+  };
+  let disCmp =
+    /*loading === true ? (
+      <h3> LOADING... </h3>
+    ) :*/ (
+      <WireListView
+        data={wires}
+        columnDefs={columnDefs}
+        initialState={initialState}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        filtersarr={filtersarr}
+        setFiltersarr={setFiltersarr}
+        fetchData={fetchData}
+        loading={loading}
+        pageCount={pageCount}
+      />
+    );
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px"}}>

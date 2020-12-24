@@ -12,7 +12,8 @@ const buildSortByUrl = (sortArr) => {
 
  const buildPageUrl = (pageSize, pageIndex) => {
     let pageUrl = "";
-    let startRow = (pageSize * pageIndex) + 1;
+    //let startRow = (pageSize * pageIndex) + 1;
+    let startRow = pageSize * pageIndex;
     //const endRow = startRow + pageSize;
     pageUrl += "?limit="+pageSize;
     pageUrl += "&offset="+startRow;

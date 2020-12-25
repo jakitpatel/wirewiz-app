@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy, useFilters, usePagination, useRowSelect } from 'react-table';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import './WireListView.css';
 import DefaultColumnFilter from './../../Filter/DefaultColumnFilter';
@@ -71,8 +72,9 @@ function Table({
       Filter: DefaultColumnFilter,
     }),
     []
-  )
+  );
 
+  const location = useLocation();
   // Use the state and functions returned from useTable to build your UI
 
   const {
@@ -177,7 +179,7 @@ function Table({
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
     fetchData({ pageIndex, pageSize, filters, sortBy });
-  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy]);
+  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
 
   /*
   useEffect(() => {

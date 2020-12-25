@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 import {buildSortByUrl, buildPageUrl} from './../../Functions/functions.js';
+import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 
 function Wireslist(props) {
   let history = useHistory();
@@ -90,6 +91,13 @@ function Wireslist(props) {
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID"
+    },
+    {
+      field: "userID",
+      Header: "userID",
+      accessor: "userID",
+      Filter: SelectColumnFilter,
+      filter: 'includes'
     },
     {
       name: "senderShortName",
@@ -349,6 +357,7 @@ function Wireslist(props) {
           // handle error: inform user, go to login, etc
           let res = error.response.data;
           alert(res.error.message);
+          //fetchData({ 2, 10, [], [] });
       } else {
         alert(error);
       }
@@ -433,7 +442,7 @@ function Wireslist(props) {
   
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    pageSize : 10
+    pageSize : 2
   };
   let disCmp =
     /*loading === true ? (
@@ -454,7 +463,7 @@ function Wireslist(props) {
     );
   return (
     <React.Fragment>
-      <div className="container" style={{marginLeft:"0px"}}>
+      <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">{headerTitle}</h3>

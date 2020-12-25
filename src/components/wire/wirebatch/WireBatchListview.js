@@ -75,7 +75,7 @@ function Table({
     }),
     []
   )
-
+  const location = useLocation();
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -126,7 +126,7 @@ function Table({
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
     fetchData({ pageIndex, pageSize, filters, sortBy });
-  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy]);
+  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
 
   // Render the UI for your table
   return (

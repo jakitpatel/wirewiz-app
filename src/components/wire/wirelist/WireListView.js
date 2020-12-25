@@ -63,7 +63,9 @@ function Table({
   loading,
   pageCount: controlledPageCount, 
   selectedRowsTb, 
-  setSelectedRowsTb 
+  setSelectedRowsTb,
+  isRefresh,
+  setIsRefresh
 }) {
 
   const defaultColumn = React.useMemo(
@@ -179,7 +181,7 @@ function Table({
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
     fetchData({ pageIndex, pageSize, filters, sortBy });
-  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+  }, [isRefresh, setIsRefresh, fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
 
   /*
   useEffect(() => {
@@ -189,6 +191,7 @@ function Table({
   }, [columns, setHiddenColumns]);
   */
   // Render the UI for your table
+  console.log("Table : isRefresh :"+isRefresh);
   return (
     <>
     {/*
@@ -279,7 +282,7 @@ function Table({
         </select>
       </div>
     </div>
-    <table {...getTableProps()}>
+    <table key={isRefresh} {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -328,7 +331,11 @@ function Table({
    //const [selectedRows, setSelectedRows] = useState([]);
 
    //const dispatch = useDispatch();
-   let { initialState, selectedRows, setSelectedRows, filtersarr, setFiltersarr, loading, fetchData, pageCount, data } = props;
+   let { initialState, selectedRows, 
+    setSelectedRows, filtersarr, 
+    setFiltersarr, loading, 
+    fetchData, pageCount, 
+    data, isRefresh, setIsRefresh } = props;
    
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
@@ -357,11 +364,14 @@ function Table({
       }
     }
     console.log(selectedRows);
-    
+    /*
+    useEffect(() => {
+    },[isRefresh]);
+    */
     useEffect(() => {
       ReactTooltip.rebuild();
     });
-    
+    console.log("List Table : isRefresh :"+isRefresh);
    return (
     <Styles>
       <ReactTooltip delayShow={200} id='wireListTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
@@ -376,7 +386,10 @@ function Table({
         loading={loading}
         pageCount={pageCount}
         selectedRowsTb={selectedRows}
-        setSelectedRowsTb={setSelectedRows} />
+        setSelectedRowsTb={setSelectedRows}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
+        />
     </Styles>
   )
  }

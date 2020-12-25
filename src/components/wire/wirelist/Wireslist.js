@@ -19,7 +19,6 @@ function Wireslist(props) {
   const fundExportLink = useRef(null);
   const ofacExportLink = useRef(null);
 
-  //const [loading, setLoading] = useState(true);
   // We'll start our table without any data
   const [filtersarr, setFiltersarr] = React.useState([]);
   //const [data, setData] = React.useState([]);
@@ -28,7 +27,7 @@ function Wireslist(props) {
   const fetchIdRef = React.useRef(0);
 
   const [downloadOfac, setDownloadOfac] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(true);
+  const [isRefresh, setIsRefresh] = useState(false);
   const [wireText, setWireText] = useState("");
   const [wireFiservText, setWireFiservText] = useState("");
   const [wireOfacText, setWireOfacText] = useState("olddata");
@@ -349,15 +348,16 @@ function Wireslist(props) {
       };
       let res = await axios.put(Wire_tbl_Url, wiresUpdateObj, options);
       console.log(res);
-      alert("Status updated successfully!");
       setIsRefresh(!isRefresh);
+      alert("Status updated successfully!");
+      //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);
+      setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
           let res = error.response.data;
           alert(res.error.message);
-          //fetchData({ 2, 10, [], [] });
       } else {
         alert(error);
       }
@@ -439,10 +439,10 @@ function Wireslist(props) {
   }
 
   console.log("wires", wires);
-  
+  console.log("isRefresh", isRefresh);
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    pageSize : 2
+    pageSize : 10
   };
   let disCmp =
     /*loading === true ? (
@@ -459,6 +459,8 @@ function Wireslist(props) {
         fetchData={fetchData}
         loading={loading}
         pageCount={pageCount}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
       />
     );
   return (

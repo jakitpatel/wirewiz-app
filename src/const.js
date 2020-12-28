@@ -1,7 +1,7 @@
 export const API_KEY = "36fda24fe5588fa4285ac6c6c2fdfbdb6b6bc9834699774c9bf777f706d05a88";
 
-let env = "DEV";
-//let env = "PROD";
+//let env = "DEV";
+let env = "PROD";
 
 let API_URL = "http://localhost:3001/";  // For Local Env
 let Login_Url = API_URL+"login"; // For Local Env

@@ -67,7 +67,25 @@ function Table({
   isRefresh,
   setIsRefresh
 }) {
-
+  /*
+  const filterTypes = React.useMemo(
+    () => ({
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter(row => {
+          const rowValue = row.values[id]
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true
+        })
+      },
+    }),
+    []
+  )
+  */
   const defaultColumn = React.useMemo(
     () => ({
       // Let's set up our default Filter UI
@@ -107,7 +125,7 @@ function Table({
     manualFilters: true,
     manualSortBy: true,
     //filterTypes,
-    initialState: { filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
+    initialState: { filters: filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
     pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
@@ -124,6 +142,7 @@ function Table({
       // Let's make a column for selection
       {
         id: 'selection',
+        disableFilters: true,
         show : true,
         minWidth: 45,
         width: 45,
@@ -191,7 +210,7 @@ function Table({
   }, [columns, setHiddenColumns]);
   */
   // Render the UI for your table
-  console.log("Table : isRefresh :"+isRefresh);
+  //console.log("Table : isRefresh :"+isRefresh);
   return (
     <>
     {/*
@@ -364,14 +383,11 @@ function Table({
       }
     }
     console.log(selectedRows);
-    /*
-    useEffect(() => {
-    },[isRefresh]);
-    */
+    
     useEffect(() => {
       ReactTooltip.rebuild();
     });
-    console.log("List Table : isRefresh :"+isRefresh);
+    //console.log("List Table : isRefresh :"+isRefresh);
    return (
     <Styles>
       <ReactTooltip delayShow={200} id='wireListTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />

@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
-import {buildSortByUrl, buildPageUrl} from './../../Functions/functions.js';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 
 function Wireslist(props) {
@@ -21,7 +21,7 @@ function Wireslist(props) {
 
   // We'll start our table without any data
   const [filtersarr, setFiltersarr] = React.useState([]);
-  //const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [pageCount, setPageCount] = React.useState(0);
   const fetchIdRef = React.useRef(0);
@@ -60,9 +60,10 @@ function Wireslist(props) {
       Header: "View",
       show : true, 
       width: 55,
-      id: 'colViewWireDetail',
+      //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
-      filterable: false, // Overrides the table option
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log(obj.row);
         let wireListObj = obj.row.original;
@@ -79,14 +80,11 @@ function Wireslist(props) {
       }
     },
     {
-      name: "wireID",
-      sortDescFirst: true,
       field: "wireID",
       Header: "WireID",
       accessor: "wireID"
     },
     {
-      headerName: "wireBatchID",
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID"
@@ -95,8 +93,8 @@ function Wireslist(props) {
       field: "userID",
       Header: "userID",
       accessor: "userID",
-      Filter: SelectColumnFilter,
-      filter: 'includes'
+      //Filter: SelectColumnFilter,
+      //filter: 'includes'
     },
     {
       name: "senderShortName",
@@ -111,10 +109,11 @@ function Wireslist(props) {
       accessor: "originatorName"
     },
     {
-      name: "status",
       field: "status",
       Header: "status",
       accessor: "status",
+      //Filter: SelectColumnFilter,
+      //filter: 'includes',
       Cell: obj => {
         //console.log(obj.row);
         let wireListObj = obj.row.original;
@@ -136,25 +135,21 @@ function Wireslist(props) {
       }
     },
     {
-      name: "wireType",
       field: "wireType",
       Header: "wireType",
       accessor: "wireType"
     },
     {
-      name: "amount",
       field: "amount",
       Header: "amount",
       accessor: "amount"
     },
     {
-      headerName: "completeDateTime",
       field: "completeDateTime",
       Header: "CompleteDateTime",
       accessor: "completeDateTime"
     },
     {
-      headerName: "errorMsg",
       field: "errorMsg",
       Header: "ErrorMsg",
       accessor: "errorMsg",
@@ -176,7 +171,7 @@ function Wireslist(props) {
       }
     }
   ];
-
+  
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data
     // You could fetch your data from literally anywhere,
@@ -186,7 +181,7 @@ function Wireslist(props) {
     const fetchId = ++fetchIdRef.current
 
     // Set the loading state
-    setLoading(true);
+    //setLoading(true);
 
     async function fetchWireList() {
       const options = {
@@ -198,29 +193,40 @@ function Wireslist(props) {
 
       let url = Wires_Url;
       url += buildPageUrl(pageSize,pageIndex);
-      console.log(filters);
       if(batchRec){
         url += "&filter=wireBatchID='"+batchRec.wireBatchID+"'";
+      }
+      if(filters.length>0){
+        console.log("filters");
+        console.log(filters);
+        if(batchRec){
+          url += "&";
+        } else {
+          url += "&filter=";
+        }
+        url += buildFilterUrl(filters);
       }
       if(sortBy.length>0){
         console.log(sortBy);
         url += buildSortByUrl(sortBy);
       }
       url += "&include_count=true";
-      /*
-      if(env==="DEV"){
-        url = Wires_Url;
-      }*/
+      
+      //if(env==="DEV"){
+        //url = Wires_Url;
+      //}
       let res = await axios.get(url, options);
       //console.log(res.data);
       console.log(res.data.resource);
       let wireArray = res.data.resource;
       //console.log(wireArray);
       //setData(wireArray);
+      
       dispatch({
         type:'SETWIRES',
         payload:wireArray
       });
+      
       // Your server could send back total page count.
       // For now we'll just fake it, too
       let totalCnt = res.data.meta.count;
@@ -228,14 +234,14 @@ function Wireslist(props) {
       console.log("pageCnt : "+pageCnt);
       setPageCount(Math.ceil(totalCnt / pageSize));
 
-      setLoading(false);
+      //setLoading(false);
     }
     // Only update the data if this is the latest fetch
     if (fetchId === fetchIdRef.current) {
       fetchWireList();
     }
   }, [batchRec, dispatch, session_token]);
-
+  
   useEffect(() => {
     if (downloadOfac) {
       console.log("wireFiservText");
@@ -442,7 +448,7 @@ function Wireslist(props) {
   console.log("isRefresh", isRefresh);
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    pageSize : 10
+    pageSize : 2
   };
   let disCmp =
     /*loading === true ? (
@@ -450,6 +456,7 @@ function Wireslist(props) {
     ) :*/ (
       <WireListView
         data={wires}
+        //data={data}
         columnDefs={columnDefs}
         initialState={initialState}
         selectedRows={selectedRows}
@@ -457,6 +464,7 @@ function Wireslist(props) {
         filtersarr={filtersarr}
         setFiltersarr={setFiltersarr}
         fetchData={fetchData}
+        batchRec={batchRec}
         loading={loading}
         pageCount={pageCount}
         isRefresh={isRefresh}

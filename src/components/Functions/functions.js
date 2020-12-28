@@ -10,6 +10,20 @@ const buildSortByUrl = (sortArr) => {
     return sortUrl;
  }
 
+ const buildFilterUrl = (filterArr) => {
+  let filterUrl = "";
+  filterArr.forEach(function(filterObj) {
+    let filterOpr = "=";
+    let filterClm = filterObj.id;
+    let filterVal = filterObj.value;
+    filterUrl += "&"+filterClm+filterOpr+"'"+filterVal+"'";
+  });
+  if(filterUrl.length>0){
+    filterUrl = filterUrl.substring(1);
+  }
+  return filterUrl;
+}
+
  const buildPageUrl = (pageSize, pageIndex) => {
     let pageUrl = "";
     //let startRow = (pageSize * pageIndex) + 1;
@@ -20,4 +34,4 @@ const buildSortByUrl = (sortArr) => {
     return pageUrl;
  }
 
- export { buildSortByUrl, buildPageUrl } ; 
+ export { buildSortByUrl, buildPageUrl, buildFilterUrl } ; 

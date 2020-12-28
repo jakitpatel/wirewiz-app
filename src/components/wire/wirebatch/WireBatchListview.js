@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
 import DefaultColumnFilter from './../../Filter/DefaultColumnFilter';
-import {buildSortByUrl, buildPageUrl} from './../../Functions/functions.js';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -104,7 +104,7 @@ function Table({
     manualFilters: true,
     manualSortBy: true,
     //filterTypes,
-    initialState: { filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
+    initialState: { filters: filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
     pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
@@ -303,7 +303,12 @@ function Table({
 
         let url = WireBatch_Url;
         url += buildPageUrl(pageSize,pageIndex);
-        console.log(filters);
+        if(filters.length>0){
+          console.log("filters");
+          console.log(filters);
+          url += "&filter=";
+          url += buildFilterUrl(filters);
+        }
         if(sortBy.length>0){
           console.log(sortBy);
           url += buildSortByUrl(sortBy);

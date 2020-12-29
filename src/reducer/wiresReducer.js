@@ -1,6 +1,6 @@
-const wiresReducer = (state = {wires:[]}, action) => {
+const wiresReducer = (state = { wires:[], pageIndex:0, pageSize:10 }, action) => {
     switch(action.type){
-        case "UPDATECUSTOMER":
+        case "UPDATEWIRELIST":
             return {
                 ...state,
                 ...action.payload

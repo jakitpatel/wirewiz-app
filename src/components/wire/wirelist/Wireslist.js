@@ -44,7 +44,7 @@ function Wireslist(props) {
       }
   });
 
-  const { wires, wiredict } = useSelector(state => {
+  const { wires, pageIndex, pageSize, wiredict } = useSelector(state => {
     return {
         ...state.wiresReducer,
         ...state.wireDictReducer
@@ -226,8 +226,14 @@ function Wireslist(props) {
       //setData(wireArray);
       
       dispatch({
-        type:'SETWIRES',
-        payload:wireArray
+        type:'UPDATEWIRELIST',
+        payload:{
+          pageIndex:pageIndex,
+          pageSize:pageSize,
+          wires:wireArray
+        }
+        //type:'SETWIRES',
+        //payload:wireArray
       });
       
       // Your server could send back total page count.
@@ -451,7 +457,10 @@ function Wireslist(props) {
   console.log("isRefresh", isRefresh);
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    pageSize : 10
+    pageSize : 10,
+    pageIndex : 0
+    //pageSize : pageSize,
+    //pageIndex : pageIndex
   };
   let disCmp =
     /*loading === true ? (

@@ -125,7 +125,7 @@ function Table({
     manualFilters: true,
     manualSortBy: true,
     //filterTypes,
-    initialState: { filters: filtersarr, pageIndex: 0, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
+    initialState: { filters: filtersarr, pageIndex: initialState.pageIndex, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
     pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
@@ -308,8 +308,24 @@ function Table({
         {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
+              <th width={column.width} {...column.getHeaderProps()}>
+                <div>
+                  <span {...column.getSortByToggleProps()}>
+                      {column.render('Header')}
+                      {/* Add a sort direction indicator */}
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? ' 🔽'
+                          : ' 🔼'
+                        : ''}
+                    </span>
+                </div>
+                {/* Render the columns filter UI */}
+                <div>{column.canFilter ? column.render('Filter') : null}</div>
+              </th>
+              ))}
+              {/*
               <th width={column.width} {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
-              {/* Add a sort direction indicator */}
               <span>
                   {column.isSorted
                     ? column.isSortedDesc
@@ -317,10 +333,10 @@ function Table({
                       : ' 🔼'
                     : ''}
                 </span>
-              {/* Render the columns filter UI */}
               <div>{column.canFilter ? column.render('Filter') : null}</div>
               </th>
-            ))}
+              ))}
+              */}
           </tr>
         ))}
       </thead>

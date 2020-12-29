@@ -142,17 +142,20 @@ function Wireslist(props) {
     {
       field: "amount",
       Header: "amount",
-      accessor: "amount"
+      accessor: "amount",
+      disableFilters: true,
     },
     {
       field: "completeDateTime",
       Header: "CompleteDateTime",
-      accessor: "completeDateTime"
+      accessor: "completeDateTime",
+      disableFilters: true,
     },
     {
       field: "errorMsg",
       Header: "ErrorMsg",
       accessor: "errorMsg",
+      disableFilters: true,
       Cell: obj => {
         //console.log(obj.row);
         let wireListObj = obj.row.original;

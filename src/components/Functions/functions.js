@@ -14,13 +14,15 @@ const buildSortByUrl = (sortArr) => {
   let filterUrl = "";
   filterArr.forEach(function(filterObj) {
     let filterOpr = "=";
+    filterOpr = "like";
     let filterClm = filterObj.id;
     let filterVal = filterObj.value;
-    filterUrl += "&"+filterClm+filterOpr+"'"+filterVal+"'";
+    filterUrl += "&"+filterClm+" "+filterOpr+" '%"+filterVal+"%' ";
   });
   if(filterUrl.length>0){
     filterUrl = filterUrl.substring(1);
   }
+  console.log("filterUrl : "+filterUrl);
   return filterUrl;
 }
 

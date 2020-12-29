@@ -318,7 +318,7 @@ function Table({
                     : ''}
                 </span>
               {/* Render the columns filter UI */}
-              {/*<div>{column.canFilter ? column.render('Filter') : null}</div>*/}
+              <div>{column.canFilter ? column.render('Filter') : null}</div>
               </th>
             ))}
           </tr>

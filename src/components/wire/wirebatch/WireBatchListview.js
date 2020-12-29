@@ -162,6 +162,7 @@ function Table({
         </pre>
       </div>
       */}
+    {pageCount>1 &&
     <div className="pagination row">
       <div className="col-md-3">
         <button className={`btn btn-primary btn-md`} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -215,6 +216,7 @@ function Table({
         </select>
       </div>
     </div>
+    }
     <table {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (

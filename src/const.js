@@ -26,6 +26,7 @@ let ACHDetailEntry_Url = API_URL+"ACHEntryDetail";  // For Local Env
 let ACHAddendaList_Url = API_URL+"ACHAddendaRecord_NEW";  // For Local Env
 let WireDocList_Url = API_URL+"wireDoc";  // For Local Env
 let WireExport_Url = API_URL+"getExportData";  // For Local Env
+let DepositList_Url = API_URL+"v_deposit";  // For Local Env
 
 if(env==="PROD"){
     API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For Production Env
@@ -43,8 +44,9 @@ if(env==="PROD"){
     ACHAddendaList_Url = API_URL+"cfsb_sqlserver/_table/ACHAddendaRecord_NEW?filter=";  // For Production Env
     WireDocList_Url = API_URL+"cfsb_sqlserver/_table/wireDoc?filter=";  // For Production Env
     WireExport_Url = API_URL+"getExportData";  // For Production Env
+    DepositList_Url = API_URL+"cfsb_sqlserver/_table/v_deposit";  // For Production Env
 }
 
 export { API_URL, Login_Url, WireBatch_Url, Wires_Url, Wire_tbl_Url, WireDetails_Url, Customer_Url, 
     Usr_Permission_Url, WireDictionary_Url, ACHFileRecord_Url, ACHBatchRecord_Url, ACHDetailEntry_Url,
-    ACHAddendaList_Url, WireDocList_Url, env, WireExport_Url };
+    ACHAddendaList_Url, WireDocList_Url, env, WireExport_Url, DepositList_Url };

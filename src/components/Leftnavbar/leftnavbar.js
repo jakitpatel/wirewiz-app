@@ -13,7 +13,8 @@ function MenuListItem(props) {
     camera: Icon.Camera,
     users: Icon.Users,
     useradd: Icon.UserPlus,
-    trello : Icon.Trello
+    trello : Icon.Trello,
+    dollarSign : Icon.DollarSign
   };
   const IconCmp = components[props.iconName || "home"];
   return (
@@ -29,7 +30,7 @@ function MenuListItem(props) {
 // Stateless Function Component
 function LeftNavBar(props) {
   
-  const { WIRE_ENABLER, ACH_ENABLER } = useSelector(state => {
+  const { WIRE_ENABLER, ACH_ENABLER, DEPOSITS_ENABLER } = useSelector(state => {
     return {
         ...state.userReducer
     }
@@ -62,6 +63,12 @@ function LeftNavBar(props) {
             routePath={`${process.env.PUBLIC_URL}/ach`}
             iconName="users"
             enableVal={ACH_ENABLER}
+          />
+          <MenuListItem
+            menuName="Deposits"
+            routePath={`${process.env.PUBLIC_URL}/deposits`}
+            iconName="dollarSign"
+            enableVal={DEPOSITS_ENABLER}
           />
           <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />

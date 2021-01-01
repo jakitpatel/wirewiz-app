@@ -47,6 +47,7 @@ function Login(props) {
     let wire_modify_create_val = false;
     let wire_export_val = false;
     let ach_enabler_val = false;
+    let deposits_enabler_val = false;
     try {
       const options = {
         headers: {
@@ -82,6 +83,9 @@ function Login(props) {
         if(usrPermArray[0].ACH_ENABLE_PERMISSION){
           ach_enabler_val = usrPermArray[0].ACH_ENABLE_PERMISSION;
         }
+        if(usrPermArray[0].DEPOSIT_ENABLE_PERMISSION){
+          deposits_enabler_val = usrPermArray[0].DEPOSIT_ENABLE_PERMISSION;
+        }
       }
     } catch (error) {
       console.log(error.response);
@@ -102,6 +106,7 @@ function Login(props) {
     console.log("wire_modify_create_val" +wire_modify_create_val);
     console.log("wire_export_val" +wire_export_val);
     console.log("ach_enabler_val" +ach_enabler_val);
+    console.log("deposits_enabler_val : " +deposits_enabler_val);
     
     dispatch({
       type:'UPDATEUSER',
@@ -122,6 +127,7 @@ function Login(props) {
         WIRE_MODIFY_CREATE     : wire_modify_create_val,
         WIRE_EXPORT            : wire_export_val,
         ACH_ENABLER            : ach_enabler_val,
+        DEPOSITS_ENABLER       : deposits_enabler_val
       }
     });
     setRedirectToDashboard(true);

@@ -13,7 +13,8 @@ const userReducer = (state = {
     CUSTOMER_MODIFY_CREATE : false,
     WIRE_ENABLER           : false,
     WIRE_MODIFY_CREATE     : false,
-    WIRE_EXPORT            : false
+    WIRE_EXPORT            : false,
+    DEPOSITS_ENABLER       : false
 }, action ) => {
     switch(action.type){
         case "UPDATEUSER":

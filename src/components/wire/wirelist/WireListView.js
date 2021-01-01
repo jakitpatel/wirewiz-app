@@ -201,6 +201,7 @@ function Table({
   // Listen for changes in pagination and use the state to fetch our new data
   React.useEffect(() => {
     //fetchData({ pageIndex, pageSize });
+    console.log("Page Index :- " +pageIndex);
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
   }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);

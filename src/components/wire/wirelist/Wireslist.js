@@ -465,10 +465,10 @@ function Wireslist(props) {
   console.log("isRefresh", isRefresh);
   const initialState = {
     sortBy : [{ id: "wireID", desc: true }],
-    //pageSize : 10,
-    //pageIndex : 0
-    pageSize : pageSize,
-    pageIndex : pageIndex
+    pageSize : 10,
+    pageIndex : 0
+    //pageSize : pageSize,
+    //pageIndex : pageIndex
   };
   let disCmp =
     /*loading === true ? (

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useTable, useSortBy, useFilters, usePagination, useRowSelect } from 'react-table';
+import { useTable, useSortBy, useFilters, usePagination, useRowSelect, useAsyncDebounce } from 'react-table';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -195,13 +195,16 @@ function Table({
     
   }, [setSelectedRowsTb, selectedRowIds]);
 
+  // Debounce our onFetchData call for 100ms
+  const onFetchDataDebounced = useAsyncDebounce(fetchData, 100);
+
   // Listen for changes in pagination and use the state to fetch our new data
   React.useEffect(() => {
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
-    fetchData({ pageIndex, pageSize, filters, sortBy });
-  }, [isRefresh, setIsRefresh, fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
-
+    onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
+  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+  
   /*
   useEffect(() => {
     setHiddenColumns(

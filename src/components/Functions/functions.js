@@ -17,11 +17,12 @@ const buildSortByUrl = (sortArr) => {
     filterOpr = "like";
     let filterClm = filterObj.id;
     let filterVal = filterObj.value;
-    filterUrl += "&"+filterClm+" "+filterOpr+" '%"+filterVal+"%' ";
+    filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";
   });
   if(filterUrl.length>0){
-    filterUrl = filterUrl.substring(1);
+    filterUrl = filterUrl.substring(5);
   }
+  filterUrl = encodeURIComponent(filterUrl);
   console.log("filterUrl : "+filterUrl);
   return filterUrl;
 }

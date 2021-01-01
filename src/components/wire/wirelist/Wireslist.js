@@ -197,13 +197,13 @@ function Wireslist(props) {
       let url = Wires_Url;
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
-        url += "&filter=wireBatchID='"+batchRec.wireBatchID+"'";
+        url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
       }
       if(filters.length>0){
         console.log("filters");
         console.log(filters);
         if(batchRec){
-          url += "&";
+          url += " and ";
         } else {
           url += "&filter=";
         }
@@ -364,7 +364,7 @@ function Wireslist(props) {
       let res = await axios.put(Wire_tbl_Url, wiresUpdateObj, options);
       console.log(res);
       setIsRefresh(!isRefresh);
-      alert("Status updated successfully!");
+      //alert("Status updated successfully!");
       //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);
@@ -383,10 +383,16 @@ function Wireslist(props) {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);
     if(selectedRows.length > 0){
-      buildWireOfacData();
-      //buildWireTagValue();
-      //textlink.current.link.click(event);
-      handleWireStatusChange();
+      if (window.confirm("Are you sure you want to export the selected wire Data?")) {
+        console.log("Export approved");
+        buildWireOfacData();
+        //buildWireTagValue();
+        //textlink.current.link.click(event);
+        handleWireStatusChange();
+      } else {
+        console.log("Canceled Export");
+        return false;
+      }
     } else {
       console.log("Return From File Export");
       alert("No Wire is selected");

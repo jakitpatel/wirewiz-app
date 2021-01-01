@@ -501,6 +501,7 @@ function Wireslist(props) {
                 </button>
                 <CSVLink
                       data={wireText}
+                      uFEFF={false}
                       ref={fundExportLink}
                       filename={txtFileName}
                       className={`btn btn-primary btn-sm invisible`}
@@ -514,6 +515,7 @@ function Wireslist(props) {
                   
                     <CSVLink
                       data={wireFiservText}
+                      uFEFF={false}
                       filename={txtFiservFileName}
                       className={`btn btn-primary btn-sm invisible`}
                       style={{ float: "right" }}
@@ -522,6 +524,7 @@ function Wireslist(props) {
                     >ExportOfac</CSVLink>
                 <CSVLink
                       data={wireOfacText}
+                      uFEFF={false}
                       filename={txtOfacFileName}
                       className={`btn btn-primary btn-sm invisible`}
                       style={{ float: "right" }}

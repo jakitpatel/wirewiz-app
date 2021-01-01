@@ -222,8 +222,24 @@ function Table({
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
+              <th width={column.width} {...column.getHeaderProps()}>
+                <div>
+                  <span {...column.getSortByToggleProps()}>
+                      {column.render('Header')}
+                      {/* Add a sort direction indicator */}
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? ' 🔽'
+                          : ' 🔼'
+                        : ''}
+                    </span>
+                </div>
+                {/* Render the columns filter UI */}
+                {/*<div>{column.canFilter ? column.render('Filter') : null}</div>*/}
+              </th>
+            ))}
+              {/*
               <th width={column.width} {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
-              {/* Add a sort direction indicator */}
               <span>
                   {column.isSorted
                     ? column.isSortedDesc
@@ -231,10 +247,10 @@ function Table({
                       : ' 🔼'
                     : ''}
                 </span>
-              {/* Render the columns filter UI */}
-              {/*<div>{column.canFilter ? column.render('Filter') : null}</div>*/}
+              <div>{column.canFilter ? column.render('Filter') : null}</div>
               </th>
             ))}
+            */}
           </tr>
         ))}
       </thead>

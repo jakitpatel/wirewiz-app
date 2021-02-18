@@ -33,10 +33,11 @@ function Wirein(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireInRecordObj = obj.row.original;
+        wireInRecordObj.fromView = "wireIn";
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wire/`,
+              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireInRecordObj.Account}`,
               state: obj.row.original
             }}
           >
@@ -76,10 +77,10 @@ function Wirein(props) {
       accessor: "numProtocolReject"
     },
     {
-      name: "numBuisnessReject",
-      field: "numBuisnessReject",
-      Header: "numBuisnessReject",
-      accessor: "numBuisnessReject"
+      name: "numBusinessReject",
+      field: "numBusinessReject",
+      Header: "numBusinessReject",
+      accessor: "numBusinessReject"
     },
     {
       name: "lastArrivialTime",
@@ -117,7 +118,7 @@ function Wirein(props) {
   
   console.log("Properties", props);
   const initialSortState = {
-    sortBy: [{ id: "BatchID", desc: true }]
+    sortBy: [{ id: "Account", asc: true }]
    }; 
   let disCmp =
     loading === true ? (
@@ -136,11 +137,6 @@ function Wirein(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">WireInRecord List</h3>
-            <div className="btnCls">
-              <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
-                Back
-              </button>
-            </div>
             {disCmp}
           </div>
         </div>

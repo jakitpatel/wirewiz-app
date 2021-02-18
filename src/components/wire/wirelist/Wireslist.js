@@ -218,7 +218,16 @@ function Wireslist(props) {
       let url = Wires_Url;
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
-        url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
+        if(batchRec.fromView && batchRec.fromView==="wireIn"){
+          let account = batchRec.Account;
+          if(account!==null && account!==""){
+            account = account.toString().substr(0, 3);
+          }
+          let filterUrl = "(beneficiaryIdentifier like '"+account+"%') and (status != 3)";
+          url += "&filter="+encodeURIComponent(filterUrl);
+        } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
+          url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
+        }
       }
       if(filters.length>0){
         console.log("filters");
@@ -485,7 +494,15 @@ function Wireslist(props) {
   if(batchRec){
     //console.log("batchRec");
     console.log(batchRec);
-    headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
+    if(batchRec.fromView && batchRec.fromView==="wireIn"){
+      let account = batchRec.Account;
+      if(account!==null && account!==""){
+        account = account.toString().substr(0, 3);
+      }
+      headerTitle += " - "+account;
+    } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
+      headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
+    }
     byWireBatchId = true;
     txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";
     txtFiservFileName = "wireapp.fiserv."+batchRec.wireBatchID+".txt";

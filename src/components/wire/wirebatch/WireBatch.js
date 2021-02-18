@@ -35,6 +35,7 @@ function WireBatch(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireBatchObj = obj.row.original;
+        wireBatchObj.fromView = "wireBatch";
         return (
           <Link
             to={{

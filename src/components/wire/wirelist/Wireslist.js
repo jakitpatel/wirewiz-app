@@ -193,6 +193,12 @@ function Wireslist(props) {
           </div>
         );
       }
+    },
+    {
+      field: "businessErrorMsg",
+      Header: "businessErrorMsg",
+      accessor: "businessErrorMsg",
+      disableFilters: true
     }
   ];
   

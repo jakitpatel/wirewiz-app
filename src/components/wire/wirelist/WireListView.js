@@ -59,6 +59,7 @@ function Table({
   filtersarr, 
   setFiltersarr,
   initialState,
+  pageState,
   fetchData,
   loading,
   pageCount: controlledPageCount, 
@@ -95,6 +96,8 @@ function Table({
   );
 
   const location = useLocation();
+  const dispatch = useDispatch();
+
   // Use the state and functions returned from useTable to build your UI
 
   const {
@@ -128,10 +131,44 @@ function Table({
     initialState: { filters: filtersarr, pageIndex: initialState.pageIndex, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
-    pageCount: controlledPageCount // This means we'll also have to provide our own pageCount.
+    pageCount: controlledPageCount, // This means we'll also have to provide our own pageCount.
     /*,state: {
       selectedRowIds: selectedRowsTb
     }*/
+    
+    useControlledState: state => {
+      return React.useMemo(
+        () => {
+          console.log(pageState);
+          console.log(state);
+          console.log(initialState);
+          let pageIndexVal = state.pageIndex;
+
+          if(pageState.backToList){
+            pageIndexVal = pageState.pageIndex;
+            setTimeout(() => {
+            console.log("pageIndex State : "+pageIndex);
+              dispatch({
+                type:'UPDATEWIRELIST',
+                payload:{
+                  backToList:false
+                }
+              });
+            }, 2000);
+            console.log("setPageIndex : "+pageIndexVal);
+            return ({
+              ...state,
+              pageIndex: pageIndexVal,
+            })
+          } else {
+            return ({
+              ...state
+            })
+          }
+        },
+        [state]
+      )
+    }
   },
   useFilters, // useFilters!
   useSortBy,
@@ -205,7 +242,24 @@ function Table({
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
   }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
-  
+  /*
+  useEffect(() => {
+    console.log("After Render Wire List View");
+    if(pageState.backToList){
+      //gotoPage(pageState.pageIndex);
+      console.log("pageIndex State : "+pageIndex);
+      setTimeout(() => {
+        console.log("pageIndex State : "+pageIndex);
+        /*dispatch({
+          type:'UPDATEWIRELIST',
+          payload:{
+            backToList:false
+          }
+        });
+      }, 1000);
+    }
+  }, [dispatch, gotoPage, pageIndex, pageState.backToList, pageState.pageIndex]);
+  */
   /*
   useEffect(() => {
     setHiddenColumns(
@@ -376,7 +430,7 @@ function Table({
     setSelectedRows, filtersarr, 
     setFiltersarr, loading, 
     fetchData, pageCount, 
-    data, isRefresh, setIsRefresh } = props;
+    data, isRefresh, setIsRefresh, pageState } = props;
    
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
@@ -420,6 +474,7 @@ function Table({
         filtersarr={filtersarr}
         setFiltersarr={setFiltersarr}
         initialState={initialState}
+        pageState={pageState}
         fetchData={fetchData}
         loading={loading}
         pageCount={pageCount}

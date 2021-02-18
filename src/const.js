@@ -27,26 +27,28 @@ let ACHAddendaList_Url = API_URL+"ACHAddendaRecord_NEW";  // For Local Env
 let WireDocList_Url = API_URL+"wireDoc";  // For Local Env
 let WireExport_Url = API_URL+"getExportData";  // For Local Env
 let DepositList_Url = API_URL+"v_deposit";  // For Local Env
+let Wirein_Url = API_URL+"v_wireByVaccount";  // For Local Env
 
 if(env==="PROD"){
     API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For Production Env
     Login_Url = API_URL+"user/session?service=cfsb_ldap";  // For Production Env
     Customer_Url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";  // For Production Env
     WireBatch_Url = API_URL+"cfsb_sqlserver/_table/v_wireBatch";  // For Production Env
-    Wires_Url = API_URL+"cfsb_sqlserver/_table/v_wire";  // For Production Env
-    Wire_tbl_Url = API_URL+"cfsb_sqlserver/_table/wire";  // For Production Env
+    Wires_Url     = API_URL+"cfsb_sqlserver/_table/v_wire";  // For Production Env
+    Wire_tbl_Url    = API_URL+"cfsb_sqlserver/_table/wire";  // For Production Env
     WireDetails_Url = API_URL+"getWireDetails?filter=";  // For Production Env
     Usr_Permission_Url = API_URL+"cfsb_sqlserver/_table/wireAppPermission?filter=";  // For Production Env
     WireDictionary_Url = API_URL+"cfsb_sqlserver/_table/wireDictionary";  // For Production Env
-    ACHFileRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHFileRecord_NEW";  // For Production Env
+    ACHFileRecord_Url  = API_URL+"cfsb_sqlserver/_table/ACHFileRecord_NEW";  // For Production Env
     ACHBatchRecord_Url = API_URL+"cfsb_sqlserver/_table/ACHBatchRecord_NEW?filter=";  // For Production Env
     ACHDetailEntry_Url = API_URL+"cfsb_sqlserver/_table/ACHEntryDetail_NEW?filter=";  // For Production Env
     ACHAddendaList_Url = API_URL+"cfsb_sqlserver/_table/ACHAddendaRecord_NEW?filter=";  // For Production Env
     WireDocList_Url = API_URL+"cfsb_sqlserver/_table/wireDoc?filter=";  // For Production Env
-    WireExport_Url = API_URL+"getExportData";  // For Production Env
+    WireExport_Url  = API_URL+"getExportData";  // For Production Env
     DepositList_Url = API_URL+"cfsb_sqlserver/_table/v_deposit";  // For Production Env
+    Wirein_Url      = API_URL+"cfsb_sqlserver/_table/v_wireByVaccount";  // For Production Env
 }
 
 export { API_URL, Login_Url, WireBatch_Url, Wires_Url, Wire_tbl_Url, WireDetails_Url, Customer_Url, 
     Usr_Permission_Url, WireDictionary_Url, ACHFileRecord_Url, ACHBatchRecord_Url, ACHDetailEntry_Url,
-    ACHAddendaList_Url, WireDocList_Url, env, WireExport_Url, DepositList_Url };
+    ACHAddendaList_Url, WireDocList_Url, env, WireExport_Url, DepositList_Url, Wirein_Url };

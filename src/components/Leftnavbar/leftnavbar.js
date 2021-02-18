@@ -59,6 +59,12 @@ function LeftNavBar(props) {
             enableVal={WIRE_ENABLER}
           />
           <MenuListItem
+            menuName="Wires-In"
+            routePath={`${process.env.PUBLIC_URL}/wiresin`}
+            iconName="trello"
+            enableVal={WIRE_ENABLER}
+          />
+          <MenuListItem
             menuName="ACH"
             routePath={`${process.env.PUBLIC_URL}/ach`}
             iconName="users"

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
+import Wirein from "./../wire/wirein/Wirein.js";
 import Wiredetails from "./../wire/wiredetails/WireDetails";
 import WireRemittanceDetails from "./../wire/wiredetails/WireRemittanceDetails.js"
 import NavBar from "./../Navbar/navbar";
@@ -38,6 +39,10 @@ const routes = [
     path: "/wireslist",
     exact: true,
     main: WireListWrap
+  },
+  {
+    path: "/wiresin",
+    main: () => <Wirein  />
   },
   {
     path: "/wiredetails/:wireID",

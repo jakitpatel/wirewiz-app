@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CSVLink } from "react-csv";
 //import Listview from "./../../Listview/Listview";
@@ -35,7 +35,7 @@ function Wireslist(props) {
 
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
-  
+
   const dispatch = useDispatch();
 
   const { session_token, WIRE_EXPORT } = useSelector(state => {
@@ -44,7 +44,7 @@ function Wireslist(props) {
       }
   });
 
-  const { wires, pageIndex, pageSize, wiredict } = useSelector(state => {
+  const { wires, pageIndex, pageSize, wiredict, backToList } = useSelector(state => {
     return {
         ...state.wiresReducer,
         ...state.wireDictReducer
@@ -54,6 +54,25 @@ function Wireslist(props) {
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
   let { batchRec } = props;
+  /*
+  const location = useLocation();
+  console.log("location");
+  console.log(location);
+  console.log("history");
+  console.log(history);
+  /*
+  history.listen((location, action) => {
+    if (action === 'POP') {
+      //history.replace(location.pathname, {from: 'wiredetail'});
+    }
+  });
+  */
+  console.log("backToList : "+backToList);
+  /*
+  if(location.state){
+    const previousPath = location.state.from;
+    console.log(previousPath);
+  }*/
 
   const columnDefs = [
     {
@@ -267,7 +286,19 @@ function Wireslist(props) {
       }, 1000);
     }
   }, [downloadOfac, wireFiservText, wireOfacText]);
-  
+
+  /*useEffect(() => {
+    console.log("After Render Wire List");
+    if(backToList){
+      dispatch({
+        type:'UPDATEWIRELIST',
+        payload:{
+          backToList:false
+        }
+      });
+    }
+  }, [backToList, dispatch]);
+  */
   /*
   useEffect(() => {
     let ignore = false;
@@ -464,11 +495,16 @@ function Wireslist(props) {
   console.log("wires", wires);
   console.log("isRefresh", isRefresh);
   const initialState = {
-    sortBy : [{ id: "wireID", desc: true }],
+    sortBy : [], //[{ id: "wireID", desc: true }],
     pageSize : 10,
     pageIndex : 0
     //pageSize : pageSize,
     //pageIndex : pageIndex
+  };
+  const pageState = {
+    pageSize : pageSize,
+    pageIndex : pageIndex,
+    backToList : backToList
   };
   let disCmp =
     /*loading === true ? (
@@ -479,6 +515,7 @@ function Wireslist(props) {
         //data={data}
         columnDefs={columnDefs}
         initialState={initialState}
+        pageState={pageState}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
         filtersarr={filtersarr}

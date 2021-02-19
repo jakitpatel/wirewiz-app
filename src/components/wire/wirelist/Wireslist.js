@@ -509,11 +509,11 @@ function Wireslist(props) {
       if(account!==null && account!==""){
         account = account.toString().substr(0, 3);
       }
-      headerTitle += " - "+account+" - "+batchRec.Name;
+      headerTitle += "WireIn - "+account+" - "+batchRec.Name;
     } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
       let account = batchRec.Account;
       let wirePostID = batchRec.wirePostID;
-      headerTitle += " - "+account+" - "+batchRec.Name;
+      headerTitle += "Posted - "+account+" - "+batchRec.Name;
     } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
       headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
     }

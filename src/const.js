@@ -28,12 +28,13 @@ let WireDocList_Url = API_URL+"wireDoc";  // For Local Env
 let WireExport_Url = API_URL+"getExportData";  // For Local Env
 let DepositList_Url = API_URL+"v_deposit";  // For Local Env
 let Wirein_Url = API_URL+"v_wireByVaccount";  // For Local Env
-let WireinManual_Url = API_URL+"v_manual";  // For Local Env
+let WireinManual_Url = API_URL+"v_wireManual";  // For Local Env
 let WireinPosted_Url = API_URL+"v_wirePost";  // For Local Env
 let WireInExport_Url = API_URL+"wirePost";  // For Local Env
 
 if(env==="PROD"){
-    API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For Production Env
+    //API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For Production Env
+    API_URL   = "https://api-dev-int.cfsb.com/api/v2/";  // For Production Env
     Login_Url = API_URL+"user/session?service=cfsb_ldap";  // For Production Env
     Customer_Url = API_URL+"cfsb_sqlserver/_table/ACHCustomers";  // For Production Env
     WireBatch_Url = API_URL+"cfsb_sqlserver/_table/v_wireBatch";  // For Production Env
@@ -50,7 +51,7 @@ if(env==="PROD"){
     WireExport_Url  = API_URL+"getExportData";  // For Production Env
     DepositList_Url = API_URL+"cfsb_sqlserver/_table/v_deposit";  // For Production Env
     Wirein_Url      = API_URL+"cfsb_sqlserver/_table/v_wireByVaccount";  // For Production Env
-    WireinManual_Url= API_URL+"cfsb_sqlserver/_table/v_manual";  // For Production Env
+    WireinManual_Url= API_URL+"cfsb_sqlserver/_table/v_wireManual";  // For Production Env
     WireinPosted_Url = API_URL+"cfsb_sqlserver/_table/v_wirePost";  // For Production Env
     WireInExport_Url = API_URL+"cfsb_sqlserver/_table/wirePost";  // For Production Env
 }

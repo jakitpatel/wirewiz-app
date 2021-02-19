@@ -231,6 +231,10 @@ function Wireslist(props) {
           }
           let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
           url += "&filter="+encodeURIComponent(filterUrl);
+        } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
+          let wirePostID = batchRec.wirePostID;
+          let filterUrl = "(wirePostID = '"+wirePostID+"')";
+          url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         }
@@ -506,6 +510,9 @@ function Wireslist(props) {
         account = account.toString().substr(0, 3);
       }
       headerTitle += " - "+account;
+    } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
+      let wirePostID = batchRec.wirePostID;
+      headerTitle += " - "+wirePostID;
     } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
       headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
     }

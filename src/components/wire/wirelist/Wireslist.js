@@ -229,7 +229,7 @@ function Wireslist(props) {
           if(account!==null && account!==""){
             account = account.toString().substr(0, 3);
           }
-          let filterUrl = "(beneficiaryIdentifier like '"+account+"%') and (status != 3)";
+          let filterUrl = "(beneficiaryIdentifier = '"+account+"') and (status != 3) and (subtypeCode = 0) and (businessErrormsg is null) and (errorMsg is null)";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";

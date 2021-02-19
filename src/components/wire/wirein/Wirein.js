@@ -47,6 +47,24 @@ function Wirein(props) {
       }
     },
     {
+      Header: "POST",
+      show : true, 
+      width: 55,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInObj = obj.row.original;
+        return (
+          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
       headerName: "Account",
       field: "Account",
       Header: "Account",
@@ -59,34 +77,22 @@ function Wirein(props) {
       accessor: "Name"
     },
     {
-      name: "Active",
-      field: "Active",
-      Header: "Active",
-      accessor: "Active"
-    },
-    {
       headerName: "numWires",
       field: "numWires",
       Header: "numWires",
       accessor: "numWires"
     },
     {
-      name: "numProtocolReject",
-      field: "numProtocolReject",
-      Header: "numProtocolReject",
-      accessor: "numProtocolReject"
-    },
-    {
-      name: "numBusinessReject",
-      field: "numBusinessReject",
-      Header: "numBusinessReject",
-      accessor: "numBusinessReject"
-    },
-    {
       name: "lastArrivialTime",
       field: "lastArrivialTime",
       Header: "lastArrivialTime",
       accessor: "lastArrivialTime"
+    },
+    {
+      name: "totalAmount",
+      field: "totalAmount",
+      Header: "totalAmount",
+      accessor: "totalAmount"
     }
   ];
 
@@ -116,6 +122,11 @@ function Wirein(props) {
     return () => { ignore = true };
   }, [ session_token]);
   
+  const onWireInExport = async (e, wireInObj) => {
+    console.log("Called Wire In Export");
+    console.log(wireInObj);
+  }
+
   console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "Account", asc: true }]
@@ -133,7 +144,7 @@ function Wirein(props) {
   
   return (
     <React.Fragment>
-      <div className="container" style={{marginLeft:"0px"}}>
+      <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <h3 className="title-center">WireInRecord List</h3>

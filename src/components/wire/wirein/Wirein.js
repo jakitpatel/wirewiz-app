@@ -12,7 +12,8 @@ function Wirein(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [wireInRecord, setWireInRecord] = useState([]);
-  
+  const [isRefresh, setIsRefresh] = useState(false);
+
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token } = useSelector(state => {
@@ -131,7 +132,7 @@ function Wirein(props) {
     }
     fetchWireInRecord();
     return () => { ignore = true };
-  }, [ session_token]);
+  }, [ session_token, isRefresh, setIsRefresh]);
   
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
@@ -151,6 +152,7 @@ function Wirein(props) {
     }
     let res = await axios.post(url, data, options);
     console.log(res.data);
+    setIsRefresh(!isRefresh);
   }
 
   console.log("Properties", props);

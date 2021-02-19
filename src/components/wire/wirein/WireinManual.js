@@ -6,9 +6,9 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
+import {API_KEY, WireinManual_Url, env} from './../../../const';
 
-function Wirein(props) {
+function WireinManual(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [wireInRecord, setWireInRecord] = useState([]);
@@ -46,7 +46,7 @@ function Wirein(props) {
         );
       }
     },
-    {
+    /*{
       Header: "POST",
       show : true, 
       width: 55,
@@ -63,47 +63,42 @@ function Wirein(props) {
           </button>
         );
       }
+    },*/
+    {
+      headerName: "lending",
+      field: "lending",
+      Header: "lending",
+      accessor: "lending"
     },
     {
-      headerName: "Account",
-      field: "Account",
-      Header: "Account",
-      accessor: "Account"
+      name: "branch",
+      field: "branch",
+      Header: "branch",
+      accessor: "branch"
     },
     {
-      name: "Name",
-      field: "Name",
-      Header: "Name",
-      accessor: "Name"
+      headerName: "serviceMsg",
+      field: "serviceMsg",
+      Header: "serviceMsg",
+      accessor: "serviceMsg"
     },
     {
-      headerName: "numWires",
-      field: "numWires",
-      Header: "numWires",
-      accessor: "numWires"
+      name: "drawdowns",
+      field: "drawdowns",
+      Header: "drawdowns",
+      accessor: "drawdowns"
     },
     {
-      name: "lastArrivialTime",
-      field: "lastArrivialTime",
-      Header: "lastArrivialTime",
-      accessor: "lastArrivialTime"
+      name: "protocolErrors",
+      field: "protocolErrors",
+      Header: "protocolErrors",
+      accessor: "protocolErrors"
     },
     {
-      name: "totalAmount",
-      field: "totalAmount",
-      Header: "totalAmount",
-      accessor: "totalAmount",
-      Cell: props => {
-        if(props.value===null || props.value===undefined) {
-          return null;
-        }
-        return (
-          <div style={{textAlign: "right"}}>
-          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
-          </div>
-        )
-        // '$100.00'
-      }
+      name: "businessErrors",
+      field: "businessErrors",
+      Header: "businessErrors",
+      accessor: "businessErrors"
     }
   ];
 
@@ -117,9 +112,9 @@ function Wirein(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let url = Wirein_Url;
+      let url = WireinManual_Url;
       if(env==="DEV"){
-        url = Wirein_Url;
+        url = WireinManual_Url;
       }
       let res = await axios.get(url, options);
       console.log(res.data);
@@ -136,21 +131,6 @@ function Wirein(props) {
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
-    const options = {
-      headers: {
-        'X-DreamFactory-API-Key': API_KEY,
-        'X-DreamFactory-Session-Token': session_token
-      }
-    };
-    let data = {
-      "resource": [{"virtualAccID": wireInObj.Account}]
-    };
-    let url = WireInExport_Url;
-    if(env==="DEV"){
-      url = WireInExport_Url;
-    }
-    let res = await axios.post(url, data, options);
-    console.log(res.data);
   }
 
   console.log("Properties", props);
@@ -173,7 +153,7 @@ function Wirein(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">WireInRecord List</h3>
+            <h3 className="title-center">WireIn Manual Record List</h3>
             {disCmp}
           </div>
         </div>
@@ -182,4 +162,4 @@ function Wirein(props) {
   );
 }
 
-export default Wirein;
+export default WireinManual;

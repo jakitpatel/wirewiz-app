@@ -4,6 +4,8 @@ import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
 import Wirein from "./../wire/wirein/Wirein.js";
+import WireinManual from "./../wire/wirein/WireinManual";
+import WireinPosted from "./../wire/wirein/WireinPosted";
 import Wiredetails from "./../wire/wiredetails/WireDetails";
 import WireRemittanceDetails from "./../wire/wiredetails/WireRemittanceDetails.js"
 import NavBar from "./../Navbar/navbar";
@@ -43,6 +45,14 @@ const routes = [
   {
     path: "/wiresin",
     main: () => <Wirein  />
+  },
+  {
+    path: "/wiresinmanual",
+    main: () => <WireinManual  />
+  },
+  {
+    path: "/wiresinposted",
+    main: () => <WireinPosted  />
   },
   {
     path: "/wiredetails/:wireID",

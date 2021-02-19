@@ -6,9 +6,9 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
+import {API_KEY, WireinPosted_Url, env} from './../../../const';
 
-function Wirein(props) {
+function WireinPosted(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [wireInRecord, setWireInRecord] = useState([]);
@@ -46,7 +46,7 @@ function Wirein(props) {
         );
       }
     },
-    {
+    /*{
       Header: "POST",
       show : true, 
       width: 55,
@@ -63,7 +63,7 @@ function Wirein(props) {
           </button>
         );
       }
-    },
+    },*/
     {
       headerName: "Account",
       field: "Account",
@@ -87,6 +87,12 @@ function Wirein(props) {
       field: "lastArrivialTime",
       Header: "lastArrivialTime",
       accessor: "lastArrivialTime"
+    },
+    {
+      name: "postingTime",
+      field: "postingTime",
+      Header: "postingTime",
+      accessor: "postingTime"
     },
     {
       name: "totalAmount",
@@ -117,9 +123,9 @@ function Wirein(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let url = Wirein_Url;
+      let url = WireinPosted_Url;
       if(env==="DEV"){
-        url = Wirein_Url;
+        url = WireinPosted_Url;
       }
       let res = await axios.get(url, options);
       console.log(res.data);
@@ -136,21 +142,6 @@ function Wirein(props) {
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
-    const options = {
-      headers: {
-        'X-DreamFactory-API-Key': API_KEY,
-        'X-DreamFactory-Session-Token': session_token
-      }
-    };
-    let data = {
-      "resource": [{"virtualAccID": wireInObj.Account}]
-    };
-    let url = WireInExport_Url;
-    if(env==="DEV"){
-      url = WireInExport_Url;
-    }
-    let res = await axios.post(url, data, options);
-    console.log(res.data);
   }
 
   console.log("Properties", props);
@@ -182,4 +173,4 @@ function Wirein(props) {
   );
 }
 
-export default Wirein;
+export default WireinPosted;

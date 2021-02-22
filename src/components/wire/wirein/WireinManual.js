@@ -86,7 +86,18 @@ function WireinManual(props) {
       name: "amount",
       field: "amount",
       Header: "amount",
-      accessor: "amount"
+      accessor: "amount",
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        return (
+          <div style={{textAlign: "right"}}>
+          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
+          </div>
+        )
+        // '$100.00'
+      }
     }
   ];
 

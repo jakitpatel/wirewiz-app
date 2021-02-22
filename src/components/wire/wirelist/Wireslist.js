@@ -251,9 +251,9 @@ function Wireslist(props) {
             filterUrl = "(vAcc = '14' or vAcc = '16' or vAcc = '1011') and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } else if(recType==="drawbacks" || recType==="drawdowns"){
             filterUrl = "(status != 'DONE') and (typeCode = '10') and (subTypeCode = '31')";
-          } else if(recType==="businessErrors"){
+          } else if(recType==="businessErrors" || recType==="businessError"){
             filterUrl = "(businessErrorMsg is not null) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
-          } else if(recType==="protocolErrors"){
+          } else if(recType==="protocolErrors" || recType==="protocolError"){
             filterUrl = "(errorMsg is not null) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } 
           url += "&filter="+encodeURIComponent(filterUrl);

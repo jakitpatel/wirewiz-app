@@ -46,36 +46,47 @@ function LeftNavBar(props) {
             iconName="home"
             enableVal={true}
           />
-          <MenuListItem
-            menuName="WireBatch"
-            routePath={`${process.env.PUBLIC_URL}/wires`}
-            iconName="users"
-            enableVal={WIRE_ENABLER}
-          />
-          <MenuListItem
-            menuName="Wires"
-            routePath={`${process.env.PUBLIC_URL}/wireslist`}
-            iconName="trello"
-            enableVal={WIRE_ENABLER}
-          />
-          <MenuListItem
-            menuName="Wires-In"
-            routePath={`${process.env.PUBLIC_URL}/wiresin`}
-            iconName="trello"
-            enableVal={WIRE_ENABLER}
-          />
-          <MenuListItem
-            menuName="Wires-In-Manual"
-            routePath={`${process.env.PUBLIC_URL}/wiresinmanual`}
-            iconName="trello"
-            enableVal={WIRE_ENABLER}
-          />
-          <MenuListItem
-            menuName="Wires-In-Posted"
-            routePath={`${process.env.PUBLIC_URL}/wiresinposted`}
-            iconName="trello"
-            enableVal={WIRE_ENABLER}
-          />
+          <li className="nav-item">
+              <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu1" data-toggle="collapse" data-target="#submenu1">
+                <Icon.Trello />
+                <span style={{ marginLeft: 10 }}>Wires</span>
+              </a>
+              <div className="collapse" id="submenu1" aria-expanded="false">
+                  <ul className="flex-column nav pl-4">
+                      <MenuListItem
+                        menuName="WireBatch"
+                        routePath={`${process.env.PUBLIC_URL}/wires`}
+                        iconName="users"
+                        enableVal={WIRE_ENABLER}
+                      />
+                      <MenuListItem
+                        menuName="Wires"
+                        routePath={`${process.env.PUBLIC_URL}/wireslist`}
+                        iconName="trello"
+                        enableVal={WIRE_ENABLER}
+                      />
+                      <MenuListItem
+                        menuName="Wires-In"
+                        routePath={`${process.env.PUBLIC_URL}/wiresin`}
+                        iconName="trello"
+                        enableVal={WIRE_ENABLER}
+                      />
+                      <MenuListItem
+                        menuName="Wires-In-Manual"
+                        routePath={`${process.env.PUBLIC_URL}/wiresinmanual`}
+                        iconName="trello"
+                        enableVal={WIRE_ENABLER}
+                      />
+                      <MenuListItem
+                        menuName="Wires-In-Posted"
+                        routePath={`${process.env.PUBLIC_URL}/wiresinposted`}
+                        iconName="trello"
+                        enableVal={WIRE_ENABLER}
+                      />
+                  </ul>
+              </div>
+          </li>
+          
           <MenuListItem
             menuName="ACH"
             routePath={`${process.env.PUBLIC_URL}/ach`}
@@ -90,28 +101,6 @@ function LeftNavBar(props) {
           />
           <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />
-          {/*
-          <li className="nav-item">
-                <a className="nav-link text-truncate" href="#">
-                <i className="fa fa-home"></i> 
-                <span className="d-none d-sm-inline">Overview</span>
-                </a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1">
-                  <i className="fa fa-table"></i> <span className="d-none d-sm-inline">Reports</span>
-                </a>
-                <div className="collapse" id="submenu1" aria-expanded="false">
-                    <ul className="flex-column pl-2 nav">
-                        <li className="nav-item">
-                          <a className="nav-link py-0" href="#">
-                            <span>Orders</span>
-                          </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-          */}
         </ul>
       </div>
     </nav>

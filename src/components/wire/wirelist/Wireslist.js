@@ -165,6 +165,17 @@ function Wireslist(props) {
       Header: "amount",
       accessor: "amount",
       disableFilters: true,
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        return (
+          <div style={{textAlign: "right"}}>
+          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
+          </div>
+        )
+        // '$100.00'
+      }
     },
     {
       field: "completeDateTime",

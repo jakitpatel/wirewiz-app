@@ -158,7 +158,7 @@ function WireinPosted(props) {
 
   console.log("Properties", props);
   const initialSortState = {
-    sortBy: [{ id: "Account", asc: true }]
+    sortBy: [{ id: "wirePostID", desc: true }]
    }; 
   let disCmp =
     loading === true ? (

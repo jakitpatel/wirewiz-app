@@ -122,6 +122,12 @@ function WireinPosted(props) {
         )
         // '$100.00'
       }
+    },
+    {
+      name: "postedBy",
+      field: "postedBy",
+      Header: "postedBy",
+      accessor: "postedBy"
     }
   ];
 

@@ -246,9 +246,9 @@ function Wireslist(props) {
           let recType = batchRec.type;
           let filterUrl = "";
           if(recType==="lending"){
-            filterUrl = "(vAcc = '17' or vAcc = '15' or vAcc = '147') and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
+            filterUrl = "(vAcc IN (17,15,147)) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } else if(recType==="branch"){
-            filterUrl = "(vAcc = '14' or vAcc = '16' or vAcc = '1011') and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
+            filterUrl = "(vAcc IN (14,16,1011)) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } else if(recType==="drawbacks" || recType==="drawdowns"){
             filterUrl = "(status != 'DONE') and (typeCode = '10') and (subTypeCode = '31')";
           } else if(recType==="businessErrors" || recType==="businessError"){

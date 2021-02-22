@@ -91,13 +91,18 @@ function LeftNavBar(props) {
           <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />
           {/*
-          <li class="nav-item">
-                <a class="nav-link text-truncate" href="#"><i class="fa fa-home"></i> <span class="d-none d-sm-inline">Overview</span></a>
+          <li className="nav-item">
+                <a className="nav-link text-truncate" href="#">
+                <i className="fa fa-home"></i> 
+                <span className="d-none d-sm-inline">Overview</span>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Reports</span></a>
-                <div class="collapse" id="submenu1" aria-expanded="false">
-                    <ul class="flex-column pl-2 nav">
+            <li className="nav-item">
+                <a className="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1">
+                  <i className="fa fa-table"></i> <span className="d-none d-sm-inline">Reports</span>
+                </a>
+                <div className="collapse" id="submenu1" aria-expanded="false">
+                    <ul className="flex-column pl-2 nav">
                         <li class="nav-item"><a class="nav-link py-0" href="#"><span>Orders</span></a></li>
                         <li class="nav-item">
                             <a class="nav-link collapsed py-1" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1"><span>Customers</span></a>

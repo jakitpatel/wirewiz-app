@@ -231,6 +231,17 @@ function Wireslist(props) {
           }
           let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
           url += "&filter="+encodeURIComponent(filterUrl);
+        } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+          let recType = batchRec.type;
+          let filterUrl = "";
+          if(recType==="lending"){
+            filterUrl = "(vAcc = '14' or vAcc = '16' or vAcc = '1011') and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
+          } else if(recType==="branch"){
+            filterUrl = "(vAcc = '17' or vAcc = '15' or vAcc = '147') and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
+          } else if(recType==="drawbacks" || recType==="drawdowns"){
+            filterUrl = "(status != 'DONE') and (typeCode = '10') and (subTypeCode = '31')";
+          }
+          url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
           let wirePostID = batchRec.wirePostID;
           let filterUrl = "(wirePostID = '"+wirePostID+"')";

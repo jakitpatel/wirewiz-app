@@ -53,7 +53,7 @@ if(env==="PROD"){
     Wirein_Url      = API_URL+"cfsb_sqlserver/_table/v_wireByVaccount";  // For Production Env
     WireinManual_Url= API_URL+"cfsb_sqlserver/_table/v_wireManual";  // For Production Env
     WireinPosted_Url = API_URL+"cfsb_sqlserver/_table/v_wirePost";  // For Production Env
-    WireInExport_Url = API_URL+"cfsb_sqlserver/_table/wirePost";  // For Production Env
+    WireInExport_Url = API_URL+"wirePost";  // For Production Env
 }
 
 export { API_URL, Login_Url, WireBatch_Url, Wires_Url, Wire_tbl_Url, WireDetails_Url, Customer_Url, 

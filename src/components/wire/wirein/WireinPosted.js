@@ -65,6 +65,12 @@ function WireinPosted(props) {
       }
     },*/
     {
+      headerName: "wirePostID",
+      field: "wirePostID",
+      Header: "wirePostID",
+      accessor: "wirePostID"
+    },
+    {
       headerName: "Account",
       field: "Account",
       Header: "Account",
@@ -77,7 +83,19 @@ function WireinPosted(props) {
       accessor: "Name"
     },
     {
-      headerName: "numWires",
+      name: "postDateTime",
+      field: "postDateTime",
+      Header: "postDateTime",
+      accessor: "postDateTime"
+    },
+    {
+      name: "seqNumber",
+      field: "seqNumber",
+      Header: "seqNumber",
+      accessor: "seqNumber"
+    },
+    {
+      name: "numWires",
       field: "numWires",
       Header: "numWires",
       accessor: "numWires"
@@ -87,12 +105,6 @@ function WireinPosted(props) {
       field: "lastArrivialTime",
       Header: "lastArrivialTime",
       accessor: "lastArrivialTime"
-    },
-    {
-      name: "postingTime",
-      field: "postingTime",
-      Header: "postingTime",
-      accessor: "postingTime"
     },
     {
       name: "totalAmount",

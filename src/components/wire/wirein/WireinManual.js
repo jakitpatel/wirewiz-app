@@ -33,11 +33,11 @@ function WireinManual(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireIn";
+        wireInRecordObj.fromView = "wireInManual";
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireInRecordObj.Account}`,
+              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireInRecordObj.type}`,
               state: obj.row.original
             }}
           >
@@ -65,40 +65,28 @@ function WireinManual(props) {
       }
     },*/
     {
-      headerName: "lending",
-      field: "lending",
-      Header: "lending",
-      accessor: "lending"
+      headerName: "type",
+      field: "type",
+      Header: "type",
+      accessor: "type"
     },
     {
-      name: "branch",
-      field: "branch",
-      Header: "branch",
-      accessor: "branch"
+      name: "account",
+      field: "account",
+      Header: "account",
+      accessor: "account"
     },
     {
-      headerName: "serviceMsg",
-      field: "serviceMsg",
-      Header: "serviceMsg",
-      accessor: "serviceMsg"
+      headerName: "count",
+      field: "count",
+      Header: "count",
+      accessor: "count"
     },
     {
-      name: "drawdowns",
-      field: "drawdowns",
-      Header: "drawdowns",
-      accessor: "drawdowns"
-    },
-    {
-      name: "protocolErrors",
-      field: "protocolErrors",
-      Header: "protocolErrors",
-      accessor: "protocolErrors"
-    },
-    {
-      name: "businessErrors",
-      field: "businessErrors",
-      Header: "businessErrors",
-      accessor: "businessErrors"
+      name: "amount",
+      field: "amount",
+      Header: "amount",
+      accessor: "amount"
     }
   ];
 

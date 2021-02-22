@@ -144,7 +144,7 @@ function Wirein(props) {
       }
     };
     let data = {
-      "resource": [{"virtualAccID": wireInObj.Account}]
+      "resource": [{"vAcc": wireInObj.Account}]
     };
     let url = WireInExport_Url;
     if(env==="DEV"){

@@ -2,3 +2,10 @@
     opacity: .65;
     color: #6c757d;
 }
+
+.nav-link[data-toggle].collapsed:before {
+    content: " ▾";
+}
+.nav-link[data-toggle]:not(.collapsed):before {
+    content: " ▴";
+}

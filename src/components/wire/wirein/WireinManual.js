@@ -98,6 +98,12 @@ function WireinManual(props) {
         )
         // '$100.00'
       }
+    },
+    {
+      name: "lastArrivialTime",
+      field: "lastArrivialTime",
+      Header: "lastArrivialTime",
+      accessor: "lastArrivialTime"
     }
   ];
 

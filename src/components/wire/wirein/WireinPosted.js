@@ -6,12 +6,13 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, WireinPosted_Url, env} from './../../../const';
+import {API_KEY, WireinPosted_Url, WireInExport_Url, env} from './../../../const';
 
 function WireinPosted(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [wireInRecord, setWireInRecord] = useState([]);
+  const [isRefresh, setIsRefresh] = useState(false);
   
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
@@ -46,8 +47,8 @@ function WireinPosted(props) {
         );
       }
     },
-    /*{
-      Header: "POST",
+    {
+      Header: "Post2Fiserv",
       show : true, 
       width: 55,
       //id: 'colViewWireDetail',
@@ -56,14 +57,18 @@ function WireinPosted(props) {
       //filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log(obj.row);
-        let wireInObj = obj.row.original;
+        let wireInPostobj = obj.row.original;
+        let enableVal = false;
+        if(wireInPostobj.postStatus===1){
+          enableVal = true;
+        }
         return (
-          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
       }
-    },*/
+    },
     {
       headerName: "wirePostID",
       field: "wirePostID",
@@ -93,6 +98,12 @@ function WireinPosted(props) {
       field: "seqNumber",
       Header: "seqNumber",
       accessor: "seqNumber"
+    },
+    {
+      name: "postStatus",
+      field: "postStatus",
+      Header: "postStatus",
+      accessor: "postStatus"
     },
     {
       name: "numWires",
@@ -155,11 +166,27 @@ function WireinPosted(props) {
     }
     fetchWireInRecord();
     return () => { ignore = true };
-  }, [ session_token]);
+  }, [ session_token, isRefresh, setIsRefresh]);
   
-  const onWireInExport = async (e, wireInObj) => {
-    console.log("Called Wire In Export");
+  const onWireInPost = async (e, wireInObj) => {
+    console.log("Called Wire In Post");
     console.log(wireInObj);
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}]
+    };
+    let url = WireInExport_Url;
+    if(env==="DEV"){
+      url = WireInExport_Url;
+    }
+    let res = await axios.post(url, data, options);
+    console.log(res.data);
+    setIsRefresh(!isRefresh);
   }
 
   console.log("Properties", props);

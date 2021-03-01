@@ -6,7 +6,7 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, WireinPosted_Url, WireInExport_Url, env} from './../../../const';
+import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env} from './../../../const';
 
 function WireinPosted(props) {
   let history = useHistory();
@@ -59,8 +59,10 @@ function WireinPosted(props) {
         //console.log(obj.row);
         let wireInPostobj = obj.row.original;
         let enableVal = false;
-        if(wireInPostobj.postStatus===1){
-          enableVal = true;
+        if(wireInPostobj.postStatus){
+          if(wireInPostobj.postStatus.includes('posted2OFAC')){
+            enableVal = true;
+          }
         }
         return (
           <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
@@ -180,9 +182,9 @@ function WireinPosted(props) {
     let data = {
       "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}]
     };
-    let url = WireInExport_Url;
+    let url = WirePost2Fiserv_Url;
     if(env==="DEV"){
-      url = WireInExport_Url;
+      url = WirePost2Fiserv_Url;
     }
     let res = await axios.post(url, data, options);
     console.log(res.data);

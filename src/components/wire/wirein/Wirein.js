@@ -48,7 +48,7 @@ function Wirein(props) {
       }
     },
     {
-      Header: "POST",
+      Header: "Post2OFAC",
       show : true, 
       width: 55,
       //id: 'colViewWireDetail',

@@ -6,6 +6,7 @@ import Wireslist from "./../wire/wirelist/Wireslist";
 import Wirein from "./../wire/wirein/Wirein.js";
 import WireinManual from "./../wire/wirein/WireinManual";
 import WireinPosted from "./../wire/wirein/WireinPosted";
+import WireinPostedActual from "./../wire/wirein/WireinPostedActual";
 import Wiredetails from "./../wire/wiredetails/WireDetails";
 import WireRemittanceDetails from "./../wire/wiredetails/WireRemittanceDetails.js"
 import NavBar from "./../Navbar/navbar";
@@ -51,8 +52,12 @@ const routes = [
     main: () => <WireinManual  />
   },
   {
-    path: "/wiresinposted",
+    path: "/wiresinposting",
     main: () => <WireinPosted  />
+  },
+  {
+    path: "/wiresinposted",
+    main: () => <WireinPostedActual  />
   },
   {
     path: "/wiredetails/:wireID",

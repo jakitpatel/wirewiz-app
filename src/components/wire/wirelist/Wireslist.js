@@ -261,6 +261,10 @@ function Wireslist(props) {
           let wirePostID = batchRec.wirePostID;
           let filterUrl = "(wirePostID = '"+wirePostID+"')";
           url += "&filter="+encodeURIComponent(filterUrl);
+        } else if(batchRec.fromView && batchRec.fromView==="wireInPostedActual"){
+          let wirePostID = batchRec.wirePostID;
+          let filterUrl = "(wirePostID = '"+wirePostID+"')";
+          url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         }
@@ -537,6 +541,10 @@ function Wireslist(props) {
       }
       headerTitle += " - WireIn - "+account+" - "+batchRec.Name;
     } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
+      let account = batchRec.Account;
+      let wirePostID = batchRec.wirePostID;
+      headerTitle += " - Posting - "+account+" - "+batchRec.Name;
+    } else if(batchRec.fromView && batchRec.fromView==="wireInPostedActual"){
       let account = batchRec.Account;
       let wirePostID = batchRec.wirePostID;
       headerTitle += " - Posted - "+account+" - "+batchRec.Name;

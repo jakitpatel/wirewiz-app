@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
@@ -21,6 +21,8 @@ function WireinPosted(props) {
           ...state.userReducer
       }
   });
+  
+  const location = useLocation();
 
   const columnDefs = [
     {
@@ -93,7 +95,7 @@ function WireinPosted(props) {
     {
       name: "postDateTime",
       field: "postDateTime",
-      Header: "postDateTime",
+      Header: "submitedDateTime",
       accessor: "postDateTime"
     },
     {
@@ -140,7 +142,7 @@ function WireinPosted(props) {
     {
       name: "postedBy",
       field: "postedBy",
-      Header: "postedBy",
+      Header: "submitedBy",
       accessor: "postedBy"
     }
   ];
@@ -169,7 +171,7 @@ function WireinPosted(props) {
     }
     fetchWireInRecord();
     return () => { ignore = true };
-  }, [ session_token, isRefresh, setIsRefresh]);
+  }, [ session_token, isRefresh, setIsRefresh, location.key]);
   
   const onWireInPost = async (e, wireInObj) => {
     console.log("Called Wire In Post");

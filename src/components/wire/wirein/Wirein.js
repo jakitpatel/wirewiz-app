@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
 import * as Icon from "react-feather";
@@ -21,6 +21,8 @@ function Wirein(props) {
           ...state.userReducer
       }
   });
+
+  const location = useLocation();
 
   const columnDefs = [
     {
@@ -132,7 +134,7 @@ function Wirein(props) {
     }
     fetchWireInRecord();
     return () => { ignore = true };
-  }, [ session_token, isRefresh, setIsRefresh]);
+  }, [ session_token, isRefresh, setIsRefresh, location.key]);
   
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");

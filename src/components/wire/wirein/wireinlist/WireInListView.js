@@ -66,7 +66,8 @@ function Table({
   selectedRowsTb, 
   setSelectedRowsTb,
   isRefresh,
-  setIsRefresh
+  setIsRefresh,
+  fromObj
 }) {
   /*
   const filterTypes = React.useMemo(
@@ -186,11 +187,20 @@ function Table({
         maxWidth: 45,
         // The header can use the table's getToggleAllRowsSelectedProps method
         // to render a checkbox
-        Header: ({ getToggleAllRowsSelectedProps }) => (
-          <div>
-            <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-          </div>
-        ),
+        Header: ({ getToggleAllRowsSelectedProps }) => {
+          let headerTitle = "";
+          if(fromObj.fromView && fromObj.fromView==="wireIn"){
+            headerTitle = "excludeOFAC";
+          } else if(fromObj.fromView && fromObj.fromView==="wireInPosted"){
+            headerTitle = "excludeFISERV";
+          }
+          return (
+            <div>
+              {headerTitle}
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          )
+        },
         // The cell can use the individual row's getToggleRowSelectedProps method
         // to the render a checkbox
         Cell: ({ row }) => {
@@ -430,7 +440,7 @@ function Table({
     setSelectedRows, filtersarr, 
     setFiltersarr, loading, 
     fetchData, pageCount, 
-    data, isRefresh, setIsRefresh, pageState } = props;
+    data, isRefresh, setIsRefresh, pageState, fromObj } = props;
    
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
@@ -482,6 +492,7 @@ function Table({
         setSelectedRowsTb={setSelectedRows}
         isRefresh={isRefresh}
         setIsRefresh={setIsRefresh}
+        fromObj={fromObj}
         />
     </Styles>
   )

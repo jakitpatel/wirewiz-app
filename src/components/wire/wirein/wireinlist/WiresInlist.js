@@ -20,6 +20,7 @@ function WiresInlist(props) {
   const ofacExportLink = useRef(null);
 
   // We'll start our table without any data
+  const [skipPageReset, setSkipPageReset] = React.useState(false);
   const [filtersarr, setFiltersarr] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -35,6 +36,7 @@ function WiresInlist(props) {
 
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
+  const [modWireData, setModWireData] = React.useState([]);
 
   const dispatch = useDispatch();
 
@@ -74,7 +76,41 @@ function WiresInlist(props) {
     console.log(previousPath);
   }*/
 
-  const columnDefs = [
+  let chkHeaderTitle = "";
+  let fieldNameAccessor = "";
+  if(batchRec.fromView && batchRec.fromView==="wireIn"){
+    chkHeaderTitle = "excludeOFAC";
+    fieldNameAccessor = "excldueOFAC";
+  } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
+    chkHeaderTitle = "excludeFISERV";
+    fieldNameAccessor = "excludeFISERV";
+  }
+  let selectBox = {
+    Header: chkHeaderTitle,
+    width: 55,
+    //id: 'colViewWireDetail',
+    field: fieldNameAccessor,
+    accessor: fieldNameAccessor,
+    disableFilters: true,
+    editable:true,
+    columnType:'checkbox'/*,
+    Cell: obj => {
+      //console.log(obj.row);
+      let wireObj = obj.row.original;
+      let checkVal = false;
+      if(batchRec.fromView && batchRec.fromView==="wireIn" && wireObj.excldueOFAC===true){
+        checkVal = true;
+      } else if(batchRec.fromView && batchRec.fromView==="wireInPosted" && wireObj.excludeFISERV===true){
+        checkVal = true;
+      }
+      return (
+        <input type="checkbox" value={checkVal} className="" />
+      );
+    }*/
+  };
+
+  let columnDefs = [];
+  columnDefs.push(selectBox,
     {
       Header: "View",
       show : true, 
@@ -210,9 +246,53 @@ function WiresInlist(props) {
       Header: "businessErrorMsg",
       accessor: "businessErrorMsg",
       disableFilters: true
-    }
-  ];
+    });
   
+  // We need to keep the table from resetting the pageIndex when we
+  // Update data. So we can keep track of that flag with a ref.
+
+  // When our cell renderer calls updateMyData, we'll use
+  // the rowIndex, columnId and new value to update the
+  // original data
+  const updateMyData = (rowIndex, columnId, value) => {
+    // We also turn on the flag to not reset the page
+    setSkipPageReset(true);
+    let oldData = wires;
+    let modifiedRec = null;
+    let newData = oldData.map((row, index) => {
+      if (index === rowIndex) {
+        modifiedRec = {
+          ...oldData[rowIndex],
+          [columnId]: value,
+        };
+        return modifiedRec
+      }
+      return row
+    });
+
+    let modObj = {
+      [columnId]:value,
+      wireID:modifiedRec.wireID
+    };
+    const newWires = modWireData.filter((wire) => wire.wireID !== modifiedRec.wireID);
+    newWires.push(modObj);
+    setModWireData(newWires);
+    //setModWireData([...modWireData, modObj ]);
+    console.log("updateWire");
+    console.log({
+      [columnId]:value,
+      wireID:modifiedRec.wireID
+    });
+
+    //setData(newData);
+    dispatch({
+      type:'UPDATEWIRELIST',
+      payload:{
+        wires:newData
+      }
+    });
+  }
+
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data
     // You could fetch your data from literally anywhere,
@@ -326,6 +406,13 @@ function WiresInlist(props) {
     }
   }, [batchRec, dispatch, session_token]);
   
+  // After data chagnes, we turn the flag back off
+  // so that if data actually changes when we're not
+  // editing it, the page is reset
+  React.useEffect(() => {
+    setSkipPageReset(false)
+  }, [wires])
+
   useEffect(() => {
     if (downloadOfac) {
       console.log("wireFiservText");
@@ -466,6 +553,28 @@ function WiresInlist(props) {
     }
   }
   
+  const onWireSave = async (e) => {
+    console.log("onWireSave Clicked");
+    if(modWireData.length === 0){
+      return false;
+    }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": modWireData
+    };
+    let url = Wire_tbl_Url;
+    if(env==="DEV"){
+      url = Wire_tbl_Url;
+    }
+    let res = await axios.put(url, data, options);
+    console.log(res.data);
+  } 
+
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);
@@ -597,6 +706,8 @@ function WiresInlist(props) {
         isRefresh={isRefresh}
         setIsRefresh={setIsRefresh}
         fromObj={batchRec}
+        updateMyData={updateMyData}
+        skipPageReset={skipPageReset}
       />
     );
   return (
@@ -614,6 +725,9 @@ function WiresInlist(props) {
               <React.Fragment>
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
+                </button>
+                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e)}} className="btn btn-primary btn-sm">
+                  Save
                 </button>
                 <CSVLink
                       data={wireText}

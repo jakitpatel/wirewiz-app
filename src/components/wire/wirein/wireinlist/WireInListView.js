@@ -52,6 +52,45 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
+// Create an editable cell renderer
+const EditableCell = ({
+  value: initialValue,
+  row: { index },
+  column: { id, editable, columnType,columnOptions },
+  updateMyData, // This is a custom function that we supplied to our table instance
+}) => {
+  //alert(initialValue);
+  // We need to keep and update the state of the cell normally
+  const [value, setValue] = React.useState(initialValue)
+
+  const onChange = e => {
+    let val = e.target.value;
+    if(val===null){
+      val = "";
+    }
+    //alert(val);
+    setValue(!value)
+    updateMyData(index, id, !value)
+  }
+
+  // If the initialValue is changed external, sync it up with our state
+  React.useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  let retObj = null;
+  if(editable && columnType==="checkbox"){
+    return retObj = (
+      <div style={{textAlign: "center"}}>
+        <input type="checkbox" defaultChecked={value} className="" onChange={onChange} />
+      </div>
+    );
+  } else {
+    return retObj = <div>{value}</div>;
+  }
+  //return retObj;
+}
+
 function Table({
   getTbdProps, 
   columns, 
@@ -67,7 +106,9 @@ function Table({
   setSelectedRowsTb,
   isRefresh,
   setIsRefresh,
-  fromObj
+  fromObj,
+  updateMyData, 
+  skipPageReset,
 }) {
   /*
   const filterTypes = React.useMemo(
@@ -92,6 +133,7 @@ function Table({
     () => ({
       // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
+      Cell: EditableCell
     }),
     []
   );
@@ -131,12 +173,19 @@ function Table({
     //filterTypes,
     initialState: { filters: filtersarr, pageIndex: initialState.pageIndex, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
-    //autoResetPage: false,
+    // use the skipPageReset option to disable page resetting temporarily
+    autoResetPage: !skipPageReset,
+    // updateMyData isn't part of the API, but
+    // anything we put into these options will
+    // automatically be available on the instance.
+    // That way we can call this function from our
+    // cell renderer!
+    updateMyData,
     pageCount: controlledPageCount, // This means we'll also have to provide our own pageCount.
     /*,state: {
       selectedRowIds: selectedRowsTb
     }*/
-    
+    /*
     useControlledState: state => {
       return React.useMemo(
         () => {
@@ -169,11 +218,11 @@ function Table({
         },
         [state]
       )
-    }
+    }*/
   },
   useFilters, // useFilters!
   useSortBy,
-  usePagination,
+  usePagination/*,
   useRowSelect,
   hooks => {
     hooks.visibleColumns.push(columns => [
@@ -206,30 +255,23 @@ function Table({
         Cell: ({ row }) => {
           //console.log("Cell Render");
           //console.log(row);
-          if (row.original.status !== "DONE" && (row.original.errorMsg == null || row.original.errorMsg === "")) {
-            return (
-              <div>
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            );
-          } else {
-            row.isSelected = false;
-            return (
-              <div>
-                <IndeterminateCheckbox
-                  checked={false}
-                  readOnly
-                  style={row.getToggleRowSelectedProps().style}
-                />
-              </div>
-            );
+          let checkVal = false;
+          if(fromObj.fromView && fromObj.fromView==="wireIn" && row.original.excldueOFAC===true){
+            checkVal = true;
+          } else if(fromObj.fromView && fromObj.fromView==="wireInPosted" && row.original.excludeFISERV===true){
+            checkVal = true;
           }
+          return (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          );
         }
       },
       ...columns,
     ])
-  })
-  
+  }*/)
+  /*
   useEffect(() => {
     let selWireArr = [];
       for(let i=0; i<selectedFlatRows.length; i++){
@@ -241,7 +283,7 @@ function Table({
     console.log(selectedRowIds);
     
   }, [setSelectedRowsTb, selectedRowIds]);
-
+  */
   // Debounce our onFetchData call for 100ms
   const onFetchDataDebounced = useAsyncDebounce(fetchData, 100);
 
@@ -440,7 +482,8 @@ function Table({
     setSelectedRows, filtersarr, 
     setFiltersarr, loading, 
     fetchData, pageCount, 
-    data, isRefresh, setIsRefresh, pageState, fromObj } = props;
+    data, isRefresh, setIsRefresh, pageState, fromObj,
+    updateMyData, skipPageReset } = props;
    
    const onRowClick = (state, rowInfo, column, instance) => {
       return {
@@ -493,6 +536,8 @@ function Table({
         isRefresh={isRefresh}
         setIsRefresh={setIsRefresh}
         fromObj={fromObj}
+        updateMyData={updateMyData}
+        skipPageReset={skipPageReset}
         />
     </Styles>
   )

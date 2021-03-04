@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
+import WiresInlist from "./../wire/wirein/wireinlist/WiresInlist";
 import Wirein from "./../wire/wirein/Wirein.js";
 import WireinManual from "./../wire/wirein/WireinManual";
 import WireinPosted from "./../wire/wirein/WireinPosted";
@@ -24,6 +25,11 @@ const WireListWrap = props => {
   return <Wireslist batchRec={props.location.state} />;
 };
 
+const WireInListWrap = props => {
+  //console.log(props);
+  return <WiresInlist batchRec={props.location.state} />;
+};
+
 const routes = [
   {
     path: "/dashboard",
@@ -42,6 +48,10 @@ const routes = [
     path: "/wireslist",
     exact: true,
     main: WireListWrap
+  },
+  {
+    path: "/wiresinlist/:batchId",
+    main: WireInListWrap
   },
   {
     path: "/wiresin",

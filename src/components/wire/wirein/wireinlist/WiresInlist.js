@@ -563,7 +563,9 @@ function WiresInlist(props) {
 
   let showExportBtn = false;
   if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
-    showExportBtn = true;
+    if(wires.length>0){
+      showExportBtn = true;
+    }
   }
   let txtFileName = "wireapp.fund.txt";
   let txtFiservFileName = "wireapp.fiserv.txt";

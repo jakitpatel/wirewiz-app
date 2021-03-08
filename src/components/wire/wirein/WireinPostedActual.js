@@ -40,7 +40,7 @@ function WireinPostedActual(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireInRecordObj.Account}`,
+              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.Account}`,
               state: obj.row.original
             }}
           >

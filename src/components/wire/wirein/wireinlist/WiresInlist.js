@@ -88,29 +88,18 @@ function WiresInlist(props) {
   let selectBox = {
     Header: chkHeaderTitle,
     width: 55,
-    //id: 'colViewWireDetail',
     field: fieldNameAccessor,
     accessor: fieldNameAccessor,
     disableFilters: true,
     editable:true,
-    columnType:'checkbox'/*,
-    Cell: obj => {
-      //console.log(obj.row);
-      let wireObj = obj.row.original;
-      let checkVal = false;
-      if(batchRec.fromView && batchRec.fromView==="wireIn" && wireObj.excldueOFAC===true){
-        checkVal = true;
-      } else if(batchRec.fromView && batchRec.fromView==="wireInPosted" && wireObj.excludeFISERV===true){
-        checkVal = true;
-      }
-      return (
-        <input type="checkbox" value={checkVal} className="" />
-      );
-    }*/
+    columnType:'checkbox'
   };
 
   let columnDefs = [];
-  columnDefs.push(selectBox,
+  if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
+    columnDefs.push(selectBox);
+  }
+  columnDefs.push(
     {
       Header: "View",
       show : true, 
@@ -165,7 +154,7 @@ function WiresInlist(props) {
       Header: "originatorName",
       accessor: "originatorName"
     },
-    {
+    /*{
       field: "status",
       Header: "status",
       accessor: "status",
@@ -190,7 +179,7 @@ function WiresInlist(props) {
           </div>
         );
       }
-    },
+    },*/
     {
       field: "wireType",
       Header: "wireType",
@@ -213,6 +202,7 @@ function WiresInlist(props) {
         // '$100.00'
       }
     },
+    /*
     {
       field: "completeDateTime",
       Header: "CompleteDateTime",
@@ -235,7 +225,6 @@ function WiresInlist(props) {
         }
         return (
           <div>
-            {/*<span title={errorTooltip} style={{color:"red"}}>{error}</span>*/}
             <span data-tip={errorTooltip} data-for='wireListTtip' style={{color:"red"}}>{error}</span>
           </div>
         );
@@ -246,7 +235,8 @@ function WiresInlist(props) {
       Header: "businessErrorMsg",
       accessor: "businessErrorMsg",
       disableFilters: true
-    });
+    }*/
+    );
   
   // We need to keep the table from resetting the pageIndex when we
   // Update data. So we can keep track of that flag with a ref.
@@ -428,74 +418,6 @@ function WiresInlist(props) {
     }
   }, [downloadOfac, wireFiservText, wireOfacText]);
 
-  /*useEffect(() => {
-    console.log("After Render Wire List");
-    if(backToList){
-      dispatch({
-        type:'UPDATEWIRELIST',
-        payload:{
-          backToList:false
-        }
-      });
-    }
-  }, [backToList, dispatch]);
-  */
-  /*
-  useEffect(() => {
-    let ignore = false;
-    async function fetchWireDictionary() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let res = await axios.get(WireDictionary_Url, options);
-      //console.log(res.data);
-      //console.log(res.data.resource);
-      let dict = res.data.resource[0].dict;
-      //console.log(dict);
-      var dictObj = JSON.parse(dict);
-      console.log(dictObj);
-      dispatch({
-        type:'SETWIREDICTIONARY',
-        payload:dictObj
-      });
-    }
-    async function fetchWireList() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let url = Wires_Url;
-      if(batchRec){
-        url += "wireBatchID='"+batchRec.wireBatchID+"'";
-      }
-      if(env==="DEV"){
-        url = Wires_Url;
-      }
-      let res = await axios.get(url, options);
-      console.log(res.data);
-      //console.log(res.data.resource);
-      let wireArray = res.data.resource;
-      console.log(wireArray);
-      dispatch({
-        type:'SETWIRES',
-        payload:wireArray
-      });
-      setLoading(false);
-      /// Load Dictionary & build tag value
-      if(wiredict.length === 0){
-        fetchWireDictionary();
-      }
-    }
-    fetchWireList();
-    return () => { ignore = true; console.log("WireList Unmonted"); };
-  }, [batchId, dispatch, session_token, isRefresh]);
-  */
-
   if (toWiredetails === true) {
     console.log("toWiredetails : "+toWiredetails);
     let selWireID = selWireObj.wireID
@@ -639,7 +561,10 @@ function WiresInlist(props) {
     setDownloadOfac(true);
   }
 
-  let showExportBtn = WIRE_EXPORT;
+  let showExportBtn = false;
+  if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
+    showExportBtn = true;
+  }
   let txtFileName = "wireapp.fund.txt";
   let txtFiservFileName = "wireapp.fiserv.txt";
   let txtOfacFileName = "wireapp.ofac.txt";
@@ -723,9 +648,11 @@ function WiresInlist(props) {
               </button>
               }
               <React.Fragment>
+                {showExportBtn &&
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
                 </button>
+                }
                 <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e)}} className="btn btn-primary btn-sm">
                   Save
                 </button>

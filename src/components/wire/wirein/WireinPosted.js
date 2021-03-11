@@ -93,18 +93,18 @@ function WireinPosted(props) {
       accessor: "Name"
     },
     {
-      name: "postDateTime",
-      field: "postDateTime",
-      Header: "submitedDateTime",
-      accessor: "postDateTime"
+      name: "sentDateTime",
+      field: "sentDateTime",
+      Header: "sentDateTime",
+      accessor: "sentDateTime"
     },
-    {
+    /*{
       name: "seqNumber",
       field: "seqNumber",
       Header: "seqNumber",
       accessor: "seqNumber"
     },
-    /*{
+    {
       name: "postStatus",
       field: "postStatus",
       Header: "postStatus",

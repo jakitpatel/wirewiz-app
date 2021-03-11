@@ -80,7 +80,7 @@ function WiresInlist(props) {
   let fieldNameAccessor = "";
   if(batchRec.fromView && batchRec.fromView==="wireIn"){
     chkHeaderTitle = "excludeOFAC";
-    fieldNameAccessor = "excldueOFAC";
+    fieldNameAccessor = "excludeOFAC";
   } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
     chkHeaderTitle = "excludeFISERV";
     fieldNameAccessor = "excludeFISERV";

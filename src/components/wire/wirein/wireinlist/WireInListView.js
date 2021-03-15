@@ -61,6 +61,12 @@ const EditableCell = ({
 }) => {
   //alert(initialValue);
   // We need to keep and update the state of the cell normally
+  if(editable && (columnType==="checkbox")){
+    console.log("initialValue : "+initialValue);
+    if(initialValue===null){
+      initialValue = false;
+    }
+  }
   const [value, setValue] = React.useState(initialValue)
 
   const onChange = e => {

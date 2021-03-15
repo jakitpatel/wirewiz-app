@@ -315,7 +315,8 @@ function WiresInlist(props) {
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
           let recType = batchRec.type;
-          let filterUrl = "";
+          let filterUrl = batchRec.filter;
+          /*
           if(recType==="lending"){
             filterUrl = "(vAcc IN (17,15,147)) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } else if(recType==="branch"){
@@ -326,7 +327,7 @@ function WiresInlist(props) {
             filterUrl = "(businessErrorMsg is not null) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
           } else if(recType==="protocolErrors" || recType==="protocolError"){
             filterUrl = "(errorMsg is not null) and (status != 'DONE') and (typeCode = '10') and (subTypeCode = '00')";
-          } 
+          }*/
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
           let account = batchRec.Account;
@@ -497,8 +498,10 @@ function WiresInlist(props) {
       let res = await axios.put(url, data, options);
       console.log(res.data);
       setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);
+      //setIsRefresh(!isRefresh);
       //setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
@@ -712,6 +715,9 @@ function WiresInlist(props) {
                       target="_blank"
                       ref={ofacExportLink}
                     >ExportOfac</CSVLink>
+              <button type="button" style={{ float: "right", marginRight:"5px" }} onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
+                <Icon.RefreshCw />
+              </button>
               </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>

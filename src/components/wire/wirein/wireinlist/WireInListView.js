@@ -66,7 +66,8 @@ const EditableCell = ({
   const onChange = e => {
     let val = e.target.value;
     if(val===null){
-      val = "";
+      //val = "";
+      val = false;
     }
     //alert(val);
     setValue(!value)
@@ -82,7 +83,7 @@ const EditableCell = ({
   if(editable && columnType==="checkbox"){
     return retObj = (
       <div style={{textAlign: "center"}}>
-        <input type="checkbox" defaultChecked={value} className="" onChange={onChange} />
+        <input type="checkbox" defaultChecked={value} checked={value} className="" onChange={onChange} />
       </div>
     );
   } else {

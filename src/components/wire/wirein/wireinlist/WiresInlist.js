@@ -575,11 +575,14 @@ function WiresInlist(props) {
   }
 
   let showExportBtn = false;
+  let showSaveBtn = false;
   if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
     if(wires.length>0){
       showExportBtn = true;
+      showSaveBtn = true;
     }
   }
+
   let txtFileName = "wireapp.fund.txt";
   let txtFiservFileName = "wireapp.fiserv.txt";
   let txtOfacFileName = "wireapp.ofac.txt";
@@ -668,9 +671,11 @@ function WiresInlist(props) {
                   Export
                 </button>
                 }
+                {showSaveBtn &&
                 <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e)}} className="btn btn-primary btn-sm">
                   Save
                 </button>
+                }
                 <CSVLink
                       data={wireText}
                       uFEFF={false}

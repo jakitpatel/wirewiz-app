@@ -493,8 +493,21 @@ function WiresInlist(props) {
     if(env==="DEV"){
       url = Wire_tbl_Url;
     }
-    let res = await axios.put(url, data, options);
-    console.log(res.data);
+    try {
+      let res = await axios.put(url, data, options);
+      console.log(res.data);
+      setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      //setIsRefresh(!isRefresh);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
   } 
 
   const onWireExport = (event) => {

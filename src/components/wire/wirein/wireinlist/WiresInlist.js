@@ -311,7 +311,7 @@ function WiresInlist(props) {
             account = account.toString().substr(0, 3);
           }
           //let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
-          let filterUrl = "(vAcc = '"+account+"') and (wirePostID is NULL) and (businessErrorMsg is NULL) and (errorMsg is NULL)";
+          let filterUrl = "(vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is null) and (businessErrorMsg is NULL) and (errorMsg is NULL)";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
           let recType = batchRec.type;
@@ -334,11 +334,11 @@ function WiresInlist(props) {
             account = account.toString().substr(0, 3);
           }
           let wirePostID = batchRec.wirePostID;
-          let filterUrl = "(vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (businessErrorMsg is NULL) and (errorMsg is NULL)";
+          let filterUrl = "(vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (businessErrorMsg is NULL) and (errorMsg is NULL)";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInPostedActual"){
           let wirePostID = batchRec.wirePostID;
-          let filterUrl = "(wirePostID = '"+wirePostID+"')";
+          let filterUrl = "(wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null)";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";

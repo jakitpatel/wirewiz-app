@@ -39,7 +39,7 @@ function WireinManual(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireInRecordObj.type}`,
+              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.type}`,
               state: obj.row.original
             }}
           >

@@ -607,7 +607,11 @@ function WiresInlist(props) {
       headerTitle += " - Posted - "+account+" - "+batchRec.Name;
     } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
       headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
-    }
+    } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      let type = batchRec.type;
+      let account = batchRec.account;
+      headerTitle += " - Manual - "+type+" - "+account;
+    } 
     byWireBatchId = true;
     txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";
     txtFiservFileName = "wireapp.fiserv."+batchRec.wireBatchID+".txt";

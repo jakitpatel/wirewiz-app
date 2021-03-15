@@ -715,9 +715,11 @@ function WiresInlist(props) {
                       target="_blank"
                       ref={ofacExportLink}
                     >ExportOfac</CSVLink>
+              {/*
               <button type="button" style={{ float: "right", marginRight:"5px" }} onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
                 <Icon.RefreshCw />
               </button>
+              */}
               </React.Fragment>
               <div style={{ clear:"both"}}></div>
             </div>

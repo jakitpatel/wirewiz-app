@@ -617,7 +617,7 @@ function WiresInlist(props) {
   let showSaveBtn = false;
   if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
     if(wires.length>0){
-      showExportBtn = true;
+      //showExportBtn = true;
       showSaveBtn = true;
     }
   }

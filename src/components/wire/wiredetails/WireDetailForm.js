@@ -106,7 +106,7 @@ function WireDetailForm(props) {
                             rows="3" 
                             name="errorMsg"
                             value={value}
-                            //readOnly
+                            readOnly
                             ></textarea>
                         </div>
                       </div>
@@ -131,11 +131,28 @@ function WireDetailForm(props) {
                           rows="3" 
                           name="textWireMsg"
                           value={valueSt}
-                          //readOnly
+                          readOnly
                           ></textarea>
                       </div>
                     </div>
                   </div>
+                )
+              } else if(key==="businessErrorMsg"){
+                return (
+                    <div key={key} className="col-sm-12">
+                      <div className="form-group row">
+                        <label className="col-sm-2 col-form-label">businessErrorMsg</label>
+                        <div className="col-sm-10">
+                            <textarea 
+                            className="form-control" 
+                            rows="3" 
+                            name="businessErrorMsg"
+                            value={value}
+                            readOnly
+                            ></textarea>
+                        </div>
+                      </div>
+                    </div>
                 )
               } else {
                 let readOnlyVal = !WIRE_MODIFY_CREATE;

@@ -240,24 +240,38 @@ function WiresInlist(props) {
   
   if(batchRec.fromView && batchRec.fromView==="wireInManual"){
       let recType = batchRec.type;
-      let fieldName = null;
       if(recType==="businessError"){
-        fieldName = {
+        columnDefs.push({
           field: "businessErrorMsg",
           Header: "businessErrorMsg",
           accessor: "businessErrorMsg",
           disableFilters: true
-        }
+        });
       } else if(recType==="protocolError"){
-        fieldName = {
+        columnDefs.push({
           field: "errorMsg",
           Header: "errorMsg",
           accessor: "errorMsg",
           disableFilters: true
-        }
-      }
-      if(fieldName!==null){
-        columnDefs.push(fieldName);
+        });
+      } else if(recType==="excluded"){
+        columnDefs.push({
+          Header: "excludeOFAC",
+          width: 55,
+          field: "excludeOFAC",
+          accessor: "excludeOFAC",
+          disableFilters: true,
+          columnType:'checkbox',
+          editable : false
+        },{
+          width: 55,
+          field: "excludeFiserv",
+          Header: "excludeFiserv",
+          accessor: "excludeFiserv",
+          disableFilters: true,
+          columnType:'checkbox',
+          editable : false
+        });
       }
   }
   // We need to keep the table from resetting the pageIndex when we

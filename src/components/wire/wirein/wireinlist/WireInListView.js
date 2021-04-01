@@ -92,6 +92,12 @@ const EditableCell = ({
         <input type="checkbox" defaultChecked={value} checked={value} className="" onChange={onChange} />
       </div>
     );
+  } else if(editable===false && columnType==="checkbox"){
+    return retObj = (
+      <div style={{textAlign: "center"}}>
+        <input type="checkbox" defaultChecked={value} checked={value} disabled readOnly />
+      </div>
+    );
   } else {
     return retObj = <div>{value}</div>;
   }

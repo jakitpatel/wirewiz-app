@@ -238,6 +238,28 @@ function WiresInlist(props) {
     }*/
     );
   
+  if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      let recType = batchRec.type;
+      let fieldName = null;
+      if(recType==="businessError"){
+        fieldName = {
+          field: "businessErrorMsg",
+          Header: "businessErrorMsg",
+          accessor: "businessErrorMsg",
+          disableFilters: true
+        }
+      } else if(recType==="protocolError"){
+        fieldName = {
+          field: "errorMsg",
+          Header: "errorMsg",
+          accessor: "errorMsg",
+          disableFilters: true
+        }
+      }
+      if(fieldName!==null){
+        columnDefs.push(fieldName);
+      }
+  }
   // We need to keep the table from resetting the pageIndex when we
   // Update data. So we can keep track of that flag with a ref.
 

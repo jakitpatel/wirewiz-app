@@ -135,13 +135,6 @@ function WiresInlist(props) {
       accessor: "wireBatchID",
       disableFilters: true
     },
-    /*{
-      field: "userID",
-      Header: "userID",
-      accessor: "userID",
-      //Filter: SelectColumnFilter,
-      //filter: 'includes'
-    },*/
     {
       name: "senderShortName",
       field: "senderShortName",

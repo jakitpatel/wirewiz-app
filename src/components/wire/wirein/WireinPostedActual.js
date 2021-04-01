@@ -74,9 +74,15 @@ function WireinPostedActual(props) {
       accessor: "sentDateTime"
     },
     {
+      name: "ofacSeqNumber",
+      field: "ofacSeqNumber",
+      Header: "OFACSeq",
+      accessor: "ofacSeqNumber"
+    },
+    {
       name: "fiservSeqNumber",
       field: "fiservSeqNumber",
-      Header: "fiservSeqNumber",
+      Header: "FiservSeq",
       accessor: "fiservSeqNumber"
     },
     /*{

@@ -101,7 +101,7 @@ function WireinPosted(props) {
     {
       name: "ofacSeqNumber",
       field: "ofacSeqNumber",
-      Header: "ofacSeqNumber",
+      Header: "OFACSeq",
       accessor: "ofacSeqNumber"
     },
     /*{

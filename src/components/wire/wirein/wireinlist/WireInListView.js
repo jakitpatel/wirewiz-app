@@ -62,7 +62,7 @@ const EditableCell = ({
   //alert(initialValue);
   // We need to keep and update the state of the cell normally
   if(editable && (columnType==="checkbox")){
-    console.log("initialValue : "+initialValue);
+    //console.log("initialValue : "+initialValue);
     if(initialValue===null){
       initialValue = false;
     }
@@ -198,92 +198,10 @@ function Table({
     /*,state: {
       selectedRowIds: selectedRowsTb
     }*/
-    /*
-    useControlledState: state => {
-      return React.useMemo(
-        () => {
-          console.log(pageState);
-          console.log(state);
-          console.log(initialState);
-          let pageIndexVal = state.pageIndex;
-
-          if(pageState.backToList){
-            pageIndexVal = pageState.pageIndex;
-            setTimeout(() => {
-            console.log("pageIndex State : "+pageIndex);
-              dispatch({
-                type:'UPDATEWIRELIST',
-                payload:{
-                  backToList:false
-                }
-              });
-            }, 2000);
-            console.log("setPageIndex : "+pageIndexVal);
-            return ({
-              ...state,
-              pageIndex: pageIndexVal,
-            })
-          } else {
-            return ({
-              ...state
-            })
-          }
-        },
-        [state]
-      )
-    }*/
   },
   useFilters, // useFilters!
   useSortBy,
-  usePagination/*,
-  useRowSelect,
-  hooks => {
-    hooks.visibleColumns.push(columns => [
-      // Let's make a column for selection
-      {
-        id: 'selection',
-        disableFilters: true,
-        show : true,
-        minWidth: 45,
-        width: 45,
-        maxWidth: 45,
-        // The header can use the table's getToggleAllRowsSelectedProps method
-        // to render a checkbox
-        Header: ({ getToggleAllRowsSelectedProps }) => {
-          let headerTitle = "";
-          if(fromObj.fromView && fromObj.fromView==="wireIn"){
-            headerTitle = "excludeOFAC";
-          } else if(fromObj.fromView && fromObj.fromView==="wireInPosted"){
-            headerTitle = "excludeFISERV";
-          }
-          return (
-            <div>
-              {headerTitle}
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          )
-        },
-        // The cell can use the individual row's getToggleRowSelectedProps method
-        // to the render a checkbox
-        Cell: ({ row }) => {
-          //console.log("Cell Render");
-          //console.log(row);
-          let checkVal = false;
-          if(fromObj.fromView && fromObj.fromView==="wireIn" && row.original.excldueOFAC===true){
-            checkVal = true;
-          } else if(fromObj.fromView && fromObj.fromView==="wireInPosted" && row.original.excludeFISERV===true){
-            checkVal = true;
-          }
-          return (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          );
-        }
-      },
-      ...columns,
-    ])
-  }*/)
+  usePagination)
   /*
   useEffect(() => {
     let selWireArr = [];
@@ -302,11 +220,22 @@ function Table({
 
   // Listen for changes in pagination and use the state to fetch our new data
   React.useEffect(() => {
-    //fetchData({ pageIndex, pageSize });
-    console.log("Page Index :- " +pageIndex);
+    //console.log("Page Index :- " +pageIndex);
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
-  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+    return () => {
+      //console.log("Unmount Wire List View & Clear the store");
+      //alert("Unmount Wire List View & Clear the store");
+      dispatch({
+        type:'UPDATEWIRELIST',
+        payload:{
+          //pageIndex:pageIndex,
+          //pageSize:pageSize,
+          wires:[]
+        }
+      });
+    };
+  }, [dispatch, isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
   /*
   useEffect(() => {
     console.log("After Render Wire List View");
@@ -336,41 +265,6 @@ function Table({
   //console.log("Table : isRefresh :"+isRefresh);
   return (
     <>
-    {/*
-    <pre>
-        <code>
-          {JSON.stringify(
-            {
-              pageIndex,
-              pageSize,
-              pageCount,
-              canNextPage,
-              canPreviousPage,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-      <div>
-        <pre>
-          <code>
-            {JSON.stringify(
-              {
-                "initialState.filters": filtersarr,
-                "state.filters": filters
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre>
-      </div>
-      */}
-    {/* 
-      Pagination can be built however you'd like. 
-      This is just a very basic UI implementation:
-    */}
     {pageCount>1 &&
     <div className="pagination row">
       <div className="col-md-3">

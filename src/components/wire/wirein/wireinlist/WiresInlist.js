@@ -407,8 +407,6 @@ function WiresInlist(props) {
           pageSize:pageSize,
           wires:wireArray
         }
-        //type:'SETWIRES',
-        //payload:wireArray
       });
       
       // Your server could send back total page count.

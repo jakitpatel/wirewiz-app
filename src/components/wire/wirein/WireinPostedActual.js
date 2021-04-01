@@ -74,10 +74,10 @@ function WireinPostedActual(props) {
       accessor: "sentDateTime"
     },
     {
-      name: "seqNumber",
-      field: "seqNumber",
-      Header: "seqNumber",
-      accessor: "seqNumber"
+      name: "fiservSeqNumber",
+      field: "fiservSeqNumber",
+      Header: "fiservSeqNumber",
+      accessor: "fiservSeqNumber"
     },
     /*{
       name: "postStatus",

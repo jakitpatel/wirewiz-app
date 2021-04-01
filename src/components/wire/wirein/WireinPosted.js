@@ -98,13 +98,13 @@ function WireinPosted(props) {
       Header: "sentDateTime",
       accessor: "sentDateTime"
     },
-    /*{
-      name: "seqNumber",
-      field: "seqNumber",
-      Header: "seqNumber",
-      accessor: "seqNumber"
-    },
     {
+      name: "ofacSeqNumber",
+      field: "ofacSeqNumber",
+      Header: "ofacSeqNumber",
+      accessor: "ofacSeqNumber"
+    },
+    /*{
       name: "postStatus",
       field: "postStatus",
       Header: "postStatus",

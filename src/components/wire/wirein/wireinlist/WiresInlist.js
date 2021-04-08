@@ -96,7 +96,8 @@ function WiresInlist(props) {
   };
 
   let columnDefs = [];
-  if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
+  //if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
+  if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
     columnDefs.push(selectBox);
   }
   columnDefs.push(
@@ -123,6 +124,7 @@ function WiresInlist(props) {
         );
       }
     },
+    /*
     {
       field: "wireID",
       Header: "WireID",
@@ -135,6 +137,7 @@ function WiresInlist(props) {
       accessor: "wireBatchID",
       disableFilters: true
     },
+    */
     {
       name: "senderShortName",
       field: "senderShortName",

@@ -177,6 +177,7 @@ function WireinPosted(props) {
   const onWireInPost = async (e, wireInObj) => {
     console.log("Called Wire In Post");
     console.log(wireInObj);
+    console.log("sending : "+sending);
     if(sending===true){
       return false;
     }
@@ -194,14 +195,17 @@ function WireinPosted(props) {
       url = WirePost2Fiserv_Url;
     }
     try {
-      setSending(!sending);
+      //setSending(!sending);
+      setSending(true);
       let res = await axios.post(url, data, options);
       console.log(res.data);
+      //setSending(!sending);
+      setSending(false);
       setIsRefresh(!isRefresh);
-      setSending(!sending);
     } catch (error) {
         console.error(error) // from creation or business logic
-        setSending(!sending);
+        //setSending(!sending);
+        setSending(false);
     }    
   }
 
@@ -209,15 +213,19 @@ function WireinPosted(props) {
   const initialSortState = {
     sortBy: [{ id: "wirePostID", desc: true }]
    }; 
+  let sendCmp = sending === true ? ( <h4> Submitting... </h4> ) : null;
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
+      <>
+      {sendCmp}
       <Listview
         items={wireInRecord}
         columnDefs={columnDefs}
         sortBy={initialSortState}
       />
+      </>
     );
   
   return (

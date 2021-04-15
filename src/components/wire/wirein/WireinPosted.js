@@ -11,6 +11,7 @@ import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env} from './../../../co
 function WireinPosted(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   
@@ -176,6 +177,9 @@ function WireinPosted(props) {
   const onWireInPost = async (e, wireInObj) => {
     console.log("Called Wire In Post");
     console.log(wireInObj);
+    if(sending===true){
+      return false;
+    }
     const options = {
       headers: {
         'X-DreamFactory-API-Key': API_KEY,
@@ -189,9 +193,16 @@ function WireinPosted(props) {
     if(env==="DEV"){
       url = WirePost2Fiserv_Url;
     }
-    let res = await axios.post(url, data, options);
-    console.log(res.data);
-    setIsRefresh(!isRefresh);
+    try {
+      setSending(!sending);
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      setIsRefresh(!isRefresh);
+      setSending(!sending);
+    } catch (error) {
+        console.error(error) // from creation or business logic
+        setSending(!sending);
+    }    
   }
 
   console.log("Properties", props);

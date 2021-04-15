@@ -11,7 +11,7 @@ import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env} from './../../../co
 function WireinPosted(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [sending, setSending] = useState(false);
+  const [sending, setSending] = useState(false);  // Managin multiple sending
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   
@@ -213,7 +213,7 @@ function WireinPosted(props) {
   const initialSortState = {
     sortBy: [{ id: "wirePostID", desc: true }]
    }; 
-  let sendCmp = sending === true ? ( <h4> Submitting... </h4> ) : null;
+  let sendCmp = sending === true ? ( <h4 className="title-center"> Submitting... </h4> ) : null;
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>

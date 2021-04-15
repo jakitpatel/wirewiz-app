@@ -11,6 +11,7 @@ import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
 function Wirein(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);  // Managin multiple sending
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
 
@@ -139,6 +140,10 @@ function Wirein(props) {
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
+    console.log("sending : "+sending);
+    if(sending===true){
+      return false;
+    }
     const options = {
       headers: {
         'X-DreamFactory-API-Key': API_KEY,
@@ -152,24 +157,38 @@ function Wirein(props) {
     if(env==="DEV"){
       url = WireInExport_Url;
     }
-    let res = await axios.post(url, data, options);
-    console.log(res.data);
-    setIsRefresh(!isRefresh);
+    try {
+      //setSending(!sending);
+      setSending(true);
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      //setSending(!sending);
+      setSending(false);
+      setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.error(error) // from creation or business logic
+      //setSending(!sending);
+      setSending(false);
+    }    
   }
 
   console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "Account", asc: true }]
    }; 
+  let sendCmp = sending === true ? ( <h4 className="title-center"> Submitting... </h4> ) : null;
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>
     ) : (
+      <>
+      {sendCmp}
       <Listview
         items={wireInRecord}
         columnDefs={columnDefs}
         sortBy={initialSortState}
       />
+      </>
     );
   
   return (

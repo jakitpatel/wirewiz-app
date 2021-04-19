@@ -18,8 +18,14 @@ function Login(props) {
     e.preventDefault();
     let res;
     try {
+      let lasta = email.lastIndexOf('@');
+      let name = email;
+      if (lasta != -1) {
+          name = email.substring(0, lasta);
+      }
+
       const userCred = {
-        username: email,
+        username: name,
         password: password
       };
 

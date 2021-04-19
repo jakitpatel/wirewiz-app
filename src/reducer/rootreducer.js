@@ -7,6 +7,7 @@ import achAddendaReducer from './achAddendaReducer';
 import wireDictReducer from './wireDictReducer';
 import wireDocReducer from './wireDocReducer';
 import wireDetailsReducer from './wireDetailsReducer';
+import wiresInPostedReducer from './wireInPostedReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     achAddendaReducer,
     wireDictReducer,
     wireDocReducer,
-    wireDetailsReducer
+    wireDetailsReducer,
+    wiresInPostedReducer
 });
 
 export default rootReducer;

@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Listview from "./../../Listview/Listview";
+import WireinPostedActualView from "./../wirein/WireinPostedActualView";
 import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env} from './../../../const';
 
 function WireinPostedActual(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [filtersarr, setFiltersarr] = React.useState([]);
+  const [pageCount, setPageCount] = React.useState(0);
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
+  const fetchIdRef = React.useRef(0);
   
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
+
+  const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
+  });
+
+  const { wireinposted, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
+    return {
+        ...state.wiresInPostedReducer
+    }
   });
 
   const location = useLocation();
@@ -29,7 +41,7 @@ function WireinPostedActual(props) {
       Header: "View",
       show : true, 
       width: 40,
-      id: 'colView',
+      disableFilters: true,
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
       Cell: obj => {
@@ -71,7 +83,8 @@ function WireinPostedActual(props) {
       name: "sentDateTime",
       field: "sentDateTime",
       Header: "sentDateTime",
-      accessor: "sentDateTime"
+      accessor: "sentDateTime",
+      disableFilters: true,
     },
     {
       name: "ofacSeqNumber",
@@ -101,13 +114,15 @@ function WireinPostedActual(props) {
       name: "lastArrivialTime",
       field: "lastArrivialTime",
       Header: "lastArrivialTime",
-      accessor: "lastArrivialTime"
+      accessor: "lastArrivialTime",
+      disableFilters: true
     },
     {
       name: "totalAmount",
       field: "totalAmount",
       Header: "totalAmount",
       accessor: "totalAmount",
+      disableFilters: true,
       Cell: props => {
         if(props.value===null || props.value===undefined) {
           return null;
@@ -128,44 +143,116 @@ function WireinPostedActual(props) {
     }
   ];
 
-  useEffect(() => {
-    console.log("ACHFileRecord UseEffect");
-    let ignore = false;
-    async function fetchWireInRecord() {
+  const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
+    // This will get called when the table needs new data
+    // You could fetch your data from literally anywhere,
+    // even a server. But for this example, we'll just fake it.
+
+    // Give this fetch an ID
+    const fetchId = ++fetchIdRef.current
+
+    // Set the loading state
+    //setLoading(true);
+
+    async function fetchWirePostedRecord() {
       const options = {
         headers: {
           'X-DreamFactory-API-Key': API_KEY,
           'X-DreamFactory-Session-Token': session_token
         }
       };
+
       let url = WireinPostedActual_Url;
-      if(env==="DEV"){
-        url = WireinPostedActual_Url;
+      url += buildPageUrl(pageSize,pageIndex);
+    
+      if(filters.length>0){
+        console.log("filters");
+        console.log(filters);
+        /*if(batchRec){
+          url += " and ";
+        } else {*/
+          url += "&filter=";
+        //}
+        url += buildFilterUrl(filters);
       }
+      if(sortBy.length>0){
+        console.log(sortBy);
+        url += buildSortByUrl(sortBy);
+      }
+      url += "&include_count=true";
+      
+      //if(env==="DEV"){
+        //url = Wires_Url;
+      //}
       let res = await axios.get(url, options);
-      console.log(res.data);
-      console.log(res.data.resource);
-      let wireInRecArray = res.data.resource;
-      console.log(wireInRecArray);
-      setLoading(false);
-      setWireInRecord(wireInRecArray);
+      //setLoading(false);
+      //console.log(res.data);
+      //console.log(res.data.resource);
+      let totalCnt = 10;
+      if(res.data.meta){
+        totalCnt = res.data.meta.count;
+      }
+
+      dispatch({
+        type:'UPDATEWIREPOSTEDLIST',
+        payload:{
+          pageIndex:pageIndex,
+          pageSize:pageSize,
+          totalCount:totalCnt,
+          sortBy : sortBy,
+          filters : filters,
+          wireinposted:res.data.resource
+        }
+      });
+      
+      // Your server could send back total page count.
+      // For now we'll just fake it, too
+      let pageCnt = Math.ceil(totalCnt / pageSize);
+      console.log("pageCnt : "+pageCnt);
+      setPageCount(Math.ceil(totalCnt / pageSize));
+
+      //setLoading(false);
     }
-    fetchWireInRecord();
-    return () => { ignore = true };
-  }, [ session_token, isRefresh, setIsRefresh, location.key]);
+    // Only update the data if this is the latest fetch
+    if (fetchId === fetchIdRef.current) {
+      fetchWirePostedRecord();
+    }
+  }, [ dispatch, session_token, setLoading]);
 
   console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "wirePostID", desc: true }]
    }; 
+  const initialState = {
+    //pageIndex : 0,
+    pageIndex : pageIndex,
+    //pageSize : 10,
+    pageSize : pageSize,
+    sortBy : sortBy, //[{ id: "wireID", desc: true }],
+    filters : filters,
+  };
+  const pageState = {
+    pageSize : pageSize,
+    pageIndex : pageIndex,
+    backToList : backToList
+  };
   let disCmp =
-    loading === true ? (
+    /*loading === true ? (
       <h3> LOADING... </h3>
-    ) : (
-      <Listview
-        items={wireInRecord}
+    ) :*/ (
+      <WireinPostedActualView
+        data={wireinposted}
         columnDefs={columnDefs}
-        sortBy={initialSortState}
+        initialState={initialState}
+        pageState={pageState}
+        filtersarr={filtersarr}
+        setFiltersarr={setFiltersarr}
+        fetchData={fetchData}
+        loading={loading}
+        pageCount={pageCount}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
+        totalCount={totalCount}
       />
     );
   

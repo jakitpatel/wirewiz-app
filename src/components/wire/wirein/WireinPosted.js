@@ -98,14 +98,14 @@ function WireinPosted(props) {
     {
       name: "sentDateTime",
       field: "sentDateTime",
-      Header: "sentDateTime",
+      Header: "OFAC Generated",
       accessor: "sentDateTime"
     },
     {
-      name: "ofacSeqNumber",
-      field: "ofacSeqNumber",
-      Header: "OFACSeq",
-      accessor: "ofacSeqNumber"
+      name: "OFACGenFileName",
+      field: "OFACGenFileName",
+      Header: "OFAC FileName",
+      accessor: "OFACGenFileName"
     },
     /*{
       name: "postStatus",

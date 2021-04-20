@@ -101,7 +101,12 @@ function WireinPostedActual(props) {
       name: "FISERVGenFileName",
       field: "FISERVGenFileName",
       Header: "FISERV FileName",
-      accessor: "FISERVGenFileName"
+      accessor: "FISERVGenFileName",
+      Cell: ({ row }) => {
+        return (
+          <a href={row.original.FISERVGenFileName}>{row.original.FISERVGenFileName}</a>
+        )
+      }
     },
     /*{
       name: "postStatus",

@@ -90,7 +90,12 @@ function WireinPostedActual(props) {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
       Header: "OFAC FileName",
-      accessor: "OFACGenFileName"
+      accessor: "OFACGenFileName",
+      Cell: ({ row }) => {
+        return (
+          <a href={row.original.OFACGenFileName}>{row.original.OFACGenFileName}</a>
+        )
+      }
     },
     {
       name: "FISERVGenFileName",

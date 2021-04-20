@@ -51,7 +51,7 @@ function WireinPosted(props) {
       }
     },
     {
-      Header: "Post2Fiserv",
+      Header: "Post",
       show : true, 
       width: 55,
       //id: 'colViewWireDetail',
@@ -75,12 +75,14 @@ function WireinPosted(props) {
         );
       }
     },
+    /*
     {
       headerName: "wirePostID",
       field: "wirePostID",
       Header: "wirePostID",
       accessor: "wirePostID"
     },
+    */
     {
       headerName: "Account",
       field: "Account",
@@ -114,19 +116,21 @@ function WireinPosted(props) {
     {
       name: "numWires",
       field: "numWires",
-      Header: "numWires",
+      Header: "# Wires",
       accessor: "numWires"
     },
+    /*
     {
       name: "lastArrivialTime",
       field: "lastArrivialTime",
       Header: "lastArrivialTime",
       accessor: "lastArrivialTime"
     },
+    */
     {
       name: "totalAmount",
       field: "totalAmount",
-      Header: "totalAmount",
+      Header: "Total Amount",
       accessor: "totalAmount",
       Cell: props => {
         if(props.value===null || props.value===undefined) {
@@ -143,7 +147,7 @@ function WireinPosted(props) {
     {
       name: "postedBy",
       field: "postedBy",
-      Header: "submitedBy",
+      Header: "Submited By",
       accessor: "postedBy"
     }
   ];
@@ -233,7 +237,7 @@ function WireinPosted(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">WireIn Posting Record List</h3>
+            <h3 className="title-center">Inbound Wires - Ready for Posting</h3>
             {disCmp}
           </div>
         </div>

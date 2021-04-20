@@ -51,9 +51,9 @@ function Wirein(props) {
       }
     },
     {
-      Header: "Submit2OFAC",
+      Header: "Generate OFAC File",
       show : true, 
-      width: 55,
+      width: 90,
       //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,
@@ -83,7 +83,7 @@ function Wirein(props) {
     {
       headerName: "numWires",
       field: "numWires",
-      Header: "numWires",
+      Header: "# Wires",
       accessor: "numWires"
     },
     {
@@ -95,7 +95,7 @@ function Wirein(props) {
     {
       name: "totalAmount",
       field: "totalAmount",
-      Header: "totalAmount",
+      Header: "Total Amount",
       accessor: "totalAmount",
       Cell: props => {
         if(props.value===null || props.value===undefined) {

@@ -196,7 +196,7 @@ function Wirein(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">WireInRecord List</h3>
+            <h3 className="title-center">Inbound Wires - Ready for OFAC</h3>
             {disCmp}
           </div>
         </div>

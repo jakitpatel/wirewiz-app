@@ -6,6 +6,8 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+//import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
 import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
 
 function Wirein(props) {
@@ -175,8 +177,19 @@ function Wirein(props) {
   console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "Account", asc: true }]
-   }; 
-  let sendCmp = sending === true ? ( <h4 className="title-center"> Submitting... </h4> ) : null;
+   };
+  var color = '#4DAF7C';  
+  let sendCmp = sending === true ? ( 
+    <>
+      <div>
+        <h4 style={{float:"left"}} className="title-center"> Submitting... </h4>
+        <div style={{float:'left'}}>
+          <ClipLoader loading={sending} color={color}  size={55} />
+        </div>
+        <div style={{clear:"both"}}></div>
+      </div>
+    </>
+    ) : null;
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>

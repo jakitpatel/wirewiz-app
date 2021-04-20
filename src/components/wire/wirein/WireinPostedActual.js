@@ -6,6 +6,7 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env} from './../../../const';
 
@@ -84,7 +85,10 @@ function WireinPostedActual(props) {
       field: "sentDateTime",
       Header: "FISERV Generated",
       accessor: "sentDateTime",
-      disableFilters: true,
+      Filter: DateRangeColumnFilter,
+      //filterType:"date"
+      //filter: "between"
+      //disableFilters: true,
     },
     {
       name: "OFACGenFileName",
@@ -177,7 +181,8 @@ function WireinPostedActual(props) {
 
       let url = WireinPostedActual_Url;
       url += buildPageUrl(pageSize,pageIndex);
-    
+      console.log("filters");
+      console.log(filters);
       if(filters.length>0){
         console.log("filters");
         console.log(filters);
@@ -230,7 +235,7 @@ function WireinPostedActual(props) {
     if (fetchId === fetchIdRef.current) {
       fetchWirePostedRecord();
     }
-  }, [ dispatch, session_token, setLoading]);
+  }, [ dispatch, session_token]);
 
   console.log("Properties", props);
   const initialSortState = {

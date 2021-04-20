@@ -87,16 +87,16 @@ function WireinPostedActual(props) {
       disableFilters: true,
     },
     {
-      name: "ofacSeqNumber",
-      field: "ofacSeqNumber",
+      name: "OFACGenFileName",
+      field: "OFACGenFileName",
       Header: "OFAC FileName",
-      accessor: "ofacSeqNumber"
+      accessor: "OFACGenFileName"
     },
     {
-      name: "fiservSeqNumber",
-      field: "fiservSeqNumber",
+      name: "FISERVGenFileName",
+      field: "FISERVGenFileName",
       Header: "FISERV FileName",
-      accessor: "fiservSeqNumber"
+      accessor: "FISERVGenFileName"
     },
     /*{
       name: "postStatus",

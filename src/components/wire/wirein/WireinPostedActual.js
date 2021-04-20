@@ -82,7 +82,7 @@ function WireinPostedActual(props) {
     {
       name: "sentDateTime",
       field: "sentDateTime",
-      Header: "FISERV Generated Date Time",
+      Header: "FISERV Generated",
       accessor: "sentDateTime",
       disableFilters: true,
     },

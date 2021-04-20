@@ -6,6 +6,8 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
 import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env} from './../../../const';
 
 function WireinPosted(props) {
@@ -24,6 +26,13 @@ function WireinPosted(props) {
   });
   
   const location = useLocation();
+
+  // Can be a string as well. Need to ensure each key-value pair ends with ;
+  const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  `;
 
   const columnDefs = [
     {
@@ -216,8 +225,20 @@ function WireinPosted(props) {
   console.log("Properties", props);
   const initialSortState = {
     sortBy: [{ id: "wirePostID", desc: true }]
-   }; 
-  let sendCmp = sending === true ? ( <h4 className="title-center"> Submitting... </h4> ) : null;
+   };
+  // try change me to a custom color like "red" or "#000000"
+  var color = '#4DAF7C'; 
+  let sendCmp = sending === true ? ( 
+  <>
+    <div>
+      <h4 style={{float:"left"}} className="title-center"> Submitting... </h4>
+      <div style={{float:'left'}}>
+        <ClipLoader loading={sending} color={color}  size={55} />
+      </div>
+      <div style={{clear:"both"}}></div>
+    </div>
+  </>
+  ) : null;
   let disCmp =
     loading === true ? (
       <h3> LOADING... </h3>

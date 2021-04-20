@@ -198,6 +198,18 @@ function WiresInlist(props) {
         // '$100.00'
       }
     },
+    {
+      name: "beneficiaryName",
+      field: "beneficiaryName",
+      Header: "beneficiaryName",
+      accessor: "beneficiaryName"
+    },
+    {
+      name: "beneficiaryIdentifier",
+      field: "beneficiaryIdentifier",
+      Header: "beneficiaryIdentifier",
+      accessor: "beneficiaryIdentifier"
+    }
     /*
     {
       field: "completeDateTime",

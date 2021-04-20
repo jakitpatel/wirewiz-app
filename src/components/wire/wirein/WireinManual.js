@@ -160,7 +160,7 @@ function WireinManual(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">WireIn Manual Record List</h3>
+            <h3 className="title-center">Inbound Wires - Manual Processing</h3>
             {disCmp}
           </div>
         </div>

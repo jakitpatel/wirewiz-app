@@ -108,7 +108,8 @@ function WireinPostedActual(props) {
       name: "numWires",
       field: "numWires",
       Header: "# Wires",
-      accessor: "numWires"
+      accessor: "numWires",
+      disableFilters: true
     },
     /*
     {

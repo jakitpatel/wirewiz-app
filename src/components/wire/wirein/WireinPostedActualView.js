@@ -257,7 +257,7 @@ function Table({
       </div>
     </div>
     {/*}*/}
-    <div className="tableContainer" style={{overflow:"visible"}}>
+    <div className="tableContainer" style={{overflow:"visible", borderBottom:"none"}}>
     <table className="stickyHeaderTable" key={isRefresh} {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (

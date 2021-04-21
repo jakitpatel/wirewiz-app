@@ -50,8 +50,11 @@ const buildSortByUrl = (sortArr) => {
         filterOpr = "=";
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
       } else if(filterClm==="sentDateTime"){
+        /*
         filterOpr = "=";
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
+        */
+        filterUrl += " and ("+filterClm+" > "+filterVal+" 00:00:00) and ("+filterClm+" < "+filterVal+" 23:59:59)";
       } else if(filterClm==="SBALoanNumber" && filterObj.filterOpr===">" && filterObj.defFilter==="teamc"){
         filterOpr = filterObj.filterOpr;
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";

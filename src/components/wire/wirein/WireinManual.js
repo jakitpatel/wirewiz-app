@@ -49,7 +49,6 @@ function WireinManual(props) {
   };
 
   const columnDefs = [
-    selectBox,
     {
       Header: "View",
       show : true, 
@@ -203,6 +202,7 @@ function WireinManual(props) {
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
+            {/*
             <div>
               <button style={{ float: "right",marginLeft:"10px"}} type="button" className="btn btn-primary">
                 Resolve
@@ -219,6 +219,7 @@ function WireinManual(props) {
               </div>
               <div style={{clear:"both"}}></div>
             </div>
+            */}
             {disCmp}
           </div>
         </div>

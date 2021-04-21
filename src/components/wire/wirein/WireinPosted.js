@@ -119,7 +119,7 @@ function WireinPosted(props) {
     {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
-      Header: "OFAC FileName",
+      Header: "OFAC File",
       accessor: "OFACGenFileName",
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.OFACGenFileName);

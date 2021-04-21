@@ -17,9 +17,9 @@ function Login(props) {
   async function handleLogin(e) {
     e.preventDefault();
     let res;
+    let name = email;
     try {
       let lasta = email.lastIndexOf('@');
-      let name = email;
       if (lasta != -1) {
           name = email.substring(0, lasta);
       }
@@ -63,7 +63,7 @@ function Login(props) {
       };
       console.log(options);
       console.log(Usr_Permission_Url);
-      let url = Usr_Permission_Url + "uid='"+email+"'";
+      let url = Usr_Permission_Url + "uid='"+name+"'";
       if(env==="DEV"){
         url = Usr_Permission_Url;
       }

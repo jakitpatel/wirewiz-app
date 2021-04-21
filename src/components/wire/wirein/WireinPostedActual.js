@@ -98,7 +98,7 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.CLIENTGenFileName);
         return (
-          <a href={doc_link}>{row.original.CLIENTGenFileName}</a>
+          <a target="_blank" rel="noopener noreferrer" href={doc_link}>{row.original.CLIENTGenFileName}</a>
         )
       }
     },
@@ -110,7 +110,7 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.OFACGenFileName);
         return (
-          <a href={doc_link}>{row.original.OFACGenFileName}</a>
+          <a target="_blank" rel="noopener noreferrer" href={doc_link}>{row.original.OFACGenFileName}</a>
         )
       }
     },
@@ -122,7 +122,7 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.FISERVGenFileName);
         return (
-          <a href={doc_link}>{row.original.FISERVGenFileName}</a>
+          <a target="_blank" rel="noopener noreferrer" href={doc_link}>{row.original.FISERVGenFileName}</a>
         )
       }
     },

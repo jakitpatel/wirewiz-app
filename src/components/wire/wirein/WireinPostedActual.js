@@ -18,7 +18,11 @@ function WireinPostedActual(props) {
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   const fetchIdRef = React.useRef(0);
-  
+
+  let today = new Date();
+  let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const [currtime, setCurrtime] = useState(time);
+
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const dispatch = useDispatch();
@@ -179,6 +183,18 @@ function WireinPostedActual(props) {
     }
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefresh(isRefresh => {
+        let today = new Date();
+        let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        setCurrtime(time);
+        return !isRefresh;
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  },[]);
+
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data
     // You could fetch your data from literally anywhere,
@@ -298,7 +314,11 @@ function WireinPostedActual(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">Inbound Wires - Posted</h3>
+            <div>
+              <h3 style={{float:"left"}} className="title-center">Inbound Wires - Posted</h3>
+              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <div style={{clear:"both"}}></div>
+            </div>
             {disCmp}
           </div>
         </div>

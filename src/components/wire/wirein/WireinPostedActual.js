@@ -7,9 +7,8 @@ import "./Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
-import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
-//import FileSaver from 'file-saver';
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -38,34 +37,11 @@ function WireinPostedActual(props) {
 
   const location = useLocation();
 
-  const download = (url, name) => {
-    console.log("Download Files as blob");
-    if (!url) {
-      throw new Error("Resource URL not provided! You need to provide one");
-    }
-    fetch(url)
-      .then(response => response.blob())
-      .then(blob => {
-        const blobURL = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = blobURL;
-        a.style = "display: none";
+  const buildDocLink = (filename) => {
+    let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
+    return link;
+   }
 
-        if (name && name.length) a.download = name;
-        document.body.appendChild(a);
-        a.click();
-      })
-      .catch(() => {
-        console.log("Error while fetching URL");
-      });
-  };
-
-  /*
-  const downloadSaveAs = (url, name) => {
-    console.log("Download Files as Filesaver");
-    FileSaver.saveAs(url,name);
-  }
-  */
   const columnDefs = [
     {
       Header: "View",
@@ -202,11 +178,6 @@ function WireinPostedActual(props) {
       accessor: "postedBy"
     }
   ];
-
-  const buildDocLink = (filename) => {
-    let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
-    return link;
-  }
 
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data

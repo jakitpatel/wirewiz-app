@@ -1,3 +1,5 @@
+import {API_KEY, API_URL} from './../../const';
+
 const toCurrency = (val) => {
   return new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(val);
 }
@@ -44,7 +46,10 @@ const buildSortByUrl = (sortArr) => {
         filterUrl += " and ("+filterClm+" is null)";
       }
     } else {
-      if(filterClm==="ALDLoanApplicationNumberOnly" || filterClm==="TaxID" || filterClm==="sentDateTime"){
+      if(filterClm==="ALDLoanApplicationNumberOnly" || filterClm==="TaxID"){
+        filterOpr = "=";
+        filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
+      } else if(filterClm==="sentDateTime"){
         filterOpr = "=";
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
       } else if(filterClm==="SBALoanNumber" && filterObj.filterOpr===">" && filterObj.defFilter==="teamc"){
@@ -73,4 +78,26 @@ const buildSortByUrl = (sortArr) => {
     return pageUrl;
  }
 
- export { buildSortByUrl, buildPageUrl, buildFilterUrl } ; 
+ const download = (url, name) => {
+  console.log("Download Files as blob");
+  if (!url) {
+    throw new Error("Resource URL not provided! You need to provide one");
+  }
+  fetch(url)
+    .then(response => response.blob())
+    .then(blob => {
+      const blobURL = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobURL;
+      a.style = "display: none";
+
+      if (name && name.length) a.download = name;
+      document.body.appendChild(a);
+      a.click();
+    })
+    .catch(() => {
+      console.log("Error while fetching URL");
+    });
+};
+
+ export { buildSortByUrl, buildPageUrl, buildFilterUrl, download } ; 

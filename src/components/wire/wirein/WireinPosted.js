@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
-import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env} from './../../../const';
+import {download} from './../../Functions/functions.js';
+import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} from './../../../const';
 
 function WireinPosted(props) {
   let history = useHistory();
@@ -33,6 +34,11 @@ function WireinPosted(props) {
   margin: 0 auto;
   border-color: red;
   `;
+
+  const buildDocLink = (filename) => {
+    let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
+    return link;
+  }
 
   const columnDefs = [
     {
@@ -114,7 +120,13 @@ function WireinPosted(props) {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
       Header: "OFAC FileName",
-      accessor: "OFACGenFileName"
+      accessor: "OFACGenFileName",
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.OFACGenFileName);
+        return (
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
+        )
+      }
     },
     /*{
       name: "postStatus",

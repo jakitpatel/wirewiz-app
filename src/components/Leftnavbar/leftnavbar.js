@@ -92,7 +92,7 @@ function LeftNavBar(props) {
                   </ul>
               </div>
           </li>
-          
+          {/*
           <MenuListItem
             menuName="ACH"
             routePath={`${process.env.PUBLIC_URL}/ach`}
@@ -105,6 +105,7 @@ function LeftNavBar(props) {
             iconName="dollarSign"
             enableVal={DEPOSITS_ENABLER}
           />
+          */}
           <DownloadProtocol protocol={WireProtocolPdf} name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} name="ACH" />
         </ul>

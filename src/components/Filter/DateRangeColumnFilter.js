@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as Icon from "react-feather";
 
 function DateRangeColumnFilter({
     column: { filterValue , preFilteredRows, setFilter, id }
@@ -29,6 +30,13 @@ function DateRangeColumnFilter({
                 //setFilter((old = []) => [val || undefined, old[1]]);
             }}
             />
+            {value ?
+            <button onClick={(e) => {
+                console.log("Clear Date");
+                setValue("");
+                setFilter("");
+            }}><Icon.XCircle /></button>
+            : null }
         </div>
     );
     /*

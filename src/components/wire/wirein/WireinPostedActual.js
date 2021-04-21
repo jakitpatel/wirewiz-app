@@ -191,7 +191,7 @@ function WireinPostedActual(props) {
         setCurrtime(time);
         return !isRefresh;
       });
-    }, 4000);
+    }, 120000);
     return () => clearInterval(interval);
   },[]);
 

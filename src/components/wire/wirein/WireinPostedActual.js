@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
-import { FileSaver } from 'file-saver';
+import FileSaver from 'file-saver';
 
 function WireinPostedActual(props) {
   let history = useHistory();

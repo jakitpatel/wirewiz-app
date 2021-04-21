@@ -5135,7 +5135,7 @@
     "loader-utils" "^1.2.3"
     "schema-utils" "^2.5.0"
 
-"file-saver@1.3.3":
+"file-saver@^1.3.3", "file-saver@1.3.3":
   "integrity" "sha1-zdTETTqiZOrC9o7BZbx5HDSvEjI="
   "resolved" "https://registry.npmjs.org/file-saver/-/file-saver-1.3.3.tgz"
   "version" "1.3.3"

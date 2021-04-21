@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
+import { FileSaver } from 'file-saver';
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -36,6 +37,33 @@ function WireinPostedActual(props) {
   });
 
   const location = useLocation();
+
+  const download = (url, name) => {
+    console.log("Download Files as blob");
+    if (!url) {
+      throw new Error("Resource URL not provided! You need to provide one");
+    }
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const blobURL = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = blobURL;
+        a.style = "display: none";
+
+        if (name && name.length) a.download = name;
+        document.body.appendChild(a);
+        a.click();
+      })
+      .catch(() => {
+        console.log("Error while fetching URL");
+      });
+  };
+
+  const downloadSaveAs = (url, name) => {
+    console.log("Download Files as Filesaver");
+    FileSaver.saveAs(url,name);
+  }
 
   const columnDefs = [
     {
@@ -91,18 +119,6 @@ function WireinPostedActual(props) {
       //disableFilters: true,
     },
     {
-      name: "CLIENTGenFileName",
-      field: "CLIENTGenFileName",
-      Header: "CLIENT File",
-      accessor: "CLIENTGenFileName",
-      Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.CLIENTGenFileName);
-        return (
-          <a target="_blank" download rel="noopener noreferrer" href={doc_link}>{row.original.CLIENTGenFileName}</a>
-        )
-      }
-    },
-    {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
       Header: "OFAC File",
@@ -110,7 +126,7 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.OFACGenFileName);
         return (
-          <a target="_blank" download rel="noopener noreferrer" href={doc_link}>{row.original.OFACGenFileName}</a>
+          <a target="_blank" download={row.original.OFACGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.OFACGenFileName}</a>
         )
       }
     },
@@ -121,9 +137,27 @@ function WireinPostedActual(props) {
       accessor: "FISERVGenFileName",
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.FISERVGenFileName);
+        /*return (
+          <a target="_blank" download={row.original.FISERVGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.FISERVGenFileName}</a>
+        )*/
         return (
-          <a target="_blank" download rel="noopener noreferrer" href={doc_link}>{row.original.FISERVGenFileName}</a>
+          <button onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
         )
+      }
+    },
+    {
+      name: "CLIENTGenFileName",
+      field: "CLIENTGenFileName",
+      Header: "CLIENT File",
+      accessor: "CLIENTGenFileName",
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.CLIENTGenFileName);
+        return (
+          <button onClick={() => {downloadSaveAs(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
+        )
+        /*return (
+          <a target="_blank" download={row.original.CLIENTGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.CLIENTGenFileName}</a>
+        )*/
       }
     },
     /*{

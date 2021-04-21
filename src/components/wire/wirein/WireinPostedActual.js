@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
-import {API_KEY, WireinPostedActual_Url, env} from './../../../const';
+import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -83,7 +83,7 @@ function WireinPostedActual(props) {
     {
       name: "sentDateTime",
       field: "sentDateTime",
-      Header: "FISERV Generated",
+      Header: "Date",
       accessor: "sentDateTime",
       Filter: DateRangeColumnFilter,
       //filterType:"date"
@@ -91,24 +91,38 @@ function WireinPostedActual(props) {
       //disableFilters: true,
     },
     {
+      name: "CLIENTGenFileName",
+      field: "CLIENTGenFileName",
+      Header: "CLIENT File",
+      accessor: "CLIENTGenFileName",
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.CLIENTGenFileName);
+        return (
+          <a href={doc_link}>{row.original.CLIENTGenFileName}</a>
+        )
+      }
+    },
+    {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
-      Header: "OFAC FileName",
+      Header: "OFAC File",
       accessor: "OFACGenFileName",
       Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.OFACGenFileName);
         return (
-          <a href={row.original.OFACGenFileName}>{row.original.OFACGenFileName}</a>
+          <a href={doc_link}>{row.original.OFACGenFileName}</a>
         )
       }
     },
     {
       name: "FISERVGenFileName",
       field: "FISERVGenFileName",
-      Header: "FISERV FileName",
+      Header: "FISERV File",
       accessor: "FISERVGenFileName",
       Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.FISERVGenFileName);
         return (
-          <a href={row.original.FISERVGenFileName}>{row.original.FISERVGenFileName}</a>
+          <a href={doc_link}>{row.original.FISERVGenFileName}</a>
         )
       }
     },
@@ -159,6 +173,11 @@ function WireinPostedActual(props) {
       accessor: "postedBy"
     }
   ];
+
+  const buildDocLink = (filename) => {
+    let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
+    return link;
+  }
 
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data

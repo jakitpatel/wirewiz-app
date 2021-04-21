@@ -37,7 +37,7 @@ function LeftNavBar(props) {
   });
 
   return (
-    <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+    <nav className="col-md-2 d-none d-md-block bg-light sidebar" style={{paddingTop:"70px"}}>
       <div className="sidebar-sticky">
         <ul className="nav flex-column">
           <MenuListItem

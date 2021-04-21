@@ -17,6 +17,10 @@ function Wirein(props) {
   const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
 
+  let today = new Date();
+  let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const [currtime, setCurrtime] = useState(time);
+
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
   const { session_token } = useSelector(state => {
@@ -114,6 +118,18 @@ function Wirein(props) {
   ];
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefresh(isRefresh => {
+        let today = new Date();
+        let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        setCurrtime(time);
+        return !isRefresh;
+      });
+    }, 120000);
+    return () => clearInterval(interval);
+  },[]);
+
+  useEffect(() => {
     console.log("ACHFileRecord UseEffect");
     let ignore = false;
     async function fetchWireInRecord() {
@@ -209,7 +225,11 @@ function Wirein(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">Inbound Wires - Ready for OFAC</h3>
+            <div>
+              <h3 style={{float:"left"}} className="title-center">Inbound Wires - Ready for OFAC</h3>
+              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <div style={{clear:"both"}}></div>
+            </div>
             {disCmp}
           </div>
         </div>

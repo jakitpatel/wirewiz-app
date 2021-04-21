@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
-import FileSaver from 'file-saver';
+//import FileSaver from 'file-saver';
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -60,11 +60,12 @@ function WireinPostedActual(props) {
       });
   };
 
+  /*
   const downloadSaveAs = (url, name) => {
     console.log("Download Files as Filesaver");
     FileSaver.saveAs(url,name);
   }
-
+  */
   const columnDefs = [
     {
       Header: "View",
@@ -126,7 +127,7 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.OFACGenFileName);
         return (
-          <a target="_blank" download={row.original.OFACGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.OFACGenFileName}</a>
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
         )
       }
     },
@@ -137,11 +138,8 @@ function WireinPostedActual(props) {
       accessor: "FISERVGenFileName",
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.FISERVGenFileName);
-        /*return (
-          <a target="_blank" download={row.original.FISERVGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.FISERVGenFileName}</a>
-        )*/
         return (
-          <button onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
         )
       }
     },
@@ -153,11 +151,8 @@ function WireinPostedActual(props) {
       Cell: ({ row }) => {
         let doc_link = buildDocLink(row.original.CLIENTGenFileName);
         return (
-          <button onClick={() => {downloadSaveAs(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
         )
-        /*return (
-          <a target="_blank" download={row.original.CLIENTGenFileName} rel="noopener noreferrer" href={doc_link}>{row.original.CLIENTGenFileName}</a>
-        )*/
       }
     },
     /*{

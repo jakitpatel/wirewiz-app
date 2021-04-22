@@ -130,6 +130,18 @@ function Wireslist(props) {
       accessor: "originatorName"
     },
     {
+      name: "beneficiaryName",
+      field: "beneficiaryName",
+      Header: "beneficiaryName",
+      accessor: "beneficiaryName"
+    },
+    {
+      name: "beneficiaryIdentifier",
+      field: "beneficiaryIdentifier",
+      Header: "beneficiaryIdentifier",
+      accessor: "beneficiaryIdentifier"
+    },
+    {
       field: "status",
       Header: "status",
       accessor: "status",

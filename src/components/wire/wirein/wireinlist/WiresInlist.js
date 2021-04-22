@@ -38,6 +38,8 @@ function WiresInlist(props) {
   const [toWiredetails, setToWiredetails] = useState(false);
   const [modWireData, setModWireData] = React.useState([]);
 
+  const [resolveText, setResolveText] = useState("solve1");
+
   const dispatch = useDispatch();
 
   const { session_token, WIRE_EXPORT } = useSelector(state => {
@@ -575,6 +577,24 @@ function WiresInlist(props) {
         'X-DreamFactory-Session-Token': session_token
       }
     };
+    for(let k=0; k<modWireData.length;k++){
+      let wireObj = modWireData[k];
+      /*let tmpWireObj = {};
+      tmpWireObj.status = 3;
+      tmpWireObj.wireID = wireDetailsObj.wireID;
+      */
+      var d = new Date();
+      var yr = d.getFullYear();
+      var month = d.getMonth()+1;
+      var hh = d.getHours();
+      var mm = d.getMinutes();
+      var ss = d.getSeconds();
+      var dt = d.getDate();
+      var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
+      wireObj.completeDateTime = datefull;
+      wireObj.resolveMsg = resolveText;
+      //wiresResourceArr.push(tmpWireObj);
+    }
     let data = {
       "resource": modWireData
     };
@@ -774,8 +794,9 @@ function WiresInlist(props) {
                     Resolve
                   </button>
                   <div style={{float:"right"}}>
-                    <select className="form-control" value="solve1"
+                    <select className="form-control" value={resolveText}
                       onChange={e => {
+                        setResolveText(e.target.value);
                       }}
                     >
                       <option value="solve1">solve1</option>

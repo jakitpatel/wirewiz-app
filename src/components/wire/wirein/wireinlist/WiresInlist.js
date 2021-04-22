@@ -84,6 +84,9 @@ function WiresInlist(props) {
   } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
     chkHeaderTitle = "excludeFISERV";
     fieldNameAccessor = "excludeFISERV";
+  } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    chkHeaderTitle = "Select";
+    fieldNameAccessor = "resolve";
   }
   let selectBox = {
     Header: chkHeaderTitle,
@@ -97,7 +100,7 @@ function WiresInlist(props) {
 
   let columnDefs = [];
   //if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
-  if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
+  if(batchRec.fromView && (batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireInManual")){
     columnDefs.push(selectBox);
   }
   columnDefs.push(
@@ -308,6 +311,12 @@ function WiresInlist(props) {
       [columnId]:value,
       wireID:modifiedRec.wireID
     };
+    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      modObj = {
+        status:3,
+        wireID:modifiedRec.wireID
+      };
+    }
     const newWires = modWireData.filter((wire) => wire.wireID !== modifiedRec.wireID);
     newWires.push(modObj);
     setModWireData(newWires);
@@ -555,6 +564,43 @@ function WiresInlist(props) {
     }
   } 
 
+  const onWireResolve = async (e) => {
+    console.log("onWire Resolve Clicked");
+    if(modWireData.length === 0){
+      return false;
+    }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": modWireData
+    };
+    let url = Wire_tbl_Url;
+    if(env==="DEV"){
+      url = Wire_tbl_Url;
+    }
+    try {
+      let res = await axios.put(url, data, options);
+      console.log(res.data);
+      setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      //setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
+  }
+
   const onWireExport = (event) => {
     console.log("On Wire Export Button Click");
     console.log(selectedRows);
@@ -625,6 +671,13 @@ function WiresInlist(props) {
     if(wires.length>0){
       //showExportBtn = true;
       showSaveBtn = true;
+    }
+  }
+
+  let showResolveSection = false;
+  if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    if(wires.length>0){
+      showResolveSection = true;
     }
   }
 
@@ -715,6 +768,23 @@ function WiresInlist(props) {
               </button>
               }
               <React.Fragment>
+                {showResolveSection &&
+                <>
+                  <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className="btn btn-primary btn-sm">
+                    Resolve
+                  </button>
+                  <div style={{float:"right"}}>
+                    <select className="form-control" value="solve1"
+                      onChange={e => {
+                      }}
+                    >
+                      <option value="solve1">solve1</option>
+                      <option value="solve2">solve2</option>
+                      <option value="solve3">solve3</option>
+                    </select>
+                  </div>
+                </>
+                }
                 {showExportBtn &&
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export

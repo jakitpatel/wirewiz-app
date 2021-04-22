@@ -27,26 +27,6 @@ function WireinManual(props) {
   });
 
   const location = useLocation();
-  
-  let selectBox = {
-    Header: "Select",
-    width: 55,
-    field: "resolve",
-    accessor: "resolve",
-    disableFilters: true,
-    editable:true,
-    columnType:'checkbox',
-    Cell: ({ original }) => {
-      return (
-        <input
-          type="checkbox"
-          className="checkbox"
-          //checked={this.state.selected[original.firstName] === true}
-          //onChange={() => toggleRow(original.firstName)}
-        />
-      );
-    }
-  };
 
   const columnDefs = [
     {
@@ -202,24 +182,6 @@ function WireinManual(props) {
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
-            {/*
-            <div>
-              <button style={{ float: "right",marginLeft:"10px"}} type="button" className="btn btn-primary">
-                Resolve
-              </button>
-              <div style={{float:"right"}}>
-                <select className="form-control" value="solve1"
-                  onChange={e => {
-                  }}
-                >
-                  <option value="solve1">solve1</option>
-                  <option value="solve2">solve2</option>
-                  <option value="solve3">solve3</option>
-                </select>
-              </div>
-              <div style={{clear:"both"}}></div>
-            </div>
-            */}
             {disCmp}
           </div>
         </div>

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../Functions/functions.js';
-import {API_KEY, WireinPostedActual_Url, env, API_URL} from './../../../const';
+import {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} from './../../../const';
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -183,6 +183,40 @@ function WireinPostedActual(props) {
     }
   ];
 
+  const onEODPost = async (e) => {
+    console.log("On EOD Post Click");
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": []
+    };
+    let url = Wire_tbl_Url;
+    if(env==="DEV"){
+      url = Wire_tbl_Url;
+    }
+    try {
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      //setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefresh(isRefresh => {
@@ -317,6 +351,9 @@ function WireinPostedActual(props) {
             <div>
               <h3 style={{float:"left"}} className="title-center">Inbound Wires - Posted</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <button type="button" style={{ float: "right", margin:"1rem" }} onClick={onEODPost} className={`btn btn-primary btn-sm`}>
+                EOD Post
+              </button>
               <div style={{clear:"both"}}></div>
             </div>
             {disCmp}

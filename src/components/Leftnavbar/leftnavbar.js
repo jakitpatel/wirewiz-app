@@ -54,18 +54,6 @@ function LeftNavBar(props) {
               <div className="collapse" id="submenu1" aria-expanded="false">
                   <ul className="flex-column nav pl-4">
                       <MenuListItem
-                        menuName="WireBatch"
-                        routePath={`${process.env.PUBLIC_URL}/wires`}
-                        iconName="users"
-                        enableVal={WIRE_ENABLER}
-                      />
-                      <MenuListItem
-                        menuName="Wires"
-                        routePath={`${process.env.PUBLIC_URL}/wireslist`}
-                        iconName="trello"
-                        enableVal={WIRE_ENABLER}
-                      />
-                      <MenuListItem
                         menuName="For OFAC"
                         routePath={`${process.env.PUBLIC_URL}/wiresin`}
                         iconName="trello"
@@ -89,6 +77,26 @@ function LeftNavBar(props) {
                         iconName="trello"
                         enableVal={WIRE_ENABLER}
                       />
+                      <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu2" data-toggle="collapse" data-target="#submenu2">
+                        <Icon.Trello />
+                        <span style={{ marginLeft: 10 }}>Miscellaneous</span>
+                      </a>
+                      <div className="collapse" id="submenu2" aria-expanded="false">
+                        <ul className="flex-column nav pl-4">
+                          <MenuListItem
+                            menuName="WireBatch"
+                            routePath={`${process.env.PUBLIC_URL}/wires`}
+                            iconName="trello"
+                            enableVal={WIRE_ENABLER}
+                          />
+                          <MenuListItem
+                            menuName="Wires"
+                            routePath={`${process.env.PUBLIC_URL}/wireslist`}
+                            iconName="trello"
+                            enableVal={WIRE_ENABLER}
+                          />
+                        </ul>
+                      </div>
                   </ul>
               </div>
           </li>

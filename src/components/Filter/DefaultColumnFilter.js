@@ -3,7 +3,7 @@ import { useAsyncDebounce } from 'react-table';
 
 // Define a default UI for filtering
 function DefaultColumnFilter({
-    column: { filterValue, preFilteredRows, setFilter },
+    column: { filterValue, preFilteredRows, setFilter, columnName },
   }) {
     const [value, setValue] = React.useState(filterValue || '');
     //const count = preFilteredRows.length
@@ -20,11 +20,11 @@ function DefaultColumnFilter({
         onKeyPress={e => {
           console.log("keyCode : "+e.keyCode);
           if (e.keyCode === 13 || e.which===13 || e.charCode===13) {
-            setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+            setFilter(e.target.value || undefined, columnName) // Set undefined to remove the filter entirely
           }
         }}
         onBlur={(e) => {
-          setFilter(e.target.value || undefined)
+          setFilter(e.target.value || undefined, columnName)
         }}
         onChange={e => {
           setValue(e.target.value);

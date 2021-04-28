@@ -77,9 +77,15 @@ function LeftNavBar(props) {
                         iconName="trello"
                         enableVal={WIRE_ENABLER}
                       />
+                      <MenuListItem
+                        menuName="Resolved Manual"
+                        routePath={`${process.env.PUBLIC_URL}/wiresmanualresolved`}
+                        iconName="trello"
+                        enableVal={WIRE_ENABLER}
+                      />
                       <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu2" data-toggle="collapse" data-target="#submenu2">
                         <Icon.Trello />
-                        <span style={{ marginLeft: 10 }}>Miscellaneous</span>
+                        <span style={{ marginLeft: 10 }}>Support</span>
                       </a>
                       <div className="collapse" id="submenu2" aria-expanded="false">
                         <ul className="flex-column nav pl-4">

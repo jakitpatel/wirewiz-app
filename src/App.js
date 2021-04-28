@@ -25,6 +25,7 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/wiresinmanual`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiresinposting`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiresinposted`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/wiresmanualresolved`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wireslist/:batchId`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiresinlist/:batchId`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiredetails/:wireID`} component={Dashboard} />

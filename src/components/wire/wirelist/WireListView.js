@@ -58,6 +58,8 @@ function Table({
   data, 
   filtersarr, 
   setFiltersarr,
+  extFilters,
+  setExtFilters,
   initialState,
   pageState,
   fetchData,
@@ -241,7 +243,7 @@ function Table({
     console.log("Page Index :- " +pageIndex);
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
-  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, extFilters, filters, setFiltersarr, sortBy, location.key]);
   /*
   useEffect(() => {
     console.log("After Render Wire List View");
@@ -427,7 +429,7 @@ function Table({
 
    //const dispatch = useDispatch();
    let { initialState, selectedRows, 
-    setSelectedRows, filtersarr, 
+    setSelectedRows, filtersarr, extFilters, setExtFilters,
     setFiltersarr, loading, 
     fetchData, pageCount, 
     data, isRefresh, setIsRefresh, pageState } = props;
@@ -471,6 +473,8 @@ function Table({
         getTdProps={onRowClick} 
         columns={columns} 
         data={data}
+        extFilters={extFilters}
+        setExtFilters={setExtFilters}
         filtersarr={filtersarr}
         setFiltersarr={setFiltersarr}
         initialState={initialState}

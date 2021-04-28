@@ -142,7 +142,7 @@ function WireinManualResolved(props) {
          )
          // '$100.00'
        }
-     }
+     },
      /*
      {
        field: "completeDateTime",
@@ -170,13 +170,12 @@ function WireinManualResolved(props) {
            </div>
          );
        }
-     },
-     {
-       field: "businessErrorMsg",
-       Header: "businessErrorMsg",
-       accessor: "businessErrorMsg",
-       disableFilters: true
      }*/
+     {
+       field: "resolveMsg",
+       Header: "resolveMsg",
+       accessor: "resolveMsg"
+     }
      );
 
   useEffect(() => {
@@ -243,7 +242,7 @@ function WireinManualResolved(props) {
       }
 
       dispatch({
-        type:'UPDATEWIREPOSTEDLIST',
+        type:'UPDATEWIREMANUALRESOLVE',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,

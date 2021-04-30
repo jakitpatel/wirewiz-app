@@ -12,8 +12,8 @@ import ReactTooltip from 'react-tooltip';
 import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
-import {OverlayTrigger, Button, Popover} from 'react-bootstrap';
 import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
+import FilterOverlay from './FilterOverlay/FilterOverlay.js';
 
 function Wireslist(props) {
   let history = useHistory();
@@ -615,56 +615,7 @@ function Wireslist(props) {
   if(wires.length>0){
     wireFilterObj = wires[0];
   }
-  const popover = (
-    <Popover id="popover-basic">
-      <Popover.Title as="h3">Filter</Popover.Title>
-      <Popover.Content>
-        <div className="sm-vert-form form-row">
-          {wires.length>0 &&
-            Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
-              let colObj = {
-                columnName : key,
-                filterValue : "",
-                setFilter : (val,clm) => {
-                  console.log("Set Filter Value to "+val);
-                  console.log(extFilters);
-                  const index = extFilters.findIndex((e) => e.id === clm )
-                  const newArr = [...extFilters];
-                  if (index === -1) {
-                    setExtFilters([...extFilters, { id : clm, value : val}]);
-                    return;
-                  }
-                  if(index !== -1){
-                    newArr[index] = {...newArr[index], value: val}
-                  }
-                  setExtFilters(newArr);
-                }
-              }
-              let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
-              if(!str.includes(key)){
-                return (
-                  <div key={key} className="col-sm-6">
-                    <div className="form-group row">
-                      <label className="col-sm-5 col-form-label">{key}</label>
-                      <div className="col-sm-7">
-                         <DefaultColumnFilter column={colObj}/>
-                      </div>
-                    </div>
-                  </div>
-                )
-              }
-            })
-          }
-        </div>
-      </Popover.Content>
-    </Popover>
-  );
     
-  const FilterButtonOverlay = () => (
-    <OverlayTrigger trigger="click" rootClose placement="left" overlay={popover}>
-      <button className="btn btn-primary btn-sm" style={{float: "right", marginLeft:"10px"}}><Icon.Filter /></button>
-    </OverlayTrigger>
-  );
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
@@ -678,7 +629,7 @@ function Wireslist(props) {
               </button>
               }
               <React.Fragment>
-              <FilterButtonOverlay />
+              <FilterOverlay wires={wires} wireFilterObj={wireFilterObj} extFilters={extFilters} setExtFilters={setExtFilters} />
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
                 </button>

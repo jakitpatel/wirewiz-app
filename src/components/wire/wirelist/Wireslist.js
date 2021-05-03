@@ -294,6 +294,17 @@ function Wireslist(props) {
         }
         url += buildFilterUrl(filters);
       }
+      if(extFilters.length>0){
+        console.log("buildExternalFilterUrl");
+        console.log(filters);
+        if(batchRec || filters.length>0){
+          url += " and ";
+        } else {
+          url += "&filter=";
+        }
+        //url += buildExternalFilterUrl(extFilters);
+        url += buildFilterUrl(extFilters);
+      }
       if(sortBy.length>0){
         console.log(sortBy);
         url += buildSortByUrl(sortBy);
@@ -334,7 +345,7 @@ function Wireslist(props) {
     if (fetchId === fetchIdRef.current) {
       fetchWireList();
     }
-  }, [batchRec, dispatch, session_token]);
+  }, [batchRec, dispatch, extFilters, session_token]);
   
   useEffect(() => {
     if (downloadOfac) {
@@ -598,8 +609,8 @@ function Wireslist(props) {
         pageState={pageState}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
-        extFilters={extFilters}
-        setExtFilters={setExtFilters}
+        //extFilters={extFilters}
+        //setExtFilters={setExtFilters}
         filtersarr={filtersarr}
         setFiltersarr={setFiltersarr}
         fetchData={fetchData}
@@ -629,7 +640,13 @@ function Wireslist(props) {
               </button>
               }
               <React.Fragment>
-              <FilterOverlay wires={wires} wireFilterObj={wireFilterObj} extFilters={extFilters} setExtFilters={setExtFilters} />
+              <FilterOverlay 
+              wires={wires} 
+              wireFilterObj={wireFilterObj} 
+              extFilters={extFilters} 
+              setExtFilters={setExtFilters}
+              isRefresh={isRefresh}
+              setIsRefresh={setIsRefresh} />
                 <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
                 </button>

@@ -243,7 +243,7 @@ function Table({
     console.log("Page Index :- " +pageIndex);
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
-  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, extFilters, filters, setFiltersarr, sortBy, location.key]);
+  }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
   /*
   useEffect(() => {
     console.log("After Render Wire List View");

@@ -6,13 +6,16 @@ import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
 
-    const {wires, wireFilterObj, extFilters, setExtFilters} = props;
+    const {wires, wireFilterObj, extFilters, setExtFilters, isRefresh, setIsRefresh} = props;
     const [colItems, setColItems] = useState([]);
     const [value, setValue] = React.useState('');
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
     const onApplyFIlters = () => {
         console.log("onApplyFIlters");
+        console.log(extFilters.length);
+        console.log(extFilters);
+        setIsRefresh(!isRefresh);
     }
 
     // filterId : Filter Counter
@@ -44,36 +47,42 @@ function FilterOverlay(props) {
         let newValue = e.target.value;
         console.log("On Handle Change : " + newValue);
 
-        let colIndex = colItems.findIndex(
-            x => x.fieldName === newValue
-        );
-        let fieldType = "string";
-        if(colIndex!== -1){
-            fieldType = colItems[colIndex]['fieldType'];
-        }
-        console.log("fieldType : "+fieldType);
-       
-        let inputName = e.target.dataset.inputname;
         console.log(e.target.dataset);
+        let inputName = e.target.dataset.inputname;
         console.log(inputName);
+
+        /// Find FilterItem based on FilterId
         let newExtFilters = [...extFilters];
         let itemIndex = newExtFilters.findIndex(
             x => x.filterId === parseInt(e.target.dataset.id)
         );
         console.log(itemIndex);
+
+        if(inputName==="id"){
+            let fieldType = "string";
+            let colIndex = colItems.findIndex(
+                x => x.fieldName === newValue
+            );
+            if(colIndex!== -1){
+                fieldType = colItems[colIndex]['fieldType'];
+            }
+            console.log("fieldType : "+fieldType);
+            if(itemIndex !== -1){
+                newExtFilters[itemIndex]['fieldType'] = fieldType;
+            }
+        }
         if(itemIndex !== -1){
             newExtFilters[itemIndex][inputName] = newValue;
-            newExtFilters[itemIndex]['fieldType'] = fieldType;
         }
         //newExtFilters[itemIndex] = {...newExtFilters[itemIndex], [inputName]: newValue}
         setExtFilters(newExtFilters);
-        //setValue(e.target.value || undefined);
     }
 
     useEffect(() => {
         if(wireFilterObj){
             let fieldMataData = [];
-            Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
+            //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
+            Object.entries(wireFilterObj).map(([key, value]) => {
                 let tmpObj = {};
                 tmpObj.fieldName = key;
                 tmpObj.fieldType = "string";
@@ -106,22 +115,7 @@ function FilterOverlay(props) {
                     let colObj = {
                         columnName : val.id,
                         filterValue : "",
-                        setFilter : (val,clm) => {
-                            console.log("Set Filter Value to "+val);
-                            console.log(extFilters);
-                            /*
-                            const index = extFilters.findIndex((e) => e.id === clm )
-                            const newArr = [...extFilters];
-                            if (index === -1) {
-                            setExtFilters([...extFilters, { id : clm, value : val}]);
-                            return;
-                            }
-                            if(index !== -1){
-                            newArr[index] = {...newArr[index], value: val}
-                            }
-                            setExtFilters(newArr);
-                            */
-                        }
+                        filterIndex : filterIndex
                     }
                     return (
                         <div key={idx} className="sm-vert-form form-row">
@@ -153,7 +147,7 @@ function FilterOverlay(props) {
                             {fldType==="string" && 
                                 <div className="col-sm-4 mb-3">
                                     <div className="form-group">
-                                        <DefaultColumnFilterAdv column={colObj}/>
+                                        <DefaultColumnFilterAdv column={colObj} fldValChange={handleChange}/>
                                     </div>
                                 </div>
                             }

@@ -685,6 +685,62 @@ function WiresInlist(props) {
     setDownloadOfac(true);
   }
 
+  const onWireOverride = async () => {
+    console.log("on Wire Override");
+    if(modWireData.length === 0){
+      return false;
+    }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    for(let k=0; k<modWireData.length;k++){
+      let wireObj = modWireData[k];
+      delete wireObj.status;
+      /*let tmpWireObj = {};
+      tmpWireObj.status = 3;
+      tmpWireObj.wireID = wireDetailsObj.wireID;
+      */
+      var d = new Date();
+      var yr = d.getFullYear();
+      var month = d.getMonth()+1;
+      var hh = d.getHours();
+      var mm = d.getMinutes();
+      var ss = d.getSeconds();
+      var dt = d.getDate();
+      var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
+      //wireObj.completeDateTime = datefull;
+      wireObj.overrideFlag = 1;
+      //wiresResourceArr.push(tmpWireObj);
+    }
+    let data = {
+      "resource": modWireData
+    };
+    let url = Wire_tbl_Url;
+    if(env==="DEV"){
+      url = Wire_tbl_Url;
+    }
+    try {
+      let res = await axios.put(url, data, options);
+      console.log(res.data);
+      setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      //setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
+  }
+
   let showExportBtn = false;
   let showSaveBtn = false;
   if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
@@ -790,6 +846,9 @@ function WiresInlist(props) {
               <React.Fragment>
                 {showResolveSection &&
                 <>
+                  <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireOverride}  className="btn btn-primary btn-sm">
+                    Override
+                  </button>
                   <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className="btn btn-primary btn-sm">
                     Resolve
                   </button>

@@ -366,7 +366,7 @@ function WiresInlist(props) {
             account = account.toString().substr(0, 3);
           }
           //let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
-          let filterUrl = "(vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is null) and (businessErrorMsg is NULL) and (errorMsg is NULL)";
+          let filterUrl = "(vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is null) and (businessErrorMsg is NULL or ((businessErrorMsg is not NULL) and ( overrideFlag = 1 ))  and (errorMsg is NULL)";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
           let recType = batchRec.type;
@@ -751,9 +751,14 @@ function WiresInlist(props) {
   }
 
   let showResolveSection = false;
+  let showOverrideSection = false;
   if(batchRec.fromView && batchRec.fromView==="wireInManual"){
     if(wires.length>0){
       showResolveSection = true;
+      let recType = batchRec.type;
+      if(recType==="businessError"){
+        showOverrideSection = true;
+      }
     }
   }
 
@@ -846,9 +851,11 @@ function WiresInlist(props) {
               <React.Fragment>
                 {showResolveSection &&
                 <>
+                  {showOverrideSection && 
                   <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireOverride}  className="btn btn-primary btn-sm">
                     Override
                   </button>
+                  }
                   <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className="btn btn-primary btn-sm">
                     Resolve
                   </button>

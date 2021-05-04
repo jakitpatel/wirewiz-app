@@ -135,6 +135,7 @@ function FilterOverlay(props) {
                                         data-id={filterIndex}
                                         onChange={(e) => {handleChange(e)}}
                                     >
+                                        <option value="">Select Field</option>
                                         {colItems.map((option, i) => (
                                         <option key={i} value={option.fieldName}>
                                             {option.fieldName}

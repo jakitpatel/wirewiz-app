@@ -140,7 +140,14 @@ function WireDetails(props) {
     }
     fetchWireDetails();
     ////// Ends
-    return () => { ignore = true };
+    return () => { 
+      ignore = true 
+      console.log("Clear Wire Details on Unmount");
+      dispatch({
+        type:'SETWIREDETAILS',
+        payload:{}
+      });
+    };
   }, []);
 
   function handleChange(e) {

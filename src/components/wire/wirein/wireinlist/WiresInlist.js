@@ -366,7 +366,7 @@ function WiresInlist(props) {
             account = account.toString().substr(0, 3);
           }
           //let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
-          let filterUrl = "(vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is null) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and ( overrideFlag = 1 )))  and (errorMsg is NULL)";
+          let filterUrl = "((vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
           let recType = batchRec.type;

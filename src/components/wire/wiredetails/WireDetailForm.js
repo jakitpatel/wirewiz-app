@@ -95,6 +95,9 @@ function WireDetailForm(props) {
             let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
             if(!str.includes(key)){
               if(key==="errorMsg"){
+                if(value===null){
+                  value = "";
+                }
                 return (
                     <div key={key} className="col-sm-12">
                       <WireRemittanceList wireID={wireID} />
@@ -138,6 +141,9 @@ function WireDetailForm(props) {
                   </div>
                 )
               } else if(key==="businessErrorMsg"){
+                if(value===null){
+                  value = "";
+                }
                 return (
                     <div key={key} className="col-sm-12">
                       <div className="form-group row">

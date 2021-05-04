@@ -141,14 +141,18 @@ function WireDetails(props) {
     fetchWireDetails();
     ////// Ends
     return () => { 
-      ignore = true 
+      //ignore = true 
       console.log("Clear Wire Details on Unmount");
       dispatch({
         type:'SETWIREDETAILS',
         payload:{}
       });
+      dispatch({
+        type:'SETWIREREMITTANCEDETAILS',
+        payload:[]
+      });
     };
-  }, []);
+  }, [dispatch, session_token, wireID]);
 
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);

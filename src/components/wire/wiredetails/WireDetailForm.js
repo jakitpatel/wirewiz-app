@@ -86,6 +86,8 @@ function WireDetailForm(props) {
           ...state.userReducer
       }
   });
+  console.log("*** Latest wireDetailsObj ***");
+  console.log(wireDetailsObj);
   return (
     <React.Fragment>
       <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />

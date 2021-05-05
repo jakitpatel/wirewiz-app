@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
-import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl, buildExternalFilterUrl} from './../../Functions/functions.js';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
 import FilterOverlay from './FilterOverlay/FilterOverlay.js';
@@ -302,8 +302,8 @@ function Wireslist(props) {
         } else {
           url += "&filter=";
         }
-        //url += buildExternalFilterUrl(extFilters);
-        url += buildFilterUrl(extFilters);
+        url += buildExternalFilterUrl(extFilters);
+        //url += buildFilterUrl(extFilters);
       }
       if(sortBy.length>0){
         console.log(sortBy);

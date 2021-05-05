@@ -25,7 +25,7 @@ function FilterOverlay(props) {
     const addFilterItem = () => {
         console.log("addFilterItem");
         let tmpCnt = 1;
-        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", fieldType : "string"};
+        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", fieldType : "string", fieldOp : "contain"};
         //console.log(tmpFilteritem);
         //const tmpCnt = filterItemCnt + 1;
         setExtFilters([...extFilters, tmpFilteritem]);
@@ -112,6 +112,7 @@ function FilterOverlay(props) {
                     let filterIndex = val.filterId;
                     let fldType = val.fieldType;
                     let fieldNameId = `id-${filterIndex}`;
+                    let fieldOpName = `fieldOp-${filterIndex}`;
                     let colObj = {
                         columnName : val.id,
                         filterValue : "",
@@ -146,11 +147,29 @@ function FilterOverlay(props) {
                             </div>
 
                             {fldType==="string" && 
-                                <div className="col-sm-4 mb-3">
-                                    <div className="form-group">
-                                        <DefaultColumnFilterAdv column={colObj} fldValChange={handleChange}/>
+                                <>
+                                    <div className="col-sm-4 mb-3">
+                                        <div className="form-group">
+                                            <DefaultColumnFilterAdv column={colObj} fldValChange={handleChange}/>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div className="col-sm-3 mb-3">
+                                        <div className="form-group">
+                                            <select className="form-control"
+                                                value={val.fieldOp}
+                                                name={fieldOpName}
+                                                data-inputname="fieldOp"
+                                                data-id={filterIndex}
+                                                onChange={(e) => {handleChange(e)}}
+                                            >
+                                                <option value="startwith">Start With</option>
+                                                <option value="contain">Contain</option>
+                                                <option value="endwith">End With</option>
+                                                <option value="equal">Equal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
                             }
                         </div>
                     )

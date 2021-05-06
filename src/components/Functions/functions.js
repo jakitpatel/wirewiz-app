@@ -129,6 +129,19 @@ const buildExternalFilterUrl = (filterArr) => {
             valSt = "%"+filterVal+"%";
           }
           filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
+        } else if(fieldTypeVal === "integer"){
+          let valSt = "";
+          if(fieldOpVal === "equal"){
+            filterOpr = "=";
+            valSt = filterVal;
+          } else if(fieldOpVal === "less"){
+            filterOpr = "<";
+            valSt = filterVal;
+          } else if(fieldOpVal === "greater"){
+            filterOpr = ">";
+            valSt = filterVal;
+          }
+          filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
         } else {
           filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";
         }

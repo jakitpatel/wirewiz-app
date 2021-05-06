@@ -78,14 +78,25 @@ function FilterOverlay(props) {
         setExtFilters(newExtFilters);
     }
 
+    const getFieldType = (key) => {
+        console.log("getFieldType");
+        let fldType = "string";
+        let strIntFieldName = "wireID wireBatchID wireDoc_by_wireID wireRemittance_by_wireID";
+        if(strIntFieldName.includes(key)){
+            fldType = "integer";
+        }
+        return fldType;
+    }
+
     useEffect(() => {
         if(wireFilterObj){
             let fieldMataData = [];
             //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
-            Object.entries(wireFilterObj).map(([key, value]) => {
+            //Object.fromEntries(Object.entries(wireFilterObj).sort());
+            Object.entries(wireFilterObj).sort().map(([key, value]) => {
                 let tmpObj = {};
                 tmpObj.fieldName = key;
-                tmpObj.fieldType = "string";
+                tmpObj.fieldType = getFieldType(key);
                 fieldMataData.push(tmpObj);
             });
             console.log(fieldMataData);
@@ -166,6 +177,30 @@ function FilterOverlay(props) {
                                                 <option value="contain">Contain</option>
                                                 <option value="endwith">End With</option>
                                                 <option value="equal">Equal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                            }
+                            {fldType==="integer" && 
+                                <>
+                                    <div className="col-sm-4 mb-3">
+                                        <div className="form-group">
+                                            <DefaultColumnFilterAdv column={colObj} fldValChange={handleChange}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-3 mb-3">
+                                        <div className="form-group">
+                                            <select className="form-control"
+                                                value={val.fieldOp}
+                                                name={fieldOpName}
+                                                data-inputname="fieldOp"
+                                                data-id={filterIndex}
+                                                onChange={(e) => {handleChange(e)}}
+                                            >
+                                                <option value="less">Less Than</option>
+                                                <option value="greater">Greater Than</option>
+                                                <option value="equal">Equal To</option>
                                             </select>
                                         </div>
                                     </div>

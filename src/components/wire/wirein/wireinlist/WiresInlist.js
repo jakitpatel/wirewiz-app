@@ -8,8 +8,9 @@ import * as Icon from "react-feather";
 import "./WiresInlist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import ClipLoader from "react-spinners/ClipLoader";
 import ReactTooltip from 'react-tooltip';
-import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../../const';
+import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 
@@ -24,6 +25,7 @@ function WiresInlist(props) {
   const [filtersarr, setFiltersarr] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [sending, setSending] = useState(false);  // Managin multiple sending
   const [pageCount, setPageCount] = React.useState(0);
   const fetchIdRef = React.useRef(0);
 
@@ -529,9 +531,12 @@ function WiresInlist(props) {
     }
   }
   
-  const onWireSave = async (e) => {
+  const onWireSave = async (e, postFlag, cltFlag) => {
     console.log("onWireSave Clicked");
     if(modWireData.length === 0){
+      return false;
+    }
+    if(sending===true){
       return false;
     }
     const options = {
@@ -550,7 +555,33 @@ function WiresInlist(props) {
     try {
       let res = await axios.put(url, data, options);
       console.log(res.data);
-      setIsRefresh(!isRefresh);
+      if(batchRec.fromView && (batchRec.fromView==="wireInPosted")){
+        // Do post & then Exit
+        if(postFlag){
+          console.log(batchRec);
+          let data = {
+            "resource": [{"wirePostID": batchRec.wirePostID},{"Account"   : batchRec.Account}],
+            "Clt" : cltFlag
+          };
+          let url = WirePost2Fiserv_Url;
+          if(env==="DEV"){
+            url = WirePost2Fiserv_Url;
+          }
+          try {
+            setSending(true);
+            let res = await axios.post(url, data, options);
+            console.log(res.data);
+            setSending(false);
+          } catch (error) {
+              console.error(error) // from creation or business logic
+              setSending(false);
+          }    
+        }
+        // Exit to previous page
+        history.goBack();
+      } else {
+        setIsRefresh(!isRefresh);
+      }
       //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);
@@ -749,6 +780,14 @@ function WiresInlist(props) {
       showSaveBtn = true;
     }
   }
+  
+  let showSavePostExitBtn = false;
+  if(batchRec.fromView && (batchRec.fromView==="wireInPosted")){
+    if(wires.length>0){
+      //showExportBtn = true;
+      showSavePostExitBtn = true;
+    }
+  }
 
   let showResolveSection = false;
   let showOverrideSection = false;
@@ -836,6 +875,16 @@ function WiresInlist(props) {
         skipPageReset={skipPageReset}
       />
     );
+  // try change me to a custom color like "red" or "#000000"
+  var color = '#4DAF7C'; 
+  let sendCmp = sending === true ? ( 
+  <>
+      <div style={{float:'right', marginRight:"10px"}}>
+        <ClipLoader loading={sending} color={color}  size={45} />
+      </div>
+      <h4 style={{float:"right", padding: "0.5rem 1rem"}} > Submitting... </h4>
+  </>
+  ) : null;
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
@@ -878,9 +927,20 @@ function WiresInlist(props) {
                 </button>
                 }
                 {showSaveBtn &&
-                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e)}} className="btn btn-primary btn-sm">
+                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,false, false)}} className="btn btn-primary btn-sm">
                   Save
                 </button>
+                }
+                {showSavePostExitBtn &&
+                <>
+                  <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,true)}} className="btn btn-primary btn-sm">
+                    SavePostWithClt
+                  </button>
+                  <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,false)}} className="btn btn-primary btn-sm">
+                    SavePostWithNoClt
+                  </button>
+                  {sendCmp}
+                </>
                 }
                 <CSVLink
                       data={wireText}

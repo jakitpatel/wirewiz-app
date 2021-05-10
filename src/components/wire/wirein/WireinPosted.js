@@ -70,7 +70,7 @@ function WireinPosted(props) {
       }
     },
     {
-      Header: "Post",
+      Header: "PostWithClt",
       show : true, 
       width: 55,
       //id: 'colViewWireDetail',
@@ -88,7 +88,32 @@ function WireinPosted(props) {
           }
         }*/
         return (
-          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
+      Header: "PostWithNoClt",
+      show : true, 
+      width: 55,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInPostobj = obj.row.original;
+        let enableVal = true;
+        /*
+        if(wireInPostobj.postStatus){
+          if(wireInPostobj.postStatus.includes('posted2OFAC')){
+            enableVal = true;
+          }
+        }*/
+        return (
+          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
@@ -215,7 +240,7 @@ function WireinPosted(props) {
     return () => { ignore = true };
   }, [ session_token, isRefresh, setIsRefresh, location.key]);
   
-  const onWireInPost = async (e, wireInObj) => {
+  const onWireInPost = async (e, wireInObj, withCltFlag) => {
     console.log("Called Wire In Post");
     console.log(wireInObj);
     console.log("sending : "+sending);
@@ -229,7 +254,8 @@ function WireinPosted(props) {
       }
     };
     let data = {
-      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}]
+      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}],
+      "Clt" : withCltFlag
     };
     let url = WirePost2Fiserv_Url;
     if(env==="DEV"){

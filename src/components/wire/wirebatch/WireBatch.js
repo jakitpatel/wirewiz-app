@@ -6,9 +6,10 @@ import * as Icon from "react-feather";
 import "./WireBatch.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
+//import {API_KEY, WireBatch_Url} from './../../../const';
+const {API_KEY, WireBatch_Url} = window.constVar;
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(false);

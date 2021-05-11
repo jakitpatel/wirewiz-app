@@ -5,8 +5,8 @@ import * as Icon from "react-feather";
 import "./WireDetailForm.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {WireDocList_Url} from './../../../const';
-import {API_KEY} from './../../../const';
+//import {API_KEY} from './../../../const';
+const {API_KEY, WireDocList_Url} = window.constVar;
 
 function WireDocList(props) {
   //let history = useHistory();

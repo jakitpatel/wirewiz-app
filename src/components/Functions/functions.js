@@ -1,4 +1,5 @@
-import {API_KEY, API_URL} from './../../const';
+//import {API_KEY, API_URL} from './../../const';
+const {API_KEY, API_URL} = window.constVar;
 
 const toCurrency = (val) => {
   return new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(val);

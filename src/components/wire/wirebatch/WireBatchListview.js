@@ -5,10 +5,11 @@ import ReactTooltip from 'react-tooltip';
 import './WireBatchListview.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, WireBatch_Url} from './../../../const';
 import { useLocation } from 'react-router-dom';
 import DefaultColumnFilter from './../../Filter/DefaultColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../Functions/functions.js';
+//import {API_KEY, WireBatch_Url} from './../../../const';
+const {API_KEY, WireBatch_Url} = window.constVar;
 
 const Styles = styled.div`
   padding: 1rem;

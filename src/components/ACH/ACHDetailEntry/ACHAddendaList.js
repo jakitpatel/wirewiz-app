@@ -5,7 +5,8 @@ import * as Icon from "react-feather";
 import "./ACHDetailEntry.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, ACHAddendaList_Url, env} from './../../../const';
+//import {API_KEY, ACHAddendaList_Url, env} from './../../../const';
+const {API_KEY, ACHAddendaList_Url, env} = window.constVar;
 
 function ACHAddendaList(props) {
   //let history = useHistory();
@@ -113,7 +114,7 @@ function ACHAddendaList(props) {
         }
       };
       let url = ACHAddendaList_Url+ "entryDetailID='"+entryDetailID+"'";
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = ACHAddendaList_Url;
       }
       let res = await axios.get(url, options);

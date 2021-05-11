@@ -6,7 +6,8 @@ import * as Icon from "react-feather";
 import "./Wirein.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, WireinManual_Url, env} from './../../../const';
+//import {API_KEY, WireinManual_Url, env} from './../../../const';
+const {API_KEY, WireinManual_Url, env} = window.constVar;
 
 function WireinManual(props) {
   let history = useHistory();
@@ -137,7 +138,7 @@ function WireinManual(props) {
         }
       };
       let url = WireinManual_Url;
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = WireinManual_Url;
       }
       let res = await axios.get(url, options);

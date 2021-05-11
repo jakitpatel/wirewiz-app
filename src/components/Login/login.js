@@ -3,9 +3,10 @@ import { Redirect } from "react-router-dom";
 //import * as Icon from "react-feather";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {Login_Url, API_KEY, Usr_Permission_Url, env} from './../../const';
-
 import "./login.css";
+//import {Login_Url, API_KEY, Usr_Permission_Url, env} from './../../const';
+const {API_KEY, Login_Url, Usr_Permission_Url, env} = window.constVar;
+
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,7 @@ function Login(props) {
     let name = email;
     try {
       let lasta = email.lastIndexOf('@');
-      if (lasta != -1) {
+      if (lasta !== -1) {
           name = email.substring(0, lasta);
       }
 
@@ -64,7 +65,7 @@ function Login(props) {
       console.log(options);
       console.log(Usr_Permission_Url);
       let url = Usr_Permission_Url + "uid='"+name+"'";
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = Usr_Permission_Url;
       }
       let resPerm = await axios.get(url, options);

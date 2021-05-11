@@ -5,7 +5,8 @@ import * as Icon from "react-feather";
 import "./DepositList.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, DepositList_Url} from './../../const';
+//import {API_KEY, DepositList_Url} from './../../const';
+const {API_KEY, DepositList_Url} = window.constVar;
 
 function DepositList(props) {
   const [loading, setLoading] = useState(true);

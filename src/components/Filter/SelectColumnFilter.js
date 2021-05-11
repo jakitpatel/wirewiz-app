@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 // This is a custom filter UI for selecting
 // a unique option from a list

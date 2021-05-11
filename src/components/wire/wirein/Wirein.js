@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 //import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
-import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
+//import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
+const {API_KEY, Wirein_Url, WireInExport_Url, env} = window.constVar;
 
 function Wirein(props) {
   let history = useHistory();
@@ -140,7 +141,7 @@ function Wirein(props) {
         }
       };
       let url = Wirein_Url;
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = Wirein_Url;
       }
       let res = await axios.get(url, options);
@@ -172,7 +173,7 @@ function Wirein(props) {
       "resource": [{"vAcc": wireInObj.Account}]
     };
     let url = WireInExport_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = WireInExport_Url;
     }
     try {

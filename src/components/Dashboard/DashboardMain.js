@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import preval from 'preval.macro';
-import {API_URL, env} from './../../const.js';
+//import {API_URL, env} from './../../const.js';
+const {API_URL, env} = window.constVar;
 
 function DashboardMain(props) {
     const { name } = useSelector(state => {
@@ -12,7 +13,7 @@ function DashboardMain(props) {
     console.log("name : "+name);
     let colorCode = "RED";
     //if(process.env.REACT_APP_ENVIRONMENT==="DEV" || process.env.REACT_APP_ENVIRONMENT==="dev"){
-    if(env==="DEV" || env==="dev"){
+    if(env==="DEV" || env==="dev" || env==="DEVLOCAL"){
         colorCode = "BLUE";
     }
     return (

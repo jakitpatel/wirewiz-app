@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../Functions/functions.js';
-import {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} from './../../../const';
+//import {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} from './../../../const';
+const {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} = window.constVar;
 
 function WireinPostedActual(props) {
   let history = useHistory();
@@ -195,7 +196,7 @@ function WireinPostedActual(props) {
       "resource": []
     };
     let url = Wire_tbl_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = Wire_tbl_Url;
     }
     try {
@@ -268,7 +269,7 @@ function WireinPostedActual(props) {
       }
       url += "&include_count=true";
       
-      //if(env==="DEV"){
+      //if(env==="DEVLOCAL"){
         //url = Wires_Url;
       //}
       let res = await axios.get(url, options);

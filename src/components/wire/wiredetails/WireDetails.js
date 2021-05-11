@@ -3,7 +3,6 @@ import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} from './../../../const';
 import { CSVLink } from "react-csv";
 //import DownloadExcel from "./ExcelDownload";
 import Modal from "react-bootstrap/Modal";
@@ -11,6 +10,8 @@ import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
+//import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} from './../../../const';
+const {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} = window.constVar;
 
 function WireDetails(props) {
   let history = useHistory();
@@ -112,7 +113,7 @@ function WireDetails(props) {
         }
       };
       let url = WireDetails_Url+ "wireID='"+wireID+"'";
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = WireDetails_Url;
       }
       let res = await axios.get(url, options);

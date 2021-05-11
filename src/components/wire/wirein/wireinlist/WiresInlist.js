@@ -10,9 +10,10 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import ClipLoader from "react-spinners/ClipLoader";
 import ReactTooltip from 'react-tooltip';
-import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
+//import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
+const {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -418,7 +419,7 @@ function WiresInlist(props) {
       }
       url += "&include_count=true";
       
-      //if(env==="DEV"){
+      //if(env==="DEVLOCAL"){
         //url = Wires_Url;
       //}
       let res = await axios.get(url, options);
@@ -549,7 +550,7 @@ function WiresInlist(props) {
       "resource": modWireData
     };
     let url = Wire_tbl_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = Wire_tbl_Url;
     }
     try {
@@ -564,7 +565,7 @@ function WiresInlist(props) {
             "Clt" : cltFlag
           };
           let url = WirePost2Fiserv_Url;
-          if(env==="DEV"){
+          if(env==="DEVLOCAL"){
             url = WirePost2Fiserv_Url;
           }
           try {
@@ -630,7 +631,7 @@ function WiresInlist(props) {
       "resource": modWireData
     };
     let url = Wire_tbl_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = Wire_tbl_Url;
     }
     try {
@@ -690,7 +691,7 @@ function WiresInlist(props) {
       "resource": wireIdArr
     };
     let url = WireExport_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = WireExport_Url;
     }
     let res = await axios.post(url, data, options);
@@ -750,7 +751,7 @@ function WiresInlist(props) {
       "resource": modWireData
     };
     let url = Wire_tbl_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = Wire_tbl_Url;
     }
     try {

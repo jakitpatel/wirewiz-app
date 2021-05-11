@@ -6,7 +6,8 @@ import * as Icon from "react-feather";
 import "./ACHBatchRecord.css";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {API_KEY, ACHBatchRecord_Url, env} from './../../../const';
+//import {API_KEY, ACHBatchRecord_Url, env} from './../../../const';
+const {API_KEY, ACHBatchRecord_Url, env} = window.constVar;
 
 function ACHBatchRecord(props) {
   let history = useHistory();
@@ -134,7 +135,7 @@ function ACHBatchRecord(props) {
         }
       };
       let url = ACHBatchRecord_Url+ "fileRecordID='"+FileID+"'";
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = ACHBatchRecord_Url;
       }
       let res = await axios.get(url, options);

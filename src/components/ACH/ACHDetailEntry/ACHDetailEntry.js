@@ -6,7 +6,8 @@ import * as Icon from "react-feather";
 import "./ACHDetailEntry.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {API_KEY, ACHDetailEntry_Url, env} from './../../../const';
+//import {API_KEY, ACHDetailEntry_Url, env} from './../../../const';
+const {API_KEY, ACHDetailEntry_Url, env} = window.constVar;
 
 function ACHDetailEntry(props) {
   let history = useHistory();
@@ -151,7 +152,7 @@ function ACHDetailEntry(props) {
         }
       };
       let url = ACHDetailEntry_Url+ "batchRecordID='"+BatchID+"'";
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = ACHDetailEntry_Url;
       }
       let res = await axios.get(url, options);

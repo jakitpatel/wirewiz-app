@@ -8,7 +8,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
-import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
+//import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
+const {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} = window.constVar;
 
 function WireinManualResolved(props) {
   let history = useHistory();
@@ -229,7 +230,7 @@ function WireinManualResolved(props) {
       }
       url += "&include_count=true";
       
-      //if(env==="DEV"){
+      //if(env==="DEVLOCAL"){
         //url = Wires_Url;
       //}
       let res = await axios.get(url, options);

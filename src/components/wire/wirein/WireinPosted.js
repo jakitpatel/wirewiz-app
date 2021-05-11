@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import {download} from './../../Functions/functions.js';
-import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} from './../../../const';
+//import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} from './../../../const';
+const {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} = window.constVar;
 
 function WireinPosted(props) {
   let history = useHistory();
@@ -225,7 +226,7 @@ function WireinPosted(props) {
         }
       };
       let url = WireinPosted_Url;
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = WireinPosted_Url;
       }
       let res = await axios.get(url, options);
@@ -258,7 +259,7 @@ function WireinPosted(props) {
       "Clt" : withCltFlag
     };
     let url = WirePost2Fiserv_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = WirePost2Fiserv_Url;
     }
     try {

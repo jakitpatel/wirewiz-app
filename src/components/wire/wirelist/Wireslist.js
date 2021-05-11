@@ -9,11 +9,12 @@ import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, buildExternalFilterUrl} from './../../Functions/functions.js';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
 import FilterOverlay from './FilterOverlay/FilterOverlay.js';
+//import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
+const {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} = window.constVar;
 
 function Wireslist(props) {
   let history = useHistory();
@@ -311,7 +312,7 @@ function Wireslist(props) {
       }
       url += "&include_count=true";
       
-      //if(env==="DEV"){
+      //if(env==="DEVLOCAL"){
         //url = Wires_Url;
       //}
       let res = await axios.get(url, options);
@@ -407,7 +408,7 @@ function Wireslist(props) {
       if(batchRec){
         url += "wireBatchID='"+batchRec.wireBatchID+"'";
       }
-      if(env==="DEV"){
+      if(env==="DEVLOCAL"){
         url = Wires_Url;
       }
       let res = await axios.get(url, options);
@@ -525,7 +526,7 @@ function Wireslist(props) {
       "resource": wireIdArr
     };
     let url = WireExport_Url;
-    if(env==="DEV"){
+    if(env==="DEVLOCAL"){
       url = WireExport_Url;
     }
     let res = await axios.post(url, data, options);

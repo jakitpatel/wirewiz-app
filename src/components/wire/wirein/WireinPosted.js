@@ -70,9 +70,9 @@ function WireinPosted(props) {
       }
     },
     {
-      Header: "PostWithClt",
+      Header: "Post w/ TXT",
       show : true, 
-      width: 55,
+      width: 105,
       //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,
@@ -95,9 +95,9 @@ function WireinPosted(props) {
       }
     },
     {
-      Header: "PostWithNoClt",
+      Header: "Post w/o TXT",
       show : true, 
-      width: 55,
+      width: 115,
       //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,

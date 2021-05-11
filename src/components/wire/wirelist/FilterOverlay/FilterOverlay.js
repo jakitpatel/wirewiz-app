@@ -11,6 +11,14 @@ function FilterOverlay(props) {
     const [value, setValue] = React.useState('');
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
+    const onRemoveFilters = () => {
+        console.log("onApplyFIlters");
+        //console.log(extFilters.length);
+        //console.log(extFilters);
+        setExtFilters([]);
+        setIsRefresh(!isRefresh);
+    }
+
     const onApplyFIlters = () => {
         console.log("onApplyFIlters");
         console.log(extFilters.length);
@@ -25,7 +33,7 @@ function FilterOverlay(props) {
     const addFilterItem = () => {
         console.log("addFilterItem");
         let tmpCnt = 1;
-        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", fieldType : "string", fieldOp : "contain"};
+        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", fieldType : "string", fieldOp : null};
         //console.log(tmpFilteritem);
         //const tmpCnt = filterItemCnt + 1;
         setExtFilters([...extFilters, tmpFilteritem]);
@@ -69,6 +77,16 @@ function FilterOverlay(props) {
             console.log("fieldType : "+fieldType);
             if(itemIndex !== -1){
                 newExtFilters[itemIndex]['fieldType'] = fieldType;
+                let defFieldOpr = "contain";
+                if(fieldType==="string"){
+                    defFieldOpr = "contain";
+                } else if(fieldType==="integer"){
+                    defFieldOpr = "equal";
+                } else if(fieldType==="boolean"){
+                    defFieldOpr = "equal";
+                    newExtFilters[itemIndex]['value'] = 'true';
+                }
+                newExtFilters[itemIndex]['fieldOp'] = defFieldOpr;
             }
         }
         if(itemIndex !== -1){
@@ -85,6 +103,10 @@ function FilterOverlay(props) {
         if(strIntFieldName.includes(key)){
             fldType = "integer";
         }
+        let boolFieldName = "excludeOFAC excludeFISERV overrideFlag";
+        if(boolFieldName.includes(key)){
+            fldType = "boolean";
+        }
         return fldType;
     }
 
@@ -93,7 +115,17 @@ function FilterOverlay(props) {
             let fieldMataData = [];
             //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
             //Object.fromEntries(Object.entries(wireFilterObj).sort());
-            Object.entries(wireFilterObj).sort().map(([key, value]) => {
+            let objKeyArr = Object.keys(wireFilterObj); // Convert to array
+            let sortobjArr = objKeyArr.sort(function (a, b) {
+                if ( a.toLowerCase() < b.toLowerCase() ) {
+                    return -1;
+                } else if ( a.toLowerCase() > b.toLowerCase() ) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } )
+            sortobjArr.map((key) => {
                 let tmpObj = {};
                 tmpObj.fieldName = key;
                 tmpObj.fieldType = getFieldType(key);
@@ -110,7 +142,10 @@ function FilterOverlay(props) {
                 <div style={{float:"left"}}>
                     Filter 
                 </div>
-                <button type="button" style={{ float: "right" }} onClick={onApplyFIlters} className={`btn btn-primary btn-sm`}>
+                <button type="button" style={{ float: "right" }} onClick={onRemoveFilters} className={`btn btn-primary btn-sm`}>
+                  Remove Filters
+                </button>
+                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={onApplyFIlters} className={`btn btn-primary btn-sm`}>
                   Apply Filters
                 </button>
                 <button className="btn btn-primary btn-sm" style={{float: "right", marginRight:"10px"}}>
@@ -122,6 +157,7 @@ function FilterOverlay(props) {
                 {extFilters.map((val, idx) => {
                     let filterIndex = val.filterId;
                     let fldType = val.fieldType;
+                    let fieldOperation = val.fieldOp;
                     let fieldNameId = `id-${filterIndex}`;
                     let fieldOpName = `fieldOp-${filterIndex}`;
                     let colObj = {
@@ -167,7 +203,7 @@ function FilterOverlay(props) {
                                     <div className="col-sm-3 mb-3">
                                         <div className="form-group">
                                             <select className="form-control"
-                                                value={val.fieldOp}
+                                                value={fieldOperation || 'contain'}
                                                 name={fieldOpName}
                                                 data-inputname="fieldOp"
                                                 data-id={filterIndex}
@@ -206,6 +242,23 @@ function FilterOverlay(props) {
                                     </div>
                                 </>
                             }
+                            {fldType==="boolean" && 
+                                <>
+                                    <div className="col-sm-4 mb-3">
+                                        <div className="form-group">
+                                            <select className="form-control"
+                                                value={val.value || 'true'}
+                                                data-inputname="value"
+                                                data-id={filterIndex}
+                                                onChange={(e) => {handleChange(e)}}
+                                            >
+                                                <option value="true">True</option>
+                                                <option value="false">False</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                            }
                         </div>
                     )
                 })
@@ -222,37 +275,3 @@ function FilterOverlay(props) {
 }
 
 export default FilterOverlay;
-
-/*Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
-                    let colObj = {
-                    columnName : key,
-                    filterValue : "",
-                    setFilter : (val,clm) => {
-                        console.log("Set Filter Value to "+val);
-                        console.log(extFilters);
-                        const index = extFilters.findIndex((e) => e.id === clm )
-                        const newArr = [...extFilters];
-                        if (index === -1) {
-                        setExtFilters([...extFilters, { id : clm, value : val}]);
-                        return;
-                        }
-                        if(index !== -1){
-                        newArr[index] = {...newArr[index], value: val}
-                        }
-                        setExtFilters(newArr);
-                    }
-                    }
-                    let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
-                    if(!str.includes(key)){
-                    return (
-                        <div key={key} className="col-sm-6">
-                        <div className="form-group row">
-                            <label className="col-sm-5 col-form-label">{key}</label>
-                            <div className="col-sm-7">
-                                <DefaultColumnFilter column={colObj}/>
-                            </div>
-                        </div>
-                        </div>
-                    )
-                    }
-                })*/

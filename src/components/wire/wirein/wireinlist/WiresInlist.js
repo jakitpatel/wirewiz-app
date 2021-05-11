@@ -934,10 +934,10 @@ function WiresInlist(props) {
                 {showSavePostExitBtn &&
                 <>
                   <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,true)}} className="btn btn-primary btn-sm">
-                    SavePostWithClt
+                    SavePost w/ TXT
                   </button>
                   <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,false)}} className="btn btn-primary btn-sm">
-                    SavePostWithNoClt
+                    SavePost w/o TXT
                   </button>
                   {sendCmp}
                 </>

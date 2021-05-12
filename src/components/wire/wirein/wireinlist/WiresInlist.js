@@ -393,7 +393,8 @@ function WiresInlist(props) {
             account = account.toString().substr(0, 3);
           }
           let wirePostID = batchRec.wirePostID;
-          let filterUrl = "(vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (businessErrorMsg is NULL) and (errorMsg is NULL)";
+          //let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag is not NULL))))";
+          let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null))";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInPostedActual"){
           let wirePostID = batchRec.wirePostID;

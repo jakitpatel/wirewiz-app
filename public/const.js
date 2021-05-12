@@ -5,11 +5,9 @@ let env = "DEV";
 let API_URL = "";
 
 if (env === 'DEV') {
-    //API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For DEV Env
     API_URL   = "https://api-dev-int.cfsb.com/api/v2/";  // For DEV Env
 } else if(env === 'PROD'){
-    //API_URL   = "https://devnycapi01.comfed.local/api/v2/";  // For PROD Env
-    API_URL   = "https://api-dev-int.cfsb.com/api/v2/";  // For PROD Env
+    API_URL   = "https://api-prod-int.cfsb.com/api/v2/";  // For PROD Env
 } else if(env === 'DEVLOCAL'){
     API_URL = "http://localhost:3001/";  // For Local Env, Don't Modify
 }

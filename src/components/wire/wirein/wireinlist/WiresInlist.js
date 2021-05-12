@@ -916,9 +916,12 @@ function WiresInlist(props) {
                         setResolveText(e.target.value);
                       }}
                     >
-                      <option value="solve1">solve1</option>
-                      <option value="solve2">solve2</option>
-                      <option value="solve3">solve3</option>
+                      <option value="Sent to Branch">Sent to Branch</option>
+                      <option value="Sent to Credit Dept">Sent to Credit Dept</option>
+                      <option value="Process Manually">Process Manually</option>
+                      <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
+                      <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
+                      <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
                     </select>
                   </div>
                 </>

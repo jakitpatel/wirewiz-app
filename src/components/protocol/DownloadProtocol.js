@@ -7,7 +7,7 @@ function DownloadProtocol(props) {
         <a href = {props.protocol} target = "_blank" className="nav-link" rel="noopener noreferrer">
             <Icon.File />
             <span style={{ marginLeft: 10 }}>
-            {props.name} Protocol
+                {props.fullName==="true" ? props.name : props.name+` Protocol`}
             </span>
         </a>
     </li>

@@ -6,7 +6,7 @@ import './Leftnavbar.css';
 import DownloadProtocol from "./../protocol/DownloadProtocol";
 import WireProtocolPdf from './../../Documents/Fedwire.pdf';
 import ACHProtocolPdf from './../../Documents/NACHA_File_Layout_Guide.pdf';
-//import WireAppPdf from './../../Documents/WiresApp_Getting_Started_Guide.pdf';
+import WireAppPdf from './../../Documents/WiresApp_Getting_Started_Guide.pdf';
 
 function MenuListItem(props) {
   const components = {
@@ -123,7 +123,7 @@ function LeftNavBar(props) {
           */}
           <DownloadProtocol protocol={WireProtocolPdf} fullName="false" name="Wire" />
           <DownloadProtocol protocol={ACHProtocolPdf} fullName="false" name="ACH" />
-          {/*<DownloadProtocol protocol={WireAppPdf} fullName="true" name="ACH" />*/}
+          <DownloadProtocol protocol={WireAppPdf} fullName="true" name="WireApp Guide" />
         </ul>
       </div>
     </nav>

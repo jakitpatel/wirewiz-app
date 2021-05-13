@@ -947,6 +947,9 @@ function WiresInlist(props) {
                   {sendCmp}
                 </>
                 }
+                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
+                  <Icon.RefreshCw />
+                </button>
                 <CSVLink
                       data={wireText}
                       uFEFF={false}

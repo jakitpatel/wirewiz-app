@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {OverlayTrigger, Button, Popover} from 'react-bootstrap';
 import * as Icon from "react-feather";
-import DefaultColumnFilterAdv from '../../../Filter/DefaultColumnFilterAdv';
+import DefaultColumnFilterAdv from '../Filter/DefaultColumnFilterAdv';
 import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
@@ -103,7 +103,7 @@ function FilterOverlay(props) {
         if(strIntFieldName.includes(key)){
             fldType = "integer";
         }
-        let boolFieldName = "excludeOFAC excludeFISERV overrideFlag";
+        let boolFieldName = "excludeOFAC excludeFISERV excludeFiserv overrideFlag";
         if(boolFieldName.includes(key)){
             fldType = "boolean";
         }

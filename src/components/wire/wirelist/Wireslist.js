@@ -12,7 +12,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, buildExternalFilterUrl} from './../../Functions/functions.js';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
-import FilterOverlay from './FilterOverlay/FilterOverlay.js';
+import FilterOverlay from './../../FilterOverlay/FilterOverlay.js';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 const {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} = window.constVar;
 

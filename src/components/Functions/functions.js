@@ -122,9 +122,9 @@ const buildExternalFilterUrl = (filterArr) => {
           if(fieldOpVal === "equal"){
             filterOpr = "=";
             valSt = filterVal;
-          } else if(fieldOpVal === "startwith"){
-            valSt = "%"+filterVal;
           } else if(fieldOpVal === "endwith"){
+            valSt = "%"+filterVal;
+          } else if(fieldOpVal === "startwith"){
             valSt = filterVal+"%";
           } else if(fieldOpVal === "contain"){
             valSt = "%"+filterVal+"%";

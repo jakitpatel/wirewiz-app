@@ -40,6 +40,7 @@ function Wireslist(props) {
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
   const [colItems, setColItems] = useState([]);
+  const [isListFiltered, setIsListFiltered] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -667,7 +668,9 @@ function Wireslist(props) {
               }
               <React.Fragment>
               <FilterOverlay 
-              colItems={colItems} 
+              colItems={colItems}
+              isListFiltered={isListFiltered}
+              setIsListFiltered={setIsListFiltered}
               extFilters={extFilters} 
               setExtFilters={setExtFilters}
               isRefresh={isRefresh}

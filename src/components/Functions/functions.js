@@ -142,6 +142,8 @@ const buildExternalFilterUrl = (filterArr) => {
             filterOpr = ">";
             valSt = filterVal;
           }
+          valSt = valSt.replace("$", "");
+          valSt = valSt.replace(",", "");
           filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
         } else if(fieldTypeVal === "boolean"){
           let valSt = "";
@@ -199,13 +201,17 @@ const buildExternalFilterUrl = (filterArr) => {
 const getFieldType = (key) => {
   console.log("getFieldType");
   let fldType = "string";
-  let strIntFieldName = "wireID wireBatchID wireDoc_by_wireID wireRemittance_by_wireID amount sendersChargesAmount1 sendersChargesAmount2 sendersChargesAmount3 sendersChargesAmount4 instructedAmount exchangeRate unstructuredAddendaLength status";
+  let strIntFieldName = "wireID wireBatchID wireDoc_by_wireID wireRemittance_by_wireID amount sendersChargesAmount1 sendersChargesAmount2 sendersChargesAmount3 sendersChargesAmount4 instructedAmount exchangeRate unstructuredAddendaLength";
   if(strIntFieldName.includes(key)){
       fldType = "integer";
   }
   let boolFieldName = "excludeOFAC excludeFISERV excludeFiserv overrideFlag";
   if(boolFieldName.includes(key)){
       fldType = "boolean";
+  }
+  let dateFieldName = "createDateTime completeDateTime";
+  if(dateFieldName.includes(key)){
+      fldType = "datetime";
   }
   return fldType;
 }

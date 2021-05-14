@@ -3,11 +3,10 @@ import React from "react";
 
 // Define a default UI for filtering
 function DefaultColumnFilterAdv({
-    column: { filterValue, preFilteredRows, setFilter, columnName, filterIndex },
+    column: { filterValue, filterIndex },
     fldValChange
   }) {
     const [value, setValue] = React.useState(filterValue || '');
-    //const count = preFilteredRows.length
     
     /*const onChange = useAsyncDebounce(value => {
       setFilter(value || undefined) // Set undefined to remove the filter entirely

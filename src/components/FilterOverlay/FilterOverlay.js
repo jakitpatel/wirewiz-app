@@ -6,9 +6,8 @@ import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
 
-    const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems} = props;
+    const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems, isListFiltered, setIsListFiltered} = props;
     //const [colItems, setColItems] = useState([]);
-    const [value, setValue] = React.useState('');
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
     const onRemoveFilters = () => {
@@ -17,6 +16,7 @@ function FilterOverlay(props) {
         //console.log(extFilters);
         setExtFilters([]);
         setIsRefresh(!isRefresh);
+        setIsListFiltered(false);
     }
 
     const onApplyFIlters = () => {
@@ -24,6 +24,9 @@ function FilterOverlay(props) {
         console.log(extFilters.length);
         console.log(extFilters);
         setIsRefresh(!isRefresh);
+        if(extFilters.length > 0){
+            setIsListFiltered(true);
+        }
     }
 
     // filterId : Filter Counter
@@ -90,6 +93,7 @@ function FilterOverlay(props) {
             }
         }
         if(itemIndex !== -1){
+            //if(newExtFilters[itemIndex]['fieldType'] === "integer")
             newExtFilters[itemIndex][inputName] = newValue;
         }
         //newExtFilters[itemIndex] = {...newExtFilters[itemIndex], [inputName]: newValue}
@@ -122,7 +126,8 @@ function FilterOverlay(props) {
                     let fieldOpName = `fieldOp-${filterIndex}`;
                     let colObj = {
                         columnName : val.id,
-                        filterValue : "",
+                        //filterValue : "",
+                        filterValue : val.value,
                         filterIndex : filterIndex
                     }
                     return (
@@ -226,10 +231,14 @@ function FilterOverlay(props) {
             </Popover.Content>
         </Popover>
     );
-
+    
+    let filter_btn_class = "btn btn-sm btn-primary";
+    if(isListFiltered && extFilters.length > 0){
+        filter_btn_class = "btn btn-sm btn-success"
+    }
     return (
         <OverlayTrigger trigger="click" rootClose placement="left" overlay={popover}>
-            <button className="btn btn-primary btn-sm" style={{float: "right", marginLeft:"10px"}}><Icon.Filter /></button>
+            <button className={filter_btn_class} style={{float: "right", marginLeft:"10px"}}><Icon.Filter /></button>
         </OverlayTrigger>
     )
 }

@@ -6,8 +6,8 @@ import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
 
-    const {wires, wireFilterObj, extFilters, setExtFilters, isRefresh, setIsRefresh} = props;
-    const [colItems, setColItems] = useState([]);
+    const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems} = props;
+    //const [colItems, setColItems] = useState([]);
     const [value, setValue] = React.useState('');
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
@@ -95,46 +95,6 @@ function FilterOverlay(props) {
         //newExtFilters[itemIndex] = {...newExtFilters[itemIndex], [inputName]: newValue}
         setExtFilters(newExtFilters);
     }
-
-    const getFieldType = (key) => {
-        console.log("getFieldType");
-        let fldType = "string";
-        let strIntFieldName = "wireID wireBatchID wireDoc_by_wireID wireRemittance_by_wireID";
-        if(strIntFieldName.includes(key)){
-            fldType = "integer";
-        }
-        let boolFieldName = "excludeOFAC excludeFISERV excludeFiserv overrideFlag";
-        if(boolFieldName.includes(key)){
-            fldType = "boolean";
-        }
-        return fldType;
-    }
-
-    useEffect(() => {
-        if(wireFilterObj){
-            let fieldMataData = [];
-            //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
-            //Object.fromEntries(Object.entries(wireFilterObj).sort());
-            let objKeyArr = Object.keys(wireFilterObj); // Convert to array
-            let sortobjArr = objKeyArr.sort(function (a, b) {
-                if ( a.toLowerCase() < b.toLowerCase() ) {
-                    return -1;
-                } else if ( a.toLowerCase() > b.toLowerCase() ) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            } )
-            sortobjArr.map((key) => {
-                let tmpObj = {};
-                tmpObj.fieldName = key;
-                tmpObj.fieldType = getFieldType(key);
-                fieldMataData.push(tmpObj);
-            });
-            console.log(fieldMataData);
-            setColItems(fieldMataData);  
-        }
-    }, [wireFilterObj]);
 
     const popover = (
         <Popover id="popover-basic">

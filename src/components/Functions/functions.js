@@ -196,4 +196,18 @@ const buildExternalFilterUrl = (filterArr) => {
     });
 };
 
- export { buildSortByUrl, buildPageUrl, buildFilterUrl, download, buildExternalFilterUrl } ; 
+const getFieldType = (key) => {
+  console.log("getFieldType");
+  let fldType = "string";
+  let strIntFieldName = "wireID wireBatchID wireDoc_by_wireID wireRemittance_by_wireID amount sendersChargesAmount1 sendersChargesAmount2 sendersChargesAmount3 sendersChargesAmount4 instructedAmount exchangeRate unstructuredAddendaLength status";
+  if(strIntFieldName.includes(key)){
+      fldType = "integer";
+  }
+  let boolFieldName = "excludeOFAC excludeFISERV excludeFiserv overrideFlag";
+  if(boolFieldName.includes(key)){
+      fldType = "boolean";
+  }
+  return fldType;
+}
+
+ export { buildSortByUrl, buildPageUrl, buildFilterUrl, download, buildExternalFilterUrl, getFieldType } ; 

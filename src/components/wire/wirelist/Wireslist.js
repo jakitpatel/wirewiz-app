@@ -8,10 +8,10 @@ import * as Icon from "react-feather";
 import "./Wireslist.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
-import {buildSortByUrl, buildPageUrl, buildFilterUrl, buildExternalFilterUrl} from './../../Functions/functions.js';
-import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
-import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
+//import ReactTooltip from 'react-tooltip';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl, buildExternalFilterUrl, getFieldType} from './../../Functions/functions.js';
+//import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
+//import DefaultColumnFilter from '../../Filter/DefaultColumnFilter';
 import FilterOverlay from './../../FilterOverlay/FilterOverlay.js';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
 const {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} = window.constVar;
@@ -39,6 +39,7 @@ function Wireslist(props) {
 
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
+  const [colItems, setColItems] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -228,7 +229,33 @@ function Wireslist(props) {
       disableFilters: true
     }
   ];
-  
+
+  const buildColumnObject = (wireFilterObj) => {
+    if(wireFilterObj && colItems.length===0){
+      let fieldMataData = [];
+      //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
+      //Object.fromEntries(Object.entries(wireFilterObj).sort());
+      let objKeyArr = Object.keys(wireFilterObj); // Convert to array
+      let sortobjArr = objKeyArr.sort(function (a, b) {
+          if ( a.toLowerCase() < b.toLowerCase() ) {
+              return -1;
+          } else if ( a.toLowerCase() > b.toLowerCase() ) {
+              return 1;
+          } else {
+              return 0;
+          }
+      } )
+      sortobjArr.map((key) => {
+          let tmpObj = {};
+          tmpObj.fieldName = key;
+          tmpObj.fieldType = getFieldType(key);
+          fieldMataData.push(tmpObj);
+      });
+      console.log(fieldMataData);
+      setColItems(fieldMataData);  
+    }
+  }
+
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data
     // You could fetch your data from literally anywhere,
@@ -321,7 +348,10 @@ function Wireslist(props) {
       let wireArray = res.data.resource;
       //console.log(wireArray);
       //setData(wireArray);
-      
+      if(wireArray.length>0){
+        buildColumnObject(wireArray[0]);
+      }
+
       dispatch({
         type:'UPDATEWIRELIST',
         payload:{
@@ -623,11 +653,6 @@ function Wireslist(props) {
       />
     );
 
-  let wireFilterObj = null;
-  if(wires.length>0){
-    wireFilterObj = wires[0];
-  }
-    
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
@@ -642,8 +667,7 @@ function Wireslist(props) {
               }
               <React.Fragment>
               <FilterOverlay 
-              wires={wires} 
-              wireFilterObj={wireFilterObj} 
+              colItems={colItems} 
               extFilters={extFilters} 
               setExtFilters={setExtFilters}
               isRefresh={isRefresh}

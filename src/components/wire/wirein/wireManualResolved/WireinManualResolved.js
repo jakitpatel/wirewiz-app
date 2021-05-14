@@ -311,7 +311,7 @@ function WireinManualResolved(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <div>
-              <h3 style={{float:"left"}} className="title-center">Inbound Wires - Posted</h3>
+              <h3 style={{float:"left"}} className="title-center">Inbound Wires - Resolved Manual</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>

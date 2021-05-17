@@ -394,74 +394,6 @@ function Wireslist(props) {
     }
   }, [downloadOfac, wireFiservText, wireOfacText]);
 
-  /*useEffect(() => {
-    console.log("After Render Wire List");
-    if(backToList){
-      dispatch({
-        type:'UPDATEWIRELIST',
-        payload:{
-          backToList:false
-        }
-      });
-    }
-  }, [backToList, dispatch]);
-  */
-  /*
-  useEffect(() => {
-    let ignore = false;
-    async function fetchWireDictionary() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let res = await axios.get(WireDictionary_Url, options);
-      //console.log(res.data);
-      //console.log(res.data.resource);
-      let dict = res.data.resource[0].dict;
-      //console.log(dict);
-      var dictObj = JSON.parse(dict);
-      console.log(dictObj);
-      dispatch({
-        type:'SETWIREDICTIONARY',
-        payload:dictObj
-      });
-    }
-    async function fetchWireList() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let url = Wires_Url;
-      if(batchRec){
-        url += "wireBatchID='"+batchRec.wireBatchID+"'";
-      }
-      if(env==="DEVLOCAL"){
-        url = Wires_Url;
-      }
-      let res = await axios.get(url, options);
-      console.log(res.data);
-      //console.log(res.data.resource);
-      let wireArray = res.data.resource;
-      console.log(wireArray);
-      dispatch({
-        type:'SETWIRES',
-        payload:wireArray
-      });
-      setLoading(false);
-      /// Load Dictionary & build tag value
-      if(wiredict.length === 0){
-        fetchWireDictionary();
-      }
-    }
-    fetchWireList();
-    return () => { ignore = true; console.log("WireList Unmonted"); };
-  }, [batchId, dispatch, session_token, isRefresh]);
-  */
-
   if (toWiredetails === true) {
     console.log("toWiredetails : "+toWiredetails);
     let selWireID = selWireObj.wireID
@@ -675,7 +607,7 @@ function Wireslist(props) {
               setExtFilters={setExtFilters}
               isRefresh={isRefresh}
               setIsRefresh={setIsRefresh} />
-                <button type="button" style={{ float: "right" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
+                <button type="button" style={{ float: "right", display:"none" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
                 </button>
                 <CSVLink

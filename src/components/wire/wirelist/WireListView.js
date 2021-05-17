@@ -137,7 +137,7 @@ function Table({
     /*,state: {
       selectedRowIds: selectedRowsTb
     }*/
-    
+    /*
     useControlledState: state => {
       return React.useMemo(
         () => {
@@ -170,12 +170,12 @@ function Table({
         },
         [state]
       )
-    }
+    }*/
   },
   useFilters, // useFilters!
   useSortBy,
   usePagination,
-  useRowSelect,
+  useRowSelect/*,
   hooks => {
     hooks.visibleColumns.push(columns => [
       // Let's make a column for selection
@@ -220,7 +220,7 @@ function Table({
       },
       ...columns,
     ])
-  })
+  }*/)
   
   useEffect(() => {
     let selWireArr = [];
@@ -244,24 +244,7 @@ function Table({
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
   }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
-  /*
-  useEffect(() => {
-    console.log("After Render Wire List View");
-    if(pageState.backToList){
-      //gotoPage(pageState.pageIndex);
-      console.log("pageIndex State : "+pageIndex);
-      setTimeout(() => {
-        console.log("pageIndex State : "+pageIndex);
-        /*dispatch({
-          type:'UPDATEWIRELIST',
-          payload:{
-            backToList:false
-          }
-        });
-      }, 1000);
-    }
-  }, [dispatch, gotoPage, pageIndex, pageState.backToList, pageState.pageIndex]);
-  */
+
   /*
   useEffect(() => {
     setHiddenColumns(
@@ -273,37 +256,6 @@ function Table({
   //console.log("Table : isRefresh :"+isRefresh);
   return (
     <>
-    {/*
-    <pre>
-        <code>
-          {JSON.stringify(
-            {
-              pageIndex,
-              pageSize,
-              pageCount,
-              canNextPage,
-              canPreviousPage,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-      <div>
-        <pre>
-          <code>
-            {JSON.stringify(
-              {
-                "initialState.filters": filtersarr,
-                "state.filters": filters
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre>
-      </div>
-      */}
     {/* 
       Pagination can be built however you'd like. 
       This is just a very basic UI implementation:

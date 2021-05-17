@@ -24,7 +24,6 @@ function Wireslist(props) {
 
   // We'll start our table without any data
   const [filtersarr, setFiltersarr] = React.useState([]);
-  const [extFilters, setExtFilters] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [pageCount, setPageCount] = React.useState(0);
@@ -40,7 +39,6 @@ function Wireslist(props) {
   const [selWireObj, setSelWireObj] = useState({});
   const [toWiredetails, setToWiredetails] = useState(false);
   const [colItems, setColItems] = useState([]);
-  const [isListFiltered, setIsListFiltered] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -50,12 +48,15 @@ function Wireslist(props) {
       }
   });
 
-  const { wires, pageIndex, pageSize, wiredict, backToList } = useSelector(state => {
+  const { wires, pageIndex, pageSize, totalCount, sortBy, filters, extFiltersArr, isExtListFiltered, backToList } = useSelector(state => {
     return {
-        ...state.wiresReducer,
-        ...state.wireDictReducer
+        ...state.wiresReducer
     }
   });
+
+  const [extFilters, setExtFilters] = React.useState(extFiltersArr);
+  //const [isListFiltered, setIsListFiltered] = React.useState(isExtListFiltered);
+  const [isListFiltered, setIsListFiltered] = React.useState(false);
 
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
@@ -313,6 +314,21 @@ function Wireslist(props) {
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         }
       }
+      /*
+      let combineFilterArr = [...extFilters];
+      for(let i=0; i<filters.length; i++){
+        let filteredClmFlag = false;
+        for(let j=0; j<combineFilterArr; j++){
+          if(filters[i].id === combineFilterArr[j].id){
+            filteredClmFlag = true;
+          }
+        }
+        if(filteredClmFlag === false){
+          combineFilterArr.push(filters[i]);
+        }
+      }
+      filters = combineFilterArr;
+      */
       if(filters.length>0){
         console.log("filters");
         console.log(filters);
@@ -323,6 +339,7 @@ function Wireslist(props) {
         }
         url += buildFilterUrl(filters);
       }
+      
       if(extFilters.length>0){
         console.log("buildExternalFilterUrl");
         console.log(filters);
@@ -334,6 +351,7 @@ function Wireslist(props) {
         url += buildExternalFilterUrl(extFilters);
         //url += buildFilterUrl(extFilters);
       }
+
       if(sortBy.length>0){
         console.log(sortBy);
         url += buildSortByUrl(sortBy);
@@ -353,11 +371,17 @@ function Wireslist(props) {
         buildColumnObject(wireArray[0]);
       }
 
+      let totalCnt = res.data.meta.count;
       dispatch({
         type:'UPDATEWIRELIST',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,
+          totalCount:totalCnt,
+          sortBy : sortBy,
+          filters : filters,
+          extFiltersArr : extFilters,
+          isExtListFiltered : !isListFiltered,
           wires:wireArray
         }
         //type:'SETWIRES',
@@ -366,7 +390,6 @@ function Wireslist(props) {
       
       // Your server could send back total page count.
       // For now we'll just fake it, too
-      let totalCnt = res.data.meta.count;
       let pageCnt = Math.ceil(totalCnt / pageSize);
       console.log("pageCnt : "+pageCnt);
       setPageCount(Math.ceil(totalCnt / pageSize));
@@ -550,11 +573,13 @@ function Wireslist(props) {
   console.log("wires", wires);
   console.log("isRefresh", isRefresh);
   const initialState = {
-    sortBy : [], //[{ id: "wireID", desc: true }],
-    pageSize : 10,
-    pageIndex : 0
-    //pageSize : pageSize,
-    //pageIndex : pageIndex
+    //sortBy : [], //[{ id: "wireID", desc: true }],
+    //pageSize : 10,
+    //pageIndex : 0
+    pageIndex : pageIndex,
+    pageSize : pageSize,
+    sortBy : sortBy, //[{ id: "wireID", desc: true }],
+    filters : filters,
   };
   const pageState = {
     pageSize : pageSize,

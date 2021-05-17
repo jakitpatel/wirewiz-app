@@ -17,13 +17,15 @@ const buildSortByUrl = (sortArr) => {
     return sortUrl;
  }
 
- const buildFilterUrl = (filterArr) => {
+const buildFilterUrl = (filterArr) => {
   let filterUrl = "";
   filterArr.forEach(function(filterObj) {
     let filterOpr = "=";
     filterOpr = "like";
     let filterClm = filterObj.id;
     let filterVal = filterObj.value;
+    let fieldTypeVal = filterObj.fieldType;
+    let fieldOpVal   = filterObj.fieldOp;
     if(Array.isArray(filterVal) && filterVal.length > 0){
       let multifilterOpr = "IN";
       let isNullFlag = false;
@@ -60,7 +62,44 @@ const buildSortByUrl = (sortArr) => {
         filterOpr = filterObj.filterOpr;
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
       } else {
-        filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";
+        if(fieldTypeVal === "string"){
+          let valSt = "";
+          if(fieldOpVal === "equal"){
+            filterOpr = "=";
+            valSt = filterVal;
+          } else if(fieldOpVal === "endwith"){
+            valSt = "%"+filterVal;
+          } else if(fieldOpVal === "startwith"){
+            valSt = filterVal+"%";
+          } else if(fieldOpVal === "contain"){
+            valSt = "%"+filterVal+"%";
+          }
+          filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
+        } else if(fieldTypeVal === "integer"){
+          let valSt = "";
+          if(fieldOpVal === "equal"){
+            filterOpr = "=";
+            valSt = filterVal;
+          } else if(fieldOpVal === "less"){
+            filterOpr = "<";
+            valSt = filterVal;
+          } else if(fieldOpVal === "greater"){
+            filterOpr = ">";
+            valSt = filterVal;
+          }
+          valSt = valSt.replace("$", "");
+          valSt = valSt.replace(",", "");
+          filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
+        } else if(fieldTypeVal === "boolean"){
+          let valSt = "";
+          if(fieldOpVal === "equal"){
+            filterOpr = "=";
+            valSt = filterVal;
+          }
+          filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
+        } else {
+          filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";
+        }
       }
     }
   });

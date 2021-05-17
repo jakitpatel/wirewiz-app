@@ -15,18 +15,18 @@ function FilterOverlay(props) {
         //console.log(extFilters.length);
         //console.log(extFilters);
         setExtFilters([]);
-        setIsRefresh(!isRefresh);
         setIsListFiltered(false);
+        setIsRefresh(!isRefresh);
     }
 
     const onApplyFIlters = () => {
         console.log("onApplyFIlters");
         console.log(extFilters.length);
         console.log(extFilters);
-        setIsRefresh(!isRefresh);
         if(extFilters.length > 0){
             setIsListFiltered(true);
         }
+        setIsRefresh(!isRefresh);
     }
 
     // filterId : Filter Counter

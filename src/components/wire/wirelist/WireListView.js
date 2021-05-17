@@ -130,7 +130,13 @@ function Table({
     manualFilters: true,
     manualSortBy: true,
     //filterTypes,
-    initialState: { filters: filtersarr, pageIndex: initialState.pageIndex, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
+    initialState: { 
+      filters: initialState.filters, //filtersarr, 
+      pageIndex: initialState.pageIndex, 
+      pageSize: initialState.pageSize, 
+      sortBy: initialState.sortBy 
+    },
+    //initialState: { filters: filtersarr, pageIndex: initialState.pageIndex, pageSize: initialState.pageSize, sortBy: initialState.sortBy },
     manualPagination: true, // Tell the usePagination hook that we'll handle our own data fetching
     //autoResetPage: false,
     pageCount: controlledPageCount, // This means we'll also have to provide our own pageCount.
@@ -221,7 +227,7 @@ function Table({
       ...columns,
     ])
   }*/)
-  
+  /*
   useEffect(() => {
     let selWireArr = [];
       for(let i=0; i<selectedFlatRows.length; i++){
@@ -233,7 +239,7 @@ function Table({
     console.log(selectedRowIds);
     
   }, [setSelectedRowsTb, selectedRowIds]);
-
+  */
   // Debounce our onFetchData call for 100ms
   const onFetchDataDebounced = useAsyncDebounce(fetchData, 100);
 
@@ -244,6 +250,21 @@ function Table({
     setFiltersarr(filters);
     onFetchDataDebounced({ pageIndex, pageSize, filters, sortBy });
   }, [isRefresh, setIsRefresh, onFetchDataDebounced, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+
+  React.useEffect(() => {
+    //setFiltersarr(filters);
+    if(!pageState.backToList){
+      /*onFetchDataDebounced({ pageIndex:0, pageSize, filters, sortBy });*/
+      gotoPage(0);
+    } else {
+      dispatch({
+        type:'UPDATELOANLIST',
+        payload:{
+          backToList:false
+        }
+      });
+    }
+  }, [ filters, setFiltersarr, sortBy]);
 
   /*
   useEffect(() => {
@@ -412,7 +433,7 @@ function Table({
         }
       }
     }
-    console.log(selectedRows);
+    //console.log(selectedRows);
     
     useEffect(() => {
       ReactTooltip.rebuild();

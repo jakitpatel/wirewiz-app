@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {OverlayTrigger, Button, Popover} from 'react-bootstrap';
 import * as Icon from "react-feather";
 import DefaultColumnFilterAdv from '../Filter/DefaultColumnFilterAdv';
+import DateRangeColumnFilterAdv from '../Filter/DateRangeColumnFilterAdv';
 import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
@@ -90,6 +91,8 @@ function FilterOverlay(props) {
                 } else if(fieldType==="boolean"){
                     defFieldOpr = "equal";
                     newExtFilters[itemIndex]['value'] = 'true';
+                } else if(fieldType==="datetime"){
+                    defFieldOpr = "equal";
                 }
                 newExtFilters[itemIndex]['fieldOp'] = defFieldOpr;
             }
@@ -204,6 +207,7 @@ function FilterOverlay(props) {
                                                 <option value="less">Less Than</option>
                                                 <option value="greater">Greater Than</option>
                                                 <option value="equal">Equal To</option>
+                                                <option value="between">Between</option>
                                             </select>
                                         </div>
                                     </div>
@@ -221,6 +225,31 @@ function FilterOverlay(props) {
                                             >
                                                 <option value="true">True</option>
                                                 <option value="false">False</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </>
+                            }
+                            {fldType==="datetime" && 
+                                <>
+                                    <div className="col-sm-4 mb-3">
+                                        <div className="form-group">
+                                            <DateRangeColumnFilterAdv column={colObj} fldValChange={handleChange}/>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-3 mb-3">
+                                        <div className="form-group">
+                                            <select className="form-control"
+                                                value={val.fieldOp}
+                                                name={fieldOpName}
+                                                data-inputname="fieldOp"
+                                                data-id={filterIndex}
+                                                onChange={(e) => {handleChange(e)}}
+                                            >
+                                                <option value="less">Less Than</option>
+                                                <option value="greater">Greater Than</option>
+                                                <option value="equal">Equal To</option>
+                                                <option value="between">Between</option>
                                             </select>
                                         </div>
                                     </div>

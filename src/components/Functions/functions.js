@@ -191,6 +191,16 @@ const buildExternalFilterUrl = (filterArr) => {
             valSt = filterVal;
           }
           filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
+        } else if(fieldTypeVal === "datetime"){
+          let filterValSt = "";
+          if(fieldOpVal === "equal"){
+            filterValSt = " and ("+filterClm+" > "+filterVal+" 00:00:00) and ("+filterClm+" < "+filterVal+" 23:59:59)";
+          } else if(fieldOpVal === "less"){
+            filterValSt = " and ("+filterClm+" < "+filterVal+" 00:00:00)";
+          } else if(fieldOpVal === "greater"){
+            filterValSt = " and ("+filterClm+" > "+filterVal+" 00:00:00)";
+          }
+          filterUrl += filterValSt;
         } else {
           filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";
         }
@@ -248,7 +258,7 @@ const getFieldType = (key) => {
   if(boolFieldName.includes(key)){
       fldType = "boolean";
   }
-  let dateFieldName = "createDateTime completeDateTime";
+  let dateFieldName = "createDateTime completeDateTime outputDate";
   if(dateFieldName.includes(key)){
       fldType = "datetime";
   }

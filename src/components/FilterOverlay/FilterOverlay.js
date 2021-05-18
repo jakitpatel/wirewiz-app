@@ -6,7 +6,7 @@ import "./FilterOverlay.css";
 
 function FilterOverlay(props) {
 
-    const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems, isListFiltered, setIsListFiltered} = props;
+    const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems, isListFiltered, setExternalListFiltered} = props;
     //const [colItems, setColItems] = useState([]);
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
@@ -15,7 +15,8 @@ function FilterOverlay(props) {
         //console.log(extFilters.length);
         //console.log(extFilters);
         setExtFilters([]);
-        setIsListFiltered(false);
+        setExternalListFiltered(false);
+        //setIsListFiltered(false);
         setIsRefresh(!isRefresh);
     }
 
@@ -24,7 +25,8 @@ function FilterOverlay(props) {
         console.log(extFilters.length);
         console.log(extFilters);
         if(extFilters.length > 0){
-            setIsListFiltered(true);
+            //setIsListFiltered(true);
+            setExternalListFiltered(true);
         }
         setIsRefresh(!isRefresh);
     }

@@ -48,15 +48,13 @@ function Wireslist(props) {
       }
   });
 
-  const { wires, pageIndex, pageSize, totalCount, sortBy, filters, extFiltersArr, isExtListFiltered, backToList } = useSelector(state => {
+  const { wires, pageIndex, pageSize, totalCount, sortBy, filters, extFiltersArr, isListFiltered, backToList } = useSelector(state => {
     return {
         ...state.wiresReducer
     }
   });
 
   const [extFilters, setExtFilters] = React.useState(extFiltersArr);
-  //const [isListFiltered, setIsListFiltered] = React.useState(isExtListFiltered);
-  const [isListFiltered, setIsListFiltered] = React.useState(false);
 
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
@@ -232,6 +230,16 @@ function Wireslist(props) {
     }
   ];
 
+  const setExternalListFiltered = (listFilterVal) => {
+    console.log("set External List Filtered");
+    dispatch({
+      type:'UPDATEWIRELIST',
+      payload:{
+        isListFiltered : listFilterVal
+      }
+    });
+  }
+
   const buildColumnObject = (wireFilterObj) => {
     if(wireFilterObj && colItems.length===0){
       let fieldMataData = [];
@@ -381,7 +389,7 @@ function Wireslist(props) {
           sortBy : sortBy,
           filters : filters,
           extFiltersArr : extFilters,
-          isExtListFiltered : !isListFiltered,
+          //isExtListFiltered : !isListFiltered,
           wires:wireArray
         }
         //type:'SETWIRES',
@@ -627,11 +635,11 @@ function Wireslist(props) {
               <FilterOverlay 
               colItems={colItems}
               isListFiltered={isListFiltered}
-              setIsListFiltered={setIsListFiltered}
               extFilters={extFilters} 
               setExtFilters={setExtFilters}
               isRefresh={isRefresh}
-              setIsRefresh={setIsRefresh} />
+              setIsRefresh={setIsRefresh}
+              setExternalListFiltered={setExternalListFiltered} />
                 <button type="button" style={{ float: "right", display:"none" }} onClick={onWireExport} className={`btn btn-primary btn-sm ${WIRE_EXPORT ? "" : "disabled"} `}>
                   Export
                 </button>

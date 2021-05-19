@@ -118,6 +118,7 @@ const buildExternalFilterUrl = (filterArr) => {
     filterOpr = "like";
     let filterClm = filterObj.id;
     let filterVal = filterObj.value;
+    let filterEndVal = filterObj.endvalue;
     let fieldTypeVal = filterObj.fieldType;
     let fieldOpVal   = filterObj.fieldOp;
     if(Array.isArray(filterVal) && filterVal.length > 0){
@@ -170,20 +171,26 @@ const buildExternalFilterUrl = (filterArr) => {
           }
           filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
         } else if(fieldTypeVal === "integer"){
-          let valSt = "";
-          if(fieldOpVal === "equal"){
-            filterOpr = "=";
+          let valSt = "", endvalSt="";
+          if(fieldOpVal === "between"){
+            valSt = filterVal.replace("$", "");
+            valSt = filterVal.replace(",", "");
+            endvalSt = filterEndVal.replace("$", "");
+            endvalSt = filterEndVal.replace(",", "");
+            filterUrl += " and ("+filterClm+" > "+valSt+") and ("+filterClm+" < "+endvalSt+")";
+          } else {
             valSt = filterVal;
-          } else if(fieldOpVal === "less"){
-            filterOpr = "<";
-            valSt = filterVal;
-          } else if(fieldOpVal === "greater"){
-            filterOpr = ">";
-            valSt = filterVal;
+            if(fieldOpVal === "equal"){
+              filterOpr = "=";
+            } else if(fieldOpVal === "less"){
+              filterOpr = "<";
+            } else if(fieldOpVal === "greater"){
+              filterOpr = ">";
+            }
+            valSt = valSt.replace("$", "");
+            valSt = valSt.replace(",", "");
+            filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
           }
-          valSt = valSt.replace("$", "");
-          valSt = valSt.replace(",", "");
-          filterUrl += " and ("+filterClm+" "+filterOpr+" "+valSt+")";
         } else if(fieldTypeVal === "boolean"){
           let valSt = "";
           if(fieldOpVal === "equal"){
@@ -199,7 +206,9 @@ const buildExternalFilterUrl = (filterArr) => {
             filterValSt = " and ("+filterClm+" < "+filterVal+" 00:00:00)";
           } else if(fieldOpVal === "greater"){
             filterValSt = " and ("+filterClm+" > "+filterVal+" 00:00:00)";
-          }
+          } else if(fieldOpVal === "between"){
+            filterValSt = " and ("+filterClm+" > "+filterVal+" 00:00:00) and ("+filterClm+" < "+filterEndVal+" 23:59:59)";
+          } 
           filterUrl += filterValSt;
         } else {
           filterUrl += " and ("+filterClm+" "+filterOpr+" %"+filterVal+"%)";

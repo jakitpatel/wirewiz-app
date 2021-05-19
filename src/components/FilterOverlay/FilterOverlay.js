@@ -8,7 +8,6 @@ import "./FilterOverlay.css";
 function FilterOverlay(props) {
 
     const {extFilters, setExtFilters, isRefresh, setIsRefresh, colItems, isListFiltered, setExternalListFiltered} = props;
-    //const [colItems, setColItems] = useState([]);
     const [filterItemCnt, setFilterItemCnt] = useState(1);
 
     const onRemoveFilters = () => {
@@ -38,8 +37,8 @@ function FilterOverlay(props) {
     // fieldType : Type of Field 
     const addFilterItem = () => {
         console.log("addFilterItem");
-        let tmpCnt = 1;
-        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", fieldType : "string", fieldOp : null};
+        let tmpFilteritem = { filterId : filterItemCnt, id: "", value : "", endvalue : "", fieldType : "string", fieldOp : null};
+        //let tmpCnt = 1;
         //console.log(tmpFilteritem);
         //const tmpCnt = filterItemCnt + 1;
         setExtFilters([...extFilters, tmpFilteritem]);
@@ -97,6 +96,9 @@ function FilterOverlay(props) {
                 newExtFilters[itemIndex]['fieldOp'] = defFieldOpr;
             }
         }
+        if(inputName==="fieldOp"){
+
+        }
         if(itemIndex !== -1){
             //if(newExtFilters[itemIndex]['fieldType'] === "integer")
             newExtFilters[itemIndex][inputName] = newValue;
@@ -131,8 +133,14 @@ function FilterOverlay(props) {
                     let fieldOpName = `fieldOp-${filterIndex}`;
                     let colObj = {
                         columnName : val.id,
-                        //filterValue : "",
+                        inputName  : "value",
                         filterValue : val.value,
+                        filterIndex : filterIndex
+                    }
+                    let colEndObj = {
+                        columnName : val.id,
+                        inputName  : "endvalue",
+                        filterValue : val.endvalue,
                         filterIndex : filterIndex
                     }
                     return (
@@ -194,6 +202,11 @@ function FilterOverlay(props) {
                                         <div className="form-group">
                                             <DefaultColumnFilterAdv column={colObj} fldValChange={handleChange}/>
                                         </div>
+                                        {fieldOperation==="between" &&
+                                        <div className="form-group">
+                                            <DefaultColumnFilterAdv column={colEndObj} fldValChange={handleChange}/>
+                                        </div>
+                                        }
                                     </div>
                                     <div className="col-sm-3 mb-3">
                                         <div className="form-group">
@@ -236,6 +249,11 @@ function FilterOverlay(props) {
                                         <div className="form-group">
                                             <DateRangeColumnFilterAdv column={colObj} fldValChange={handleChange}/>
                                         </div>
+                                        {fieldOperation==="between" &&
+                                        <div className="form-group">
+                                            <DateRangeColumnFilterAdv column={colEndObj} fldValChange={handleChange}/>
+                                        </div>
+                                        }
                                     </div>
                                     <div className="col-sm-3 mb-3">
                                         <div className="form-group">

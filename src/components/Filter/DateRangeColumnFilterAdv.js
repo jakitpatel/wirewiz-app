@@ -2,7 +2,7 @@ import React from "react";
 import * as Icon from "react-feather";
 
 function DateRangeColumnFilterAdv({
-    column: { filterValue, filterIndex },
+    column: { filterValue, filterIndex, inputName },
     fldValChange
     }) {
     const [value, setValue] = React.useState(filterValue || '');
@@ -23,7 +23,7 @@ function DateRangeColumnFilterAdv({
             <input
             className="form-control"
             value={value}
-            data-inputname="value"
+            data-inputname={inputName}
             data-id={filterIndex}
             type="date"
             onChange={(e) => {

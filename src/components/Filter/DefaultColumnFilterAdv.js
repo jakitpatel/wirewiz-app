@@ -3,7 +3,7 @@ import React from "react";
 
 // Define a default UI for filtering
 function DefaultColumnFilterAdv({
-    column: { filterValue, filterIndex },
+    column: { filterValue, filterIndex, inputName },
     fldValChange
   }) {
     const [value, setValue] = React.useState(filterValue || '');
@@ -18,7 +18,7 @@ function DefaultColumnFilterAdv({
         style={{width: "100%", minWidth:"80px" }}
         //value={filterValue || ''}
         value={value}
-        data-inputname="value"
+        data-inputname={inputName}
         data-id={filterIndex}
         onKeyPress={e => {
           console.log("keyCode : "+e.keyCode);

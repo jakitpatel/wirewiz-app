@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import WireDetailForm from "./WireDetailForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { CSVLink } from "react-csv";
 //import DownloadExcel from "./ExcelDownload";
+import ReactToPrint from 'react-to-print';
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -206,18 +207,6 @@ function WireDetails(props) {
     console.log("Handle Wire Restore");
   }
 
-  function getTitle() {
-    //console.log("Get Title : " + props.disType);
-    switch ("view") {
-      case "add":
-        return "Add New Customer";
-      case "edit":
-        return "Edit Customer";
-      default:
-        return "Wire Details";
-    }
-  }
-
   let csvArray = [];
   csvArray.push(wireDetailsObj);
   //let csvFileName = "wire-"+wireID+".csv";
@@ -301,6 +290,7 @@ function WireDetails(props) {
     });
     history.goBack();
   }
+  const componentRef = useRef();
   return (
     <React.Fragment>
       <Modal show={isOpen} onHide={hideModal}>
@@ -316,7 +306,6 @@ function WireDetails(props) {
       <div className="container" style={{marginLeft:"0px", maxWidth: "100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="text-center">{getTitle()} - Wire {wireID}</h3>
             <div className="btnCls">
               <button style={{ float: "left" }} type="button" onClick={backToWireList} className="btn btn-primary btn-sm">
                 Back
@@ -351,11 +340,14 @@ function WireDetails(props) {
                 : null
               }
               */}
+              <ReactToPrint
+                trigger={() => <button type="button" className="btn btn-primary btn-sm" style={{float:"right"}}>PRINT</button>}
+                content={() => componentRef.current}
+              />
+              {/*<button style={{float:"right"}} onClick={() => window.print()}>PRINT</button>*/}
               <div style={{ clear:"both"}}></div>
             </div>
-            <div className="col-sm-12">
-              <WireDetailForm formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
-            </div>
+            <WireDetailForm refPropWithAnotherName={componentRef} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
           </div>
         </div>
       </div>

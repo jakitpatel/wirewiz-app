@@ -79,6 +79,7 @@ function CustTextInput(props) {
 }
 
 function WireDetailForm(props) {
+  const {refPropWithAnotherName} = props;
   let wireDetailsObj = props.custstate;
   let wireID = wireDetailsObj.wireID;
   const { WIRE_MODIFY_CREATE } = useSelector(state => {
@@ -89,108 +90,111 @@ function WireDetailForm(props) {
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
   return (
-    <React.Fragment>
-      <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
-      <div className="sm-vert-form form-row">
-        {
-          Object.entries(wireDetailsObj).map(([key, value]) => {
-            let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
-            if(!str.includes(key)){
-              if(key==="errorMsg"){
-                if(value===null){
-                  value = "";
-                }
-                return (
-                    <div key={key} className="col-sm-12">
-                      <WireRemittanceList wireID={wireID} />
-                      <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">errorMsg</label>
-                        <div className="col-sm-10">
-                            <textarea 
-                            className="form-control" 
-                            rows="3" 
-                            name="errorMsg"
-                            value={value}
-                            readOnly
-                            ></textarea>
-                        </div>
-                      </div>
-                    </div>
-                )
-              } else if(key==="textWireMsg"){
-                let valueSt = "";
-                if(value !== null && value !== ""){
-                  let msgArr = value.split("{");
-                  for (let i = 1; i < msgArr.length; i++) {
-                    msgArr[i] = "{"+msgArr[i] + "\n";
+    <div ref={refPropWithAnotherName}>
+      <h3 className="text-center" style={{marginBottom:"20px"}}>Wire Details - Wire {wireID}</h3>
+      <div className="col-sm-12">
+        <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
+        <div className="sm-vert-form form-row">
+          {
+            Object.entries(wireDetailsObj).map(([key, value]) => {
+              let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
+              if(!str.includes(key)){
+                if(key==="errorMsg"){
+                  if(value===null){
+                    value = "";
                   }
-                  valueSt = msgArr.join("");
-                }
-                return (
-                  <div key={key} className="col-sm-12">
-                    <div className="form-group row">
-                      <label className="col-sm-2 col-form-label">textWireMsg</label>
-                      <div className="col-sm-10">
-                          <textarea 
-                          className="form-control" 
-                          rows="3" 
-                          name="textWireMsg"
-                          value={valueSt}
-                          readOnly
-                          ></textarea>
+                  return (
+                      <div key={key} className="col-sm-12">
+                        <WireRemittanceList wireID={wireID} />
+                        <div className="form-group row">
+                          <label className="col-sm-2 col-form-label">errorMsg</label>
+                          <div className="col-sm-10">
+                              <textarea 
+                              className="form-control" 
+                              rows="3" 
+                              name="errorMsg"
+                              value={value}
+                              readOnly
+                              ></textarea>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                )
-              } else if(key==="businessErrorMsg"){
-                if(value===null){
-                  value = "";
-                }
-                return (
+                  )
+                } else if(key==="textWireMsg"){
+                  let valueSt = "";
+                  if(value !== null && value !== ""){
+                    let msgArr = value.split("{");
+                    for (let i = 1; i < msgArr.length; i++) {
+                      msgArr[i] = "{"+msgArr[i] + "\n";
+                    }
+                    valueSt = msgArr.join("");
+                  }
+                  return (
                     <div key={key} className="col-sm-12">
                       <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">businessErrorMsg</label>
+                        <label className="col-sm-2 col-form-label">textWireMsg</label>
                         <div className="col-sm-10">
                             <textarea 
                             className="form-control" 
                             rows="3" 
-                            name="businessErrorMsg"
-                            value={value}
+                            name="textWireMsg"
+                            value={valueSt}
                             readOnly
                             ></textarea>
                         </div>
                       </div>
                     </div>
-                )
+                  )
+                } else if(key==="businessErrorMsg"){
+                  if(value===null){
+                    value = "";
+                  }
+                  return (
+                      <div key={key} className="col-sm-12">
+                        <div className="form-group row">
+                          <label className="col-sm-2 col-form-label">businessErrorMsg</label>
+                          <div className="col-sm-10">
+                              <textarea 
+                              className="form-control" 
+                              rows="3" 
+                              name="businessErrorMsg"
+                              value={value}
+                              readOnly
+                              ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                  )
+                } else {
+                  let readOnlyVal = !WIRE_MODIFY_CREATE;
+                  if(key==="status" || key==="wireType"){
+                    readOnlyVal = true;
+                  }
+                  if((key==="amount") && value!==null){
+                    value = new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(value);
+                  }
+                  return (
+                    <React.Fragment key={key}>
+                      <CustTextInput
+                        placeholdertext={key}
+                        labelText={key}
+                        nameref={key}
+                        inputchange={props.oncustinputchange}
+                        val={value}
+                        wireDtObj={wireDetailsObj}
+                        readOnlyValue={readOnlyVal}
+                      />
+                    </React.Fragment>
+                  )
+                }
               } else {
-                let readOnlyVal = !WIRE_MODIFY_CREATE;
-                if(key==="status" || key==="wireType"){
-                  readOnlyVal = true;
-                }
-                if((key==="amount") && value!==null){
-                  value = new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(value);
-                }
-                return (
-                  <React.Fragment key={key}>
-                    <CustTextInput
-                      placeholdertext={key}
-                      labelText={key}
-                      nameref={key}
-                      inputchange={props.oncustinputchange}
-                      val={value}
-                      wireDtObj={wireDetailsObj}
-                      readOnlyValue={readOnlyVal}
-                    />
-                  </React.Fragment>
-                )
+                return null;
               }
-            } else {
-              return null;
-            }
-          })
-        }
+            })
+          }
+          </div>
         </div>
-    </React.Fragment>
+    </div>
   );
 }
 

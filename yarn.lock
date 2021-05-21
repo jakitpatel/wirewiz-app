@@ -9652,7 +9652,7 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.13.1":
+"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.13.1":
   "integrity" "sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.13.1.tgz"
   "version" "16.13.1"
@@ -9831,6 +9831,13 @@
   "resolved" "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
   "version" "0.13.4"
 
+"react-to-print@^2.12.4":
+  "integrity" "sha512-OM0nttpZMv3NV+z9FDRyyJIPRHlz05NzlTFoUKPREq+Bq4CnojwzUtB2qNzpwYerXPFzgYXR4/IT1W1mk9s9HA=="
+  "resolved" "https://registry.npmjs.org/react-to-print/-/react-to-print-2.12.4.tgz"
+  "version" "2.12.4"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-tooltip@^4.2.10":
   "integrity" "sha512-D7ZLx6/QwpUl0SZRek3IZy/HWpsEEp0v3562tcT8IwZgu8IgV7hY5ZzniTkHyRcuL+IQnljpjj7A7zCgl2+T3w=="
   "resolved" "https://registry.npmjs.org/react-tooltip/-/react-tooltip-4.2.10.tgz"
@@ -9849,7 +9856,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^16.0.0 || ^17.0.0", "react@^16.13.1", "react@>=16.3.0", "react@>=16.8.0":
+"react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.13.1", "react@>=16.3.0", "react@>=16.8.0":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"

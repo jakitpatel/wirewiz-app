@@ -3,9 +3,10 @@ import "./WireDetailForm.css";
 import ReactTooltip from 'react-tooltip';
 import { useSelector } from 'react-redux';
 import WireRemittanceList from './WireRemittanceList';
+import TextareaAutosize from 'react-textarea-autosize';
 
 function CustTextInput(props) {
-
+  const {defClassName} = props;
   const { wiredict } = useSelector(state => {
     return {
         ...state.wireDictReducer
@@ -57,10 +58,10 @@ function CustTextInput(props) {
     fieldVal = "";
   }
   return (
-    <div className="col-sm-4">
+    <div className={`${defClassName}-4`}>
       <div className="form-group row">
-        <label data-for='wireDetailForm' data-tip={labelTooltip} className="col-sm-5 col-form-label">{props.labelText}</label>
-        <div className="col-sm-7">
+        <label data-for='wireDetailForm' data-tip={labelTooltip} className={`${defClassName}-5 col-form-label`}>{props.labelText}</label>
+        <div className={`${defClassName}-7`}>
           <input
             type="text"
             data-tip={tooltip}
@@ -79,7 +80,7 @@ function CustTextInput(props) {
 }
 
 function WireDetailForm(props) {
-  const {refPropWithAnotherName} = props;
+  const {refPropWithAnotherName, printAct} = props;
   let wireDetailsObj = props.custstate;
   let wireID = wireDetailsObj.wireID;
   const { WIRE_MODIFY_CREATE } = useSelector(state => {
@@ -89,10 +90,16 @@ function WireDetailForm(props) {
   });
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
+  let defClassName = "col";
+  //console.log("printAct : "+printAct);
+  if(printAct===false){
+    defClassName += "-sm";
+  }
+  //console.log(defClassName);
   return (
     <div ref={refPropWithAnotherName}>
       <h3 className="text-center" style={{marginBottom:"20px"}}>Wire Details - Wire {wireID}</h3>
-      <div className="col-sm-12">
+      <div className={`${defClassName}-12`}>
         <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
         <div className="sm-vert-form form-row">
           {
@@ -104,18 +111,18 @@ function WireDetailForm(props) {
                     value = "";
                   }
                   return (
-                      <div key={key} className="col-sm-12">
+                      <div key={key} className={`${defClassName}-12`}>
                         <WireRemittanceList wireID={wireID} />
                         <div className="form-group row">
-                          <label className="col-sm-2 col-form-label">errorMsg</label>
-                          <div className="col-sm-10">
-                              <textarea 
-                              className="form-control" 
-                              rows="3" 
+                          <label className={`${defClassName}-2 col-form-label`}>errorMsg</label>
+                          <div className={`${defClassName}-10`}>
+                              <TextareaAutosize 
+                              className="form-control"
+                              minRows={1}
                               name="errorMsg"
                               value={value}
                               readOnly
-                              ></textarea>
+                              />
                           </div>
                         </div>
                       </div>
@@ -130,17 +137,17 @@ function WireDetailForm(props) {
                     valueSt = msgArr.join("");
                   }
                   return (
-                    <div key={key} className="col-sm-12">
+                    <div key={key} className={`${defClassName}-12`}>
                       <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">textWireMsg</label>
-                        <div className="col-sm-10">
-                            <textarea 
+                        <label className={`${defClassName}-2 col-form-label`}>textWireMsg</label>
+                        <div className={`${defClassName}-10`}>
+                            <TextareaAutosize 
                             className="form-control" 
-                            rows="3" 
+                            minRows={1}
                             name="textWireMsg"
                             value={valueSt}
                             readOnly
-                            ></textarea>
+                            />
                         </div>
                       </div>
                     </div>
@@ -150,17 +157,17 @@ function WireDetailForm(props) {
                     value = "";
                   }
                   return (
-                      <div key={key} className="col-sm-12">
+                      <div key={key} className={`${defClassName}-12`}>
                         <div className="form-group row">
-                          <label className="col-sm-2 col-form-label">businessErrorMsg</label>
-                          <div className="col-sm-10">
-                              <textarea 
+                          <label className={`${defClassName}-2 col-form-label`}>businessErrorMsg</label>
+                          <div className={`${defClassName}-10`}>
+                              <TextareaAutosize 
                               className="form-control" 
-                              rows="3" 
+                              minRows={1}
                               name="businessErrorMsg"
                               value={value}
                               readOnly
-                              ></textarea>
+                              />
                           </div>
                         </div>
                       </div>
@@ -183,6 +190,7 @@ function WireDetailForm(props) {
                         val={value}
                         wireDtObj={wireDetailsObj}
                         readOnlyValue={readOnlyVal}
+                        defClassName={defClassName}
                       />
                     </React.Fragment>
                   )

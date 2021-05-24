@@ -347,7 +347,10 @@ function WireDetails(props) {
               {/*<button style={{float:"right"}} onClick={() => window.print()}>PRINT</button>*/}
               <div style={{ clear:"both"}}></div>
             </div>
-            <WireDetailForm refPropWithAnotherName={componentRef} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
+            <WireDetailForm printAct={false} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
+            <div style={{ display: "none" }}>
+              <WireDetailForm printAct={true} refPropWithAnotherName={componentRef} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
+            </div>
           </div>
         </div>
       </div>

@@ -899,14 +899,18 @@ function WiresInlist(props) {
                 Back
               </button>
               }
-              <React.Fragment>
-                {showResolveSection &&
+              {showResolveSection &&
                 <>
                   {showOverrideSection && 
-                  <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireOverride}  className="btn btn-primary btn-sm">
+                  <button type="button" style={{ marginLeft:"10px"}} onClick={onWireOverride}  className="btn btn-primary btn-sm">
                     Override
                   </button>
                   }
+                </>
+              }
+              <React.Fragment>
+                {showResolveSection &&
+                <>
                   <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className="btn btn-primary btn-sm">
                     Resolve
                   </button>
@@ -947,9 +951,9 @@ function WiresInlist(props) {
                   {sendCmp}
                 </>
                 }
-                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
+                {/*<button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
                   <Icon.RefreshCw />
-                </button>
+                </button>*/}
                 <CSVLink
                       data={wireText}
                       uFEFF={false}

@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import WireinManualResolvedView from "./WireinManualResolvedView.js";
 import * as Icon from "react-feather";
 //import "./Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
-import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
+//import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} = window.constVar;
+const {API_KEY, WireinManualResolved_Url} = window.constVar;
 
 function WireinManualResolved(props) {
-  let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [filtersarr, setFiltersarr] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(0);
-  const [wireInRecord, setWireInRecord] = useState([]);
   const [isRefresh, setIsRefresh] = useState(false);
   const fetchIdRef = React.useRef(0);
 
@@ -39,13 +36,6 @@ function WireinManualResolved(props) {
         ...state.wireManualResolveReducer
     }
   });
-
-  const location = useLocation();
-
-  const buildDocLink = (filename) => {
-    let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
-    return link;
-   }
 
    let columnDefs = [];
    columnDefs.push(
@@ -144,14 +134,13 @@ function WireinManualResolved(props) {
          // '$100.00'
        }
      },
-     /*
      {
        field: "completeDateTime",
        Header: "CompleteDateTime",
        accessor: "completeDateTime",
        disableFilters: true,
      },
-     {
+     /*{
        field: "errorMsg",
        Header: "ErrorMsg",
        accessor: "errorMsg",
@@ -176,8 +165,7 @@ function WireinManualResolved(props) {
        field: "resolveMsg",
        Header: "resolveMsg",
        accessor: "resolveMsg"
-     }
-     );
+     });
 
   useEffect(() => {
     const interval = setInterval(() => {

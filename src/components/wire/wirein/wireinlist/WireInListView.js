@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import * as Icon from "react-feather";
 import './WireInListView.css';
 import DefaultColumnFilter from './../../../Filter/DefaultColumnFilter';
 
@@ -267,7 +268,7 @@ function Table({
     <>
     {pageCount>1 &&
     <div className="pagination row">
-      <div className="col-md-3">
+      <div className="col-md-2">
         <button className={`btn btn-primary btn-md`} onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {'<<'}
         </button>{' '}
@@ -275,13 +276,18 @@ function Table({
           {'<'}
         </button>{' '}
       </div>
-      <div className="col-md-3">
+      <div className="col-md-2">
         <button className={`btn btn-primary btn-md`} onClick={() => nextPage()} disabled={!canNextPage}>
           {'>'}
         </button>{' '}
         <button className={`btn btn-primary btn-md`} onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
           {'>>'}
         </button>{' '}
+      </div>
+      <div className="col-md-2" style={{ textAlign:"center"}}>
+        <button type="button" onClick={(e)=> {setIsRefresh(!isRefresh);}} className={`btn btn-primary btn-sm`}>
+          <Icon.RefreshCw />
+        </button>
       </div>
       <div className="col-md-4">
         <span>

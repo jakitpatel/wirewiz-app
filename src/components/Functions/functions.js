@@ -52,7 +52,7 @@ const buildFilterUrl = (filterArr) => {
       if(filterClm==="ALDLoanApplicationNumberOnly" || filterClm==="TaxID"){
         filterOpr = "=";
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";
-      } else if(filterClm==="sentDateTime"){
+      } else if(filterClm==="sentDateTime" || filterClm==="completeDateTime"){
         /*
         filterOpr = "=";
         filterUrl += " and ("+filterClm+" "+filterOpr+" "+filterVal+")";

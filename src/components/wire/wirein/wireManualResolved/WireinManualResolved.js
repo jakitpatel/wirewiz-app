@@ -5,7 +5,7 @@ import * as Icon from "react-feather";
 //import "./Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-//import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
+import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
 const {API_KEY, WireinManualResolved_Url} = window.constVar;
@@ -138,7 +138,8 @@ function WireinManualResolved(props) {
        field: "completeDateTime",
        Header: "CompleteDateTime",
        accessor: "completeDateTime",
-       disableFilters: true,
+       Filter: DateRangeColumnFilter
+       //disableFilters: true,
      },
      /*{
        field: "errorMsg",

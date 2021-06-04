@@ -9,6 +9,8 @@ import wireDocReducer from './wireDocReducer';
 import wireDetailsReducer from './wireDetailsReducer';
 import wiresInPostedReducer from './wireInPostedReducer';
 import wireManualResolveReducer from './wireManualResolveReducer';
+import wireoutForOFACReducer from './wireoutForOFACReducer';
+import wireoutForOFACGeneratedReducer from './wireoutForOFACGeneratedReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
@@ -20,7 +22,9 @@ const rootReducer = combineReducers({
     wireDocReducer,
     wireDetailsReducer,
     wiresInPostedReducer,
-    wireManualResolveReducer
+    wireManualResolveReducer,
+    wireoutForOFACReducer,
+    wireoutForOFACGeneratedReducer
 });
 
 export default rootReducer;

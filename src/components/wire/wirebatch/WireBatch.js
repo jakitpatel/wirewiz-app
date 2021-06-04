@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 //import Listview from "./../../Listview/Listview";
 import WireBatchListview from "./WireBatchListview";
 import * as Icon from "react-feather";
 import "./WireBatch.css";
-import axios from 'axios';
+//import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 //import {API_KEY, WireBatch_Url} from './../../../const';
-const {API_KEY, WireBatch_Url} = window.constVar;
+//const {API_KEY, WireBatch_Url} = window.constVar;
 
 function WireBatch(props) {
   const [loading, setLoading] = useState(false);
   const [wirebatchlist, setWirebatchlist] = useState([]);
   const location = useLocation();
-
-  const { session_token } = useSelector(state => {
-      return {
-          ...state.userReducer
-      }
-  });
 
   const columnDefs = [
     {

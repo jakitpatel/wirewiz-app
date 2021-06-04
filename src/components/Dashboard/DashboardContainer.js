@@ -18,7 +18,9 @@ import ACHFileRecord from "./../ACH/ACHFileRecord/ACHFileRecord.js"
 import ACHBatchRecord from "./../ACH/ACHBatchRecord/ACHBatchRecord.js"
 import ACHDetailEntry from "./../ACH/ACHDetailEntry/ACHDetailEntry.js"
 import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
-import DepositList from './../Deposits/DepositList.js'
+import DepositList from './../Deposits/DepositList.js';
+import ForOFAC from './../wire/wireout/ForOFAC/ForOFAC.js';
+import ForOFACGenerated from './../wire/wireout/ForOFACGenerated/ForOFACGenerated.js';
 import { useSelector } from 'react-redux';
 
 const WireListWrap = props => {
@@ -73,6 +75,14 @@ const routes = [
   {
     path: "/wiresmanualresolved",
     main: () => <WireinManualResolved  />
+  },
+  {
+    path: "/wireoutOFAC",
+    main: () => <ForOFAC  />
+  },
+  {
+    path: "/wireoutOFACGenerated",
+    main: () => <ForOFACGenerated />
   },
   {
     path: "/wiredetails/:wireID",

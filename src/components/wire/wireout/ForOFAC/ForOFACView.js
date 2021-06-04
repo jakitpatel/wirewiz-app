@@ -1,10 +1,10 @@
 import React from "react";
 import { useTable, useSortBy, useFilters, usePagination, useRowSelect, useAsyncDebounce } from 'react-table';
 import styled from 'styled-components';
-//import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import './WireinPostedActualView.css';
-import DefaultColumnFilter from './../../Filter/DefaultColumnFilter';
+import './ForOFACView.css';
+import DefaultColumnFilter from './../../../Filter/DefaultColumnFilter';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -71,6 +71,7 @@ function Table({
   );
 
   const location = useLocation();
+  const dispatch = useDispatch();
 
   // Use the state and functions returned from useTable to build your UI
 
@@ -314,13 +315,15 @@ function Table({
   )
 }
 
- function WireinPostedActualView(props) {
+ function ForOFACView(props) {
    //console.log(props.items);
    //const data = React.useMemo(() => props.items, [props.items])
+   const dispatch = useDispatch();
    const columns = React.useMemo(() => props.columnDefs,[props.columnDefs])
    
    //const [selectedRows, setSelectedRows] = useState([]);
 
+   //const dispatch = useDispatch();
    let { initialState, filtersarr, 
     setFiltersarr, loading, 
     fetchData, pageCount, 
@@ -357,4 +360,4 @@ function Table({
   )
  }
 
- export default WireinPostedActualView;
+ export default ForOFACView;

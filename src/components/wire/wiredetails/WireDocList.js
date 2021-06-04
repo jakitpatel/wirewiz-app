@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+//import { Link } from "react-router-dom";
 import Listview from "./../../Listview/Listview";
-import * as Icon from "react-feather";
+//import * as Icon from "react-feather";
 import "./WireDetailForm.css";
-import axios from 'axios';
+//import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 //import {API_KEY} from './../../../const';
-const {API_KEY, WireDocList_Url} = window.constVar;
+//const {API_KEY, WireDocList_Url} = window.constVar;
 
 function WireDocList(props) {
   //let history = useHistory();
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const { session_token } = useSelector(state => {
-      return {
-          ...state.userReducer
-      }
-  });
 
   const { wireDocList } = useSelector(state => {
     return {

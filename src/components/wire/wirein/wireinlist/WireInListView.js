@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import { useTable, useSortBy, useFilters, usePagination, useRowSelect, useAsyncDebounce } from 'react-table';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import * as Icon from "react-feather";
@@ -36,6 +36,7 @@ const Styles = styled.div`
     }
   }
 `
+/*
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef()
@@ -52,6 +53,7 @@ const IndeterminateCheckbox = React.forwardRef(
     )
   }
 )
+*/
 
 // Create an editable cell renderer
 const EditableCell = ({

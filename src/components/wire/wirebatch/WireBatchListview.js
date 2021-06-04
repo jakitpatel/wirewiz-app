@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip';
+//import ReactTooltip from 'react-tooltip';
 import './WireBatchListview.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -50,24 +50,6 @@ function Table({
   loading,
   pageCount: controlledPageCount 
 }) {
-
-  const filterTypes = React.useMemo(
-    () => ({
-      // Or, override the default text filter to use
-      // "startWith"
-      text: (rows, id, filterValue) => {
-        return rows.filter(row => {
-          const rowValue = row.values[id]
-          return rowValue !== undefined
-            ? String(rowValue)
-                .toLowerCase()
-                .startsWith(String(filterValue).toLowerCase())
-            : true
-        })
-      },
-    }),
-    []
-  )
 
   const defaultColumn = React.useMemo(
     () => ({
@@ -132,37 +114,6 @@ function Table({
   // Render the UI for your table
   return (
     <>
-    {/*
-    <pre>
-        <code>
-          {JSON.stringify(
-            {
-              pageIndex,
-              pageSize,
-              pageCount,
-              canNextPage,
-              canPreviousPage,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-      <div>
-        <pre>
-          <code>
-            {JSON.stringify(
-              {
-                "initialState.filters": filtersarr,
-                "state.filters": filters
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre>
-      </div>
-      */}
     {pageCount>1 &&
     <div className="pagination row">
       <div className="col-md-3">
@@ -299,7 +250,7 @@ function Table({
    
    const { initialState } = props;
 
-   const resetFilters = React.useCallback(() => setFiltersarr([]), [setFiltersarr]);
+   //const resetFilters = React.useCallback(() => setFiltersarr([]), [setFiltersarr]);
 
    const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
       // This will get called when the table needs new data

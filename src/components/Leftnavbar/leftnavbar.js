@@ -104,27 +104,27 @@ function LeftNavBar(props) {
                           />
                         </ul>
                       </div>
-                      <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu3" data-toggle="collapse" data-target="#submenu3">
-                        <Icon.Trello />
-                        <span style={{ marginLeft: 10 }}>Wireout</span>
-                      </a>
-                      <div className="collapse" id="submenu3" aria-expanded="false">
-                        <ul className="flex-column nav pl-4">
-                          <MenuListItem
-                            menuName="For OFAC"
-                            routePath={`${process.env.PUBLIC_URL}/wireoutOFAC`}
-                            iconName="trello"
-                            enableVal={WIRE_ENABLER}
-                          />
-                          <MenuListItem
-                            menuName="For OFAC Generated"
-                            routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
-                            iconName="trello"
-                            enableVal={WIRE_ENABLER}
-                          />
-                        </ul>
-                      </div>
                   </ul>
+              </div>
+              <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu3" data-toggle="collapse" data-target="#submenu3">
+                <Icon.Trello />
+                <span style={{ marginLeft: 10 }}>Wireout</span>
+              </a>
+              <div className="collapse" id="submenu3" aria-expanded="false">
+                <ul className="flex-column nav pl-4">
+                  <MenuListItem
+                    menuName="For OFAC"
+                    routePath={`${process.env.PUBLIC_URL}/wireoutOFAC`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
+                    menuName="For OFAC Generated"
+                    routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                </ul>
               </div>
           </li>
           {/*

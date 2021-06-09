@@ -63,110 +63,64 @@ function ForOFAC(props) {
        }
      },
      {
-       name: "senderShortName",
-       field: "senderShortName",
-       Header: "senderShortName",
-       accessor: "senderShortName"
-     },
-     {
-       name: "originatorName",
-       field: "originatorName",
-       Header: "originatorName",
-       accessor: "originatorName"
-     },
-     {
-       name: "beneficiaryName",
-       field: "beneficiaryName",
-       Header: "beneficiaryName",
-       accessor: "beneficiaryName"
-     },
-     {
-       name: "beneficiaryIdentifier",
-       field: "beneficiaryIdentifier",
-       Header: "beneficiaryIdentifier",
-       accessor: "beneficiaryIdentifier"
-     },
-     /*{
-       field: "status",
-       Header: "status",
-       accessor: "status",
-       //Filter: SelectColumnFilter,
-       //filter: 'includes',
-       Cell: obj => {
-         //console.log(obj.row);
-         let wireListObj = obj.row.original;
-         let colorCode = "";
-         let status = wireListObj.status;
-         if(status === null || status === "NEW"){
-           colorCode = "red";
-         } else if(status === "INPROGRESS"){
-           colorCode = "blue";
-         } else if(status === "DONE"){
-           colorCode = "green";
-         }
-         //console.log(colorCode);
-         return (
-           <div>
-             <span style={{color:colorCode}}>{status}</span>
-           </div>
-         );
-       }
-     },
-     {
-       field: "wireType",
-       Header: "wireType",
-       accessor: "wireType"
-     },*/
-     {
-       field: "amount",
-       Header: "amount",
-       accessor: "amount",
-       disableFilters: true,
-       Cell: props => {
-         if(props.value===null || props.value===undefined) {
-           return null;
-         }
-         return (
-           <div style={{textAlign: "right"}}>
-           {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
-           </div>
-         )
-         // '$100.00'
-       }
-     },
-     {
-       field: "completeDateTime",
-       Header: "CompleteDateTime",
-       accessor: "completeDateTime",
-       Filter: DateRangeColumnFilter
-       //disableFilters: true,
-     },
-     /*{
-       field: "errorMsg",
-       Header: "ErrorMsg",
-       accessor: "errorMsg",
-       disableFilters: true,
-       Cell: obj => {
-         //console.log(obj.row);
-         let wireListObj = obj.row.original;
-         let error = "";
-         let errorTooltip = "";
-         if(wireListObj.errorMsg!== "" && wireListObj.errorMsg !== null){
-           error = "****";
-           errorTooltip = wireListObj.errorMsg;
-         }
-         return (
-           <div>
-             <span data-tip={errorTooltip} data-for='wireListTtip' style={{color:"red"}}>{error}</span>
-           </div>
-         );
-       }
-     }*/
-     {
-       field: "resolveMsg",
-       Header: "resolveMsg",
-       accessor: "resolveMsg"
-     });
+      Header: "Generate OFAC File",
+      show : true, 
+      width: 90,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInObj = obj.row.original;
+        return (
+          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
+      headerName: "Account",
+      field: "Account",
+      Header: "Account",
+      accessor: "Account"
+    },
+    {
+      name: "Name",
+      field: "Name",
+      Header: "Name",
+      accessor: "Name"
+    },
+    {
+      headerName: "numWires",
+      field: "numWires",
+      Header: "# Wires",
+      accessor: "numWires"
+    },
+    {
+      name: "lastArrivialTime",
+      field: "lastArrivialTime",
+      Header: "lastArrivialTime",
+      accessor: "lastArrivialTime"
+    },
+    {
+      name: "totalAmount",
+      field: "totalAmount",
+      Header: "Total Amount",
+      accessor: "totalAmount",
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        return (
+          <div style={{textAlign: "right"}}>
+          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
+          </div>
+        )
+        // '$100.00'
+      }
+    });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -256,6 +210,43 @@ function ForOFAC(props) {
       fetchWirePostedRecord();
     }
   }, [ dispatch, session_token]);
+
+  const onWireInExport = async (e, wireInObj) => {
+    console.log("Called Wire In Export");
+    console.log(wireInObj);
+    /*
+    console.log("sending : "+sending);
+    if(sending===true){
+      return false;
+    }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {
+      "resource": [{"vAcc": wireInObj.Account}]
+    };
+    let url = WireInExport_Url;
+    if(env==="DEVLOCAL"){
+      url = WireInExport_Url;
+    }
+    try {
+      //setSending(!sending);
+      setSending(true);
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      //setSending(!sending);
+      setSending(false);
+      setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.error(error) // from creation or business logic
+      //setSending(!sending);
+      setSending(false);
+    }
+    */    
+  }
 
   console.log("Properties", props);
   const initialSortState = {

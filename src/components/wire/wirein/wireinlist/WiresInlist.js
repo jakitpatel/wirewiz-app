@@ -41,7 +41,7 @@ function WiresInlist(props) {
   const [toWiredetails, setToWiredetails] = useState(false);
   const [modWireData, setModWireData] = React.useState([]);
 
-  const [resolveText, setResolveText] = useState("solve1");
+  const [resolveText, setResolveText] = useState("Sent to Branch");
 
   const dispatch = useDispatch();
 
@@ -319,11 +319,16 @@ function WiresInlist(props) {
     if(batchRec.fromView && batchRec.fromView==="wireInManual"){
       modObj = {
         status:3,
-        wireID:modifiedRec.wireID
+        wireID:modifiedRec.wireID,
+        businessErrorMsg:modifiedRec.businessErrorMsg/*,
+        beneficiaryName : modifiedRec.beneficiaryName,
+        vAcc : modifiedRec.vAcc*/
       };
     }
     const newWires = modWireData.filter((wire) => wire.wireID !== modifiedRec.wireID);
-    newWires.push(modObj);
+    if(value!==false){
+      newWires.push(modObj);
+    }
     setModWireData(newWires);
     //setModWireData([...modWireData, modObj ]);
     console.log("updateWire");
@@ -612,6 +617,7 @@ function WiresInlist(props) {
     };
     for(let k=0; k<modWireData.length;k++){
       let wireObj = modWireData[k];
+      delete wireObj.businessErrorMsg;
       /*let tmpWireObj = {};
       tmpWireObj.status = 3;
       tmpWireObj.wireID = wireDetailsObj.wireID;
@@ -638,6 +644,7 @@ function WiresInlist(props) {
     try {
       let res = await axios.put(url, data, options);
       console.log(res.data);
+      setModWireData([]);
       setIsRefresh(!isRefresh);
       //setIsRefresh(!isRefresh);
     } catch (error) {
@@ -720,18 +727,37 @@ function WiresInlist(props) {
 
   const onWireOverride = async () => {
     console.log("on Wire Override");
+    console.log(modWireData);
     if(modWireData.length === 0){
       return false;
     }
+    /// Check businessErrorMsg contains countryList & limit then put an alert message
+    let flagOverride = true;
+    for(let i=0; i<modWireData.length;i++){
+      let wireObj = modWireData[i];
+      let bsErrMsg = wireObj.businessErrorMsg;
+      if(bsErrMsg!==null && bsErrMsg!=="" && bsErrMsg!==undefined){
+        if(bsErrMsg.toLowerCase().includes("countrylist") || bsErrMsg.toLowerCase().includes("limit")){
+          flagOverride = false;
+        }
+      }
+    }
+    if(flagOverride===false){
+      alert("Selected wire contains countryList or limit in businessErrorMsg. Please unselect to proceed with override.");
+      return false;
+    }
+
     const options = {
       headers: {
         'X-DreamFactory-API-Key': API_KEY,
         'X-DreamFactory-Session-Token': session_token
       }
     };
+    let wireOverrideNames = [];
     for(let k=0; k<modWireData.length;k++){
       let wireObj = modWireData[k];
       delete wireObj.status;
+      delete wireObj.businessErrorMsg;
       /*let tmpWireObj = {};
       tmpWireObj.status = 3;
       tmpWireObj.wireID = wireDetailsObj.wireID;
@@ -747,6 +773,15 @@ function WiresInlist(props) {
       //wireObj.completeDateTime = datefull;
       wireObj.overrideFlag = 1;
       //wiresResourceArr.push(tmpWireObj);
+      /*
+      let wireOverrideObj = {
+        vAcc : wireObj.vAcc,
+        beneficiaryName : wireObj.beneficiaryName
+      };
+      wireOverrideNames.push(wireOverrideObj);
+      delete wireObj.beneficiaryName;
+      delete wireObj.vAcc;
+      */
     }
     let data = {
       "resource": modWireData
@@ -757,7 +792,9 @@ function WiresInlist(props) {
     }
     try {
       let res = await axios.put(url, data, options);
+      //let res1 = await axios.post(wireOverrideNamesUrl, wireOverrideNames, options);
       console.log(res.data);
+      setModWireData([]);
       setIsRefresh(!isRefresh);
       //setIsRefresh(!isRefresh);
     } catch (error) {

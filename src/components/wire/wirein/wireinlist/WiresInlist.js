@@ -732,18 +732,24 @@ function WiresInlist(props) {
       return false;
     }
     /// Check businessErrorMsg contains countryList & limit then put an alert message
-    let flagOverride = true;
+    let flagOverride = false;
     for(let i=0; i<modWireData.length;i++){
       let wireObj = modWireData[i];
       let bsErrMsg = wireObj.businessErrorMsg;
       if(bsErrMsg!==null && bsErrMsg!=="" && bsErrMsg!==undefined){
-        if(bsErrMsg.toLowerCase().includes("countrylist") || bsErrMsg.toLowerCase().includes("limit")){
+        if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
+          flagOverride = true;
+        } else {
           flagOverride = false;
+          break;
         }
+      } else {
+        flagOverride = false;
+        break;
       }
     }
     if(flagOverride===false){
-      alert("Selected wire contains countryList or limit in businessErrorMsg. Please unselect to proceed with override.");
+      alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
       return false;
     }
 

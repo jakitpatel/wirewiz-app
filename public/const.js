@@ -1,6 +1,7 @@
 //let env = "DEVLOCAL";
 let env = "DEV";
 //let env = "PROD";
+//let env = "UAT";
 
 let API_URL = "";
 let API_URL_DB = "";
@@ -8,6 +9,9 @@ let API_URL_DB = "";
 if (env === 'DEV') {
     API_URL      = "https://api-dev-int.cfsb.com/api/v2/";  // For DEV Env
     API_URL_DB   = "https://api-dev-int.cfsb.com/api/v2/wiresdb/";  // For DEV Env
+} else if (env === 'UAT') {
+    API_URL      = "https://api-uat-int.cfsb.com/api/v2/";  // For UAT Env
+    API_URL_DB   = "https://api-uat-int.cfsb.com/api/v2/wiresdb/";  // For UAT Env
 } else if(env === 'PROD'){
     API_URL      = "https://api-prod-int.cfsb.com/api/v2/";  // For PROD Env
     API_URL_DB   = "https://api-prod-int.cfsb.com/api/v2/wiresdb/";  // For DEV Env

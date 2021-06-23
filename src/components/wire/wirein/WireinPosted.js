@@ -71,7 +71,7 @@ function WireinPosted(props) {
       }
     },
     {
-      Header: "Post w/ TXT",
+      Header: "Post",
       show : true, 
       width: 105,
       //id: 'colViewWireDetail',
@@ -95,7 +95,7 @@ function WireinPosted(props) {
         );
       }
     },
-    {
+    /*{
       Header: "Post w/o TXT",
       show : true, 
       width: 115,
@@ -107,19 +107,19 @@ function WireinPosted(props) {
         //console.log(obj.row);
         let wireInPostobj = obj.row.original;
         let enableVal = true;
-        /*
-        if(wireInPostobj.postStatus){
-          if(wireInPostobj.postStatus.includes('posted2OFAC')){
-            enableVal = true;
-          }
-        }*/
+        
+        //if(wireInPostobj.postStatus){
+          //if(wireInPostobj.postStatus.includes('posted2OFAC')){
+            //enableVal = true;
+          //}
+        //}
         return (
           <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
       }
-    },
+    },*/
     /*
     {
       headerName: "wirePostID",
@@ -255,8 +255,8 @@ function WireinPosted(props) {
       }
     };
     let data = {
-      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}],
-      "Clt" : withCltFlag
+      //"Clt" : withCltFlag,
+      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}]
     };
     let url = WirePost2Fiserv_Url;
     if(env==="DEVLOCAL"){

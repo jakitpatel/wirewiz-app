@@ -73,7 +73,7 @@ function WireinPosted(props) {
     {
       Header: "Post",
       show : true, 
-      width: 105,
+      width: 80,
       //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,

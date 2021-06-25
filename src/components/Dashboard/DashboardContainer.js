@@ -21,6 +21,7 @@ import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
 import DepositList from './../Deposits/DepositList.js';
 import ForOFAC from './../wire/wireout/ForOFAC/ForOFAC.js';
 import ForOFACGenerated from './../wire/wireout/ForOFACGenerated/ForOFACGenerated.js';
+import CreateWire from './../wire/wireout/CreateWire/CreateWire.js';
 import { useSelector } from 'react-redux';
 
 const WireListWrap = props => {
@@ -83,6 +84,10 @@ const routes = [
   {
     path: "/wireoutOFACGenerated",
     main: () => <ForOFACGenerated />
+  },
+  {
+    path: "/createWire",
+    main: () => <CreateWire />
   },
   {
     path: "/wiredetails/:wireID",

@@ -1,4 +1,4 @@
-const wireoutForOFACReducer = (state = { wireoutForOFAC:[], pageIndex:0, pageSize:10, totalCount:0, sortBy:[{ id: "wirePostID", desc: true }], filters:[], backToList:false }, action) => {
+const wireoutForOFACReducer = (state = { wireoutForOFAC:[], pageIndex:0, pageSize:10, totalCount:0, sortBy:[], filters:[], backToList:false }, action) => {
     switch(action.type){
         case "UPDATEWIREOUTForOFAC":
             return {

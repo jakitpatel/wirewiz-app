@@ -250,7 +250,8 @@ function ForOFAC(props) {
 
   console.log("Properties", props);
   const initialSortState = {
-    sortBy: [{ id: "wirePostID", desc: true }]
+    //sortBy: [{ id: "wirePostID", desc: true }]
+    sortBy: []
    }; 
   const initialState = {
     //pageIndex : 0,

@@ -80,13 +80,13 @@ function ForOFAC(props) {
         );
       }
     },
-    /*{
-      headerName: "Account",
-      field: "Account",
-      Header: "Account",
-      accessor: "Account"
-    },
     {
+      headerName: "wireBatchId",
+      field: "wireBatchId",
+      Header: "wireBatchId",
+      accessor: "wireBatchId"
+    },
+    /*{
       name: "Name",
       field: "Name",
       Header: "Name",

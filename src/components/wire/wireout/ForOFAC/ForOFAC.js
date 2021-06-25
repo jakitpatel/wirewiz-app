@@ -80,7 +80,7 @@ function ForOFAC(props) {
         );
       }
     },
-    {
+    /*{
       headerName: "Account",
       field: "Account",
       Header: "Account",
@@ -91,7 +91,7 @@ function ForOFAC(props) {
       field: "Name",
       Header: "Name",
       accessor: "Name"
-    },
+    },*/
     {
       headerName: "numWires",
       field: "numWires",

@@ -50,10 +50,11 @@ function ForOFAC(props) {
        Cell: obj => {
          //console.log(obj.row);
          let wireListObj = obj.row.original;
+         wireListObj.fromView = "wireOutOFAC";
          return (
            <Link
              to={{
-               pathname: `${process.env.PUBLIC_URL}/wiredetails/${wireListObj.wireID}`,
+               pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireListObj.wireBatchId}`,
                state: obj.row.original
              }}
            >

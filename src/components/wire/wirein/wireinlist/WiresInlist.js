@@ -92,7 +92,11 @@ function WiresInlist(props) {
   } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
     chkHeaderTitle = "Select";
     fieldNameAccessor = "resolve";
-  }
+  } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
+    chkHeaderTitle = "excludeOFAC";
+    fieldNameAccessor = "excludeOFAC";
+  } 
+  
   let selectBox = {
     Header: chkHeaderTitle,
     width: 55,
@@ -407,6 +411,8 @@ function WiresInlist(props) {
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
+        } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
+          url += "&filter=(wireBatchID='"+batchRec.wireBatchId+"')";
         }
       }
       if(filters.length>0){
@@ -874,6 +880,8 @@ function WiresInlist(props) {
       let type = batchRec.type;
       let account = batchRec.account;
       headerTitle += " - Manual - "+type+" - "+account;
+    } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
+      headerTitle += " - Batch "+batchRec.wireBatchId;
     } 
     byWireBatchId = true;
     txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";

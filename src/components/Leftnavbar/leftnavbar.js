@@ -50,7 +50,7 @@ function LeftNavBar(props) {
           <li className="nav-item">
               <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu1" data-toggle="collapse" data-target="#submenu1">
                 <Icon.Trello />
-                <span style={{ marginLeft: 10 }}>Wires</span>
+                <span style={{ marginLeft: 10 }}>Wires In</span>
               </a>
               <div className="collapse" id="submenu1" aria-expanded="false">
                   <ul className="flex-column nav pl-4">

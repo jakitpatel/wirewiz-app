@@ -8,10 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForOFAC_Url} = window.constVar;
+const {API_KEY, WireoutForOFAC_Url, WireInExport_Url, env} = window.constVar;
 
 function ForOFAC(props) {
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);  // Managin multiple sending
   const [filtersarr, setFiltersarr] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(0);
   const [isRefresh, setIsRefresh] = useState(false);
@@ -215,7 +216,7 @@ function ForOFAC(props) {
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
-    /*
+    
     console.log("sending : "+sending);
     if(sending===true){
       return false;
@@ -227,7 +228,7 @@ function ForOFAC(props) {
       }
     };
     let data = {
-      "resource": [{"vAcc": wireInObj.Account}]
+      "resource": [{"wireBatchId": wireInObj.wireBatchId}]
     };
     let url = WireInExport_Url;
     if(env==="DEVLOCAL"){
@@ -245,8 +246,7 @@ function ForOFAC(props) {
       console.error(error) // from creation or business logic
       //setSending(!sending);
       setSending(false);
-    }
-    */    
+    }  
   }
 
   console.log("Properties", props);

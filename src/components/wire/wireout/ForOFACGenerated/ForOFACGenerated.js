@@ -72,7 +72,7 @@ function ForOFACGenerated(props) {
       field: "wirePostID",
       Header: "wirePostID",
       accessor: "wirePostID"
-    },*/
+    },
     {
       headerName: "Account",
       field: "Account",
@@ -84,7 +84,7 @@ function ForOFACGenerated(props) {
       field: "Name",
       Header: "Name",
       accessor: "Name"
-    },
+    },*/
     {
       name: "sentDateTime",
       field: "sentDateTime",
@@ -108,6 +108,18 @@ function ForOFACGenerated(props) {
       }
     },
     {
+      name: "FEDGenFileName",
+      field: "FEDGenFileName",
+      Header: "FED File",
+      accessor: "FEDGenFileName",
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.FEDGenFileName);
+        return (
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.FEDGenFileName)}}>{row.original.FEDGenFileName}</button>
+        )
+      }
+    },
+    /*{
       name: "FISERVGenFileName",
       field: "FISERVGenFileName",
       Header: "FISERV File",
@@ -130,7 +142,7 @@ function ForOFACGenerated(props) {
           <button className="btn btn-link" onClick={() => {download(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
         )
       }
-    },
+    },*/
     /*{
       name: "postStatus",
       field: "postStatus",

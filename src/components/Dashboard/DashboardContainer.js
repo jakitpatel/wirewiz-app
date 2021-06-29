@@ -21,6 +21,7 @@ import ACHDetails from "./../ACH/ACHDetailEntry/ACHDetails.js"
 import DepositList from './../Deposits/DepositList.js';
 import ForOFAC from './../wire/wireout/ForOFAC/ForOFAC.js';
 import ForOFACGenerated from './../wire/wireout/ForOFACGenerated/ForOFACGenerated.js';
+import WiresoutPosting from './../wire/wireout/Posting/Posting.js';
 import CreateWire from './../wire/wireout/CreateWire/CreateWire.js';
 import { useSelector } from 'react-redux';
 
@@ -84,6 +85,10 @@ const routes = [
   {
     path: "/wireoutOFACGenerated",
     main: () => <ForOFACGenerated />
+  },
+  {
+    path: "/wiresoutposting",
+    main: () => <WiresoutPosting  />
   },
   {
     path: "/createWire",

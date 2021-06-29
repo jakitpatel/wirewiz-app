@@ -119,7 +119,7 @@ function LeftNavBar(props) {
                     enableVal={WIRE_ENABLER}
                   />
                   <MenuListItem
-                    menuName="For OFAC Generated"
+                    menuName="Completed"
                     routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}

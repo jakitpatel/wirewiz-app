@@ -293,7 +293,7 @@ function ForOFAC(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <div>
-              <h3 style={{float:"left"}} className="title-center">Outbound Wires - For OFAC</h3>
+              <h3 style={{float:"left"}} className="title-center">Outbound Wires - Ready for OFAC</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>

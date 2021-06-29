@@ -427,7 +427,7 @@ function WiresInlist(props) {
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
           let wirePostID = batchRec.wirePostID;
-          let filterUrl = "(wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null)";
+          let filterUrl = "((wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFED is NULL))";
           url += "&filter="+encodeURIComponent(filterUrl);
         } 
       }

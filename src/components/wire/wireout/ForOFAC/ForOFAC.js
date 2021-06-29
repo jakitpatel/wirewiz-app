@@ -82,12 +82,6 @@ function ForOFAC(props) {
         );
       }
     },
-    {
-      headerName: "wireBatchId",
-      field: "wireBatchId",
-      Header: "wireBatchId",
-      accessor: "wireBatchId"
-    },
     /*{
       name: "Name",
       field: "Name",

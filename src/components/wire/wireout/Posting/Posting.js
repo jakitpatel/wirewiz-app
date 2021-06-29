@@ -118,14 +118,13 @@ function Posting(props) {
         );
       }
     },*/
-    /*
     {
       headerName: "wirePostID",
       field: "wirePostID",
       Header: "wirePostID",
       accessor: "wirePostID"
     },
-    
+    /*
     {
       headerName: "Account",
       field: "Account",
@@ -138,12 +137,6 @@ function Posting(props) {
       Header: "Name",
       accessor: "Name"
     },*/
-    {
-      headerName: "wireBatchId",
-      field: "wireBatchId",
-      Header: "wireBatchId",
-      accessor: "wireBatchId"
-    },
     {
       name: "OFACGenDateTime",
       field: "OFACGenDateTime",

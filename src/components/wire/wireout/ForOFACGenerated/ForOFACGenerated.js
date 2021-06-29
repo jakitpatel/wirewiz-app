@@ -67,12 +67,7 @@ function ForOFACGenerated(props) {
         );
       }
     },
-    /*{
-      headerName: "wirePostID",
-      field: "wirePostID",
-      Header: "wirePostID",
-      accessor: "wirePostID"
-    },
+    /*
     {
       headerName: "Account",
       field: "Account",
@@ -86,10 +81,10 @@ function ForOFACGenerated(props) {
       accessor: "Name"
     },*/
     {
-      headerName: "wireBatchId",
-      field: "wireBatchId",
-      Header: "wireBatchId",
-      accessor: "wireBatchId"
+      headerName: "wirePostID",
+      field: "wirePostID",
+      Header: "wirePostID",
+      accessor: "wirePostID"
     },
     {
       name: "sentDateTime",

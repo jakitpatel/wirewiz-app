@@ -54,7 +54,7 @@ function ForOFACGenerated(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireInPostedActual";
+        wireInRecordObj.fromView = "wireOutCompleted";
         return (
           <Link
             to={{

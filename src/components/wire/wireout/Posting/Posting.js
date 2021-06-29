@@ -55,7 +55,7 @@ function Posting(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireInPosted";
+        wireInRecordObj.fromView = "wireOutPosting";
         return (
           <Link
             to={{

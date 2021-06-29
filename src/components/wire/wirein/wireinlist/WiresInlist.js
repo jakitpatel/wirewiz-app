@@ -413,7 +413,20 @@ function WiresInlist(props) {
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchId+"')";
-        }
+        } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+          let account = batchRec.Account;
+          if(account!==null && account!==""){
+            account = account.toString().substr(0, 3);
+          }
+          let wirePostID = batchRec.wirePostID;
+          //let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag is not NULL))))";
+          let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null))";
+          url += "&filter="+encodeURIComponent(filterUrl);
+        } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
+          let wirePostID = batchRec.wirePostID;
+          let filterUrl = "(wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null)";
+          url += "&filter="+encodeURIComponent(filterUrl);
+        } 
       }
       if(filters.length>0){
         console.log("filters");

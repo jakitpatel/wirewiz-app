@@ -120,19 +120,19 @@ function LeftNavBar(props) {
                 <ul className="flex-column nav pl-4">
                   <MenuListItem
                     menuName="For OFAC"
-                    routePath={`${process.env.PUBLIC_URL}/wireoutOFAC`}
+                    routePath={`${process.env.PUBLIC_URL}/wirepartnersOFAC`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />
                   <MenuListItem
                     menuName="For Posting"
-                    routePath={`${process.env.PUBLIC_URL}/wiresoutposting`}
+                    routePath={`${process.env.PUBLIC_URL}/wirepartnersposting`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />
                   <MenuListItem
                     menuName="Completed"
-                    routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
+                    routePath={`${process.env.PUBLIC_URL}/wirepartnersCompleted`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />

@@ -23,6 +23,9 @@ import ForOFAC from './../wire/wireout/ForOFAC/ForOFAC.js';
 import ForOFACGenerated from './../wire/wireout/ForOFACGenerated/ForOFACGenerated.js';
 import WiresoutPosting from './../wire/wireout/Posting/Posting.js';
 import CreateWire from './../wire/wireout/CreateWire/CreateWire.js';
+import WirespartnersOFAC from './../wire/wirepartners/ForOFAC/WirespartnersOFAC.js';
+import WirespartnersCompleted from './../wire/wirepartners/Completed/WirespartnersCompleted.js';
+import WirespartnersPosting from './../wire/wirepartners/Posting/WirespartnersPosting.js';
 import { useSelector } from 'react-redux';
 
 const WireListWrap = props => {
@@ -89,6 +92,18 @@ const routes = [
   {
     path: "/wiresoutposting",
     main: () => <WiresoutPosting  />
+  },
+  {
+    path: "/wirepartnersOFAC",
+    main: () => <WirespartnersOFAC  />
+  },
+  {
+    path: "/wirepartnersCompleted",
+    main: () => <WirespartnersCompleted />
+  },
+  {
+    path: "/wirepartnersposting",
+    main: () => <WirespartnersPosting  />
   },
   {
     path: "/createWire",

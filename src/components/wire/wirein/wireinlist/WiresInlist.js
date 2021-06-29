@@ -95,6 +95,9 @@ function WiresInlist(props) {
   } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
     chkHeaderTitle = "excludeOFAC";
     fieldNameAccessor = "excludeOFAC";
+  }  else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+    chkHeaderTitle = "excludeFED";
+    fieldNameAccessor = "excludeFED";
   } 
   
   let selectBox = {
@@ -109,7 +112,7 @@ function WiresInlist(props) {
 
   let columnDefs = [];
   //if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
-  if(batchRec.fromView && (batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireInManual")){
+  if(batchRec.fromView && (batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutPosting")){
     columnDefs.push(selectBox);
   }
   columnDefs.push(
@@ -838,7 +841,7 @@ function WiresInlist(props) {
 
   let showExportBtn = false;
   let showSaveBtn = false;
-  if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
+  if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireOutPosting")){
     if(wires.length>0){
       //showExportBtn = true;
       showSaveBtn = true;

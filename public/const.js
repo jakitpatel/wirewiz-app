@@ -48,7 +48,10 @@ if(env==="DEVLOCAL"){
         WireinManualResolved_Url : API_URL+"v_wireManualResolved",
         WireoutForOFAC_Url       : API_URL+"v_wireout",
         WireoutForOFACGenerated_Url   : API_URL+"v_wireout_posted",
-        WireoutForPosting_Url  : API_URL+"v_wireout_post"
+        WireoutForPosting_Url  : API_URL+"v_wireout_post",
+        WireoutPartners_Url       : API_URL+"v_wireoutPartner",
+        WireoutPartnersPosting_Url  : API_URL+"v_wireoutPartner_post",
+        WireoutPartnersCompleted_Url   : API_URL+"v_wireoutPartner_posted"
     }
 } else {
     // For DEV & Production Env
@@ -80,6 +83,9 @@ if(env==="DEVLOCAL"){
         WireinManualResolved_Url : API_URL_DB+"_table/v_wireManualResolved",
         WireoutForOFAC_Url       : API_URL_DB+"_table/v_wireout",
         WireoutForOFACGenerated_Url   : API_URL_DB+"_table/v_wireout_posted",
-        WireoutForPosting_Url   : API_URL_DB+"_table/v_wireout_post"
+        WireoutForPosting_Url   : API_URL_DB+"_table/v_wireout_post",
+        WireoutPartners_Url          : API_URL_DB+"_table/v_wireoutPartner",
+        WireoutPartnersPosting_Url   : API_URL_DB+"_table/v_wireoutPartner_post",
+        WireoutPartnersCompleted_Url : API_URL_DB+"_table/v_wireoutPartner_posted"
     }
 }

@@ -84,26 +84,6 @@ function LeftNavBar(props) {
                         iconName="trello"
                         enableVal={WIRE_ENABLER}
                       />
-                      <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu2" data-toggle="collapse" data-target="#submenu2">
-                        <Icon.Trello />
-                        <span style={{ marginLeft: 10 }}>Support</span>
-                      </a>
-                      <div className="collapse" id="submenu2" aria-expanded="false">
-                        <ul className="flex-column nav pl-4">
-                          <MenuListItem
-                            menuName="WireBatch"
-                            routePath={`${process.env.PUBLIC_URL}/wires`}
-                            iconName="trello"
-                            enableVal={WIRE_ENABLER}
-                          />
-                          <MenuListItem
-                            menuName="Wires"
-                            routePath={`${process.env.PUBLIC_URL}/wireslist`}
-                            iconName="trello"
-                            enableVal={WIRE_ENABLER}
-                          />
-                        </ul>
-                      </div>
                   </ul>
               </div>
               <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu3" data-toggle="collapse" data-target="#submenu3">
@@ -127,6 +107,52 @@ function LeftNavBar(props) {
                   <MenuListItem
                     menuName="Completed"
                     routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                </ul>
+              </div>
+              <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu4" data-toggle="collapse" data-target="#submenu4">
+                <Icon.Trello />
+                <span style={{ marginLeft: 10 }}>Wires Partners</span>
+              </a>
+              <div className="collapse" id="submenu4" aria-expanded="false">
+                <ul className="flex-column nav pl-4">
+                  <MenuListItem
+                    menuName="For OFAC"
+                    routePath={`${process.env.PUBLIC_URL}/wireoutOFAC`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
+                    menuName="For Posting"
+                    routePath={`${process.env.PUBLIC_URL}/wiresoutposting`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
+                    menuName="Completed"
+                    routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                </ul>
+              </div>
+              <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu2" data-toggle="collapse" data-target="#submenu2">
+                <Icon.Trello />
+                <span style={{ marginLeft: 10 }}>Support</span>
+              </a>
+              <div className="collapse" id="submenu2" aria-expanded="false">
+                <ul className="flex-column nav pl-4">
+                  <MenuListItem
+                    menuName="WireBatch"
+                    routePath={`${process.env.PUBLIC_URL}/wires`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
+                    menuName="Wires"
+                    routePath={`${process.env.PUBLIC_URL}/wireslist`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />

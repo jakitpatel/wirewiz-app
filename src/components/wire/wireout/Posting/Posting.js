@@ -125,7 +125,7 @@ function Posting(props) {
       Header: "wirePostID",
       accessor: "wirePostID"
     },
-    */
+    
     {
       headerName: "Account",
       field: "Account",
@@ -137,6 +137,12 @@ function Posting(props) {
       field: "Name",
       Header: "Name",
       accessor: "Name"
+    },*/
+    {
+      headerName: "wireBatchId",
+      field: "wireBatchId",
+      Header: "wireBatchId",
+      accessor: "wireBatchId"
     },
     {
       name: "OFACGenDateTime",

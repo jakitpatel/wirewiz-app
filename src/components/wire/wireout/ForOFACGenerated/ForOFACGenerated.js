@@ -86,6 +86,12 @@ function ForOFACGenerated(props) {
       accessor: "Name"
     },*/
     {
+      headerName: "wireBatchId",
+      field: "wireBatchId",
+      Header: "wireBatchId",
+      accessor: "wireBatchId"
+    },
+    {
       name: "sentDateTime",
       field: "sentDateTime",
       Header: "Date",

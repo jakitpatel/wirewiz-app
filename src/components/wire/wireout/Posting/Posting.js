@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForPosting_Url, API_URL,env, WirePost2Fiserv_Url} = window.constVar;
+const {API_KEY, WireoutForPosting_Url, API_URL,env, WirePost2_Url} = window.constVar;
 
 function Posting(props) {
   const [loading, setLoading] = useState(true);
@@ -306,9 +306,9 @@ function Posting(props) {
       //"Clt" : withCltFlag,
       "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":false}]
     };
-    let url = WirePost2Fiserv_Url;
+    let url = WirePost2_Url;
     if(env==="DEVLOCAL"){
-      url = WirePost2Fiserv_Url;
+      url = WirePost2_Url;
     }
     try {
       //setSending(!sending);

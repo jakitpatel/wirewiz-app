@@ -22,6 +22,8 @@ import DepositList from './../Deposits/DepositList.js';
 import ForOFAC from './../wire/wireout/ForOFAC/ForOFAC.js';
 import ForOFACGenerated from './../wire/wireout/ForOFACGenerated/ForOFACGenerated.js';
 import WiresoutPosting from './../wire/wireout/Posting/Posting.js';
+import WireoutManual from "./../wire/wireout/WireoutManual";
+import WireoutManualResolved from "./../wire/wireout/wireManualResolved/WireoutManualResolved.js";
 import CreateWire from './../wire/wireout/CreateWire/CreateWire.js';
 import WirespartnersOFAC from './../wire/wirepartners/ForOFAC/WirespartnersOFAC.js';
 import WirespartnersCompleted from './../wire/wirepartners/Completed/WirespartnersCompleted.js';
@@ -92,6 +94,14 @@ const routes = [
   {
     path: "/wiresoutposting",
     main: () => <WiresoutPosting  />
+  },
+  {
+    path: "/wiresoutmanual",
+    main: () => <WireoutManual  />
+  },
+  {
+    path: "/wiresoutmanualresolved",
+    main: () => <WireoutManualResolved  />
   },
   {
     path: "/wirepartnersOFAC",

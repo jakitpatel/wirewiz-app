@@ -323,6 +323,9 @@ function WiresInlist(props) {
       [columnId]:value,
       wireID:modifiedRec.wireID
     };
+    if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+      modObj.excludeFISERV = value;
+    } 
     if(batchRec.fromView && batchRec.fromView==="wireInManual"){
       modObj = {
         status:3,

@@ -23,6 +23,8 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/wireoutOFAC`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiresoutposting`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/wiresoutmanual`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/wiresoutmanualresolved`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wires`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wireslist`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wiresin`} component={Dashboard} />

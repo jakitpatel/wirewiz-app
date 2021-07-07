@@ -120,6 +120,18 @@ function ForOFACGenerated(props) {
         )
       }
     },
+    {
+      name: "FISERVGenFileName",
+      field: "FISERVGenFileName",
+      Header: "FISERV File",
+      accessor: "FISERVGenFileName",
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.FISERVGenFileName);
+        return (
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
+        )
+      }
+    },
     /*{
       name: "FISERVGenFileName",
       field: "FISERVGenFileName",

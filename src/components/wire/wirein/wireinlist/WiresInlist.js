@@ -96,7 +96,7 @@ function WiresInlist(props) {
     chkHeaderTitle = "excludeOFAC";
     fieldNameAccessor = "excludeOFAC";
   }  else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
-    chkHeaderTitle = "excludeFED";
+    chkHeaderTitle = "exclude";
     fieldNameAccessor = "excludeFED";
   } 
   

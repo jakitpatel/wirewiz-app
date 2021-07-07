@@ -112,6 +112,7 @@ function LeftNavBar(props) {
                   />
                 </ul>
               </div>
+              {/*
               <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu4" data-toggle="collapse" data-target="#submenu4">
                 <Icon.Trello />
                 <span style={{ marginLeft: 10 }}>Wires Partners</span>
@@ -138,6 +139,7 @@ function LeftNavBar(props) {
                   />
                 </ul>
               </div>
+              */}
               <a className={`nav-link collapsed ${WIRE_ENABLER ? "" : "disabled"} `} href="#submenu2" data-toggle="collapse" data-target="#submenu2">
                 <Icon.Trello />
                 <span style={{ marginLeft: 10 }}>Support</span>

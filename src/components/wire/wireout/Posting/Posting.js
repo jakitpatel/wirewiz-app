@@ -304,7 +304,7 @@ function Posting(props) {
     };
     let data = {
       //"Clt" : withCltFlag,
-      "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":false}]
+      "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":true}]
     };
     let url = WirePost2_Url;
     if(env==="DEVLOCAL"){

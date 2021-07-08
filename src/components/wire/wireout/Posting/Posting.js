@@ -48,7 +48,7 @@ function Posting(props) {
       Header: "View",
       show : true, 
       width: 40,
-      id: 'colView',
+      disableFilters: true,
       accessor: row => row.attrbuiteName,
       filterable: false, // Overrides the table option
       Cell: obj => {

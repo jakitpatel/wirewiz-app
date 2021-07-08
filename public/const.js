@@ -88,6 +88,8 @@ if(env==="DEVLOCAL"){
         WireoutForOFAC_Url       : API_URL_DB+"_table/v_wireout",
         WireoutForOFACGenerated_Url   : API_URL_DB+"_table/v_wireout_posted",
         WireoutForPosting_Url   : API_URL_DB+"_table/v_wireout_post",
+        WireoutManual_Url       : API_URL_DB+"_table/v_wireoutManual",
+        WireoutManualResolved_Url : API_URL_DB+"_table/v_wireoutManualResolved",
         WireoutPartners_Url          : API_URL_DB+"_table/v_wireoutPartner",
         WireoutPartnersPosting_Url   : API_URL_DB+"_table/v_wireoutPartner_post",
         WireoutPartnersCompleted_Url : API_URL_DB+"_table/v_wireoutPartner_posted"

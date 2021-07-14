@@ -4,7 +4,7 @@ import "./dashboard.css";
 import WireBatch from "./../wire/wirebatch/WireBatch.js";
 import Wireslist from "./../wire/wirelist/Wireslist";
 import WiresInlist from "./../wire/wirein/wireinlist/WiresInlist";
-import Wirein from "./../wire/wirein/Wirein.js";
+import Wirein from "./../wire/wirein/ForOFAC/Wirein.js";
 import WireinManual from "./../wire/wirein/WireinManual";
 import WireinPosted from "./../wire/wirein/WireinPosted";
 import WireinPostedActual from "./../wire/wirein/WireinPostedActual";

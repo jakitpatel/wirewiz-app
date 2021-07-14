@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Listview from "./../../Listview/Listview";
+import ForOFACView from "./ForOFACView.js";
 import * as Icon from "react-feather";
-import "./Wirein.css";
+import "./../Wirein.css";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 //import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
+import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions';
 //import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
 const {API_KEY, Wirein_Url, WireInExport_Url, env} = window.constVar;
 
@@ -15,8 +16,13 @@ function Wirein(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);  // Managin multiple sending
-  const [wireInRecord, setWireInRecord] = useState([]);
+  const [skipPageReset, setSkipPageReset] = React.useState(false);
+  const [filtersarr, setFiltersarr] = React.useState([]);
+  const [pageCount, setPageCount] = React.useState(0);
   const [isRefresh, setIsRefresh] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [modWireData, setModWireData] = React.useState([]);
+  const fetchIdRef = React.useRef(0);
 
   let today = new Date();
   let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
@@ -24,21 +30,39 @@ function Wirein(props) {
 
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
+  const dispatch = useDispatch();
+
   const { session_token } = useSelector(state => {
       return {
           ...state.userReducer
       }
   });
 
+  const { wireinForOFAC, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
+    return {
+        ...state.wireinForOFACReducer
+    }
+  });
+
   const location = useLocation();
 
   const columnDefs = [
+    {
+      Header: "Select",
+      width: 55,
+      field: "SelectGENOFAC",
+      accessor: "SelectGENOFAC",
+      disableFilters: true,
+      editable:true,
+      columnType:'checkbox'
+    },
     {
       Header: "View",
       show : true, 
       width: 40,
       id: 'colView',
       accessor: row => row.attrbuiteName,
+      disableFilters: true,
       filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log("Edit");
@@ -129,10 +153,62 @@ function Wirein(props) {
     }, 120000);
     return () => clearInterval(interval);
   },[]);
+  
+  // We need to keep the table from resetting the pageIndex when we
+  // Update data. So we can keep track of that flag with a ref.
 
-  useEffect(() => {
-    console.log("ACHFileRecord UseEffect");
-    let ignore = false;
+  // When our cell renderer calls updateMyData, we'll use
+  // the rowIndex, columnId and new value to update the
+  // original data
+  const updateMyData = (rowIndex, columnId, value) => {
+    // We also turn on the flag to not reset the page
+    setSkipPageReset(true);
+    let oldData = wireinForOFAC;
+    let modifiedRec = null;
+    let newData = oldData.map((row, index) => {
+      if (index === rowIndex) {
+        modifiedRec = {
+          ...oldData[rowIndex],
+          [columnId]: value,
+        };
+        return modifiedRec
+      }
+      return row
+    });
+
+    let modObj = {
+      //[columnId]:value,
+      "vAcc": modifiedRec.Account
+    };
+    const newWires = modWireData.filter((wire) => wire.vAcc !== modifiedRec.Account);
+    if(value!==false){
+      newWires.push(modObj);
+    }
+    setModWireData(newWires);
+    //setModWireData([...modWireData, modObj ]);
+    console.log("updateWire");
+    console.log(newWires);
+
+    //setData(newData);
+    dispatch({
+      type:'UPDATEWIREINForOFAC',
+      payload:{
+        wireinForOFAC:newData
+      }
+    });
+  }
+
+  const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
+    // This will get called when the table needs new data
+    // You could fetch your data from literally anywhere,
+    // even a server. But for this example, we'll just fake it.
+
+    // Give this fetch an ID
+    const fetchId = ++fetchIdRef.current
+
+    // Set the loading state
+    //setLoading(true);
+
     async function fetchWireInRecord() {
       const options = {
         headers: {
@@ -140,22 +216,65 @@ function Wirein(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
+
       let url = Wirein_Url;
-      if(env==="DEVLOCAL"){
-        url = Wirein_Url;
+      url += buildPageUrl(pageSize,pageIndex);
+      console.log("filters");
+      console.log(filters);
+      if(filters.length>0){
+        console.log("filters");
+        console.log(filters);
+        /*if(batchRec){
+          url += " and ";
+        } else {*/
+          url += "&filter=";
+        //}
+        url += buildFilterUrl(filters);
       }
+      if(sortBy.length>0){
+        console.log(sortBy);
+        url += buildSortByUrl(sortBy);
+      }
+      url += "&include_count=true";
+      
+      //if(env==="DEVLOCAL"){
+        //url = Wires_Url;
+      //}
       let res = await axios.get(url, options);
-      console.log(res.data);
-      console.log(res.data.resource);
-      let wireInRecArray = res.data.resource;
-      console.log(wireInRecArray);
-      setLoading(false);
-      setWireInRecord(wireInRecArray);
+      //setLoading(false);
+      //console.log(res.data);
+      //console.log(res.data.resource);
+      let totalCnt = 10;
+      if(res.data.meta){
+        totalCnt = res.data.meta.count;
+      }
+
+      dispatch({
+        type:'UPDATEWIREINForOFAC',
+        payload:{
+          pageIndex:pageIndex,
+          pageSize:pageSize,
+          totalCount:totalCnt,
+          sortBy : sortBy,
+          filters : filters,
+          wireinForOFAC:res.data.resource
+        }
+      });
+      
+      // Your server could send back total page count.
+      // For now we'll just fake it, too
+      let pageCnt = Math.ceil(totalCnt / pageSize);
+      console.log("pageCnt : "+pageCnt);
+      setPageCount(Math.ceil(totalCnt / pageSize));
+
+      //setLoading(false);
     }
-    fetchWireInRecord();
-    return () => { ignore = true };
-  }, [ session_token, isRefresh, setIsRefresh, location.key]);
-  
+    // Only update the data if this is the latest fetch
+    if (fetchId === fetchIdRef.current) {
+      fetchWireInRecord();
+    }
+  }, [ dispatch, session_token]);
+
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
@@ -169,8 +288,12 @@ function Wirein(props) {
         'X-DreamFactory-Session-Token': session_token
       }
     };
+    let dataArr = [{"vAcc": wireInObj.Account}];
+    if(wireInObj==="sel"){
+      dataArr = modWireData;
+    }
     let data = {
-      "resource": [{"vAcc": wireInObj.Account}]
+      "resource": dataArr
     };
     let url = WireInExport_Url;
     if(env==="DEVLOCAL"){
@@ -192,9 +315,18 @@ function Wirein(props) {
   }
 
   console.log("Properties", props);
-  const initialSortState = {
-    sortBy: [{ id: "Account", asc: true }]
-   };
+  const initialState = {
+    sortBy: [{ id: "Account", asc: true }],
+    pageSize : 10,
+    pageIndex : 0
+    //pageSize : pageSize,
+    //pageIndex : pageIndex
+  };
+  const pageState = {
+    pageSize : pageSize,
+    pageIndex : pageIndex/*,
+    backToList : backToList*/
+  };
   var color = '#4DAF7C';  
   let sendCmp = sending === true ? ( 
     <>
@@ -208,15 +340,28 @@ function Wirein(props) {
     </>
     ) : null;
   let disCmp =
-    loading === true ? (
+    /*loading === true ? (
       <h3> LOADING... </h3>
-    ) : (
+    ) : */(
       <>
       {sendCmp}
-      <Listview
-        items={wireInRecord}
+      <ForOFACView
+        data={wireinForOFAC}
+        //data={data}
         columnDefs={columnDefs}
-        sortBy={initialSortState}
+        initialState={initialState}
+        pageState={pageState}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        filtersarr={filtersarr}
+        setFiltersarr={setFiltersarr}
+        fetchData={fetchData}
+        loading={loading}
+        pageCount={pageCount}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
+        updateMyData={updateMyData}
+        skipPageReset={skipPageReset}
       />
       </>
     );
@@ -230,6 +375,11 @@ function Wirein(props) {
               <h3 style={{float:"left"}} className="title-center">Inbound Wires - Ready for OFAC</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
+            </div>
+            <div className="btnCls">
+              <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireInExport(e, "sel")}} className="btn btn-primary btn-sm">
+                Generate OFAC
+              </button>
             </div>
             {disCmp}
           </div>

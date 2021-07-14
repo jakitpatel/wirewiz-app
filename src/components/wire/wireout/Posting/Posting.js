@@ -306,6 +306,10 @@ function Posting(props) {
       //"Clt" : withCltFlag,
       "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":true}]
     };
+    console.log("LinkMode : "+wireInObj.linkMode);
+    if(wireInObj.linkMode === "Batch"){
+      data.resource.push({"VirtualGroup":true});
+    }
     let url = WirePost2_Url;
     if(env==="DEVLOCAL"){
       url = WirePost2_Url;

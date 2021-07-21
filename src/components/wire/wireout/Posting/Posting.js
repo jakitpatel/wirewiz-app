@@ -143,7 +143,7 @@ function Posting(props) {
       Header: "OFAC Generated",
       accessor: "OFACGenDateTime"
     },
-    {
+    /*{
       name: "OFACGenFileName",
       field: "OFACGenFileName",
       Header: "OFAC File",
@@ -154,7 +154,7 @@ function Posting(props) {
           <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
         )
       }
-    },
+    },*/
     /*{
       name: "postStatus",
       field: "postStatus",

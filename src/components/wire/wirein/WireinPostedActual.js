@@ -100,6 +100,7 @@ function WireinPostedActual(props) {
       //filter: "between"
       //disableFilters: true,
     },
+    /*
     {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
@@ -135,7 +136,7 @@ function WireinPostedActual(props) {
           <button className="btn btn-link" onClick={() => {download(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
         )
       }
-    },
+    },*/
     /*{
       name: "postStatus",
       field: "postStatus",

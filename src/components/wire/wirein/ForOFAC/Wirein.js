@@ -15,6 +15,7 @@ const {API_KEY, Wirein_Url, WireInExport_Url, env} = window.constVar;
 function Wirein(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [btnDisableVal, setBtnDisableVal] = useState(true);
   const [sending, setSending] = useState(false);  // Managin multiple sending
   const [skipPageReset, setSkipPageReset] = React.useState(false);
   const [filtersarr, setFiltersarr] = React.useState([]);
@@ -188,7 +189,11 @@ function Wirein(props) {
     //setModWireData([...modWireData, modObj ]);
     console.log("updateWire");
     console.log(newWires);
-
+    if(newWires.length > 0){
+      setBtnDisableVal(false);
+    } else {
+      setBtnDisableVal(true);
+    }
     //setData(newData);
     dispatch({
       type:'UPDATEWIREINForOFAC',
@@ -376,8 +381,8 @@ function Wirein(props) {
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
-            <div className="btnCls">
-              <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireInExport(e, "sel")}} className="btn btn-primary btn-sm">
+            <div className="btnCls" style={{ paddingBottom: "0px" }}>
+              <button type="button" disabled={btnDisableVal} onClick={(e) => {onWireInExport(e, "sel")}} className={`btn btn-primary btn-sm`}>
                 Generate OFAC
               </button>
             </div>

@@ -96,6 +96,7 @@ function ForOFACGenerated(props) {
       //filter: "between"
       //disableFilters: true,
     },
+    /*
     {
       name: "OFACGenFileName",
       field: "OFACGenFileName",
@@ -131,7 +132,7 @@ function ForOFACGenerated(props) {
           <button className="btn btn-link" onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
         )
       }
-    },
+    },*/
     /*{
       name: "FISERVGenFileName",
       field: "FISERVGenFileName",

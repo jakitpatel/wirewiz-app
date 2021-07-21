@@ -33,7 +33,7 @@ function WireoutManualResolved(props) {
 
   const { wireManualResolve, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
     return {
-        ...state.wireManualResolveReducer
+        ...state.wireOutManualResolveReducer
     }
   });
 
@@ -232,7 +232,7 @@ function WireoutManualResolved(props) {
       }
 
       dispatch({
-        type:'UPDATEWIREMANUALRESOLVE',
+        type:'UPDATEWIREOUTMANUALRESOLVE',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,

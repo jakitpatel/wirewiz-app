@@ -34,7 +34,7 @@ function Posting(props) {
 
   const { wireoutForOFACGenerated, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
     return {
-        ...state.wireoutForOFACGeneratedReducer
+        ...state.wireoutPostingReducer
     }
   });
 
@@ -264,7 +264,7 @@ function Posting(props) {
       }
 
       dispatch({
-        type:'UPDATEWIREOUTForOFACGenerated',
+        type:'UPDATEWIREOUTPOSTING',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,

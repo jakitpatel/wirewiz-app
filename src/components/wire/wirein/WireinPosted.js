@@ -257,7 +257,7 @@ function WireinPosted(props) {
     };
     let data = {
       //"Clt" : withCltFlag,
-      "resource": [{"wirePostID": wireInObj.wirePostID},{"Account"   : wireInObj.Account}]
+      "resource": [{"wirePostID": wireInObj.wirePostID}/*,{"Account"   : wireInObj.Account}*/]
     };
     let url = WirePost2Fiserv_Url;
     if(env==="DEVLOCAL"){

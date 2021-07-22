@@ -13,7 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
-const {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
+const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -376,6 +376,9 @@ function WiresInlist(props) {
       };
 
       let url = Wires_Url;
+      if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+        url = WiresGroup_Url;
+      }
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
         if(batchRec.fromView && batchRec.fromView==="wireIn"){
@@ -429,7 +432,8 @@ function WiresInlist(props) {
           }*/
           let wirePostID = batchRec.wirePostID;
           //let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag is not NULL))))";
-          let filterUrl = "((wirePostID = '"+wirePostID+"') and (excludeFED is NULL) and (direction = 'wireout'))";
+          //let filterUrl = "((wirePostID = '"+wirePostID+"') and (excludeFED is NULL) and (direction = 'wireout'))";
+          let filterUrl = "((wireGroupId = '"+wirePostID+"') and (excludeFED is NULL) and (direction = 'wireout'))";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
           let wirePostID = batchRec.wirePostID;

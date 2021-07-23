@@ -100,7 +100,7 @@ function Wirein(props) {
         );
       }
     },
-    {
+    /*{
       headerName: "Account",
       field: "Account",
       Header: "Account",
@@ -111,7 +111,7 @@ function Wirein(props) {
       field: "Name",
       Header: "Name",
       accessor: "Name"
-    },
+    },*/
     {
       headerName: "numWires",
       field: "numWires",
@@ -321,7 +321,8 @@ function Wirein(props) {
 
   console.log("Properties", props);
   const initialState = {
-    sortBy: [{ id: "Account", asc: true }],
+    //sortBy: [{ id: "Account", asc: true }],
+    sortBy: [],
     pageSize : 10,
     pageIndex : 0
     //pageSize : pageSize,

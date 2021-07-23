@@ -222,7 +222,8 @@ function ForOFAC(props) {
       }
     };
     let data = {
-      "resource": [{"wireBatchId": wireInObj.wireBatchId}]
+      "resource": [{"wireBatchId": wireInObj.wireBatchId}],
+      "direction":"wireOut"
     };
     let url = WireInExport_Url;
     if(env==="DEVLOCAL"){

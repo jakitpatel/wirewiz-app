@@ -353,9 +353,11 @@ function WireinPostedActual(props) {
             <div>
               <h3 style={{float:"left"}} className="title-center">Inbound Wires - Posted</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              {/*
               <button type="button" style={{ float: "right", margin:"1rem" }} onClick={onEODPost} className={`btn btn-primary btn-sm`}>
                 EOD Post
               </button>
+              */}
               <div style={{clear:"both"}}></div>
             </div>
             {disCmp}

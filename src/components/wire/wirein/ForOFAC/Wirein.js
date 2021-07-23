@@ -48,7 +48,7 @@ function Wirein(props) {
   const location = useLocation();
 
   const columnDefs = [
-    {
+    /*{
       Header: "Select",
       width: 55,
       field: "SelectGENOFAC",
@@ -56,7 +56,7 @@ function Wirein(props) {
       disableFilters: true,
       editable:true,
       columnType:'checkbox'
-    },
+    },*/
     {
       Header: "View",
       show : true, 
@@ -383,11 +383,13 @@ function Wirein(props) {
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
+            {/*
             <div className="btnCls" style={{ paddingBottom: "0px" }}>
               <button type="button" disabled={btnDisableVal} onClick={(e) => {onWireInExport(e, "sel")}} className={`btn btn-primary btn-sm`}>
                 Generate OFAC
               </button>
             </div>
+            */}
             {disCmp}
           </div>
         </div>

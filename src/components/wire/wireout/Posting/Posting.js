@@ -304,6 +304,7 @@ function Posting(props) {
     };
     let data = {
       //"Clt" : withCltFlag,
+      "direction":"wireOut",
       "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":true}]
     };
     console.log("LinkMode : "+wireInObj.linkMode);

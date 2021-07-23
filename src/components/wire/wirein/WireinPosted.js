@@ -127,7 +127,6 @@ function WireinPosted(props) {
       Header: "wirePostID",
       accessor: "wirePostID"
     },
-    */
     {
       headerName: "Account",
       field: "Account",
@@ -139,7 +138,7 @@ function WireinPosted(props) {
       field: "Name",
       Header: "Name",
       accessor: "Name"
-    },
+    },*/
     {
       name: "OFACGenDateTime",
       field: "OFACGenDateTime",

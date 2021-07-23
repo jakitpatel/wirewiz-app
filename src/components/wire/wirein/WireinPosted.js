@@ -61,7 +61,7 @@ function WireinPosted(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.Account}`,
+              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.wirePostID}`,
               state: obj.row.original
             }}
           >
@@ -120,14 +120,13 @@ function WireinPosted(props) {
         );
       }
     },*/
-    /*
     {
       headerName: "wirePostID",
       field: "wirePostID",
       Header: "wirePostID",
       accessor: "wirePostID"
     },
-    {
+    /*{
       headerName: "Account",
       field: "Account",
       Header: "Account",

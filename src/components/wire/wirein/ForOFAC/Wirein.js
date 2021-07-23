@@ -298,7 +298,7 @@ function Wirein(props) {
       dataArr = modWireData;
     }
     let data = {
-      "resource": dataArr,
+      "resource": [],//dataArr,
       "direction":"wireIn"
     };
     let url = WireInExport_Url;

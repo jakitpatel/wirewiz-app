@@ -58,7 +58,7 @@ function ForOFACGenerated(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.Account}`,
+              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.wirePostID}`,
               state: obj.row.original
             }}
           >

@@ -913,6 +913,12 @@ function WiresInlist(props) {
       headerTitle += " - Manual - "+type+" - "+account;
     } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
       headerTitle += " - Batch "+batchRec.wireBatchId;
+    } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+      let wirePostID = batchRec.wirePostID;
+      headerTitle += " - Posting - "+wirePostID;
+    } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
+      let wirePostID = batchRec.wirePostID;
+      headerTitle += " - Posted - "+wirePostID;
     } 
     byWireBatchId = true;
     txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";

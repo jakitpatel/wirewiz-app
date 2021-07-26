@@ -59,7 +59,7 @@ function Posting(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.Account}`,
+              pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireInRecordObj.wirePostID}`,
               state: obj.row.original
             }}
           >
@@ -305,11 +305,15 @@ function Posting(props) {
     let data = {
       //"Clt" : withCltFlag,
       "direction":"wireOut",
-      "resource": [{"wirePostID": wireInObj.wirePostID},{"FED": true},{"FISERV":true}]
+      "resource": [{"wirePostID": wireInObj.wirePostID}]
     };
     console.log("LinkMode : "+wireInObj.linkMode);
     if(wireInObj.linkMode === "Batch"){
-      data.resource.push({"VirtualGroup":true});
+      data.resource.push({"VirtualGroup":true},{"FED": true},{"FISERV":true});
+    } else if(wireInObj.linkMode === "Group"){
+      data.resource.push({"FED": true},{"FISERV":false});
+    } else {
+      data.resource.push({"FED": true},{"FISERV":true});
     }
     let url = WirePost2_Url;
     if(env==="DEVLOCAL"){

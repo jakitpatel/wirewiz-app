@@ -309,7 +309,7 @@ function Posting(props) {
     };
     console.log("LinkMode : "+wireInObj.linkMode);
     if(wireInObj.linkMode === "Batch"){
-      data.resource.push({"VirtualGroup":true},{"FED": true},{"FISERV":true});
+      data.resource.push({"FED": true},{"FISERV":true},{"VirtualGroup":true});
     } else if(wireInObj.linkMode === "Group"){
       data.resource.push({"FED": true},{"FISERV":false});
     } else {

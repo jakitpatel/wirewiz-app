@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import WireinPostedActualView from "./../wirein/WireinPostedActualView";
+import WireFileListView from "./WireFileListView";
 import * as Icon from "react-feather";
-import "./Wirein.css";
+import "./../Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import DateRangeColumnFilter from './../../Filter/DateRangeColumnFilter';
-import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../Functions/functions.js';
+import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
+import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} from './../../../const';
-const {API_KEY, WireinPostedActual_Url, env, API_URL, Wire_tbl_Url} = window.constVar;
+const {API_KEY, WireFileList_Url, env, API_URL, Wire_tbl_Url} = window.constVar;
 
-function WireinPostedActual(props) {
+function WireFileList(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [filtersarr, setFiltersarr] = React.useState([]);
@@ -24,8 +24,6 @@ function WireinPostedActual(props) {
   let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
   const [currtime, setCurrtime] = useState(time);
 
-  const button = <button className="btn btn-primary btn-sm">Edit</button>;
-
   const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
@@ -34,21 +32,23 @@ function WireinPostedActual(props) {
       }
   });
 
-  const { wireinposted, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
+  const { wirefilelist, pageIndex, pageSize, totalCount, sortBy, filters, backToList } = useSelector(state => {
     return {
-        ...state.wiresInPostedReducer
+        ...state.wiresInFileListReducer
     }
   });
 
   const location = useLocation();
 
+  let { batchRec } = props;
+
   const buildDocLink = (filename) => {
     let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
     return link;
-   }
-
+  }
+  
   const columnDefs = [
-    {
+    /*{
       Header: "View",
       show : true, 
       width: 40,
@@ -72,134 +72,40 @@ function WireinPostedActual(props) {
         );
       }
     },
-    {
-      Header: "Files",
-      show : true, 
-      width: 40,
-      disableFilters: true,
-      accessor: row => row.attrbuiteName,
-      filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log("Edit");
-        //console.log(obj.row);
-        let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireInPostedActual";
-        return (
-          <Link
-            to={{
-              pathname: `${process.env.PUBLIC_URL}/filelist/${wireInRecordObj.wirePostID}`,
-              state: obj.row.original
-            }}
-          >
-            <Icon.File />
-          </Link>
-        );
-      }
-    },
-    {
+    /*{
       headerName: "wirePostID",
       field: "wirePostID",
       Header: "wirePostID",
       accessor: "wirePostID"
-    },
-    /*{
-      headerName: "Account",
-      field: "Account",
-      Header: "Account",
-      accessor: "Account"
-    },
-    {
-      name: "Name",
-      field: "Name",
-      Header: "Name",
-      accessor: "Name"
     },*/
     {
-      name: "sentDateTime",
-      field: "sentDateTime",
+      name: "fileName",
+      field: "fileName",
+      Header: "fileName",
+      accessor: "fileName"
+    },
+    {
+      name: "url",
+      field: "url",
+      Header: "url",
+      accessor: "url",
+      disableFilters: true,
+      Cell: ({ row }) => {
+        let doc_link = buildDocLink(row.original.url);
+        return (
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.url)}}>{row.original.url}</button>
+        )
+      }
+    },
+    {
+      name: "createDateTime",
+      field: "createDateTime",
       Header: "Date",
-      accessor: "sentDateTime",
+      accessor: "createDateTime",
       Filter: DateRangeColumnFilter,
       //filterType:"date"
       //filter: "between"
       //disableFilters: true,
-    },
-    /*
-    {
-      name: "OFACGenFileName",
-      field: "OFACGenFileName",
-      Header: "OFAC File",
-      accessor: "OFACGenFileName",
-      Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.OFACGenFileName);
-        return (
-          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
-        )
-      }
-    },
-    {
-      name: "FISERVGenFileName",
-      field: "FISERVGenFileName",
-      Header: "FISERV File",
-      accessor: "FISERVGenFileName",
-      Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.FISERVGenFileName);
-        return (
-          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.FISERVGenFileName)}}>{row.original.FISERVGenFileName}</button>
-        )
-      }
-    },
-    {
-      name: "CLIENTGenFileName",
-      field: "CLIENTGenFileName",
-      Header: "CLIENT File",
-      accessor: "CLIENTGenFileName",
-      Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.CLIENTGenFileName);
-        return (
-          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.CLIENTGenFileName)}}>{row.original.CLIENTGenFileName}</button>
-        )
-      }
-    },*/
-    /*{
-      name: "postStatus",
-      field: "postStatus",
-      Header: "postStatus",
-      accessor: "postStatus"
-    },*/
-    {
-      name: "numWires",
-      field: "numWires",
-      Header: "# Wires",
-      accessor: "numWires",
-      disableFilters: true
-    },
-    /*
-    {
-      name: "lastArrivialTime",
-      field: "lastArrivialTime",
-      Header: "lastArrivialTime",
-      accessor: "lastArrivialTime",
-      disableFilters: true
-    },
-    */
-    {
-      name: "totalAmount",
-      field: "totalAmount",
-      Header: "Total Amount",
-      accessor: "totalAmount",
-      disableFilters: true,
-      Cell: props => {
-        if(props.value===null || props.value===undefined) {
-          return null;
-        }
-        return (
-          <div style={{textAlign: "right"}}>
-          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
-          </div>
-        )
-        // '$100.00'
-      }
     },
     {
       name: "postedBy",
@@ -208,40 +114,6 @@ function WireinPostedActual(props) {
       accessor: "postedBy"
     }
   ];
-
-  const onEODPost = async (e) => {
-    console.log("On EOD Post Click");
-    const options = {
-      headers: {
-        'X-DreamFactory-API-Key': API_KEY,
-        'X-DreamFactory-Session-Token': session_token
-      }
-    };
-    let data = {
-      "resource": []
-    };
-    let url = Wire_tbl_Url;
-    if(env==="DEVLOCAL"){
-      url = Wire_tbl_Url;
-    }
-    try {
-      let res = await axios.post(url, data, options);
-      console.log(res.data);
-      setIsRefresh(!isRefresh);
-      //setIsRefresh(!isRefresh);
-    } catch (error) {
-      console.log(error.response);
-      //setIsRefresh(!isRefresh);
-      //setIsRefresh(!isRefresh);
-      if (401 === error.response.status) {
-          // handle error: inform user, go to login, etc
-          let res = error.response.data;
-          alert(res.error.message);
-      } else {
-        alert(error);
-      }
-    }
-  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -274,18 +146,28 @@ function WireinPostedActual(props) {
         }
       };
 
-      let url = WireinPostedActual_Url;
+      let url = WireFileList_Url;
       url += buildPageUrl(pageSize,pageIndex);
+      if(batchRec){
+          let wirePostID = batchRec.wirePostID;
+          let direction = "wireout";
+          if(batchRec.fromView === "wireInPostedActual"){
+            direction = "wirein";
+          }
+          //let filterUrl = "((direction = 'wirein') and (vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
+          let filterUrl = "((direction = '"+direction+"') and (wirePostID = '"+wirePostID+"'))";
+          url += "&filter="+encodeURIComponent(filterUrl);
+      } 
       console.log("filters");
       console.log(filters);
       if(filters.length>0){
         console.log("filters");
         console.log(filters);
-        /*if(batchRec){
+        if(batchRec){
           url += " and ";
-        } else {*/
+        } else {
           url += "&filter=";
-        //}
+        }
         url += buildFilterUrl(filters);
       }
       if(sortBy.length>0){
@@ -294,9 +176,6 @@ function WireinPostedActual(props) {
       }
       url += "&include_count=true";
       
-      //if(env==="DEVLOCAL"){
-        //url = Wires_Url;
-      //}
       let res = await axios.get(url, options);
       //setLoading(false);
       //console.log(res.data);
@@ -307,14 +186,14 @@ function WireinPostedActual(props) {
       }
 
       dispatch({
-        type:'UPDATEWIREPOSTEDLIST',
+        type:'UPDATEWIREFILELIST',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,
           totalCount:totalCnt,
           sortBy : sortBy,
           filters : filters,
-          wireinposted:res.data.resource
+          wirefilelist:res.data.resource
         }
       });
       
@@ -353,8 +232,8 @@ function WireinPostedActual(props) {
     /*loading === true ? (
       <h3> LOADING... </h3>
     ) :*/ (
-      <WireinPostedActualView
-        data={wireinposted}
+      <WireFileListView
+        data={wirefilelist}
         columnDefs={columnDefs}
         initialState={initialState}
         pageState={pageState}
@@ -369,14 +248,27 @@ function WireinPostedActual(props) {
       />
     );
   
+  let headerTitle = "Files List";
+  if(batchRec){
+    console.log(batchRec);
+    if(batchRec.fromView && batchRec.fromView==="wireInPostedActual"){
+      let wirePostID = batchRec.wirePostID;
+      //headerTitle += " - Posted - "+account+" - "+batchRec.Name;
+      headerTitle += " - WireIn Posted - "+wirePostID;
+    } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
+      let wirePostID = batchRec.wirePostID;
+      //headerTitle += " - Posted - "+account+" - "+batchRec.Name;
+      headerTitle += " - WireOut Posted - "+wirePostID;
+    }
+  }
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <div>
-              <h3 style={{float:"left"}} className="title-center">Inbound Wires - Posted</h3>
-              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <h3 style={{float:"left"}} className="title-center">{headerTitle}</h3>
+              {/*<h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>*/}
               {/*
               <button type="button" style={{ float: "right", margin:"1rem" }} onClick={onEODPost} className={`btn btn-primary btn-sm`}>
                 EOD Post
@@ -384,6 +276,11 @@ function WireinPostedActual(props) {
               */}
               <div style={{clear:"both"}}></div>
             </div>
+            <div className="btnCls">
+                <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">
+                  Back
+                </button>
+              </div>
             {disCmp}
           </div>
         </div>
@@ -392,4 +289,4 @@ function WireinPostedActual(props) {
   );
 }
 
-export default WireinPostedActual;
+export default WireFileList;

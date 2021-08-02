@@ -29,6 +29,7 @@ import WirespartnersOFAC from './../wire/wirepartners/ForOFAC/WirespartnersOFAC.
 import WirespartnersCompleted from './../wire/wirepartners/Completed/WirespartnersCompleted.js';
 import WirespartnersPosting from './../wire/wirepartners/Posting/WirespartnersPosting.js';
 import { useSelector } from 'react-redux';
+import WireFileList from './../wire/wirein/completed/WireFileList';
 
 const WireListWrap = props => {
   //console.log(props);
@@ -38,6 +39,10 @@ const WireListWrap = props => {
 const WireInListWrap = props => {
   //console.log(props);
   return <WiresInlist batchRec={props.location.state} />;
+};
+
+const FileListWrap = props => {
+  return <WireFileList batchRec={props.location.state} />;
 };
 
 const routes = [
@@ -62,6 +67,10 @@ const routes = [
   {
     path: "/wiresinlist/:batchId",
     main: WireInListWrap
+  },
+  {
+    path: "/filelist/:wirePostID",
+    main: FileListWrap
   },
   {
     path: "/wiresin",

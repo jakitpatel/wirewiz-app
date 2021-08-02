@@ -41,6 +41,7 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/ACHDetailEntry/:BatchID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/ACHDetails/:DetailID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/deposits`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/filelist/:wirePostID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}`} component={Login} />
         </Switch>
       </Provider>

@@ -95,6 +95,30 @@ function WireinPosted(props) {
         );
       }
     },
+    {
+      Header: "Files",
+      show : true, 
+      width: 40,
+      disableFilters: true,
+      accessor: row => row.attrbuiteName,
+      filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log("Edit");
+        //console.log(obj.row);
+        let wireInRecordObj = obj.row.original;
+        wireInRecordObj.fromView = "wireInPosted";
+        return (
+          <Link
+            to={{
+              pathname: `${process.env.PUBLIC_URL}/filelist/${wireInRecordObj.wirePostID}`,
+              state: obj.row.original
+            }}
+          >
+            <Icon.File />
+          </Link>
+        );
+      }
+    },
     /*{
       Header: "Post w/o TXT",
       show : true, 

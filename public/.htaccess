@@ -8,5 +8,6 @@ RedirectMatch /wireapp/wiresinposting /wireapp
 RedirectMatch /wireapp/wiresinposted /wireapp
 RedirectMatch /wireapp/wiresinlist/.* /wireapp
 RedirectMatch /wireapp/wiredetails/.* /wireapp
+RedirectMatch /wireapp/filelist/.* /wireapp
 RedirectMatch /wireapp/ach /wireapp
 RedirectMatch /wireapp/deposits /wireapp

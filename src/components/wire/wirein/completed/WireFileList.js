@@ -78,22 +78,22 @@ function WireFileList(props) {
       Header: "wirePostID",
       accessor: "wirePostID"
     },*/
-    {
+    /*{
       name: "fileName",
       field: "fileName",
       Header: "fileName",
       accessor: "fileName"
-    },
+    },*/
     {
-      name: "url",
-      field: "url",
-      Header: "url",
-      accessor: "url",
+      name: "fileName",
+      field: "fileName",
+      Header: "fileName",
+      accessor: "fileName",
       disableFilters: true,
       Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.url);
+        let doc_link = buildDocLink(row.original.fileName);
         return (
-          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.url)}}>{row.original.url}</button>
+          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.fileName)}}>{row.original.fileName}</button>
         )
       }
     },

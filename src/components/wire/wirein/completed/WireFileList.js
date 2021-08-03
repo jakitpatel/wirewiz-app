@@ -154,8 +154,8 @@ function WireFileList(props) {
           if(batchRec.fromView === "wireInPostedActual"){
             direction = "wirein";
           }
-          //let filterUrl = "((direction = 'wirein') and (vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
-          let filterUrl = "((direction = '"+direction+"') and (wirePostID = '"+wirePostID+"'))";
+          //let filterUrl = "((direction = '"+direction+"') and (wirePostID = '"+wirePostID+"'))";
+          let filterUrl = "((wirePostID = '"+wirePostID+"'))";
           url += "&filter="+encodeURIComponent(filterUrl);
       } 
       console.log("filters");
@@ -209,7 +209,7 @@ function WireFileList(props) {
     if (fetchId === fetchIdRef.current) {
       fetchWirePostedRecord();
     }
-  }, [ dispatch, session_token]);
+  }, [dispatch, session_token]);
 
   console.log("Properties", props);
   const initialSortState = {

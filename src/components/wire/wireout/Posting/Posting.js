@@ -178,13 +178,19 @@ function Posting(props) {
           <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
         )
       }
-    },*/
-    /*{
+    },
+    {
       name: "postStatus",
       field: "postStatus",
       Header: "postStatus",
       accessor: "postStatus"
     },*/
+    {
+      name: "linkMode",
+      field: "linkMode",
+      Header: "linkMode",
+      accessor: "linkMode"
+    },
     {
       name: "numWires",
       field: "numWires",

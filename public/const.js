@@ -58,6 +58,7 @@ if(env==="DEVLOCAL"){
         WireoutPartnersPosting_Url  : API_URL+"v_wireoutPartner_post",
         WireoutPartnersCompleted_Url   : API_URL+"v_wireoutPartner_posted",
         WireFileList_Url          : API_URL+"wireFile",
+        WireEODPost_Url           : API_URL+"posteod",
     }
 } else {
     // For DEV & Production Env
@@ -99,5 +100,6 @@ if(env==="DEVLOCAL"){
         WireoutPartnersPosting_Url   : API_URL_DB+"_table/v_wireoutPartner_post",
         WireoutPartnersCompleted_Url : API_URL_DB+"_table/v_wireoutPartner_posted",
         WireFileList_Url  : API_URL_DB+"_table/wireFile",
+        WireEODPost_Url    : API_URL+"posteod",
     }
 }

@@ -30,6 +30,7 @@ import WirespartnersCompleted from './../wire/wirepartners/Completed/Wirespartne
 import WirespartnersPosting from './../wire/wirepartners/Posting/WirespartnersPosting.js';
 import { useSelector } from 'react-redux';
 import WireFileList from './../wire/wirein/completed/WireFileList';
+import PostEOD from './../wire/postEOD/PostEOD';
 
 const WireListWrap = props => {
   //console.log(props);
@@ -50,6 +51,11 @@ const routes = [
     path: "/dashboard",
     exact: true,
     main: () => <DashboardMain />
+  },
+  {
+    path: "/postEOD",
+    exact: true,
+    main: () => <PostEOD />
   },
   {
     path: "/wires",

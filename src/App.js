@@ -18,6 +18,7 @@ function App(props) {
       <Provider store = {store}>
         <Switch>
           <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+          <Route exact path={`${process.env.PUBLIC_URL}/postEOD`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/dashboard`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/createWire`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/wireoutOFAC`} component={Dashboard} />

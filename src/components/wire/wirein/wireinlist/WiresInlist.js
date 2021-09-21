@@ -770,7 +770,7 @@ function WiresInlist(props) {
       let wireObj = modWireData[i];
       let bsErrMsg = wireObj.businessErrorMsg;
       if(bsErrMsg!==null && bsErrMsg!=="" && bsErrMsg!==undefined){
-        if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
+        if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("beneficiarynotnavigatoracc") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
           flagOverride = true;
         } else {
           flagOverride = false;

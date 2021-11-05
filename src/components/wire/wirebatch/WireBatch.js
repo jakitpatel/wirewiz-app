@@ -101,6 +101,12 @@ function WireBatch(props) {
       accessor: "arrivalMode"
     },
     {
+      name: "fname",
+      field: "fname",
+      Header: "fname",
+      accessor: "fname"
+    },
+    {
       name: "numWires",
       field: "numWires",
       Header: "NumWires",

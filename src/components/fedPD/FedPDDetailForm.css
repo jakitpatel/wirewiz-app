@@ -1,0 +1,18 @@
+.centerCell {
+    text-align: center;
+}
+.title-center {
+    padding: 1rem;
+}
+.btnCls {
+    padding: 1rem;
+}
+.sm-vert-form .form-group {
+    margin-bottom: 0.5rem;
+}
+.tooltipcls {
+    width: 230px;
+    "word-break": break-all;
+    "overflow-wrap": break-word;
+    display : block;
+}

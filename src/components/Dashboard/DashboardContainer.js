@@ -31,7 +31,8 @@ import WirespartnersPosting from './../wire/wirepartners/Posting/WirespartnersPo
 import { useSelector } from 'react-redux';
 import WireFileList from './../wire/wirein/completed/WireFileList';
 import PostEOD from './../wire/postEOD/PostEOD';
-
+import FedPDList from './../fedPD/FedPDList';
+import FedPDDetails from './../fedPD/FedPDDetails';
 const WireListWrap = props => {
   //console.log(props);
   return <Wireslist batchRec={props.location.state} />;
@@ -44,6 +45,10 @@ const WireInListWrap = props => {
 
 const FileListWrap = props => {
   return <WireFileList batchRec={props.location.state} />;
+};
+
+const FedPDDetailsWrap = props => {
+  return <FedPDDetails fedPDRec={props.location.state} />;
 };
 
 const routes = [
@@ -77,6 +82,10 @@ const routes = [
   {
     path: "/filelist/:wirePostID",
     main: FileListWrap
+  },
+  {
+    path: "/fedPDList",
+    main: () => <FedPDList  />
   },
   {
     path: "/wiresin",
@@ -162,6 +171,11 @@ const routes = [
   {
     path: "/deposits",
     main: () => <DepositList />
+  },
+  {
+    path: "/fedPDdetails/:fedPDFmsgID",
+    exact: true,
+    main: FedPDDetailsWrap
   }
 ];
 

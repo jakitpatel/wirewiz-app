@@ -15,6 +15,8 @@ import wireinForOFACReducer from './wireinForOFACReducer';
 import wireOutManualResolveReducer from './wireOutManualResolveReducer';
 import wireoutPostingReducer from './wireoutPostingReducer';
 import wiresInFileListReducer from './wiresInFileListReducer';
+import fedPDReducer from './fedPDReducer';
+import fedPDDetailsReducer from './fedPDDetailsReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
@@ -32,7 +34,9 @@ const rootReducer = combineReducers({
     wireoutForOFACGeneratedReducer,
     wireinForOFACReducer,
     wireoutPostingReducer,
-    wiresInFileListReducer
+    wiresInFileListReducer,
+    fedPDReducer,
+    fedPDDetailsReducer
 });
 
 export default rootReducer;

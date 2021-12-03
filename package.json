@@ -32,6 +32,7 @@
     "react-tooltip": "^4.2.10",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
+    "ua-parser-js": "^0.7.30",
     "xlsx": "^0.16.7"
   },
   "scripts": {

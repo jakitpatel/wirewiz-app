@@ -84,24 +84,25 @@ function FedPDDetailForm(props) {
                         </div>
                       </div>
                   )
-                } else if(key==="textWireMsg"){
+                } else if(key==="fpdfData"){
                   let valueSt = "";
                   if(value !== null && value !== ""){
-                    let msgArr = value.split("{");
+                    let msgArr = value.split("Z");
+                    //s = msgArr.join("\n Z");
                     for (let i = 1; i < msgArr.length; i++) {
-                      msgArr[i] = "{"+msgArr[i] + "\n";
+                      msgArr[i] = "Z"+msgArr[i] + "\n";
                     }
                     valueSt = msgArr.join("");
                   }
                   return (
                     <div key={key} className={`${defClassName}-12`}>
                       <div className="form-group row">
-                        <label className={`${defClassName}-2 col-form-label`}>textWireMsg</label>
+                        <label className={`${defClassName}-2 col-form-label`}>fpdfData</label>
                         <div className={`${defClassName}-10`}>
                             <TextareaAutosize 
                             className="form-control" 
                             minRows={1}
-                            name="textWireMsg"
+                            name="fpdfData"
                             value={valueSt}
                             readOnly
                             />

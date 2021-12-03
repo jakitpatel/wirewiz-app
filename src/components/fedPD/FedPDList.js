@@ -82,7 +82,18 @@ function FedPDList(props) {
       field: "fpdfData",
       Header: "fpdfData",
       accessor: "fpdfData",
-      disableFilters: true
+      disableFilters: true,
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        let result = props.value.substr(0, 15)+"...";
+        return (
+          <div style={{textAlign: "right"}}>
+          {result}
+          </div>
+        )
+      }
     },
     {
       name: "created",
@@ -91,32 +102,6 @@ function FedPDList(props) {
       accessor: "created"
     }
   ];
-
-  const buildColumnObject = (wireFilterObj) => {
-    if(wireFilterObj && colItems.length===0){
-      let fieldMataData = [];
-      //Object.entries(wireFilterObj).slice(0, 15).map(([key, value]) => {
-      //Object.fromEntries(Object.entries(wireFilterObj).sort());
-      let objKeyArr = Object.keys(wireFilterObj); // Convert to array
-      let sortobjArr = objKeyArr.sort(function (a, b) {
-          if ( a.toLowerCase() < b.toLowerCase() ) {
-              return -1;
-          } else if ( a.toLowerCase() > b.toLowerCase() ) {
-              return 1;
-          } else {
-              return 0;
-          }
-      } )
-      sortobjArr.map((key) => {
-          let tmpObj = {};
-          tmpObj.fieldName = key;
-          tmpObj.fieldType = getFieldType(key);
-          fieldMataData.push(tmpObj);
-      });
-      console.log(fieldMataData);
-      setColItems(fieldMataData);  
-    }
-  }
 
   const fetchData = React.useCallback(({ pageSize, pageIndex, filters, sortBy }) => {
     // This will get called when the table needs new data

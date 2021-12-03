@@ -162,9 +162,9 @@ function FedPDList(props) {
       let wireArray = res.data.resource;
       //console.log(wireArray);
       //setData(wireArray);
-      if(wireArray.length>0){
+      /*if(wireArray.length>0){
         buildColumnObject(wireArray[0]);
-      }
+      }*/
 
       let totalCnt = res.data.meta.count;
       dispatch({

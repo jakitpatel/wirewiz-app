@@ -79,6 +79,12 @@ function FedPDList(props) {
       disableFilters: true
     },
     {
+      field: "fmhFormatID",
+      Header: "fmhFormatID",
+      accessor: "fmhFormatID",
+      disableFilters: true
+    },
+    {
       field: "fpdfData",
       Header: "fpdfData",
       accessor: "fpdfData",
@@ -94,6 +100,12 @@ function FedPDList(props) {
           </div>
         )
       }
+    },
+    {
+      field: "fpdfCDMsgID",
+      Header: "fpdfCDMsgID",
+      accessor: "fpdfCDMsgID",
+      disableFilters: true
     },
     {
       name: "created",

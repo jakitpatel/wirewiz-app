@@ -85,6 +85,12 @@ function FedPDList(props) {
       disableFilters: true
     },
     {
+      field: "fpdfCDMsgID",
+      Header: "fpdfCDMsgID",
+      accessor: "fpdfCDMsgID",
+      disableFilters: true
+    },
+    {
       field: "fpdfData",
       Header: "fpdfData",
       accessor: "fpdfData",
@@ -100,12 +106,6 @@ function FedPDList(props) {
           </div>
         )
       }
-    },
-    {
-      field: "fpdfCDMsgID",
-      Header: "fpdfCDMsgID",
-      accessor: "fpdfCDMsgID",
-      disableFilters: true
     },
     {
       name: "created",

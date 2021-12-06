@@ -12,3 +12,4 @@ RedirectMatch /wireapp/filelist/.* /wireapp
 RedirectMatch /wireapp/ach /wireapp
 RedirectMatch /wireapp/deposits /wireapp
 RedirectMatch /wireapp/fedPDList /wireapp
+RedirectMatch /wireapp/fedPDdetails/.* /wireapp

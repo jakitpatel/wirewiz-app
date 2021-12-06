@@ -62,7 +62,7 @@ function FedPDDetailForm(props) {
         <div className="sm-vert-form form-row">
           {
             Object.entries(wireDetailsObj).map(([key, value]) => {
-              let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
+              let str = "fmhLen fmhType fmhDesc1 fmhDesc2 fmhInputCompID fmhVersionID fmhMidIDLen fmhMidID";
               if(!str.includes(key)){
                 if(key==="errorMsg"){
                   if(value===null){

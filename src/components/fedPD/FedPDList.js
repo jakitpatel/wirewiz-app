@@ -5,6 +5,7 @@ import FedPDListView from "./FedPDListView.js";
 import * as Icon from "react-feather";
 import "./FedPDList.css";
 import axios from 'axios';
+import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 //import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, getFieldType} from './../Functions/functions.js';
@@ -72,7 +73,7 @@ function FedPDList(props) {
         );
       }
     },
-    {
+    /*{
       field: "fmhMidID",
       Header: "fmhMidID",
       accessor: "fmhMidID",
@@ -83,25 +84,26 @@ function FedPDList(props) {
       Header: "fmhFormatID",
       accessor: "fmhFormatID",
       disableFilters: true
-    },
+    },*/
     {
       field: "fpdfCDMsgID",
-      Header: "fpdfCDMsgID",
-      accessor: "fpdfCDMsgID",
-      disableFilters: true
+      Header: "Message Type",
+      accessor: "fpdfCDMsgID"
+      //disableFilters: true
     },
     {
       field: "fpdfData",
-      Header: "fpdfData",
+      Header: "Message",
       accessor: "fpdfData",
-      disableFilters: true,
+      width:300,
+      //disableFilters: true,
       Cell: props => {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let result = props.value.substr(0, 15)+"...";
+        let result = props.value.substring(0, 25)+"...";
         return (
-          <div style={{textAlign: "right"}}>
+          <div>
           {result}
           </div>
         )
@@ -111,7 +113,19 @@ function FedPDList(props) {
       name: "created",
       field: "created",
       Header: "created",
-      accessor: "created"
+      accessor: "created",
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        let now = new Date(props.value);
+        var dateString = moment(now).format('YYYY-MM-DD HH:MM:SS');
+        return (
+          <div>
+          {dateString}
+          </div>
+        )
+      }
     }
   ];
 

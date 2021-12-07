@@ -95,13 +95,13 @@ function FedPDList(props) {
       field: "fpdfData",
       Header: "Message",
       accessor: "fpdfData",
-      width:300,
+      width:400,
       //disableFilters: true,
       Cell: props => {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let result = props.value.substring(0, 25)+"...";
+        let result = props.value.substring(0, 80)+"...";
         return (
           <div>
           {result}

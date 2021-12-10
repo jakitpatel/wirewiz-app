@@ -45,6 +45,7 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/filelist/:wirePostID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedPDList`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedPDdetails/:fedPDFmsgID`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedDirectSend`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}`} component={Login} />
         </Switch>
       </Provider>

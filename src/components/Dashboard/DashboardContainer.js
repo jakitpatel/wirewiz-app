@@ -33,6 +33,8 @@ import WireFileList from './../wire/wirein/completed/WireFileList';
 import PostEOD from './../wire/postEOD/PostEOD';
 import FedPDList from './../fedPD/FedPDList';
 import FedPDDetails from './../fedPD/FedPDDetails';
+import FedDirectSend from './../FedDirectSend/FedDirectSend';
+
 const WireListWrap = props => {
   //console.log(props);
   return <Wireslist batchRec={props.location.state} />;
@@ -50,6 +52,10 @@ const FileListWrap = props => {
 const FedPDDetailsWrap = props => {
   return <FedPDDetails fedPDRec={props.location.state} />;
 };
+
+const  FedDirectSendWrap = props => {
+  return <FedDirectSend />;
+}
 
 const routes = [
   {
@@ -176,6 +182,11 @@ const routes = [
     path: "/fedPDdetails/:fedPDFmsgID",
     exact: true,
     main: FedPDDetailsWrap
+  },
+  {
+    path: "/fedDirectSend",
+    exact: true,
+    main: FedDirectSendWrap
   }
 ];
 

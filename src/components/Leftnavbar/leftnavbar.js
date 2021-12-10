@@ -188,6 +188,12 @@ function LeftNavBar(props) {
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />
+                  <MenuListItem
+                    menuName="FedDirectSend"
+                    routePath={`${process.env.PUBLIC_URL}/fedDirectSend`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
                 </ul>
               </div>
           </li>

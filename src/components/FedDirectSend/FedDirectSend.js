@@ -8,6 +8,7 @@ const {API_KEY, WireDetails_Url, env} = window.constVar;
 function FedDirectSend(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [reqvalue, setReqvalue] = useState("endpointtotals");
   const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
@@ -42,6 +43,11 @@ function FedDirectSend(props) {
   
   const handleChange = () => {
     console.log("handleChange");
+  }
+
+  const handleRequestChange = (e) => {
+    console.log("handle Request Change");
+    setReqvalue(e.target.value);
   }
   
   const submitFedline = () => {
@@ -79,7 +85,7 @@ function FedDirectSend(props) {
               </div>
               <div style={{ clear:"both"}}></div>
             </div>
-            <FedDirectSendForm formMode={props.disType} custstate={fedDirectSendDetailsObj} oncustinputchange={handleChange} />
+            <FedDirectSendForm formMode={props.disType} custstate={fedDirectSendDetailsObj} reqvalue={reqvalue} oncustinputchange={handleChange} onRequestChange={handleRequestChange} />
           </div>
         </div>
       </div>

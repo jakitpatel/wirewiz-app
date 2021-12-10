@@ -43,7 +43,7 @@ function CustTextInput(props) {
 }
 
 function FedDirectSendForm(props) {
-  const {refPropWithAnotherName, printAct} = props;
+  const {printAct, reqvalue, onRequestChange} = props;
   let wireDetailsObj = props.custstate;
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
@@ -59,13 +59,23 @@ function FedDirectSendForm(props) {
         <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Request</label>
             <div className={`${defClassName}-10`}>
-                <input type="" 
-                className="form-control"
+              <select
+                className="form-control" 
+                value={reqvalue} 
+                onChange={onRequestChange} 
                 name="request"
-                />
+              >
+                <option value="endpointtotals">Endpoint Totals</option>
+                <option value="detailsummary">Detail Summary</option>
+                <option value="retrieval">Retrieval</option>
+                <option value="errorcode">Error Code</option>
+                <option value="accountbalance">Account Balance</option>
+                <option value="newwire">New Wire(raw)</option>
+              </select>
             </div>
           </div>
       </div>
+      {reqvalue === "endpointtotals" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Endpoint Totals</label>
@@ -85,6 +95,8 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
+      {reqvalue === "detailsummary" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Detail Summary</label>
@@ -125,6 +137,8 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
+      {reqvalue === "retrieval" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Retrieval</label>
@@ -172,6 +186,8 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
+      {reqvalue === "errorcode" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Error Code</label>
@@ -198,6 +214,8 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
+      {reqvalue === "accountbalance" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
             <label className={`${defClassName}-2 col-form-label`}>Account Balance</label>
@@ -224,6 +242,8 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
+      {reqvalue === "newwire" &&
       <div className={`${defClassName}-12`}>
         <div className="form-group row">
         <label className={`${defClassName}-2 col-form-label`}>New Wire (raw)</label>
@@ -239,6 +259,7 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
+      }
     </div>
   );
 }

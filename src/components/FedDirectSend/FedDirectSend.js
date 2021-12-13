@@ -3,12 +3,23 @@ import { useParams, useHistory } from "react-router-dom";
 import FedDirectSendForm from "./FedDirectSendForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-const {API_KEY, WireDetails_Url, env} = window.constVar;
+const {API_KEY, SENDFEDLINEMSG_URL, env} = window.constVar;
 
 function FedDirectSend(props) {
   let history = useHistory();
   const [loading, setLoading] = useState(true);
   const [reqvalue, setReqvalue] = useState("endpointtotals");
+  const [sendMsg, setSendMsg] = useState({
+    urc:"",
+    id:"MMQFMCZY",
+    code:"",
+    acttype:"",
+    direction:"",
+    startseq:"",
+    endseq:"",
+    date:"",
+    wire:""
+  });
   const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
@@ -41,8 +52,9 @@ function FedDirectSend(props) {
     };
   }, [dispatch, session_token]);
   
-  const handleChange = () => {
+  const handleInputChange = (e) => {
     console.log("handleChange");
+    setSendMsg({ ...sendMsg, [e.target.name]: e.target.value });
   }
 
   const handleRequestChange = (e) => {
@@ -50,8 +62,51 @@ function FedDirectSend(props) {
     setReqvalue(e.target.value);
   }
   
-  const submitFedline = () => {
+  const submitFedline = async (e) => {
     console.log("Submit Send Fedline Message");
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let data = {};
+    if(reqvalue==="newwire"){
+      data.wire = sendMsg.wire;
+    } else {
+      data.urc = sendMsg.urc;
+      data.id  = sendMsg.id;
+      if(reqvalue==="errorcode"){
+        data.code  = sendMsg.code;
+      } else if(reqvalue==="accountbalance"){
+        data.acttype  = sendMsg.acttype;
+      } else if(reqvalue==="detailsummary" || reqvalue==="retrieval"){
+        data.direction = sendMsg.direction;
+        data.startseq  = sendMsg.startseq;
+        data.endseq    = sendMsg.endseq;
+        if(reqvalue==="retrieval"){
+          data.date  = sendMsg.date;
+        }
+      }
+    }
+    let url = SENDFEDLINEMSG_URL;
+    try {
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      //setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.log(error.response);
+      //setIsRefresh(!isRefresh);
+      //setIsRefresh(!isRefresh);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
+    }
   }
 
   const backToWireList = () => {
@@ -85,7 +140,12 @@ function FedDirectSend(props) {
               </div>
               <div style={{ clear:"both"}}></div>
             </div>
-            <FedDirectSendForm formMode={props.disType} custstate={fedDirectSendDetailsObj} reqvalue={reqvalue} oncustinputchange={handleChange} onRequestChange={handleRequestChange} />
+            <FedDirectSendForm 
+              sendMsg={sendMsg}
+              sendMsgSet={setSendMsg}
+              formMode={props.disType} 
+              custstate={fedDirectSendDetailsObj} 
+              reqvalue={reqvalue} onInputChange={handleInputChange} onRequestChange={handleRequestChange} />
           </div>
         </div>
       </div>

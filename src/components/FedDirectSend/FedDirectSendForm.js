@@ -3,7 +3,7 @@ import "./FedDirectSendForm.css";
 import ReactTooltip from 'react-tooltip';
 import { useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
-
+/*
 function CustTextInput(props) {
   const {defClassName} = props;
   let fieldName = props.nameref;
@@ -41,9 +41,10 @@ function CustTextInput(props) {
     </div>
   );
 }
-
+*/
 function FedDirectSendForm(props) {
-  const {printAct, reqvalue, onRequestChange} = props;
+  const {printAct, reqvalue, onRequestChange, onInputChange} = props;
+  const {urc, id, diection, code, acttype, startseq, endseq, date, wire} = props.sendMsg;
   let wireDetailsObj = props.custstate;
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
@@ -53,6 +54,18 @@ function FedDirectSendForm(props) {
     defClassName += "-sm";
   }
   //console.log(defClassName);
+  let labelVal = "Endpoint Totals";
+  if(reqvalue === "errorcode"){
+    labelVal = "Error Code";
+  } else if(reqvalue === "detailsummary"){
+    labelVal = "Detail Summary";
+  } else if(reqvalue === "retrieval"){
+    labelVal = "Retrieval";
+  } else if(reqvalue === "accountbalance"){
+    labelVal = "Account Balance";
+  } else if(reqvalue === "newwire"){
+    labelVal = "New Wire(raw)";
+  }
   return (
     <div>
       <div className={`${defClassName}-12`}>
@@ -75,191 +88,111 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
-      {reqvalue === "endpointtotals" &&
       <div className={`${defClassName}-12`}>
           <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Endpoint Totals</label>
+            <label className={`${defClassName}-2 col-form-label`}>{labelVal}</label>
+            {reqvalue !== "newwire" &&
+            <>
             <div className="d-flex flex-column col-sm-2">
               <label className="control-label">URC</label>
               <input type="text"
+              value={urc}
               className="form-control"
-              name="URC"
+              onChange={onInputChange}
+              name="urc"
               />
             </div>
             <div className="d-flex flex-column col-sm-3">
               <label className="control-label">ID</label>
               <input type="text"
+              value={id}
               className="form-control"
-              name="ID"
+              onChange={onInputChange}
+              name="id"
               />
             </div>
-          </div>
-      </div>
-      }
-      {reqvalue === "detailsummary" &&
-      <div className={`${defClassName}-12`}>
-          <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Detail Summary</label>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">URC</label>
-              <input type="text"
-              className="form-control"
-              name="URC"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-3">
-              <label className="control-label">ID</label>
-              <input type="text"
-              className="form-control"
-              name="ID"
-              />
-            </div>
+            </>
+            }
+            {(reqvalue === "detailsummary" || reqvalue === "retrieval") &&
+            <>
             <div className="d-flex flex-column col-sm-2">
               <label className="control-label">Direction</label>
               <input type="text"
               className="form-control"
-              name="Direction"
+              value={diection}
+              name="direction"
+              onChange={onInputChange}
               />
             </div>
             <div className="d-flex flex-column col-sm-1">
               <label className="control-label">Start Seq</label>
               <input type="text"
               className="form-control"
+              value={startseq}
               name="startseq"
+              onChange={onInputChange}
               />
             </div>
             <div className="d-flex flex-column col-sm-1">
               <label className="control-label">End Seq</label>
               <input type="text"
               className="form-control"
+              value={endseq}
               name="endseq"
+              onChange={onInputChange}
               />
             </div>
-          </div>
-      </div>
-      }
-      {reqvalue === "retrieval" &&
-      <div className={`${defClassName}-12`}>
-          <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Retrieval</label>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">URC</label>
-              <input type="text"
-              className="form-control"
-              name="URC"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-3">
-              <label className="control-label">ID</label>
-              <input type="text"
-              className="form-control"
-              name="ID"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">Direction</label>
-              <input type="text"
-              className="form-control"
-              name="Direction"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-1">
-              <label className="control-label">Start Seq</label>
-              <input type="text"
-              className="form-control"
-              name="startseq"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-1">
-              <label className="control-label">End Seq</label>
-              <input type="text"
-              className="form-control"
-              name="endseq"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-1">
-              <label className="control-label">Date</label>
-              <input type="text"
-              className="form-control"
-              name="date"
-              />
-            </div>
-          </div>
-      </div>
-      }
-      {reqvalue === "errorcode" &&
-      <div className={`${defClassName}-12`}>
-          <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Error Code</label>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">URC</label>
-              <input type="text"
-              className="form-control"
-              name="URC"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-3">
-              <label className="control-label">ID</label>
-              <input type="text"
-              className="form-control"
-              name="ID"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">Code</label>
-              <input type="text"
-              className="form-control"
-              name="Code"
-              />
-            </div>
-          </div>
-      </div>
-      }
-      {reqvalue === "accountbalance" &&
-      <div className={`${defClassName}-12`}>
-          <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Account Balance</label>
-            <div className="d-flex flex-column col-sm-2">
-              <label className="control-label">URC</label>
-              <input type="text"
-              className="form-control"
-              name="URC"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-3">
-              <label className="control-label">ID</label>
-              <input type="text"
-              className="form-control"
-              name="ID"
-              />
-            </div>
-            <div className="d-flex flex-column col-sm-2">
+            </>
+            }
+            {reqvalue === "retrieval" &&
+              <div className="d-flex flex-column col-sm-1">
+                <label className="control-label">Date</label>
+                <input type="text"
+                className="form-control"
+                value={date}
+                name="date"
+                onChange={onInputChange}
+                />
+              </div>
+            }
+            {reqvalue === "errorcode" &&
+              <div className="d-flex flex-column col-sm-2">
+                <label className="control-label">Code</label>
+                <input type="text"
+                value={code}
+                className="form-control"
+                name="code"
+                onChange={onInputChange}
+                />
+              </div>
+            }
+            {reqvalue === "accountbalance" &&
+             <div className="d-flex flex-column col-sm-2">
               <label className="control-label">Type</label>
               <input type="text"
               className="form-control"
-              name="Code"
+              name="acttype"
+              value={acttype}
+              onChange={onInputChange}
               />
             </div>
-          </div>
-      </div>
-      }
-      {reqvalue === "newwire" &&
-      <div className={`${defClassName}-12`}>
-        <div className="form-group row">
-        <label className={`${defClassName}-2 col-form-label`}>New Wire (raw)</label>
-          <div className="d-flex flex-column col-sm-10">
+            }
+            {reqvalue === "newwire" &&
+            <div className="d-flex flex-column col-sm-10">
               <label className="control-label">Wire</label>
               <div>
                   <TextareaAutosize 
                   className="form-control" 
                   minRows={3}
                   name="wire"
+                  onChange={onInputChange}
+                  value={wire}
                   />
               </div>
             </div>
+            }
           </div>
       </div>
-      }
     </div>
   );
 }

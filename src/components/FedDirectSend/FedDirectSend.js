@@ -10,15 +10,15 @@ function FedDirectSend(props) {
   const [loading, setLoading] = useState(true);
   const [reqvalue, setReqvalue] = useState("endpointtotals");
   const [sendMsg, setSendMsg] = useState({
-    urc:"",
-    id:"MMQFMCZY",
-    code:"",
-    acttype:"",
-    direction:"",
-    startseq:"",
-    endseq:"",
-    date:"",
-    wire:""
+    urc : "12345678",
+    id  : "MMQFMCZY",
+    code: "A123",
+    acttype  : "Self",
+    direction: "Sent",
+    startseq : "123456",
+    endseq   : "123456",
+    date : "",
+    wire : ""
   });
   const dispatch = useDispatch();
 
@@ -62,6 +62,25 @@ function FedDirectSend(props) {
     setReqvalue(e.target.value);
   }
   
+  const getRequestMsgName = (val) => {
+    console.log("Get Request Msg Name");
+    let request;
+    if(val==="newwire"){
+      request = "New Wire";
+    } else if(val==="errorcode"){
+      request = "Error Code";
+    } else if(val==="endpointtotals"){
+      request = "Endpoint Totals";
+    } else if(val==="detailsummary"){
+      request = "Detail Summary";
+    } else if(val==="retrieval"){
+      request = "Retrieval";
+    } else if(val==="accountbalance"){
+      request = "Account Balance";
+    }
+    return request;
+  }
+
   const submitFedline = async (e) => {
     console.log("Submit Send Fedline Message");
     const options = {
@@ -71,6 +90,7 @@ function FedDirectSend(props) {
       }
     };
     let data = {};
+    data.req = getRequestMsgName(reqvalue);
     if(reqvalue==="newwire"){
       data.wire = sendMsg.wire;
     } else {

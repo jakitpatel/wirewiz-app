@@ -117,12 +117,15 @@ function FedDirectSendForm(props) {
             <>
             <div className="d-flex flex-column col-sm-2">
               <label className="control-label">Direction</label>
-              <input type="text"
-              className="form-control"
-              value={diection}
-              name="direction"
-              onChange={onInputChange}
-              />
+              <select
+                className="form-control" 
+                value={diection} 
+                onChange={onInputChange} 
+                name="direction"
+              >
+                <option value="Sent">Sent</option>
+                <option value="Received">Received</option>
+              </select>
             </div>
             <div className="d-flex flex-column col-sm-1">
               <label className="control-label">Start Seq</label>
@@ -147,7 +150,7 @@ function FedDirectSendForm(props) {
             {reqvalue === "retrieval" &&
               <div className="d-flex flex-column col-sm-1">
                 <label className="control-label">Date</label>
-                <input type="text"
+                <input type="date"
                 className="form-control"
                 value={date}
                 name="date"
@@ -169,12 +172,15 @@ function FedDirectSendForm(props) {
             {reqvalue === "accountbalance" &&
              <div className="d-flex flex-column col-sm-2">
               <label className="control-label">Type</label>
-              <input type="text"
-              className="form-control"
-              name="acttype"
-              value={acttype}
-              onChange={onInputChange}
-              />
+              <select
+                className="form-control" 
+                value={acttype} 
+                onChange={onInputChange} 
+                name="acttype"
+              >
+                <option value="Self">Self</option>
+                <option value="Master">Master</option>
+              </select>
             </div>
             }
             {reqvalue === "newwire" &&

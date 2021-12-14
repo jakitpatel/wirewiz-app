@@ -118,8 +118,12 @@ function FedPDList(props) {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let now = new Date(props.value);
-        var dateString = moment(now).format('YYYY-MM-DD HH:MM:SS');
+        let dateString = props.value;
+        let dateArr = props.value.split(".");
+        //let now = new Date(props.value);
+        if(dateArr.length > 0){
+          dateString = dateArr[0]; //moment(now).format('YYYY-MM-DD HH:MM:SS');
+        }
         return (
           <div>
           {dateString}

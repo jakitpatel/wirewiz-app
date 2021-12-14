@@ -112,18 +112,21 @@ function FedDirectSend(props) {
     let url = SENDFEDLINEMSG_URL;
     try {
       let res = await axios.post(url, data, options);
-      console.log(res.data);
-      //setIsRefresh(!isRefresh);
-      //setIsRefresh(!isRefresh);
+      console.log(res);
+      if(res.status === 200){
+        console.log(res.data);
+        alert("Fedline Message Sent Successfully");
+      } else {
+        alert("Error : Fedline Message did not send successfully");
+      }
     } catch (error) {
       console.log(error.response);
-      //setIsRefresh(!isRefresh);
-      //setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
           let res = error.response.data;
           alert(res.error.message);
       } else {
+        console.log("Showing error");
         alert(error);
       }
     }

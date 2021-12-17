@@ -76,9 +76,29 @@ function ForOFAC(props) {
         //console.log(obj.row);
         let wireInObj = obj.row.original;
         return (
-          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"manual")}} className={`btn btn-link btn-sm`}>
             <Icon.Send />
           </button>
+        );
+      }
+    },
+    {
+      Header: "Generate Auto OFAC File",
+      show : true, 
+      width: 120,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInObj = obj.row.original;
+        return (
+          <div style={{ textAlign: "center" }}>
+            <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"auto")}} className={`btn btn-link btn-sm`}>
+              <Icon.Send />
+            </button>
+          </div>
         );
       }
     },
@@ -207,7 +227,7 @@ function ForOFAC(props) {
     }
   }, [ dispatch, session_token]);
 
-  const onWireInExport = async (e, wireInObj) => {
+  const onWireInExport = async (e, wireInObj, expType) => {
     console.log("Called Wire In Export");
     console.log(wireInObj);
     
@@ -225,6 +245,9 @@ function ForOFAC(props) {
       "resource": [{"wireBatchId": wireInObj.wireBatchId}],
       "direction":"wireOut"
     };
+    if(expType==="auto"){
+      data.Auto = true;
+    }
     let url = WireInExport_Url;
     if(env==="DEVLOCAL"){
       url = WireInExport_Url;

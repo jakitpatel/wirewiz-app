@@ -100,6 +100,26 @@ function Wirein(props) {
         );
       }
     },
+    {
+      Header: "Generate Auto OFAC File",
+      show : true, 
+      width: 120,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInObj = obj.row.original;
+        return (
+          <div style={{ textAlign: "center" }}>
+            <button type="button" onClick={(e)=>{onGenAutoOFACFile(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+              <Icon.Send />
+            </button>
+          </div>
+        );
+      }
+    },
     /*{
       headerName: "Account",
       field: "Account",
@@ -279,6 +299,47 @@ function Wirein(props) {
       fetchWireInRecord();
     }
   }, [ dispatch, session_token]);
+
+  const onGenAutoOFACFile = async (e, wireInObj) => {
+    console.log("Called on Gen Auto OFAC File");
+    console.log(wireInObj);
+    console.log("sending : "+sending);
+    if(sending===true){
+      return false;
+    }
+    const options = {
+      headers: {
+        'X-DreamFactory-API-Key': API_KEY,
+        'X-DreamFactory-Session-Token': session_token
+      }
+    };
+    let dataArr = [{"vAcc": wireInObj.Account}];
+    if(wireInObj==="sel"){
+      dataArr = modWireData;
+    }
+    let data = {
+      "resource": [],//dataArr,
+      "direction":"wireIn",
+      "Auto":true
+    };
+    let url = WireInExport_Url;
+    if(env==="DEVLOCAL"){
+      url = WireInExport_Url;
+    }
+    try {
+      //setSending(!sending);
+      setSending(true);
+      let res = await axios.post(url, data, options);
+      console.log(res.data);
+      //setSending(!sending);
+      setSending(false);
+      setIsRefresh(!isRefresh);
+    } catch (error) {
+      console.error(error) // from creation or business logic
+      //setSending(!sending);
+      setSending(false);
+    }    
+  }
 
   const onWireInExport = async (e, wireInObj) => {
     console.log("Called Wire In Export");

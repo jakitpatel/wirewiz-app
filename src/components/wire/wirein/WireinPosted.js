@@ -88,8 +88,20 @@ function WireinPosted(props) {
             enableVal = true;
           }
         }*/
+        let colorVal = "#007bff";
+        if(wireInPostobj.postStatus){
+          if(wireInPostobj.postStatus==="OFAC_OK"){
+            colorVal = "green";
+          } else if(wireInPostobj.postStatus==="OFAC_ERR"){
+            colorVal = "orange";
+          } else if(wireInPostobj.postStatus==="OFAC_WAIT"){
+            colorVal = "#F6BE00";
+          } else if(wireInPostobj.postStatus==="OFAC"){
+            colorVal = "#007bff";
+          }
+        }
         return (
-          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );

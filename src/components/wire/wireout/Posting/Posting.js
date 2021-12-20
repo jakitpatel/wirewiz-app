@@ -90,11 +90,11 @@ function Posting(props) {
         if(wireInPostobj.postStatus){
           let postStatusVal = wireInPostobj.postStatus.trim();
           if(postStatusVal==="OFAC_OK"){
-            colorVal = "green";
+            colorVal = "#AAFF00";
           } else if(postStatusVal==="OFAC_ERR"){
-            colorVal = "orange";
+            colorVal = "#DC143C";
           } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#F6BE00";
+            colorVal = "#FFE900";
           } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
           }

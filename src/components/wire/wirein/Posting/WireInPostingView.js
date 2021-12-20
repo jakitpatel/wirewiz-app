@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import './PostingView.css';
+import './WireInPostingView.css';
 import DefaultColumnFilter from './../../../Filter/DefaultColumnFilter';
 
 const Styles = styled.div`
@@ -316,7 +316,7 @@ function Table({
   )
 }
 
- function PostingView(props) {
+ function WireInPostingView(props) {
    //console.log(props.items);
    //const data = React.useMemo(() => props.items, [props.items])
    const dispatch = useDispatch();
@@ -338,7 +338,7 @@ function Table({
     });
    return (
     <Styles>
-      <ReactTooltip delayShow={200} id='wireoutPostingTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
+      <ReactTooltip delayShow={200} id='wireInPostingTtip' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
       <Table 
         columns={columns} 
         data={data}
@@ -364,4 +364,4 @@ function Table({
   )
  }
 
- export default PostingView;
+ export default WireInPostingView;

@@ -6,7 +6,7 @@ import Wireslist from "./../wire/wirelist/Wireslist";
 import WiresInlist from "./../wire/wirein/wireinlist/WiresInlist";
 import Wirein from "./../wire/wirein/ForOFAC/Wirein.js";
 import WireinManual from "./../wire/wirein/WireinManual";
-import WireinPosted from "./../wire/wirein/WireinPosted";
+import WireinPosted from "./../wire/wirein/Posting/WireinPosted";
 import WireinPostedActual from "./../wire/wirein/WireinPostedActual";
 import WireinManualResolved from "./../wire/wirein/wireManualResolved/WireinManualResolved.js";
 import Wiredetails from "./../wire/wiredetails/WireDetails";

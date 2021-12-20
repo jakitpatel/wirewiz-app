@@ -87,20 +87,25 @@ function Posting(props) {
           }
         }*/
         let colorVal = "#007bff";
+        let errorTooltip = "";
         if(wireInPostobj.postStatus){
           let postStatusVal = wireInPostobj.postStatus.trim();
           if(postStatusVal==="OFAC_OK"){
-            colorVal = "#AAFF00";
+            colorVal = "#228B22";
+            errorTooltip = "No Error detected";
           } else if(postStatusVal==="OFAC_ERR"){
             colorVal = "#DC143C";
+            errorTooltip = "Error detected";
           } else if(postStatusVal==="OFAC_WAIT"){
             colorVal = "#FFE900";
+            errorTooltip = "Waiting for auto OFAC reply";
           } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
+            errorTooltip = "Manual OFAC submission";
           }
         }
         return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+          <button data-tip={errorTooltip} data-for='wireoutPostingTtip' type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );

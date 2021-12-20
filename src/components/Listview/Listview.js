@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo } from "react";
-import { useTable, useSortBy } from 'react-table'
-import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip';
+import { useTable, useSortBy } from 'react-table';
+import styled from 'styled-components';
 import './Listview.css';
 
 const Styles = styled.div`

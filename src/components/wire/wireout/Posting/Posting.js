@@ -88,13 +88,14 @@ function Posting(props) {
         }*/
         let colorVal = "#007bff";
         if(wireInPostobj.postStatus){
-          if(wireInPostobj.postStatus==="OFAC_OK"){
+          let postStatusVal = wireInPostobj.postStatus.trim();
+          if(postStatusVal==="OFAC_OK"){
             colorVal = "green";
-          } else if(wireInPostobj.postStatus==="OFAC_ERR"){
+          } else if(postStatusVal==="OFAC_ERR"){
             colorVal = "orange";
-          } else if(wireInPostobj.postStatus==="OFAC_WAIT"){
+          } else if(postStatusVal==="OFAC_WAIT"){
             colorVal = "#F6BE00";
-          } else if(wireInPostobj.postStatus==="OFAC"){
+          } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
           }
         }

@@ -69,49 +69,6 @@ function Posting(props) {
       }
     },
     {
-      Header: "Post",
-      show : true, 
-      width: 80,
-      //id: 'colViewWireDetail',
-      accessor: row => row.attrbuiteName,
-      disableFilters: true,
-      //filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log(obj.row);
-        let wireInPostobj = obj.row.original;
-        let enableVal = true;
-        /*
-        if(wireInPostobj.postStatus){
-          if(wireInPostobj.postStatus.includes('posted2OFAC')){
-            enableVal = true;
-          }
-        }*/
-        let colorVal = "#007bff";
-        let errorTooltip = "";
-        if(wireInPostobj.postStatus){
-          let postStatusVal = wireInPostobj.postStatus.trim();
-          if(postStatusVal==="OFAC_OK"){
-            colorVal = "#228B22";
-            errorTooltip = "No Error detected";
-          } else if(postStatusVal==="OFAC_ERR"){
-            colorVal = "#DC143C";
-            errorTooltip = "Error detected";
-          } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#FFE900";
-            errorTooltip = "Waiting for auto OFAC reply";
-          } else if(postStatusVal==="OFAC"){
-            colorVal = "#007bff";
-            errorTooltip = "Manual OFAC submission";
-          }
-        }
-        return (
-          <button data-tip={errorTooltip} data-for='wireoutPostingTtip' type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
-            <Icon.Send />
-          </button>
-        );
-      }
-    },
-    {
       Header: "Files",
       show : true, 
       width: 40,
@@ -132,6 +89,114 @@ function Posting(props) {
           >
             <Icon.File />
           </Link>
+        );
+      }
+    },
+    {
+      Header: "Post",
+      show : true, 
+      width: 80,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInPostobj = obj.row.original;
+        let enableVal = true;
+        let colorVal = "#007bff";
+        //let errorTooltip = "";
+        if(wireInPostobj.postStatus){
+          let postStatusVal = wireInPostobj.postStatus.trim();
+          if(postStatusVal==="OFAC_OK"){
+            colorVal = "#228B22";
+            //errorTooltip = "No Error detected";
+          } else if(postStatusVal==="OFAC_ERR"){
+            colorVal = "#DC143C";
+            //errorTooltip = "Error detected";
+          } else if(postStatusVal==="OFAC_WAIT"){
+            colorVal = "#FFE900";
+            //errorTooltip = "Waiting for auto OFAC reply";
+          } else if(postStatusVal==="OFAC"){
+            colorVal = "#007bff";
+            //errorTooltip = "Manual OFAC submission";
+          }
+        }
+        return (
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
+      Header: "PostAuto",
+      show : true, 
+      width: 80,
+      disableFilters: true,
+      accessor: row => row.attrbuiteName,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInPostobj = obj.row.original;
+        let enableVal = true;
+        let colorVal = "#007bff";
+        //let errorTooltip = "";
+        if(wireInPostobj.postStatus){
+          let postStatusVal = wireInPostobj.postStatus.trim();
+          if(postStatusVal==="OFAC_OK"){
+            colorVal = "#228B22";
+            //errorTooltip = "No Error detected";
+          } else if(postStatusVal==="OFAC_ERR"){
+            colorVal = "#DC143C";
+            //errorTooltip = "Error detected";
+          } else if(postStatusVal==="OFAC_WAIT"){
+            colorVal = "#FFE900";
+            //errorTooltip = "Waiting for auto OFAC reply";
+          } else if(postStatusVal==="OFAC"){
+            colorVal = "#007bff";
+            //errorTooltip = "Manual OFAC submission";
+          }
+        }
+        return (
+          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
+      Header: "PostStatus",
+      show : true, 
+      width: 140,
+      disableFilters: true,
+      accessor: row => row.attrbuiteName,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInPostobj = obj.row.original;
+        let colorVal = "#007bff";
+        let errorTooltip = "";
+        if(wireInPostobj.postStatus){
+          let postStatusVal = wireInPostobj.postStatus.trim();
+          if(postStatusVal==="OFAC_OK"){
+            colorVal = "#228B22";
+            errorTooltip = "No Error detected";
+          } else if(postStatusVal==="OFAC_ERR"){
+            colorVal = "#DC143C";
+            errorTooltip = "Error detected";
+          } else if(postStatusVal==="OFAC_WAIT"){
+            colorVal = "#FFE900";
+            errorTooltip = "Waiting for auto OFAC reply";
+          } else if(postStatusVal==="OFAC"){
+            colorVal = "#007bff";
+            errorTooltip = "Manual OFAC submission";
+          }
+        }
+        return (
+          <div>
+            {errorTooltip}
+          </div>
         );
       }
     },
@@ -337,7 +402,7 @@ function Posting(props) {
     }
   }, [ dispatch, session_token]);
 
-  const onWireInPost = async (e, wireInObj, withCltFlag) => {
+  const onWireInPost = async (e, wireInObj, postAutoFlag) => {
     console.log("Called Wire In Post");
     console.log(wireInObj);
     console.log("sending : "+sending);
@@ -351,10 +416,12 @@ function Posting(props) {
       }
     };
     let data = {
-      //"Clt" : withCltFlag,
       "direction":"wireOut",
       "resource": [{"wirePostID": wireInObj.wirePostID}]
     };
+    if(postAutoFlag){
+      data.Auto = postAutoFlag;
+    }
     console.log("LinkMode : "+wireInObj.linkMode);
     if(wireInObj.linkMode === "Batch"){
       data.resource.push({"FED": true},{"FISERV":true},{"VirtualGroup":true});

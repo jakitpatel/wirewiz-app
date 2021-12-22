@@ -48,11 +48,12 @@ function CreateWire(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      let tmpWireObj = createWireObj;
+      //let tmpWireObj = createWireObj;
+      let data = [createWireObj];
       //tmpWireObj.wireID = wireID;
       //tmpCustObj.LastUpdateUser = uid;
       //tmpCustObj.LastUpdateDate = moment().format('YYYY-MM-DD');
-      let res = await axios.post(SENDDIRECTWIRE_URL, tmpWireObj, options);
+      let res = await axios.post(SENDDIRECTWIRE_URL, data, options);
       console.log(res);
       alert("Data saved successfully!");
       //setToCustomer(true);

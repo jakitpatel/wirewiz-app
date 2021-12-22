@@ -3,62 +3,15 @@ import "./CreateWireForm.css";
 import ReactTooltip from 'react-tooltip';
 import { useSelector } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
+import SelectInput from './SelectInput';
 const {resource} = window.fields;
 
 function WireTextInput(props) {
   const {defClassName} = props;
-  /*
-  const { wiredict } = useSelector(state => {
-    return {
-        ...state.wireDictReducer
-    }
-  });
-  */
 
   let fieldName = props.nameref;
   let fieldClass = "form-control";
-  /*
-  let errorMsg = props.wireDtObj.errorMsg;
-  if(errorMsg !== null){
-    let n = errorMsg.includes(fieldName);
-    if(n === true){
-      fieldClass = fieldClass+" is-invalid";
-    }
-  }
-  */
-  let tooltip = "";
-  /*
-  if(errorMsg !== null){
-    let errArr = errorMsg.split(";");
-    for(let i=0; i<errArr.length; i++){
-      let errLine = errArr[i];
-      let n = errLine.includes(fieldName);
-      if(n === true){
-        tooltip = tooltip+errLine;
-      }
-    }
-  }
-  */
-  //// Label Tooltip
-  let labelTooltip = "";
-  let fieldLabel = props.labelText;
-  /*
-  for(var i = 0; i < wiredict.length; i++) {
-    var obj = wiredict[i];
-    let elementArr = obj.elements;
-    for(var j = 0; j < elementArr.length; j++) {
-      var objElement = elementArr[j];
-      let fieldName = objElement.name;
-      if(fieldName===fieldLabel){
-        labelTooltip += "Protocol Tag = "+obj.tag;
-      }
-    }
-  }
-  */
   let fieldVal = props.val;
-  /*if(fieldVal === null && fieldClass === "form-control" && tooltip === ""){
-    return null;
-  }*/
   if(fieldVal===null){
     fieldVal = "";
   }
@@ -169,6 +122,29 @@ function CreateWireForm(props) {
                           </div>
                         </div>
                       </div>
+                  )
+                } else if(key==="messageDispositionTestProdCode"){
+                  if(value===null){
+                    value = "";
+                  }
+                  const messageDispositionCodeOptions = [
+                    /*{ value: '',     label: 'All' },
+                    { value: 'is NULL', label: 'NULL' },*/
+                    { value: 'T', label: 'T' },
+                    { value: 'P',     label: 'P' }
+                  ]; 
+                
+                  return (
+                    <React.Fragment key={key}>
+                      <SelectInput
+                        placeholdertext={key}
+                        labelText={key}
+                        nameref={key}
+                        inputchange={props.oncustinputchange}
+                        val={value}
+                        optionList={messageDispositionCodeOptions}
+                      />
+                    </React.Fragment>
                   )
                 } else {
                   let readOnlyVal = !WIRE_MODIFY_CREATE;

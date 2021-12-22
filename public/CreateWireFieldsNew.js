@@ -10,7 +10,7 @@ window.fields = {
 		"typeCode": "10",
 		"subtypeCode": "00",
 		"inputCycleDate": "20211029",
-		"inputSource": "B6B7HU3R",
+		"inputSource": "MMQFMCZY",
 		"inputSeqNum": "013347",
 		"amount": "000008178000",
 		"senderABANum": "026009593",

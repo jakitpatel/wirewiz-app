@@ -175,9 +175,9 @@ function CreateWireForm(props) {
                   if(key==="status" || key==="wireType"){
                     readOnlyVal = true;
                   }
-                  if((key==="amount") && value!==null){
+                  /*if((key==="amount") && value!==null){
                     value = new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(value);
-                  }
+                  }*/
                   return (
                     <React.Fragment key={key}>
                       <WireTextInput

@@ -60,7 +60,8 @@ if(env==="DEVLOCAL"){
         WireFileList_Url          : API_URL+"wireFile",
         WireEODPost_Url           : API_URL+"posteod",
         FedPDList_Url             : API_URL+"fedPDFmsg",
-        SENDFEDLINEMSG_URL        : API_URL+"sendFEDDirectMsg"
+        SENDFEDLINEMSG_URL        : API_URL+"sendFEDDirectMsg",
+        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire"
     }
 } else {
     // For DEV & Production Env
@@ -104,6 +105,7 @@ if(env==="DEVLOCAL"){
         WireFileList_Url   : API_URL_DB+"_table/wireFile",
         WireEODPost_Url    : API_URL+"posteod",
         FedPDList_Url      : API_URL_DB+"_table/fedPDFmsg",
-        SENDFEDLINEMSG_URL        : API_URL+"sendFEDDirectMsg"
+        SENDFEDLINEMSG_URL        : API_URL+"sendFEDDirectMsg",
+        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire"
     }
 }

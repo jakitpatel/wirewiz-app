@@ -94,44 +94,108 @@ function CreateWireForm(props) {
   let defClassName = "col";
   let defFieldVal = "";
   //console.log(defClassName);
+  //var jsonObj = resource[0];
   return (
     <div>
       <h3 className="text-center" style={{marginBottom:"20px"}}>Create Wire</h3>
       <div className={`${defClassName}-12`}>
         <ReactTooltip delayShow={200} id='wireDetailForm' place="right" className="tooltipcls" textColor="#000000" backgroundColor="#f4f4f4" effect="float" multiline={true} />
         <div className="sm-vert-form form-row">
-          {
-            resource.map((field, i) => { 
-              let value = field.fieldName;
-              defFieldVal = createWireObj[value];
-              /*Object.keys(field).forEach(function(prop) {    
-                console.log(prop + " = " + field[prop]);
-                let value = field[prop];
-                */
-                let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
-                if(!str.includes(value)){
-                  let readOnlyVal = false; //!WIRE_MODIFY_CREATE;
-                  /*if(value==="status" || value==="wireType"){
-                    readOnlyVal = true;
-                  }*/
-                  //alert(value);
-                  //console.log(value);
+        {
+            Object.entries(createWireObj).map(([key, value]) => {
+              let str = "wireID wireBatchID wireDoc_by_wireID derivedErrorMsg wireRemittance_by_wireID";
+              if(!str.includes(key)){
+                if(key==="errorMsg"){
+                  if(value===null){
+                    value = "";
+                  }
                   return (
+                      <div key={key} className={`${defClassName}-12`}>
+                        <div className="form-group row">
+                          <label className={`${defClassName}-2 col-form-label`}>errorMsg</label>
+                          <div className={`${defClassName}-10`}>
+                              <TextareaAutosize 
+                              className="form-control"
+                              minRows={1}
+                              name="errorMsg"
+                              value={value}
+                              readOnly
+                              />
+                          </div>
+                        </div>
+                      </div>
+                  )
+                } else if(key==="textWireMsg"){
+                  let valueSt = "";
+                  if(value !== null && value !== ""){
+                    let msgArr = value.split("{");
+                    for (let i = 1; i < msgArr.length; i++) {
+                      msgArr[i] = "{"+msgArr[i] + "\n";
+                    }
+                    valueSt = msgArr.join("");
+                  }
+                  return (
+                    <div key={key} className={`${defClassName}-12`}>
+                      <div className="form-group row">
+                        <label className={`${defClassName}-2 col-form-label`}>textWireMsg</label>
+                        <div className={`${defClassName}-10`}>
+                            <TextareaAutosize 
+                            className="form-control" 
+                            minRows={1}
+                            name="textWireMsg"
+                            value={valueSt}
+                            readOnly
+                            />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                } else if(key==="businessErrorMsg"){
+                  if(value===null){
+                    value = "";
+                  }
+                  return (
+                      <div key={key} className={`${defClassName}-12`}>
+                        <div className="form-group row">
+                          <label className={`${defClassName}-2 col-form-label`}>businessErrorMsg</label>
+                          <div className={`${defClassName}-10`}>
+                              <TextareaAutosize 
+                              className="form-control" 
+                              minRows={1}
+                              name="businessErrorMsg"
+                              value={value}
+                              readOnly
+                              />
+                          </div>
+                        </div>
+                      </div>
+                  )
+                } else {
+                  let readOnlyVal = !WIRE_MODIFY_CREATE;
+                  if(key==="status" || key==="wireType"){
+                    readOnlyVal = true;
+                  }
+                  if((key==="amount") && value!==null){
+                    value = new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(value);
+                  }
+                  return (
+                    <React.Fragment key={key}>
                       <WireTextInput
-                        placeholdertext={value}
-                        labelText={value}
-                        nameref={value}
+                        placeholdertext={key}
+                        labelText={key}
+                        nameref={key}
                         inputchange={props.oncustinputchange}
-                        val={defFieldVal}
-                        wireDtObj={resource}
+                        val={value}
+                        wireDtObj={createWireObj}
                         readOnlyValue={readOnlyVal}
                         defClassName={defClassName}
                       />
+                    </React.Fragment>
                   )
-                } else {
-                  return null;
                 }
-              //});
+              } else {
+                return null;
+              }
             })
           }
           </div>

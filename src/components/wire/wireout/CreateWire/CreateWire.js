@@ -3,13 +3,15 @@ import { useParams, useHistory } from "react-router-dom";
 import CreateWireForm from "./CreateWireForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+const {resource} = window.fields;
 
 //import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} from './../../../const';
-const {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} = window.constVar;
+const {API_KEY, SENDDIRECTWIRE_URL, env} = window.constVar;
 
 function CreateWire(props) {
   let history = useHistory();
-  const [createWireObj, setCreateWireObj] = useState({});
+  var jsonObj = resource[0];
+  const [createWireObj, setCreateWireObj] = useState(jsonObj);
   const dispatch = useDispatch();
 
   const { session_token } = useSelector(state => {
@@ -18,112 +20,6 @@ function CreateWire(props) {
       }
   });
 
-  const { wiredict, wireDetailsObj } = useSelector(state => {
-    return {
-        ...state.wireDictReducer,
-        ...state.wireDetailsReducer
-    }
-  });
-/*
-  useEffect(() => {
-    
-    console.log("WireId : "+wireID);
-    let ignore = false;
-    async function fetchWireDictionary() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let res = await axios.get(WireDictionary_Url, options);
-      //console.log(res.data);
-      //console.log(res.data.resource);
-      let dict = res.data.resource[0].dict;
-      //console.log(dict);
-      var dictObj = JSON.parse(dict);
-      console.log(dictObj);
-      dispatch({
-        type:'SETWIREDICTIONARY',
-        payload:dictObj
-      });
-      buildWireTagValue();
-    }
-    //// Start Code for Wire To Tag Value /////
-    function buildWireTagValue(){
-      let tagValSt = "";
-      for(var i = 0; i < wiredict.length; i++) {
-        var obj = wiredict[i];
-        if(obj.tag !== "6500"){
-          let elementArr = obj.elements;
-          let tagVal = "";
-          for(var j = 0; j < elementArr.length; j++) {
-            var objElement = elementArr[j];
-            //console.log(objElement.name);
-            let fieldName = objElement.name;
-            let val = wireDetailsObj[fieldName];
-            if(val!==null && val!=="" && val!=="undefined" && val!==undefined){
-              console.log(obj.tag+"--"+fieldName+"--"+val);
-              if(typeof val == "string"){
-                //val = val.trim();
-              }
-              if(fieldName.includes("sendersChargesAmount")){
-                val = val.toString().replace(".", ",");
-              }
-              tagVal += val;
-              if((val.length < objElement.length) || (objElement.delimiter === "*")){
-                tagVal += "*";
-              }
-            }
-          }
-          if(tagVal!==null && tagVal!==""){
-            tagValSt += "{"+obj.tag+"}"+tagVal;
-          }
-        }
-      }
-      console.log(tagValSt);
-      setWireText(tagValSt);
-    }
-    
-    //// Fetch Wire Details
-    async function fetchWireDetails() {
-      const options = {
-        headers: {
-          'X-DreamFactory-API-Key': API_KEY,
-          'X-DreamFactory-Session-Token': session_token
-        }
-      };
-      let url = WireDetails_Url+ "wireID='"+wireID+"'";
-      if(env==="DEVLOCAL"){
-        url = WireDetails_Url;
-      }
-      let res = await axios.get(url, options);
-      //console.log(res.data.resource);
-      let wireDetailsArr = res.data.resource;
-      console.log(wireDetailsArr);
-      dispatch({
-        type:'SETWIREDETAILS',
-        payload:wireDetailsArr[0]
-      });
-      /// Load Dictionary & build tag value
-      if(wiredict.length === 0){
-        fetchWireDictionary();
-      } else {
-        buildWireTagValue();
-      }
-    }
-    fetchWireDetails();
-    ////// Ends
-    return () => { 
-      //ignore = true 
-      console.log("Clear Wire Details on Unmount");
-      dispatch({
-        type:'SETWIREDETAILS',
-        payload:{}
-      });
-    };
-  }, [dispatch, session_token, wireID]);
-*/
   function handleChange(e) {
     console.log("On Handle Change : "+ e.target.name);
     
@@ -156,7 +52,7 @@ function CreateWire(props) {
       //tmpWireObj.wireID = wireID;
       //tmpCustObj.LastUpdateUser = uid;
       //tmpCustObj.LastUpdateDate = moment().format('YYYY-MM-DD');
-      let res = await axios.post(Wire_tbl_Url, tmpWireObj, options);
+      let res = await axios.post(SENDDIRECTWIRE_URL, tmpWireObj, options);
       console.log(res);
       alert("Data saved successfully!");
       //setToCustomer(true);

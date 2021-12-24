@@ -38,7 +38,7 @@ function CreateWire(props) {
     setCreateWireObj({ ...createWireObj, [e.target.name]: targetVal });
   }
 
-  const handleWireSave = async () => {
+  const handleWireSave = async (e, savetype) => {
     console.log("Handle Wire Save");
     console.log(createWireObj);
     try {
@@ -48,11 +48,12 @@ function CreateWire(props) {
           'X-DreamFactory-Session-Token': session_token
         }
       };
-      //let tmpWireObj = createWireObj;
-      let data = [createWireObj];
-      //tmpWireObj.wireID = wireID;
-      //tmpCustObj.LastUpdateUser = uid;
-      //tmpCustObj.LastUpdateDate = moment().format('YYYY-MM-DD');
+      let data = {
+        type : savetype,
+        wire:[createWireObj]
+      };
+      //let data = [createWireObj];
+      //data.LastUpdateDate = moment().format('YYYY-MM-DD');
       let res = await axios.post(SENDDIRECTWIRE_URL, data, options);
       console.log(res);
       alert("Data saved successfully!");
@@ -94,8 +95,14 @@ function CreateWire(props) {
                 Back
               </button>
               
-              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireSave} className="btn btn-primary btn-sm">
+              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={(e)=>{handleWireSave(e, "save")}} className="btn btn-primary btn-sm">
                 Save
+              </button>
+              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={(e)=>{handleWireSave(e, "save&send")}} className="btn btn-primary btn-sm">
+                Save&Send
+              </button>
+              <button style={{ float: "right", marginLeft:"10px" }} type="button" onClick={(e)=>{handleWireSave(e, "send")}} className="btn btn-primary btn-sm">
+                Send
               </button>
               {/*
               <button disabled={WIRE_MODIFY_CREATE===false} style={{ float: "right", marginLeft:"10px" }} type="button" onClick={handleWireRestore} className="btn btn-primary btn-sm">

@@ -56,7 +56,11 @@ function CreateWire(props) {
       //data.LastUpdateDate = moment().format('YYYY-MM-DD');
       let res = await axios.post(SENDDIRECTWIRE_URL, data, options);
       console.log(res);
-      alert("Data saved successfully!");
+      if(res.data === "done"){
+        alert("Data saved successfully!");
+      } else {
+        alert(res.data);
+      }
       //setToCustomer(true);
     } catch (error) {
       console.log(error.response);

@@ -194,6 +194,18 @@ function LeftNavBar(props) {
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />
+                  <MenuListItem
+                    menuName="FedShortAck"
+                    routePath={`${process.env.PUBLIC_URL}/fedShortAck`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
+                    menuName="FedWireErr"
+                    routePath={`${process.env.PUBLIC_URL}/fedWireErr`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
                 </ul>
               </div>
           </li>

@@ -34,6 +34,10 @@ import PostEOD from './../wire/postEOD/PostEOD';
 import FedPDList from './../fedPD/FedPDList';
 import FedPDDetails from './../fedPD/FedPDDetails';
 import FedDirectSend from './../FedDirectSend/FedDirectSend';
+import FedShortAck from './../FedShortAck/FedShortAck';
+import FedShortAckDetails from './../FedShortAck/FedShortAckDetails';
+import FedWireErr from './../FedWireErr/FedWireErr';
+import FedWireErrDetails from './../FedWireErr/FedWireErrDetails';
 
 const WireListWrap = props => {
   //console.log(props);
@@ -51,6 +55,14 @@ const FileListWrap = props => {
 
 const FedPDDetailsWrap = props => {
   return <FedPDDetails fedPDRec={props.location.state} />;
+};
+
+const FedShortAckDetailsWrap = props => {
+  return <FedShortAckDetails fedShortACKRec={props.location.state} />;
+};
+
+const FedWireErrDetailsWrap = props => {
+  return <FedWireErrDetails fedWireErrRec={props.location.state} />;
 };
 
 const  FedDirectSendWrap = props => {
@@ -184,9 +196,27 @@ const routes = [
     main: FedPDDetailsWrap
   },
   {
+    path: "/fedShortAckDetails/:fedShortAckID",
+    exact: true,
+    main: FedShortAckDetailsWrap
+  },
+  {
     path: "/fedDirectSend",
     exact: true,
     main: FedDirectSendWrap
+  },
+  {
+    path: "/fedShortAck",
+    main: () => <FedShortAck  />
+  },
+  {
+    path: "/fedWireErr",
+    main: () => <FedWireErr  />
+  },
+  {
+    path: "/fedWireErrDetails/:fedWireErrID",
+    exact: true,
+    main: FedWireErrDetailsWrap
   }
 ];
 

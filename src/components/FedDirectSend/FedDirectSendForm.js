@@ -70,8 +70,8 @@ function FedDirectSendForm(props) {
     <div>
       <div className={`${defClassName}-12`}>
         <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>Request</label>
-            <div className={`${defClassName}-10`}>
+            <label className={`${defClassName}-1 col-form-label`}>Request</label>
+            <div className={`${defClassName}-11`}>
               <select
                 className="form-control" 
                 value={reqvalue} 
@@ -88,12 +88,12 @@ function FedDirectSendForm(props) {
             </div>
           </div>
       </div>
-      <div className={`${defClassName}-12`}>
+      <div className={`${defClassName}-12 allfields`}>
           <div className="form-group row">
-            <label className={`${defClassName}-2 col-form-label`}>{labelVal}</label>
+            <label className={`${defClassName}-1 col-form-label`}>{labelVal}</label>
             {reqvalue !== "newwire" &&
             <>
-            <div className="d-flex flex-column col-sm-2">
+            <div className="d-flex flex-column col-sm-2 fldclmurc">
               <label className="control-label">URC</label>
               <input type="text"
               value={urc}
@@ -102,7 +102,7 @@ function FedDirectSendForm(props) {
               name="urc"
               />
             </div>
-            <div className="d-flex flex-column col-sm-3">
+            <div className="d-flex flex-column col-sm-3 fldclm">
               <label className="control-label">ID</label>
               <input type="text"
               value={id}
@@ -115,7 +115,7 @@ function FedDirectSendForm(props) {
             }
             {(reqvalue === "detailsummary" || reqvalue === "retrieval") &&
             <>
-            <div className="d-flex flex-column col-sm-2">
+            <div className="d-flex flex-column col-sm-2 fldclm">
               <label className="control-label">Direction</label>
               <select
                 className="form-control" 
@@ -127,7 +127,7 @@ function FedDirectSendForm(props) {
                 <option value="Received">Received</option>
               </select>
             </div>
-            <div className="d-flex flex-column col-sm-1">
+            <div className="d-flex flex-column col-sm-1 fldclm">
               <label className="control-label">Start Seq</label>
               <input type="text"
               className="form-control"
@@ -136,7 +136,7 @@ function FedDirectSendForm(props) {
               onChange={onInputChange}
               />
             </div>
-            <div className="d-flex flex-column col-sm-1">
+            <div className="d-flex flex-column col-sm-1 fldclm">
               <label className="control-label">End Seq</label>
               <input type="text"
               className="form-control"
@@ -148,7 +148,7 @@ function FedDirectSendForm(props) {
             </>
             }
             {reqvalue === "retrieval" &&
-              <div className="d-flex flex-column col-sm-1">
+              <div className="d-flex flex-column col-sm-2 fldclm">
                 <label className="control-label">Date</label>
                 <input type="date"
                 className="form-control"
@@ -159,7 +159,7 @@ function FedDirectSendForm(props) {
               </div>
             }
             {reqvalue === "errorcode" &&
-              <div className="d-flex flex-column col-sm-2">
+              <div className="d-flex flex-column col-sm-2 fldclm">
                 <label className="control-label">Code</label>
                 <input type="text"
                 value={code}
@@ -170,7 +170,7 @@ function FedDirectSendForm(props) {
               </div>
             }
             {reqvalue === "accountbalance" &&
-             <div className="d-flex flex-column col-sm-2">
+             <div className="d-flex flex-column col-sm-2 fldclm">
               <label className="control-label">Type</label>
               <select
                 className="form-control" 
@@ -184,7 +184,7 @@ function FedDirectSendForm(props) {
             </div>
             }
             {reqvalue === "newwire" &&
-            <div className="d-flex flex-column col-sm-10">
+            <div className="d-flex flex-column col-sm-11">
               <label className="control-label">Wire</label>
               <div>
                   <TextareaAutosize 

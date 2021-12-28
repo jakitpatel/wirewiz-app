@@ -46,6 +46,10 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/fedPDList`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedPDdetails/:fedPDFmsgID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedDirectSend`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedShortAck`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedShortAckDetails/:fedShortAckID`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedWireErr`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedWireErrDetails/:fedWireErrID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}`} component={Login} />
         </Switch>
       </Provider>

@@ -18,6 +18,10 @@ import wiresInFileListReducer from './wiresInFileListReducer';
 import fedPDReducer from './fedPDReducer';
 import fedPDDetailsReducer from './fedPDDetailsReducer';
 import wireinPostingReducer from './wireinPostingReducer';
+import fedShortAckReducer from './fedShortAckReducer';
+import fedShortAckDetailsReducer from './fedShortAckDetailsReducer';
+import fedWireErrReducer from './fedWireErrReducer';
+import fedWireErrDetailsReducer from './fedWireErrDetailsReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
@@ -38,7 +42,11 @@ const rootReducer = combineReducers({
     wiresInFileListReducer,
     fedPDReducer,
     fedPDDetailsReducer,
-    wireinPostingReducer
+    wireinPostingReducer,
+    fedShortAckDetailsReducer,
+    fedShortAckReducer,
+    fedWireErrReducer,
+    fedWireErrDetailsReducer
 });
 
 export default rootReducer;

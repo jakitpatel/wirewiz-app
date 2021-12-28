@@ -61,7 +61,9 @@ if(env==="DEVLOCAL"){
         WireEODPost_Url           : API_URL+"posteod",
         FedPDList_Url             : API_URL+"fedPDFmsg",
         SENDFEDLINEMSG_URL        : API_URL+"fedDirectSend",
-        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire"
+        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire",
+        FedShortAck_Url           : API_URL+"fedShortAck",
+        FedWireErr_Url            : API_URL+"fedWireErr"
     }
 } else {
     // For DEV & Production Env
@@ -106,6 +108,8 @@ if(env==="DEVLOCAL"){
         WireEODPost_Url    : API_URL+"posteod",
         FedPDList_Url      : API_URL_DB+"_table/fedPDFmsg",
         SENDFEDLINEMSG_URL        : API_URL+"fedDirectSend",
-        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire"
+        SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire",
+        FedShortAck_Url           : API_URL_DB+"_table/fedShortAck",
+        FedWireErr_Url            : API_URL_DB+"_table/fedWireErr"
     }
 }

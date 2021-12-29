@@ -45,6 +45,11 @@ function CustTextInput(props) {
 function FedShortAckDetailForm(props) {
   const {refPropWithAnotherName, printAct} = props;
   let wireDetailsObj = props.custstate;
+  if(wireDetailsObj.fullMsg){
+    let fullMsgVal = wireDetailsObj.fullMsg;
+    delete wireDetailsObj.fullMsg;
+    wireDetailsObj.fullMsg = fullMsgVal;
+  }
   let fedShortAckID = wireDetailsObj.fedShortAckID;
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
@@ -110,21 +115,21 @@ function FedShortAckDetailForm(props) {
                       </div>
                     </div>
                   )
-                } else if(key==="businessErrorMsg"){
+                } else if(key==="fullMsg"){
                   if(value===null){
                     value = "";
                   }
                   return (
                       <div key={key} className={`${defClassName}-12`}>
                         <div className="form-group row">
-                          <label className={`${defClassName}-2 col-form-label`}>businessErrorMsg</label>
+                          <label className={`${defClassName}-2 col-form-label`}>{key}</label>
                           <div className={`${defClassName}-10`}>
                               <TextareaAutosize 
                               className="form-control" 
                               minRows={1}
-                              name="businessErrorMsg"
+                              maxRows={4}
+                              name="fullMsg"
                               value={value}
-                              readOnly
                               />
                           </div>
                         </div>

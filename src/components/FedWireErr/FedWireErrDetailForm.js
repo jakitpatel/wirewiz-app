@@ -45,6 +45,11 @@ function CustTextInput(props) {
 function FedWireErrDetailForm(props) {
   const {refPropWithAnotherName, printAct} = props;
   let wireDetailsObj = props.custstate;
+  if(wireDetailsObj.fullAdvice){
+    let fullAdviceVal = wireDetailsObj.fullAdvice;
+    delete wireDetailsObj.fullAdvice;
+    wireDetailsObj.fullAdvice = fullAdviceVal;
+  }
   let fedWireErrID = wireDetailsObj.fedWireErrID;
   console.log("*** Latest wireDetailsObj ***");
   console.log(wireDetailsObj);
@@ -110,21 +115,21 @@ function FedWireErrDetailForm(props) {
                       </div>
                     </div>
                   )
-                } else if(key==="businessErrorMsg"){
+                } else if(key==="fullAdvice"){
                   if(value===null){
                     value = "";
                   }
                   return (
                       <div key={key} className={`${defClassName}-12`}>
                         <div className="form-group row">
-                          <label className={`${defClassName}-2 col-form-label`}>businessErrorMsg</label>
+                          <label className={`${defClassName}-2 col-form-label`}>{key}</label>
                           <div className={`${defClassName}-10`}>
                               <TextareaAutosize 
                               className="form-control" 
                               minRows={1}
-                              name="businessErrorMsg"
+                              maxRows={4}
+                              name="fullAdvice"
                               value={value}
-                              readOnly
                               />
                           </div>
                         </div>

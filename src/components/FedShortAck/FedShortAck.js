@@ -89,7 +89,7 @@ function FedShortAck(props) {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let result = props.value.substring(0, 22)+"...";
+        let result = props.value.substring(20);
         return (
           <div>
           {result}

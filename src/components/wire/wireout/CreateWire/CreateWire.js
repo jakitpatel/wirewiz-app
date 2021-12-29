@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import CreateWireForm from "./CreateWireForm";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from "moment";
 const {resource} = window.fields;
 
 //import {API_KEY, WireDictionary_Url, Wire_tbl_Url, WireDetails_Url, env} from './../../../const';
@@ -11,6 +12,10 @@ const {API_KEY, SENDDIRECTWIRE_URL, env} = window.constVar;
 function CreateWire(props) {
   let history = useHistory();
   var jsonObj = resource[0];
+  if(jsonObj.inputCycleDate){
+    var now = new Date();
+    jsonObj.inputCycleDate = moment(now).format('YYYYMMDD');
+  }
   const [createWireObj, setCreateWireObj] = useState(jsonObj);
   const dispatch = useDispatch();
 

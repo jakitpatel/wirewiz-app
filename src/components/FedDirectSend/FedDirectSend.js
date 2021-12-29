@@ -10,13 +10,13 @@ function FedDirectSend(props) {
   const [loading, setLoading] = useState(true);
   const [reqvalue, setReqvalue] = useState("endpointtotals");
   const [sendMsg, setSendMsg] = useState({
-    urc : "12345678",
+    urc : "",
     id  : "MMQFMCZY",
     code: "A123",
     acttype  : "Self",
     direction: "Sent",
-    startseq : "123456",
-    endseq   : "123456",
+    startseq : "",
+    endseq   : "",
     date : "",
     wire : ""
   });
@@ -54,6 +54,12 @@ function FedDirectSend(props) {
   
   const handleInputChange = (e) => {
     console.log("handleChange");
+    if(e.target.name==="urc"){
+      if (e.target.value.length > 8 ) return false; 
+    }
+    if(e.target.name==="startseq" || e.target.name==="endseq"){
+      if (e.target.value.length > 6 ) return false; 
+    }
     setSendMsg({ ...sendMsg, [e.target.name]: e.target.value });
   }
 

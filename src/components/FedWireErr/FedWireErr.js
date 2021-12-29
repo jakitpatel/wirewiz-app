@@ -75,44 +75,25 @@ function FedWireErr(props) {
     },
     {
       field: "fedWireErrID",
-      Header: "fedWireErrID",
+      Header: "ID",
       accessor: "fedWireErrID",
       disableFilters: true
     },
-    /*{
-      field: "fmhFormatID",
-      Header: "fmhFormatID",
-      accessor: "fmhFormatID",
-      disableFilters: true
-    },*/
     {
-      field: "fmhType",
-      Header: "fmhType",
-      accessor: "fmhType"
+      field: "errorCode",
+      Header: "Code",
+      accessor: "errorCode"
       //disableFilters: true
     },
     {
-      field: "fullMsg",
-      Header: "Message",
-      accessor: "fullMsg",
-      width:400,
-      //disableFilters: true,
-      Cell: props => {
-        if(props.value===null || props.value===undefined) {
-          return null;
-        }
-        let result = props.value.substring(0, 80)+"...";
-        return (
-          <div>
-          {result}
-          </div>
-        )
-      }
+      field: "errorText",
+      Header: "errorText",
+      accessor: "errorText"
     },
     {
-      field: "URC",
-      Header: "URC",
-      accessor: "URC",
+      field: "origIMAD",
+      Header: "origIMAD",
+      accessor: "origIMAD",
       disableFilters: true
     },
     {

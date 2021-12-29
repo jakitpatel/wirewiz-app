@@ -75,21 +75,9 @@ function FedShortAck(props) {
     },
     {
       field: "fedShortAckID",
-      Header: "fedShortAckID",
+      Header: "ID",
       accessor: "fedShortAckID",
       disableFilters: true
-    },
-    /*{
-      field: "fmhFormatID",
-      Header: "fmhFormatID",
-      accessor: "fmhFormatID",
-      disableFilters: true
-    },*/
-    {
-      field: "fmhType",
-      Header: "fmhType",
-      accessor: "fmhType"
-      //disableFilters: true
     },
     {
       field: "fullMsg",
@@ -101,7 +89,7 @@ function FedShortAck(props) {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let result = props.value.substring(0, 80)+"...";
+        let result = props.value.substring(0, 22)+"...";
         return (
           <div>
           {result}

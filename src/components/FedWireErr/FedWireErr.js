@@ -76,6 +76,7 @@ function FedWireErr(props) {
     {
       field: "fedWireErrID",
       Header: "ID",
+      width: 55,
       accessor: "fedWireErrID",
       disableFilters: true
     },
@@ -87,6 +88,7 @@ function FedWireErr(props) {
     },
     {
       field: "errorText",
+      width:300,
       Header: "errorText",
       accessor: "errorText"
     },

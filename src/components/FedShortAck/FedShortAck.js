@@ -76,6 +76,7 @@ function FedShortAck(props) {
     {
       field: "fedShortAckID",
       Header: "ID",
+      width: 55,
       accessor: "fedShortAckID",
       disableFilters: true
     },
@@ -113,11 +114,11 @@ function FedShortAck(props) {
           return null;
         }
         let dateString = props.value;
-        let dateArr = props.value.split(".");
+        /*let dateArr = props.value.split(".");
         //let now = new Date(props.value);
         if(dateArr.length > 0){
           dateString = dateArr[0]; //moment(now).format('YYYY-MM-DD HH:MM:SS');
-        }
+        }*/
         return (
           <div>
           {dateString}

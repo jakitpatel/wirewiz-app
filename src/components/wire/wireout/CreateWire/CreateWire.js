@@ -12,7 +12,7 @@ const {API_KEY, SENDDIRECTWIRE_URL, env} = window.constVar;
 function CreateWire(props) {
   let history = useHistory();
   var jsonObj = resource[0];
-  if(jsonObj.inputCycleDate){
+  if(jsonObj.hasOwnProperty('inputCycleDate')){
     var now = new Date();
     jsonObj.inputCycleDate = moment(now).format('YYYYMMDD');
   }

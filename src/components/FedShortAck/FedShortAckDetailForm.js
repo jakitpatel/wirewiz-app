@@ -127,7 +127,7 @@ function FedShortAckDetailForm(props) {
                               <TextareaAutosize 
                               className="form-control" 
                               minRows={1}
-                              maxRows={4}
+                              maxRows={7}
                               name="fullMsg"
                               value={value}
                               />

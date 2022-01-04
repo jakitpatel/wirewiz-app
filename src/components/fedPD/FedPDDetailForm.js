@@ -54,7 +54,7 @@ function FedPDDetailForm(props) {
     defClassName += "-sm";
   }
   //console.log(defClassName);
-  let fpdfCDLnSize = wireDetailsObj.fpdfCDLnSize;
+  let fpdfCDLnSize = (wireDetailsObj.fpdfCDLnSize) + 1;
   return (
     <div ref={refPropWithAnotherName}>
       <h3 className="text-center" style={{marginBottom:"20px"}}>FEDPD Details - {fedPDFmsgID}</h3>

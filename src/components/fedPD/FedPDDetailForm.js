@@ -54,6 +54,7 @@ function FedPDDetailForm(props) {
     defClassName += "-sm";
   }
   //console.log(defClassName);
+  let fpdfCDLnSize = wireDetailsObj.fpdfCDLnSize;
   return (
     <div ref={refPropWithAnotherName}>
       <h3 className="text-center" style={{marginBottom:"20px"}}>FEDPD Details - {fedPDFmsgID}</h3>
@@ -86,11 +87,20 @@ function FedPDDetailForm(props) {
                   )
                 } else if(key==="fpdfData"){
                   let valueSt = "";
+                  let msgArr = [];
                   if(value !== null && value !== ""){
-                    let msgArr = value.split("Z");
+                    let cnt = 0;
+                    let arrCnt = 0;
+                    while(cnt < value.length){
+                      msgArr[arrCnt] = value.substr(cnt, fpdfCDLnSize);
+                      cnt = cnt + fpdfCDLnSize;
+                      arrCnt++;
+                    }
+                    
+                    //let msgArr = value.split("Z");
                     //s = msgArr.join("\n Z");
-                    for (let i = 1; i < msgArr.length; i++) {
-                      msgArr[i] = "Z"+msgArr[i] + "\n";
+                    for (let i = 0; i < msgArr.length; i++) {
+                      msgArr[i] = msgArr[i] + "\n";
                     }
                     valueSt = msgArr.join("");
                   }

@@ -110,11 +110,10 @@ function FedPDDetailForm(props) {
                         <label className={`${defClassName}-2 col-form-label`}>fpdfData</label>
                         <div className={`${defClassName}-10`}>
                             <TextareaAutosize 
-                            className="form-control" 
+                            className="form-control fpdfTextData" 
                             minRows={1}
                             name="fpdfData"
                             value={valueSt}
-                            readOnly
                             />
                         </div>
                       </div>

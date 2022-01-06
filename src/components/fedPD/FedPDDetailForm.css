@@ -16,3 +16,6 @@
     "overflow-wrap": break-word;
     display : block;
 }
+.fpdfTextData {
+    font-family:monospace;
+}

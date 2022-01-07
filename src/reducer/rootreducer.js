@@ -22,6 +22,7 @@ import fedShortAckReducer from './fedShortAckReducer';
 import fedShortAckDetailsReducer from './fedShortAckDetailsReducer';
 import fedWireErrReducer from './fedWireErrReducer';
 import fedWireErrDetailsReducer from './fedWireErrDetailsReducer';
+import fedRetrievalReducer from './fedRetrievalReducer';
 
 const rootReducer = combineReducers({
     customerReducer,
@@ -46,7 +47,8 @@ const rootReducer = combineReducers({
     fedShortAckDetailsReducer,
     fedShortAckReducer,
     fedWireErrReducer,
-    fedWireErrDetailsReducer
+    fedWireErrDetailsReducer,
+    fedRetrievalReducer
 });
 
 export default rootReducer;

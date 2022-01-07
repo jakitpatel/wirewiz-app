@@ -63,7 +63,8 @@ if(env==="DEVLOCAL"){
         SENDFEDLINEMSG_URL        : API_URL+"fedDirectSend",
         SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire",
         FedShortAck_Url           : API_URL+"fedShortAck",
-        FedWireErr_Url            : API_URL+"fedWireErr"
+        FedWireErr_Url            : API_URL+"fedWireErr",
+        FedRetrieval_Url          : API_URL+"fedRetrieval"
     }
 } else {
     // For DEV & Production Env
@@ -110,6 +111,7 @@ if(env==="DEVLOCAL"){
         SENDFEDLINEMSG_URL        : API_URL+"fedDirectSend",
         SENDDIRECTWIRE_URL        : API_URL+"SendDirectWire",
         FedShortAck_Url           : API_URL_DB+"_table/fedShortAck",
-        FedWireErr_Url            : API_URL_DB+"_table/fedWireErr"
+        FedWireErr_Url            : API_URL_DB+"_table/fedWireErr",
+        FedRetrieval_Url          : API_URL_DB+"_table/fedRetrieval"
     }
 }

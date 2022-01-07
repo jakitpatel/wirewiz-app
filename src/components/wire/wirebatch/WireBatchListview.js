@@ -48,6 +48,8 @@ function Table({
   initialState,
   fetchData,
   loading,
+  isRefresh,
+  setIsRefresh,
   pageCount: controlledPageCount 
 }) {
 
@@ -109,7 +111,7 @@ function Table({
     //fetchData({ pageIndex, pageSize });
     setFiltersarr(filters);
     fetchData({ pageIndex, pageSize, filters, sortBy });
-  }, [fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
+  }, [isRefresh, setIsRefresh, fetchData, pageIndex, pageSize, filters, setFiltersarr, sortBy, location.key]);
 
   // Render the UI for your table
   return (
@@ -236,6 +238,8 @@ function Table({
    const [loading, setLoading] = React.useState(false);
    const [pageCount, setPageCount] = React.useState(0);
    const fetchIdRef = React.useRef(0);
+   
+   let { isRefresh, setIsRefresh } = props;
 
    console.log(props.items);
    //const data = React.useMemo(() => props.items, [props.items])
@@ -344,6 +348,8 @@ function Table({
         fetchData={fetchData}
         loading={loading}
         pageCount={pageCount}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
       />
     </Styles>
   )

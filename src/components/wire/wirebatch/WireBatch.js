@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 //import Listview from "./../../Listview/Listview";
 import WireBatchListview from "./WireBatchListview";
@@ -14,7 +14,24 @@ import SelectColumnFilter from './../../Filter/SelectColumnFilter.js';
 function WireBatch(props) {
   const [loading, setLoading] = useState(false);
   const [wirebatchlist, setWirebatchlist] = useState([]);
+  const [isRefresh, setIsRefresh] = useState(false);
   const location = useLocation();
+
+  let today = new Date();
+  let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const [currtime, setCurrtime] = useState(time);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefresh(isRefresh => {
+        let today = new Date();
+        let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        setCurrtime(time);
+        return !isRefresh;
+      });
+    }, 120000);
+    return () => clearInterval(interval);
+  },[]);
 
   const columnDefs = [
     {
@@ -170,6 +187,8 @@ function WireBatch(props) {
         items={wirebatchlist}
         columnDefs={columnDefs}
         initialState={initialState}
+        isRefresh={isRefresh}
+        setIsRefresh={setIsRefresh}
       />
     );
 
@@ -178,7 +197,11 @@ function WireBatch(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">WireBatch List</h3>
+            <div>
+              <h3 style={{float:"left"}} className="title-center">WireBatch List</h3>
+              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <div style={{clear:"both"}}></div>
+            </div>
             {disCmp}
           </div>
         </div>

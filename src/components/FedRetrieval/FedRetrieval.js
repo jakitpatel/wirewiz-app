@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import FedWireErrView from "./FedWireErrView.js";
+import FedRetrievalView from "./FedRetrievalView.js";
 import * as Icon from "react-feather";
-import "./FedWireErr.css";
+import "./FedRetrieval.css";
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 //import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, getFieldType} from './../Functions/functions.js';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env} from './../../../const';
-const {API_KEY, FedWireErr_Url, env} = window.constVar;
+const {API_KEY, FedRetrieval_Url, env} = window.constVar;
 
-function FedWireErr(props) {
+function FedRetrieval(props) {
   let history = useHistory();
 
   // We'll start our table without any data
@@ -41,9 +41,9 @@ function FedWireErr(props) {
       }
   });
 
-  const { fedWireErr, pageIndex, pageSize, sortBy, filters, backToList } = useSelector(state => {
+  const { fedRetrieval, pageIndex, pageSize, sortBy, filters, backToList } = useSelector(state => {
     return {
-        ...state.fedWireErrReducer
+        ...state.fedRetrievalReducer
     }
   });
 
@@ -51,8 +51,6 @@ function FedWireErr(props) {
   console.log("batchId : "+batchId);
   let { batchRec } = props;
   
-  console.log("backToList : "+backToList);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefresh(isRefresh => {
@@ -64,9 +62,11 @@ function FedWireErr(props) {
     }, 120000);
     return () => clearInterval(interval);
   },[]);
+  
+  console.log("backToList : "+backToList);
 
   const columnDefs = [
-    {
+    /*{
       Header: "View",
       show : true, 
       width: 55,
@@ -80,7 +80,7 @@ function FedWireErr(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/fedWireErrDetails/${wireListObj.fedWireErrID}`,
+              pathname: `${process.env.PUBLIC_URL}/fedPDdetails/${wireListObj.fedPDFmsgID}`,
               state: obj.row.original
             }}
           >
@@ -88,31 +88,29 @@ function FedWireErr(props) {
           </Link>
         );
       }
+    },*/
+    {
+      field: "fedRetrievalID",
+      Header: "fedRetrievalID",
+      accessor: "fedRetrievalID"
     },
     {
-      field: "fedWireErrID",
-      Header: "ID",
-      width: 55,
-      accessor: "fedWireErrID",
-      disableFilters: true
-    },
-    {
-      field: "errorCode",
-      Header: "Code",
-      accessor: "errorCode"
-      //disableFilters: true
-    },
-    {
-      field: "errorText",
-      width:300,
-      Header: "errorText",
-      accessor: "errorText"
-    },
-    {
-      field: "origIMAD",
-      Header: "origIMAD",
-      accessor: "origIMAD",
-      disableFilters: true
+      field: "message",
+      Header: "Message",
+      accessor: "message",
+      width:400/*,
+      //disableFilters: true,
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        let result = props.value.substring(0, 80)+"...";
+        return (
+          <div>
+          {result}
+          </div>
+        )
+      }*/
     },
     {
       name: "created",
@@ -124,12 +122,11 @@ function FedWireErr(props) {
           return null;
         }
         let dateString = props.value;
-        /*
         let dateArr = props.value.split(".");
         //let now = new Date(props.value);
         if(dateArr.length > 0){
           dateString = dateArr[0]; //moment(now).format('YYYY-MM-DD HH:MM:SS');
-        }*/
+        }
         return (
           <div>
           {dateString}
@@ -158,7 +155,7 @@ function FedWireErr(props) {
         }
       };
 
-      let url = FedWireErr_Url;
+      let url = FedRetrieval_Url;
       url += buildPageUrl(pageSize,pageIndex);
       if(filters.length>0){
         console.log("filters");
@@ -189,14 +186,14 @@ function FedWireErr(props) {
 
       let totalCnt = res.data.meta.count;
       dispatch({
-        type:'UPDATEFEDWIREERRLIST',
+        type:'UPDATEFEDRETRIEVALLIST',
         payload:{
           pageIndex:pageIndex,
           pageSize:pageSize,
           totalCount:totalCnt,
           sortBy : sortBy,
           filters : filters,
-          fedWireErr:wireArray
+          fedRetrieval:wireArray
         }
         //type:'SETWIRES',
         //payload:wireArray
@@ -225,9 +222,9 @@ function FedWireErr(props) {
   }
 
   let byWireBatchId = false;
-  let headerTitle = "FedWireErr List";
+  let headerTitle = "FedRetrieval List";
 
-  console.log("fedWireErr", fedWireErr);
+  console.log("fedRetrieval", fedRetrieval);
   console.log("isRefresh", isRefresh);
   const initialState = {
     //sortBy : [], //[{ id: "wireID", desc: true }],
@@ -247,8 +244,9 @@ function FedWireErr(props) {
     /*loading === true ? (
       <h3> LOADING... </h3>
     ) :*/ (
-      <FedWireErrView
-        data={fedWireErr}
+      <FedRetrievalView
+        data={fedRetrieval}
+        //data={data}
         columnDefs={columnDefs}
         initialState={initialState}
         pageState={pageState}
@@ -291,4 +289,4 @@ function FedWireErr(props) {
   );
 }
 
-export default FedWireErr;
+export default FedRetrieval;

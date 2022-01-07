@@ -16,3 +16,4 @@ RedirectMatch /wireapp/fedPDdetails/.* /wireapp
 RedirectMatch /wireapp/fedDirectSend /wireapp
 RedirectMatch /wireapp/fedShortAck /wireapp
 RedirectMatch /wireapp/fedWireErr /wireapp
+RedirectMatch /wireapp/fedRetrieval /wireapp

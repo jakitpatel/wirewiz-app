@@ -43,11 +43,27 @@ function FedShortAck(props) {
     }
   });
 
+  let today = new Date();
+  let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const [currtime, setCurrtime] = useState(time);
+  
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
   let { batchRec } = props;
   
   console.log("backToList : "+backToList);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefresh(isRefresh => {
+        let today = new Date();
+        let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        setCurrtime(time);
+        return !isRefresh;
+      });
+    }, 120000);
+    return () => clearInterval(interval);
+  },[]);
 
   const columnDefs = [
     {
@@ -259,7 +275,11 @@ function FedShortAck(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">{headerTitle}</h3>
+            <div>
+              <h3 style={{float:"left"}} className="title-center">{headerTitle}</h3>
+              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <div style={{clear:"both"}}></div>
+            </div>
             <div className="btnCls">
               {byWireBatchId && 
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">

@@ -40,6 +40,10 @@ function Wireslist(props) {
   const [toWiredetails, setToWiredetails] = useState(false);
   const [colItems, setColItems] = useState([]);
 
+  let today = new Date();
+  let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  const [currtime, setCurrtime] = useState(time);
+
   const dispatch = useDispatch();
 
   const { session_token, WIRE_EXPORT } = useSelector(state => {
@@ -59,25 +63,20 @@ function Wireslist(props) {
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
   let { batchRec } = props;
-  /*
-  const location = useLocation();
-  console.log("location");
-  console.log(location);
-  console.log("history");
-  console.log(history);
-  /*
-  history.listen((location, action) => {
-    if (action === 'POP') {
-      //history.replace(location.pathname, {from: 'wiredetail'});
-    }
-  });
-  */
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsRefresh(isRefresh => {
+        let today = new Date();
+        let time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        setCurrtime(time);
+        return !isRefresh;
+      });
+    }, 120000);
+    return () => clearInterval(interval);
+  },[]);
+
   console.log("backToList : "+backToList);
-  /*
-  if(location.state){
-    const previousPath = location.state.from;
-    console.log(previousPath);
-  }*/
 
   const columnDefs = [
     {
@@ -624,7 +623,11 @@ function Wireslist(props) {
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
-            <h3 className="title-center">{headerTitle}</h3>
+            <div>
+              <h3 style={{float:"left"}} className="title-center">{headerTitle}</h3>
+              <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
+              <div style={{clear:"both"}}></div>
+            </div>
             <div className="btnCls">
               {byWireBatchId && 
               <button type="button" onClick={() => history.goBack()} className="btn btn-primary btn-sm">

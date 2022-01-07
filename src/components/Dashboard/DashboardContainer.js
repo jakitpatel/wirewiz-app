@@ -38,6 +38,7 @@ import FedShortAck from './../FedShortAck/FedShortAck';
 import FedShortAckDetails from './../FedShortAck/FedShortAckDetails';
 import FedWireErr from './../FedWireErr/FedWireErr';
 import FedWireErrDetails from './../FedWireErr/FedWireErrDetails';
+import FedRetrieval from './../FedRetrieval/FedRetrieval';
 
 const WireListWrap = props => {
   //console.log(props);
@@ -217,6 +218,10 @@ const routes = [
     path: "/fedWireErrDetails/:fedWireErrID",
     exact: true,
     main: FedWireErrDetailsWrap
+  },
+  {
+    path: "/fedRetrieval",
+    main: () => <FedRetrieval  />
   }
 ];
 

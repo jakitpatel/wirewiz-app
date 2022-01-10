@@ -72,7 +72,7 @@ function Wireslist(props) {
         setCurrtime(time);
         return !isRefresh;
       });
-    }, 120000);
+    }, 60000);
     return () => clearInterval(interval);
   },[]);
 

@@ -61,7 +61,7 @@ function FedShortAck(props) {
         setCurrtime(time);
         return !isRefresh;
       });
-    }, 120000);
+    }, 60000);
     return () => clearInterval(interval);
   },[]);
 
@@ -106,7 +106,7 @@ function FedShortAck(props) {
         if(props.value===null || props.value===undefined) {
           return null;
         }
-        let result = props.value.substring(20);
+        let result = props.value.substring(24);
         return (
           <div>
           {result}

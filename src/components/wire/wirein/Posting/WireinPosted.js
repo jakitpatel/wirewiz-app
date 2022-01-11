@@ -150,7 +150,7 @@ function WireinPosted(props) {
         );
       }
     },
-    {
+    /*{
       Header: "PostAuto",
       show : true, 
       width: 80,
@@ -185,7 +185,7 @@ function WireinPosted(props) {
           </button>
         );
       }
-    },
+    },*/
     {
       Header: "PostStatus",
       show : true, 
@@ -215,7 +215,7 @@ function WireinPosted(props) {
           }
         }
         return (
-          <div>
+          <div style={{color:colorVal}}>
             {errorTooltip}
           </div>
         );

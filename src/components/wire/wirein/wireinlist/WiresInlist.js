@@ -13,7 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
-const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
+const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -378,18 +378,14 @@ function WiresInlist(props) {
       let url = Wires_Url;
       if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
         url = WiresGroup_Url;
+      } else if(batchRec.fromView && batchRec.fromView==="wireIn"){
+        url = WireOfacWires_Url;
       }
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
         if(batchRec.fromView && batchRec.fromView==="wireIn"){
-          let account = batchRec.Account;
-          if(account!==null && account!==""){
-            account = account.toString().substr(0, 3);
-          }
-          //let filterUrl = "(vAcc = '"+account+"') and (status != 'DONE')";
-          //let filterUrl = "((direction = 'wirein') and (vAcc = '"+account+"') and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
-          let filterUrl = "((direction = 'wirein') and (vACC is not null) and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
-          url += "&filter="+encodeURIComponent(filterUrl);
+          //let filterUrl = "((direction = 'wirein') and (vACC is not null) and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
+          //url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
           let recType = batchRec.type;
           let filterUrl = batchRec.filter;

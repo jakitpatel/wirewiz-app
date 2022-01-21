@@ -172,7 +172,7 @@ function Wireslist(props) {
         //console.log(colorCode);
         return (
           <div>
-            <span style={{color:colorCode}}>{status}</span>
+            <span style={{color:colorCode, fontWeight:"bold"}}>{status}</span>
           </div>
         );
       }

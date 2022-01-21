@@ -26,7 +26,7 @@ if(env==="DEVLOCAL"){
         API_URL   : API_URL,
         API_KEY   : "36fda24fe5588fa4285ac6c6c2fdfbdb6b6bc9834699774c9bf777f706d05a88",
         Login_Url : API_URL+"login",
-        WireBatch_Url : API_URL+"v_wireBatch",
+        WireBatch_Url : API_URL+"v_wireBatch3",
         Wires_Url     : API_URL+"v_wire",
         WiresGroup_Url: API_URL+"v_wireByGroup",
         Wire_tbl_Url  : API_URL+"wire",

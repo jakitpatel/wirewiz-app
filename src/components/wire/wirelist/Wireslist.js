@@ -115,9 +115,9 @@ function Wireslist(props) {
       disableFilters: true
     },*/
     {
-      field: "wirePostId",
-      Header: "wirePostId",
-      accessor: "wirePostId",
+      field: "wirePostID",
+      Header: "wirePostID",
+      accessor: "wirePostID",
       disableFilters: true
     },
     {
@@ -324,7 +324,7 @@ function Wireslist(props) {
           let filterUrl = "(wirePostID = '"+wirePostID+"')";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
-          url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
+          url += "&filter=(wirePostID='"+batchRec.wirePostID+"')";
         }
       }
       /*
@@ -575,7 +575,7 @@ function Wireslist(props) {
       let wirePostID = batchRec.wirePostID;
       headerTitle += " - Posted - "+account+" - "+batchRec.Name;
     } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
-      headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
+      headerTitle += " - Batch "+batchRec.wirePostID+" - from "+batchRec.userID;
     }
     byWireBatchId = true;
     txtFileName = "wireapp.fund."+batchRec.wireBatchID+".txt";

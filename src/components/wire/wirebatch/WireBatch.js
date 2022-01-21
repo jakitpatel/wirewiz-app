@@ -51,7 +51,7 @@ function WireBatch(props) {
         return (
           <Link
             to={{
-              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireBatchObj.wireBatchID}`,
+              pathname: `${process.env.PUBLIC_URL}/wireslist/${wireBatchObj.wirePostID}`,
               state: obj.row.original
             }}
           >

@@ -97,7 +97,7 @@ function WireBatch(props) {
         //console.log(colorCode);
         return (
           <div>
-            <span style={{color:colorCode}}>{progressCode}</span>
+            <span style={{color:colorCode, fontWeight:"bold"}}>{progressCode}</span>
           </div>
         );
       }

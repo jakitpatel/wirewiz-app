@@ -60,10 +60,15 @@ function WireBatch(props) {
         );
       }
     },
-    {
+    /*{
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID"
+    },*/
+    {
+      field: "wirePostID",
+      Header: "wirePostID",
+      accessor: "wirePostID"
     },
     {
       field: "userID",
@@ -176,7 +181,7 @@ function WireBatch(props) {
   console.log("Properties", props);
   console.log("wireBatchLoad : "+location.key);
   const initialState = {
-    sortBy : [{ id: "wireBatchID", desc: true }],
+    sortBy : [{ id: "createDateTime", desc: true }],
     pageSize : 10
   };
   let disCmp =

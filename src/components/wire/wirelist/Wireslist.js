@@ -108,10 +108,16 @@ function Wireslist(props) {
       accessor: "wireID",
       disableFilters: true
     },
-    {
+    /*{
       field: "wireBatchID",
       Header: "WireBatchID",
       accessor: "wireBatchID",
+      disableFilters: true
+    },*/
+    {
+      field: "wirePostId",
+      Header: "wirePostId",
+      accessor: "wirePostId",
       disableFilters: true
     },
     {

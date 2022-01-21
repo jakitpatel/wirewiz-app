@@ -1,4 +1,4 @@
-const wireManualResolveReducer = (state = { wireManualResolve:[], pageIndex:0, pageSize:10, totalCount:0, sortBy:[{ id: "wirePostID", desc: true }], filters:[], backToList:false }, action) => {
+const wireManualResolveReducer = (state = { wireManualResolve:[], pageIndex:0, pageSize:10, totalCount:0, sortBy:[{ id: "completeDateTime", desc: true }], filters:[], backToList:false }, action) => {
     switch(action.type){
         case "UPDATEWIREMANUALRESOLVE":
             return {

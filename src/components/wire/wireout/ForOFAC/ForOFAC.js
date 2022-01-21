@@ -55,7 +55,7 @@ function ForOFAC(props) {
          return (
            <Link
              to={{
-               pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireListObj.wireBatchId}`,
+               pathname: `${process.env.PUBLIC_URL}/wiresinlist/${wireListObj.wirePostID}`,
                state: obj.row.original
              }}
            >

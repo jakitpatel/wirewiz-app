@@ -413,7 +413,7 @@ function WiresInlist(props) {
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
-          let filterUrl = "((wireBatchID = '"+batchRec.wireBatchId+"') and (direction = 'wireout'))";
+          let filterUrl = "((wirePostID = '"+batchRec.wirePostID+"') and (direction = 'wireout'))";
           url += "&filter="+encodeURIComponent(filterUrl);
           //url += "&filter=(wireBatchID='"+batchRec.wireBatchId+"')";
         } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){

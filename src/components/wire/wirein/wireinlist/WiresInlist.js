@@ -902,7 +902,7 @@ function WiresInlist(props) {
       let account = batchRec.account;
       headerTitle += " - Manual - "+type+" - "+account;
     } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
-      headerTitle += " - Batch "+batchRec.wireBatchId;
+      headerTitle += " - Batch "+batchRec.wirePostID;
     } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
       let wirePostID = batchRec.wirePostID;
       headerTitle += " - Posting - "+wirePostID;

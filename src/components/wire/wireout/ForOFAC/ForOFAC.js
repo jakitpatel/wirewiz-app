@@ -242,7 +242,8 @@ function ForOFAC(props) {
       }
     };
     let data = {
-      "resource": [{"wireBatchId": wireInObj.wireBatchId}],
+      //"resource": [{"wireBatchId": wireInObj.wirePostID}],
+      "resource": [{"wirePostID": wireInObj.wirePostID}],
       "direction":"wireOut"
     };
     if(expType==="auto"){

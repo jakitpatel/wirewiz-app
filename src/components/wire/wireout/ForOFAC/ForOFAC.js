@@ -115,10 +115,10 @@ function ForOFAC(props) {
       accessor: "numWires"
     },
     {
-      name: "lastArrivialTime",
-      field: "lastArrivialTime",
-      Header: "lastArrivialTime",
-      accessor: "lastArrivialTime"
+      name: "lastArrivalTime",
+      field: "lastArrivalTime",
+      Header: "lastArrivalTime",
+      accessor: "lastArrivalTime"
     },
     {
       name: "totalAmount",

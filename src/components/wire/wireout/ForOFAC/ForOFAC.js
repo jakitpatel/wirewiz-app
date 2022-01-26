@@ -102,12 +102,12 @@ function ForOFAC(props) {
         );
       }
     },
-    {
+    /*{
       name: "userID",
       field: "userID",
       Header: "ProvidedBy",
       accessor: "userID"
-    },
+    },*/
     {
       headerName: "numWires",
       field: "numWires",

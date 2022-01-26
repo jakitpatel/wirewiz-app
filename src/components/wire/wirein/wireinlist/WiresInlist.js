@@ -13,7 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
-const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url} = window.constVar;
+const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url, WireOutOfacWires_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -380,6 +380,8 @@ function WiresInlist(props) {
         url = WiresGroup_Url;
       } else if(batchRec.fromView && batchRec.fromView==="wireIn"){
         url = WireOfacWires_Url;
+      } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
+        url = WireOutOfacWires_Url;
       }
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
@@ -413,8 +415,8 @@ function WiresInlist(props) {
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wireBatchID='"+batchRec.wireBatchID+"')";
         } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
-          let filterUrl = "((wirePostID = '"+batchRec.wirePostID+"') and (direction = 'wireout'))";
-          url += "&filter="+encodeURIComponent(filterUrl);
+          //let filterUrl = "((wirePostID = '"+batchRec.wirePostID+"') and (direction = 'wireout'))";
+          //url += "&filter="+encodeURIComponent(filterUrl);
           //url += "&filter=(wireBatchID='"+batchRec.wireBatchId+"')";
         } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
           /*let account = batchRec.Account;
@@ -902,7 +904,8 @@ function WiresInlist(props) {
       let account = batchRec.account;
       headerTitle += " - Manual - "+type+" - "+account;
     } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
-      headerTitle += " - Batch "+batchRec.wirePostID;
+      //headerTitle += " - Batch "+batchRec.wirePostID;
+      headerTitle += " - Batch";
     } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
       let wirePostID = batchRec.wirePostID;
       headerTitle += " - Posting - "+wirePostID;

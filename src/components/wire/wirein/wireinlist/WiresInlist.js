@@ -376,9 +376,10 @@ function WiresInlist(props) {
       };
 
       let url = Wires_Url;
-      if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+      /*if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
         url = WiresGroup_Url;
-      } else if(batchRec.fromView && batchRec.fromView==="wireIn"){
+      } else */
+      if(batchRec.fromView && batchRec.fromView==="wireIn"){
         url = WireOfacWires_Url;
       } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
         url = WireOutOfacWires_Url;
@@ -426,7 +427,7 @@ function WiresInlist(props) {
           let wirePostID = batchRec.wirePostID;
           //let filterUrl = "((vAcc = '"+account+"') and (wirePostID = '"+wirePostID+"') and (excludeOFAC is NULL) and (excludeFISERV is null) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag is not NULL))))";
           //let filterUrl = "((wirePostID = '"+wirePostID+"') and (excludeFED is NULL) and (direction = 'wireout'))";
-          let filterUrl = "((wireGroupId = '"+wirePostID+"') and (excludeFED is NULL) and (direction = 'wireout'))";
+          let filterUrl = "((wirePostID = '"+wirePostID+"') and (excludeFISERV is NULL))";
           url += "&filter="+encodeURIComponent(filterUrl);
         } else if(batchRec.fromView && batchRec.fromView==="wireOutCompleted"){
           let wirePostID = batchRec.wirePostID;

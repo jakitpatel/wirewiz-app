@@ -115,7 +115,7 @@ function Posting(props) {
             colorVal = "#DC143C";
             //errorTooltip = "Error detected";
           } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#FFE900";
+            colorVal = "#ff9900";
             //errorTooltip = "Waiting for auto OFAC reply";
           } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
@@ -151,7 +151,7 @@ function Posting(props) {
             colorVal = "#DC143C";
             //errorTooltip = "Error detected";
           } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#FFE900";
+            colorVal = "#ff9900";
             //errorTooltip = "Waiting for auto OFAC reply";
           } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
@@ -186,7 +186,7 @@ function Posting(props) {
             colorVal = "#DC143C";
             errorTooltip = "Error detected";
           } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#FFE900";
+            colorVal = "#ff9900";
             errorTooltip = "Waiting for auto OFAC reply";
           } else if(postStatusVal==="OFAC"){
             colorVal = "#007bff";
@@ -194,7 +194,7 @@ function Posting(props) {
           }
         }
         return (
-          <div>
+          <div style={{color:colorVal}}>
             {errorTooltip}
           </div>
         );

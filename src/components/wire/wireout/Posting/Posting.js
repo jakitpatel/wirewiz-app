@@ -5,6 +5,7 @@ import * as Icon from "react-feather";
 //import "./Wirein.css";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import ClipLoader from "react-spinners/ClipLoader";
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
@@ -467,6 +468,18 @@ function Posting(props) {
     pageIndex : pageIndex,
     backToList : backToList
   };
+  var color = '#4DAF7C'; 
+  let sendCmp = sending === true ? ( 
+  <>
+    <div>
+      <h4 style={{float:"left"}} className="title-center"> Submitting... </h4>
+      <div style={{float:'left'}}>
+        <ClipLoader loading={sending} color={color}  size={55} />
+      </div>
+      <div style={{clear:"both"}}></div>
+    </div>
+  </>
+  ) : null;
   let disCmp =
     /*loading === true ? (
       <h3> LOADING... </h3>
@@ -497,6 +510,7 @@ function Posting(props) {
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
+            {sendCmp}
             {disCmp}
           </div>
         </div>

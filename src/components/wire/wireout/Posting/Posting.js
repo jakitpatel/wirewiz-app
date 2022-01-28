@@ -130,7 +130,7 @@ function Posting(props) {
         );
       }
     },
-    {
+    /*{
       Header: "PostAuto",
       show : true, 
       width: 80,
@@ -165,7 +165,7 @@ function Posting(props) {
           </button>
         );
       }
-    },
+    },*/
     {
       Header: "PostStatus",
       show : true, 

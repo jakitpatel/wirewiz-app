@@ -259,7 +259,7 @@ function WireoutManualResolved(props) {
 
   console.log("Properties", props);
   const initialSortState = {
-    sortBy: [{ id: "wirePostID", desc: true }]
+    sortBy: [{ id: "completeDateTime", desc: true }]
    }; 
   const initialState = {
     //pageIndex : 0,

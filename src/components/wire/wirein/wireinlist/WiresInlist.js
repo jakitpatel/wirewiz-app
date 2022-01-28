@@ -45,7 +45,7 @@ function WiresInlist(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token, WIRE_EXPORT } = useSelector(state => {
+  const { session_token, WIRE_EXPORT, uid } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -658,6 +658,7 @@ function WiresInlist(props) {
       var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
       wireObj.completeDateTime = datefull;
       wireObj.resolveMsg = resolveText;
+      wireObj.resolveBy = uid;
       //wiresResourceArr.push(tmpWireObj);
     }
     let data = {
@@ -804,6 +805,7 @@ function WiresInlist(props) {
       var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
       //wireObj.completeDateTime = datefull;
       wireObj.overrideFlag = 1;
+      wireObj.overrideBy = uid;
       //wiresResourceArr.push(tmpWireObj);
       /*
       let wireOverrideObj = {

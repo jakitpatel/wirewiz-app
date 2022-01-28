@@ -45,7 +45,7 @@ function WiresInlist(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token, WIRE_EXPORT, uid } = useSelector(state => {
+  const { session_token, WIRE_EXPORT, uid, name } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -630,6 +630,16 @@ function WiresInlist(props) {
     }
   } 
 
+  const getShortName = () => {
+    let code = "";
+    var nameArr = name.split(" ");
+    if(nameArr.length > 0){
+      code = nameArr[0].substr(0,1) + nameArr[1].substr(0,1);
+      console.log("code = " + code);
+    }
+    return code;
+  }
+
   const onWireResolve = async (e) => {
     console.log("onWire Resolve Clicked");
     if(modWireData.length === 0){
@@ -658,7 +668,7 @@ function WiresInlist(props) {
       var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
       wireObj.completeDateTime = datefull;
       wireObj.resolveMsg = resolveText;
-      wireObj.resolveBy = uid;
+      wireObj.resolveBy = getShortName();
       //wiresResourceArr.push(tmpWireObj);
     }
     let data = {
@@ -805,7 +815,7 @@ function WiresInlist(props) {
       var datefull = month+"/"+dt+"/"+yr + " "+ hh +":" + mm + ":" + ss;
       //wireObj.completeDateTime = datefull;
       wireObj.overrideFlag = 1;
-      wireObj.overrideBy = uid;
+      wireObj.overrideBy = getShortName();
       //wiresResourceArr.push(tmpWireObj);
       /*
       let wireOverrideObj = {

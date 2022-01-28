@@ -326,6 +326,8 @@ function Wireslist(props) {
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wirePostID='"+batchRec.wirePostID+"')";
         }
+      } else {
+        url += "&filter=(groupType='batch')";
       }
       /*
       let combineFilterArr = [...extFilters];

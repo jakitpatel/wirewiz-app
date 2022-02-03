@@ -326,8 +326,6 @@ function Wireslist(props) {
         } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
           url += "&filter=(wirePostID='"+batchRec.wirePostID+"')";
         }
-      } else {
-        url += "&filter=(groupType='batch')";
       }
       /*
       let combineFilterArr = [...extFilters];
@@ -365,6 +363,12 @@ function Wireslist(props) {
         }
         url += buildExternalFilterUrl(extFilters);
         //url += buildFilterUrl(extFilters);
+      }
+
+      if(filters.length===0 && extFilters.length===0){
+        url += "&filter=(groupType='batch')";
+      } else {
+        url += " and (groupType='batch')";
       }
 
       if(sortBy.length>0){

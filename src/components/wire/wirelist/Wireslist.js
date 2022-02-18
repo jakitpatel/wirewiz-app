@@ -63,7 +63,7 @@ function Wireslist(props) {
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
   let { batchRec } = props;
-
+  console.log(batchRec);
   useEffect(() => {
     const interval = setInterval(() => {
       setIsRefresh(isRefresh => {
@@ -365,7 +365,7 @@ function Wireslist(props) {
         //url += buildFilterUrl(extFilters);
       }
 
-      if(filters.length===0 && extFilters.length===0){
+      if(filters.length===0 && extFilters.length===0 && batchRec === null){
         url += "&filter=(groupType='batch')";
       } else {
         url += " and (groupType='batch')";

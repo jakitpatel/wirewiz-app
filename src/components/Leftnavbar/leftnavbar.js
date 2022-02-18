@@ -31,11 +31,16 @@ function MenuListItem(props) {
 // Stateless Function Component
 function LeftNavBar(props) {
   
-  const { WIRE_ENABLER, ACH_ENABLER, DEPOSITS_ENABLER } = useSelector(state => {
+  const { WIRE_ENABLER, ACH_ENABLER, DEPOSITS_ENABLER, WIRE_MODIFY_CREATE } = useSelector(state => {
     return {
         ...state.userReducer
     }
   });
+
+  let wireWriteVal = false;
+  if(WIRE_ENABLER===true && WIRE_MODIFY_CREATE === true){
+    wireWriteVal = true;
+  }
 
   return (
     <nav className="col-md-2 d-none d-md-block bg-light sidebar" style={{paddingTop:"70px"}}>
@@ -174,7 +179,7 @@ function LeftNavBar(props) {
                     menuName="Create Wire"
                     routePath={`${process.env.PUBLIC_URL}/createWire`}
                     iconName="trello"
-                    enableVal={WIRE_ENABLER}
+                    enableVal={wireWriteVal}
                   />
                   <MenuListItem
                     menuName="PostEOD"

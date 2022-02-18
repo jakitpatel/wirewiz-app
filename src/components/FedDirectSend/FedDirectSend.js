@@ -22,7 +22,7 @@ function FedDirectSend(props) {
   });
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -33,6 +33,8 @@ function FedDirectSend(props) {
         ...state.fedDirectSendDetailsReducer
     }
   });
+
+  let wireWriteVal = WIRE_MODIFY_CREATE;
 
   let fedPDRec = props.fedPDRec;
   console.log(fedPDRec);
@@ -163,7 +165,7 @@ function FedDirectSend(props) {
                 <h3 className="text-center">Send Fedline Messages</h3>
               </div>
               <div className="col-sm-3 btnCls">
-                <button style={{ float: "right" }} type="button" onClick={submitFedline} className="btn btn-primary btn-sm">
+                <button style={{ float: "right" }} type="button" onClick={submitFedline} className={`btn btn-primary btn-sm ${wireWriteVal ? "" : "disabled"}`}>
                   Submit
                 </button>
               </div>

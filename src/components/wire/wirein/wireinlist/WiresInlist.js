@@ -45,7 +45,7 @@ function WiresInlist(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token, WIRE_EXPORT, uid, name } = useSelector(state => {
+  const { session_token, WIRE_EXPORT, uid, name, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -57,6 +57,8 @@ function WiresInlist(props) {
         ...state.wireDictReducer
     }
   });
+
+  let wireWriteVal = WIRE_MODIFY_CREATE;
 
   let { batchId } = useParams();
   console.log("batchId : "+batchId);
@@ -996,7 +998,7 @@ function WiresInlist(props) {
               {showResolveSection &&
                 <>
                   {showOverrideSection && 
-                  <button type="button" style={{ marginLeft:"10px"}} onClick={onWireOverride}  className="btn btn-primary btn-sm">
+                  <button type="button" style={{ marginLeft:"10px"}} onClick={onWireOverride}  className={`btn btn-primary btn-sm ${wireWriteVal ? "" : "disabled"}`}>
                     Override
                   </button>
                   }
@@ -1005,11 +1007,11 @@ function WiresInlist(props) {
               <React.Fragment>
                 {showResolveSection &&
                 <>
-                  <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className="btn btn-primary btn-sm">
+                  <button type="button" style={{ float: "right",marginLeft:"10px"}} onClick={onWireResolve}  className={`btn btn-primary btn-sm ${wireWriteVal ? "" : "disabled"}`}>
                     Resolve
                   </button>
                   <div style={{float:"right"}}>
-                    <select className="form-control" value={resolveText}
+                    <select className={`form-control`} disabled={`${wireWriteVal ? false : true}`} value={resolveText}
                       onChange={e => {
                         setResolveText(e.target.value);
                       }}
@@ -1030,13 +1032,13 @@ function WiresInlist(props) {
                 </button>
                 }
                 {showSaveBtn &&
-                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,false, false)}} className="btn btn-primary btn-sm">
+                <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,false, false)}} className={`btn btn-primary btn-sm ${wireWriteVal ? "" : "disabled"} `}>
                   Save
                 </button>
                 }
                 {showSavePostExitBtn &&
                 <>
-                  <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,true)}} className="btn btn-primary btn-sm">
+                  <button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,true)}} className={`btn btn-primary btn-sm ${wireWriteVal ? "" : "disabled"} `}>
                     Save & Post
                   </button>
                   {/*<button type="button" style={{ float: "right", marginRight:"10px" }} onClick={(e) => {onWireSave(e,true,false)}} className="btn btn-primary btn-sm">

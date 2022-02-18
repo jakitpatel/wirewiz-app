@@ -27,7 +27,7 @@ function ForOFAC(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -38,6 +38,7 @@ function ForOFAC(props) {
         ...state.wireoutForOFACReducer
     }
   });
+   let wireWriteVal = WIRE_MODIFY_CREATE;
 
    let columnDefs = [];
    columnDefs.push(
@@ -67,17 +68,14 @@ function ForOFAC(props) {
      },
      {
       Header: "Generate OFAC File",
-      show : true, 
       width: 90,
-      //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,
-      //filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log(obj.row);
         let wireInObj = obj.row.original;
         return (
-          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"manual")}} className={`btn btn-link btn-sm`}>
+          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"manual")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
@@ -87,16 +85,14 @@ function ForOFAC(props) {
       Header: "Generate Auto OFAC File",
       show : true, 
       width: 120,
-      //id: 'colViewWireDetail',
       accessor: row => row.attrbuiteName,
       disableFilters: true,
-      //filterable: false, // Overrides the table option
       Cell: obj => {
         //console.log(obj.row);
         let wireInObj = obj.row.original;
         return (
           <div style={{ textAlign: "center" }}>
-            <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"auto")}} className={`btn btn-link btn-sm`}>
+            <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj,"auto")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
               <Icon.Send />
             </button>
           </div>

@@ -27,7 +27,7 @@ function Posting(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -38,6 +38,8 @@ function Posting(props) {
         ...state.wireoutPostingReducer
     }
   });
+
+  let wireWriteVal = WIRE_MODIFY_CREATE;
 
   const buildDocLink = (filename) => {
     let link = API_URL+'wires_export/'+filename+'?api_key='+API_KEY+'&session_token='+session_token;
@@ -124,7 +126,7 @@ function Posting(props) {
           }
         }
         return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );

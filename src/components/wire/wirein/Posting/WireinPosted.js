@@ -32,7 +32,7 @@ function WireinPosted(props) {
 
   const button = <button className="btn btn-primary btn-sm">Edit</button>;
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -44,6 +44,8 @@ function WireinPosted(props) {
     }
   });
   
+  let wireWriteVal = WIRE_MODIFY_CREATE;
+
   const location = useLocation();
 
   // Can be a string as well. Need to ensure each key-value pair ends with ;
@@ -118,7 +120,6 @@ function WireinPosted(props) {
       Cell: obj => {
         //console.log(obj.row);
         let wireInPostobj = obj.row.original;
-        let enableVal = true;
         /*
         if(wireInPostobj.postStatus){
           if(wireInPostobj.postStatus.includes('posted2OFAC')){
@@ -144,7 +145,7 @@ function WireinPosted(props) {
           }
         }
         return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );

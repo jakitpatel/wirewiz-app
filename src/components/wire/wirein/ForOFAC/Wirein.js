@@ -33,7 +33,7 @@ function Wirein(props) {
 
   const dispatch = useDispatch();
 
-  const { session_token } = useSelector(state => {
+  const { session_token, WIRE_MODIFY_CREATE } = useSelector(state => {
       return {
           ...state.userReducer
       }
@@ -44,6 +44,7 @@ function Wirein(props) {
         ...state.wireinForOFACReducer
     }
   });
+  let wireWriteVal = WIRE_MODIFY_CREATE;
 
   const location = useLocation();
 
@@ -94,7 +95,7 @@ function Wirein(props) {
         //console.log(obj.row);
         let wireInObj = obj.row.original;
         return (
-          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+          <button type="button" onClick={(e)=>{onWireInExport(e, wireInObj)}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
@@ -113,7 +114,7 @@ function Wirein(props) {
         let wireInObj = obj.row.original;
         return (
           <div style={{ textAlign: "center" }}>
-            <button type="button" onClick={(e)=>{onGenAutoOFACFile(e, wireInObj)}} className={`btn btn-link btn-sm`}>
+            <button type="button" onClick={(e)=>{onGenAutoOFACFile(e, wireInObj)}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
               <Icon.Send />
             </button>
           </div>

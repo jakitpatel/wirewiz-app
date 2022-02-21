@@ -184,10 +184,12 @@ function Posting(props) {
           let postStatusVal = wireInPostobj.postStatus.trim();
           if(postStatusVal==="OFAC_OK"){
             colorVal = "#228B22";
-            errorTooltip = "No Error detected";
+            //errorTooltip = "No Error detected";
+            errorTooltip = "No Matches detected";
           } else if(postStatusVal==="OFAC_ERR"){
             colorVal = "#DC143C";
-            errorTooltip = "Error detected";
+            //errorTooltip = "Error detected";
+            errorTooltip = "Matches detected";
           } else if(postStatusVal==="OFAC_WAIT"){
             colorVal = "#ff9900";
             errorTooltip = "Waiting for auto OFAC reply";

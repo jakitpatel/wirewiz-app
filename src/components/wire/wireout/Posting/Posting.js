@@ -428,10 +428,10 @@ function Posting(props) {
       data.Auto = postAutoFlag;
     }
     console.log("LinkMode : "+wireInObj.linkMode);
-    if(wireInObj.linkMode === "BATCH"){
-      //data.resource.push({"FED": true},{"FISERV":true},{"VirtualGroup":true});
+    //if(wireInObj.linkMode === "BATCH"){
+    if(wireInObj.linkMode === "FISERV&FED"){
       data.resource.push({"FED": true},{"FISERV":true});
-    } else if(wireInObj.linkMode === "FISERV"){
+    } else if(wireInObj.linkMode === "FED_ONLY"){ //else if(wireInObj.linkMode === "FISERV"){
       data.resource.push({"FED": true},{"FISERV":false});
     } else {
       data.resource.push({"FED": true},{"FISERV":true});

@@ -880,7 +880,8 @@ function WiresInlist(props) {
     if(wires.length>0){
       showResolveSection = true;
       let recType = batchRec.type;
-      if(recType==="businessError"){
+      //console.log("recType : "+recType);
+      if(recType==="businessError" || recType==="branch" || recType==="lending"){
         showOverrideSection = true;
       }
     }

@@ -788,12 +788,14 @@ function WiresInlist(props) {
         break;
       }
       console.log("bfIdentifier : "+bfIdentifier);
-      if((bfIdentifier.substring(1, 2) === '14') || (bfIdentifier.substring(1, 3) === '014')
-        || (bfIdentifier.subString(1, 2) === '16') || (bfIdentifier.subString(1, 3) === '016')
-        || (bfIdentifier.subString(1, 4) === '1011')) {
-          flagOverride = true;
-          break;
-        }
+      if(bfIdentifier){
+        if((bfIdentifier.substring(0, 1) === '14') || (bfIdentifier.substring(0, 2) === '014')
+          || (bfIdentifier.subString(0, 1) === '16') || (bfIdentifier.subString(0, 2) === '016')
+          || (bfIdentifier.subString(0, 3) === '1011')) {
+            flagOverride = true;
+            break;
+          }
+      }
     }
     if(flagOverride===false){
       alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");

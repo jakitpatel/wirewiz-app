@@ -984,6 +984,37 @@ function WiresInlist(props) {
       <h4 style={{float:"right", padding: "0.5rem 1rem"}} > Submitting... </h4>
   </>
   ) : null;
+  let selectCmp = wireWriteVal === true ? ( 
+    <>
+        <select className={`form-control`} value={resolveText}
+          onChange={e => {
+            setResolveText(e.target.value);
+          }}
+        >
+        <option value="Sent to Branch">Sent to Branch</option>
+        <option value="Sent to Credit Dept">Sent to Credit Dept</option>
+        <option value="Process Manually">Process Manually</option>
+        <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
+        <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
+        <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
+      </select>
+    </>
+    ) : (
+      <>
+        <select className={`form-control`} disabled value={resolveText}
+          onChange={e => {
+            setResolveText(e.target.value);
+          }}
+        >
+        <option value="Sent to Branch">Sent to Branch</option>
+        <option value="Sent to Credit Dept">Sent to Credit Dept</option>
+        <option value="Process Manually">Process Manually</option>
+        <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
+        <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
+        <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
+      </select>
+      </>
+    );
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
@@ -1012,18 +1043,7 @@ function WiresInlist(props) {
                     Resolve
                   </button>
                   <div style={{float:"right"}}>
-                    <select className={`form-control`} disabled={`${wireWriteVal ? false : true}`} value={resolveText}
-                      onChange={e => {
-                        setResolveText(e.target.value);
-                      }}
-                    >
-                      <option value="Sent to Branch">Sent to Branch</option>
-                      <option value="Sent to Credit Dept">Sent to Credit Dept</option>
-                      <option value="Process Manually">Process Manually</option>
-                      <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
-                      <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
-                      <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
-                    </select>
+                    {selectCmp}
                   </div>
                 </>
                 }

@@ -797,6 +797,14 @@ function WiresInlist(props) {
           }
       }
     }
+    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      console.log("batchRec.fromView : "+batchRec.fromView);
+      let recType = batchRec.type;
+      console.log("batchRec.type : "+recType);
+      if(recType==="branch" || recType==="lending"){
+        flagOverride = true;
+      }
+    }
     if(flagOverride===false){
       alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
       return false;

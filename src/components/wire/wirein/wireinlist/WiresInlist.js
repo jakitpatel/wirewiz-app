@@ -775,6 +775,7 @@ function WiresInlist(props) {
     for(let i=0; i<modWireData.length;i++){
       let wireObj = modWireData[i];
       let bsErrMsg = wireObj.businessErrorMsg;
+      let bfIdentifier = wireObj.beneficiaryIdentifier;
       if(bsErrMsg!==null && bsErrMsg!=="" && bsErrMsg!==undefined){
         if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("beneficiarynotnavigatoracc") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
           flagOverride = true;
@@ -786,6 +787,13 @@ function WiresInlist(props) {
         flagOverride = false;
         break;
       }
+      console.log("bfIdentifier : "+bfIdentifier);
+      if((bfIdentifier.substring(1, 2) === '14') || (bfIdentifier.substring(1, 3) === '014')
+        || (bfIdentifier.subString(1, 2) === '16') || (bfIdentifier.subString(1, 3) === '016')
+        || (bfIdentifier.subString(1, 4) === '1011')) {
+          flagOverride = true;
+          break;
+        }
     }
     if(flagOverride===false){
       alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");

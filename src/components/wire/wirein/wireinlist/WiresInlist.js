@@ -1014,7 +1014,9 @@ function WiresInlist(props) {
         <option value="Sent to Branch">Sent to Branch</option>
         <option value="Sent to Credit Dept">Sent to Credit Dept</option>
         <option value="Process Manually">Process Manually</option>
+        <option value="Generate Drawdown">Generate Drawdown</option>
         <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
+        <option value="Generate Reject">Generate Reject</option>
         <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
         <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
       </select>
@@ -1029,7 +1031,9 @@ function WiresInlist(props) {
         <option value="Sent to Branch">Sent to Branch</option>
         <option value="Sent to Credit Dept">Sent to Credit Dept</option>
         <option value="Process Manually">Process Manually</option>
+        <option value="Generate Drawdown">Generate Drawdown</option>
         <option value="Return to Sender Via Advantage">Return to Sender Via Advantage</option>
+        <option value="Generate Reject">Generate Reject</option>
         <option value="Message read and acknowledged via Advantages">Message read and acknowledged via Advantages</option>
         <option value="Message read no acknowledgment required">Message read no acknowledgment required</option>
       </select>

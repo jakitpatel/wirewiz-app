@@ -48,7 +48,7 @@ if(env==="DEVLOCAL"){
         WirePost2Fiserv_Url    : API_URL+"wirePost2",
         WireinPostedActual_Url : API_URL+"v_wirePosted3",
         WireinManualResolved_Url : API_URL+"v_wireManualResolved",
-        WirePost2_Url            : API_URL+"wirePost2",
+        WirePost2_Url            : API_URL+"wirePost3",
         WireoutForOFAC_Url       : API_URL+"v_wireoutOfacSummary",
         WireoutForOFACGenerated_Url   : API_URL+"v_wireoutPostedSummary",
         WireoutForPosting_Url  : API_URL+"v_wireoutPostSummary",
@@ -66,7 +66,8 @@ if(env==="DEVLOCAL"){
         FedWireErr_Url            : API_URL+"fedWireErr",
         FedRetrieval_Url          : API_URL+"fedRetrieval",
         WireOfacWires_Url         : API_URL+"v_wireOfacList",
-        WireOutOfacWires_Url      : API_URL+"v_wireoutOfacList"
+        WireOutOfacWires_Url      : API_URL+"v_wireoutOfacList",
+        WireOutPost4_Url          : API_URL+"wirePost4"
     }
 } else {
     // For DEV & Production Env
@@ -121,6 +122,7 @@ if(env==="DEVLOCAL"){
         FedWireErr_Url            : API_URL_DB+"_table/fedWireErr",
         FedRetrieval_Url          : API_URL_DB+"_table/fedRetrieval",
         WireOfacWires_Url         : API_URL_DB+"_table/v_wireOfacList",
-        WireOutOfacWires_Url      : API_URL_DB+"_table/v_wireoutOfacList"
+        WireOutOfacWires_Url      : API_URL_DB+"_table/v_wireoutOfacList",
+        WireOutPost4_Url          : API_URL+"wirePost4"
     }
 }

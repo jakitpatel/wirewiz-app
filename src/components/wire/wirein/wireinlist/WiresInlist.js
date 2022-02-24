@@ -787,6 +787,7 @@ function WiresInlist(props) {
         flagOverride = false;
         break;
       }
+      /*
       console.log("bfIdentifier : "+bfIdentifier);
       if(bfIdentifier){
         if((bfIdentifier.substring(0, 1) === '14') || (bfIdentifier.substring(0, 2) === '014')
@@ -795,16 +796,16 @@ function WiresInlist(props) {
             flagOverride = true;
             break;
           }
-      }
+      }*/
     }
-    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    /*if(batchRec.fromView && batchRec.fromView==="wireInManual"){
       console.log("batchRec.fromView : "+batchRec.fromView);
       let recType = batchRec.type;
       console.log("batchRec.type : "+recType);
       if(recType==="branch" || recType==="lending"){
         flagOverride = true;
       }
-    }
+    }*/
     if(flagOverride===false){
       alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
       return false;
@@ -899,7 +900,8 @@ function WiresInlist(props) {
       showResolveSection = true;
       let recType = batchRec.type;
       //console.log("recType : "+recType);
-      if(recType==="businessError" || recType==="branch" || recType==="lending"){
+      //if(recType==="businessError" || recType==="branch" || recType==="lending"){
+      if(recType==="businessError"){
         showOverrideSection = true;
       }
     }

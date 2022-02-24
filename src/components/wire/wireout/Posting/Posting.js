@@ -9,7 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForPosting_Url, API_URL,env, WirePost2_Url} = window.constVar;
+const {API_KEY, WireoutForPosting_Url, API_URL,env, WireOutPost4_Url} = window.constVar;
 
 function Posting(props) {
   const [loading, setLoading] = useState(true);
@@ -272,13 +272,13 @@ function Posting(props) {
       field: "postStatus",
       Header: "postStatus",
       accessor: "postStatus"
-    },*/
+    },
     {
       name: "linkMode",
       field: "linkMode",
       Header: "linkMode",
       accessor: "linkMode"
-    },
+    },*/
     {
       name: "numWires",
       field: "numWires",
@@ -429,16 +429,16 @@ function Posting(props) {
     }
     console.log("LinkMode : "+wireInObj.linkMode);
     //if(wireInObj.linkMode === "BATCH"){
-    if(wireInObj.linkMode === "FISERV&FED"){
+    /*if(wireInObj.linkMode === "FISERV&FED"){
       data.resource.push({"FED": true},{"FISERV":true});
     } else if(wireInObj.linkMode === "FED_ONLY"){ //else if(wireInObj.linkMode === "FISERV"){
       data.resource.push({"FED": true},{"FISERV":false});
     } else {
       data.resource.push({"FED": true},{"FISERV":true});
-    }
-    let url = WirePost2_Url;
+    }*/
+    let url = WireOutPost4_Url;
     if(env==="DEVLOCAL"){
-      url = WirePost2_Url;
+      url = WireOutPost4_Url;
     }
     try {
       //setSending(!sending);

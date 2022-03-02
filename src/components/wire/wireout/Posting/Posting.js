@@ -96,43 +96,6 @@ function Posting(props) {
       }
     },
     {
-      Header: "SendToFed",
-      show : true, 
-      width: 80,
-      //id: 'colViewWireDetail',
-      accessor: row => row.attrbuiteName,
-      disableFilters: true,
-      //filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log(obj.row);
-        let wireInPostobj = obj.row.original;
-        let enableVal = true;
-        let colorVal = "#007bff";
-        //let errorTooltip = "";
-        if(wireInPostobj.postStatus){
-          let postStatusVal = wireInPostobj.postStatus.trim();
-          if(postStatusVal==="OFAC_OK"){
-            colorVal = "#228B22";
-            //errorTooltip = "No Error detected";
-          } else if(postStatusVal==="OFAC_ERR"){
-            colorVal = "#DC143C";
-            //errorTooltip = "Error detected";
-          } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#ff9900";
-            //errorTooltip = "Waiting for auto OFAC reply";
-          } else if(postStatusVal==="OFAC"){
-            colorVal = "#007bff";
-            //errorTooltip = "Manual OFAC submission";
-          }
-        }
-        return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false,"sendtofed")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
-            <Icon.Send />
-          </button>
-        );
-      }
-    },
-    {
       Header: "Post",
       show : true, 
       width: 80,
@@ -164,6 +127,43 @@ function Posting(props) {
         }
         return (
           <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false, "post")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
+            <Icon.Send />
+          </button>
+        );
+      }
+    },
+    {
+      Header: "SendToFed",
+      show : true, 
+      width: 80,
+      //id: 'colViewWireDetail',
+      accessor: row => row.attrbuiteName,
+      disableFilters: true,
+      //filterable: false, // Overrides the table option
+      Cell: obj => {
+        //console.log(obj.row);
+        let wireInPostobj = obj.row.original;
+        let enableVal = true;
+        let colorVal = "#007bff";
+        //let errorTooltip = "";
+        if(wireInPostobj.postStatus){
+          let postStatusVal = wireInPostobj.postStatus.trim();
+          if(postStatusVal==="OFAC_OK"){
+            colorVal = "#228B22";
+            //errorTooltip = "No Error detected";
+          } else if(postStatusVal==="OFAC_ERR"){
+            colorVal = "#DC143C";
+            //errorTooltip = "Error detected";
+          } else if(postStatusVal==="OFAC_WAIT"){
+            colorVal = "#ff9900";
+            //errorTooltip = "Waiting for auto OFAC reply";
+          } else if(postStatusVal==="OFAC"){
+            colorVal = "#007bff";
+            //errorTooltip = "Manual OFAC submission";
+          }
+        }
+        return (
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false,"sendtofed")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );

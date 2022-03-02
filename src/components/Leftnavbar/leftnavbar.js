@@ -116,6 +116,12 @@ function LeftNavBar(props) {
                     enableVal={WIRE_ENABLER}
                   />
                   <MenuListItem
+                    menuName="FedPending"
+                    routePath={`${process.env.PUBLIC_URL}/fedPending`}
+                    iconName="trello"
+                    enableVal={WIRE_ENABLER}
+                  />
+                  <MenuListItem
                     menuName="Completed"
                     routePath={`${process.env.PUBLIC_URL}/wireoutOFACGenerated`}
                     iconName="trello"
@@ -124,12 +130,6 @@ function LeftNavBar(props) {
                   <MenuListItem
                     menuName="Resolved Manual"
                     routePath={`${process.env.PUBLIC_URL}/wiresoutmanualresolved`}
-                    iconName="trello"
-                    enableVal={WIRE_ENABLER}
-                  />
-                  <MenuListItem
-                    menuName="FedPending"
-                    routePath={`${process.env.PUBLIC_URL}/fedPending`}
                     iconName="trello"
                     enableVal={WIRE_ENABLER}
                   />

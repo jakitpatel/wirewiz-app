@@ -39,6 +39,7 @@ import FedShortAckDetails from './../FedShortAck/FedShortAckDetails';
 import FedWireErr from './../FedWireErr/FedWireErr';
 import FedWireErrDetails from './../FedWireErr/FedWireErrDetails';
 import FedRetrieval from './../FedRetrieval/FedRetrieval';
+import FedPending from './../wire/wireout/FedPending/FedPending.js';
 
 const WireListWrap = props => {
   //console.log(props);
@@ -222,6 +223,10 @@ const routes = [
   {
     path: "/fedRetrieval",
     main: () => <FedRetrieval  />
+  },
+  {
+    path: "/fedPending",
+    main: () => <FedPending  />
   }
 ];
 

@@ -51,6 +51,7 @@ function App(props) {
           <Route exact path={`${process.env.PUBLIC_URL}/fedWireErr`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedWireErrDetails/:fedWireErrID`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}/fedRetrieval`} component={Dashboard} />
+          <Route exact path={`${process.env.PUBLIC_URL}/fedPending`} component={Dashboard} />
           <Route exact path={`${process.env.PUBLIC_URL}`} component={Login} />
         </Switch>
       </Provider>

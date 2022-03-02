@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PostingView from "./PostingView.js";
+import FedPendingView from "./FedPendingView.js";
 import * as Icon from "react-feather";
 //import "./Wirein.css";
 import axios from 'axios';
@@ -9,9 +9,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForPosting_Url, API_URL,env, WireOutPost4_Url} = window.constVar;
+const {API_KEY, FedPendingSummary_Url, API_URL,env, WireOutPost4_Url} = window.constVar;
 
-function Posting(props) {
+function FedPending(props) {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);  // Managin multiple sending
   const [filtersarr, setFiltersarr] = React.useState([]);
@@ -72,67 +72,6 @@ function Posting(props) {
       }
     },
     {
-      Header: "Files",
-      show : true, 
-      width: 40,
-      disableFilters: true,
-      accessor: row => row.attrbuiteName,
-      filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log("Edit");
-        //console.log(obj.row);
-        let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireOutPosting";
-        return (
-          <Link
-            to={{
-              pathname: `${process.env.PUBLIC_URL}/filelist/${wireInRecordObj.wirePostID}`,
-              state: obj.row.original
-            }}
-          >
-            <Icon.File />
-          </Link>
-        );
-      }
-    },
-    {
-      Header: "SendToFed",
-      show : true, 
-      width: 80,
-      //id: 'colViewWireDetail',
-      accessor: row => row.attrbuiteName,
-      disableFilters: true,
-      //filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log(obj.row);
-        let wireInPostobj = obj.row.original;
-        let enableVal = true;
-        let colorVal = "#007bff";
-        //let errorTooltip = "";
-        if(wireInPostobj.postStatus){
-          let postStatusVal = wireInPostobj.postStatus.trim();
-          if(postStatusVal==="OFAC_OK"){
-            colorVal = "#228B22";
-            //errorTooltip = "No Error detected";
-          } else if(postStatusVal==="OFAC_ERR"){
-            colorVal = "#DC143C";
-            //errorTooltip = "Error detected";
-          } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#ff9900";
-            //errorTooltip = "Waiting for auto OFAC reply";
-          } else if(postStatusVal==="OFAC"){
-            colorVal = "#007bff";
-            //errorTooltip = "Manual OFAC submission";
-          }
-        }
-        return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false,"sendtofed")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
-            <Icon.Send />
-          </button>
-        );
-      }
-    },
-    {
       Header: "Post",
       show : true, 
       width: 80,
@@ -163,48 +102,12 @@ function Posting(props) {
           }
         }
         return (
-          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false, "post")}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
+          <button type="button" style={{color:colorVal}} onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${wireWriteVal ? "" : "disabled"}`}>
             <Icon.Send />
           </button>
         );
       }
     },
-    /*{
-      Header: "PostAuto",
-      show : true, 
-      width: 80,
-      disableFilters: true,
-      accessor: row => row.attrbuiteName,
-      //filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log(obj.row);
-        let wireInPostobj = obj.row.original;
-        let enableVal = true;
-        let colorVal = "#007bff";
-        //let errorTooltip = "";
-        if(wireInPostobj.postStatus){
-          let postStatusVal = wireInPostobj.postStatus.trim();
-          if(postStatusVal==="OFAC_OK"){
-            colorVal = "#228B22";
-            //errorTooltip = "No Error detected";
-          } else if(postStatusVal==="OFAC_ERR"){
-            colorVal = "#DC143C";
-            //errorTooltip = "Error detected";
-          } else if(postStatusVal==="OFAC_WAIT"){
-            colorVal = "#ff9900";
-            //errorTooltip = "Waiting for auto OFAC reply";
-          } else if(postStatusVal==="OFAC"){
-            colorVal = "#007bff";
-            //errorTooltip = "Manual OFAC submission";
-          }
-        }
-        return (
-          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, true)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
-            <Icon.Send />
-          </button>
-        );
-      }
-    },*/
     {
       Header: "PostStatus",
       show : true, 
@@ -242,31 +145,6 @@ function Posting(props) {
         );
       }
     },
-    /*{
-      Header: "Post w/o TXT",
-      show : true, 
-      width: 115,
-      //id: 'colViewWireDetail',
-      accessor: row => row.attrbuiteName,
-      disableFilters: true,
-      //filterable: false, // Overrides the table option
-      Cell: obj => {
-        //console.log(obj.row);
-        let wireInPostobj = obj.row.original;
-        let enableVal = true;
-        
-        //if(wireInPostobj.postStatus){
-          //if(wireInPostobj.postStatus.includes('posted2OFAC')){
-            //enableVal = true;
-          //}
-        //}
-        return (
-          <button type="button" onClick={(e)=>{onWireInPost(e, wireInPostobj, false)}} className={`btn btn-link btn-sm ${enableVal ? "" : "disabled"}`}>
-            <Icon.Send />
-          </button>
-        );
-      }
-    },*/
     {
       headerName: "wirePostID",
       field: "wirePostID",
@@ -287,49 +165,17 @@ function Posting(props) {
       accessor: "Name"
     },*/
     {
-      name: "OFACGenDateTime",
-      field: "OFACGenDateTime",
-      Header: "OFAC Generated",
-      accessor: "OFACGenDateTime"
+      name: "SentDateTime",
+      field: "SentDateTime",
+      Header: "SentDateTime",
+      accessor: "SentDateTime"
     },
-    /*{
-      name: "OFACGenFileName",
-      field: "OFACGenFileName",
-      Header: "OFAC File",
-      accessor: "OFACGenFileName",
-      Cell: ({ row }) => {
-        let doc_link = buildDocLink(row.original.OFACGenFileName);
-        return (
-          <button className="btn btn-link" onClick={() => {download(doc_link, row.original.OFACGenFileName)}}>{row.original.OFACGenFileName}</button>
-        )
-      }
-    },
-    {
-      name: "postStatus",
-      field: "postStatus",
-      Header: "postStatus",
-      accessor: "postStatus"
-    },
-    {
-      name: "linkMode",
-      field: "linkMode",
-      Header: "linkMode",
-      accessor: "linkMode"
-    },*/
     {
       name: "numWires",
       field: "numWires",
       Header: "# Wires",
       accessor: "numWires"
     },
-    /*
-    {
-      name: "lastArrivialTime",
-      field: "lastArrivialTime",
-      Header: "lastArrivialTime",
-      accessor: "lastArrivialTime"
-    },
-    */
     {
       name: "totalAmount",
       field: "totalAmount",
@@ -352,6 +198,18 @@ function Posting(props) {
       field: "postedBy",
       Header: "Submited By",
       accessor: "postedBy"
+    },
+    {
+      name: "numError",
+      field: "numError",
+      Header: "numError",
+      accessor: "numError"
+    },
+    {
+      name: "numAck",
+      field: "numAck",
+      Header: "numAck",
+      accessor: "numAck"
     }
   ];
 
@@ -386,7 +244,7 @@ function Posting(props) {
         }
       };
 
-      let url = WireoutForPosting_Url;
+      let url = FedPendingSummary_Url;
       url += buildPageUrl(pageSize,pageIndex);
       console.log("filters");
       console.log(filters);
@@ -444,7 +302,7 @@ function Posting(props) {
     }
   }, [ dispatch, session_token]);
 
-  const onWireInPost = async (e, wireInObj, postAutoFlag, action) => {
+  const onWireInPost = async (e, wireInObj, postAutoFlag) => {
     console.log("Called Wire In Post");
     console.log(wireInObj);
     console.log("sending : "+sending);
@@ -473,9 +331,6 @@ function Posting(props) {
     } else {
       data.resource.push({"FED": true},{"FISERV":true});
     }*/
-    if(action === "sendtofed"){
-      data.resource.push({"FED": false},{"FISERV":true});
-    }
     let url = WireOutPost4_Url;
     if(env==="DEVLOCAL"){
       url = WireOutPost4_Url;
@@ -528,7 +383,7 @@ function Posting(props) {
     /*loading === true ? (
       <h3> LOADING... </h3>
     ) :*/ (
-      <PostingView
+      <FedPendingView
         data={wireoutForOFACGenerated}
         columnDefs={columnDefs}
         initialState={initialState}
@@ -550,7 +405,7 @@ function Posting(props) {
         <div className="row">
           <div className="col-sm-12 col-md-offset-3">
             <div>
-              <h3 style={{float:"left"}} className="title-center">Outbound Wires - Ready for Posting</h3>
+              <h3 style={{float:"left"}} className="title-center">Fed Pending List</h3>
               <h5 style={{float:"right"}} className="title-center">Last Updated : {time}</h5>
               <div style={{clear:"both"}}></div>
             </div>
@@ -563,4 +418,4 @@ function Posting(props) {
   );
 }
 
-export default Posting;
+export default FedPending;

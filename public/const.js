@@ -1,5 +1,5 @@
-//let env = "DEVLOCAL";
-let env = "DEV";
+let env = "DEVLOCAL";
+//let env = "DEV";
 //let env = "PROD";
 //let env = "UAT";
 
@@ -67,7 +67,9 @@ if(env==="DEVLOCAL"){
         FedRetrieval_Url          : API_URL+"fedRetrieval",
         WireOfacWires_Url         : API_URL+"v_wireOfacList",
         WireOutOfacWires_Url      : API_URL+"v_wireoutOfacList",
-        WireOutPost4_Url          : API_URL+"wirePost4"
+        WireOutPost4_Url          : API_URL+"wirePost4",
+        FedPendingList_Url        : API_URL+"v_fedPendingList",
+        FedPendingSummary_Url     : API_URL+"v_fedPendingSummary"
     }
 } else {
     // For DEV & Production Env
@@ -123,6 +125,8 @@ if(env==="DEVLOCAL"){
         FedRetrieval_Url          : API_URL_DB+"_table/fedRetrieval",
         WireOfacWires_Url         : API_URL_DB+"_table/v_wireOfacList",
         WireOutOfacWires_Url      : API_URL_DB+"_table/v_wireoutOfacList",
-        WireOutPost4_Url          : API_URL+"wirePost4"
+        WireOutPost4_Url          : API_URL+"wirePost4",
+        FedPendingList_Url        : API_URL_DB+"_table/v_fedPendingList",
+        FedPendingSummary_Url     : API_URL_DB+"_table/v_fedPendingSummary"
     }
 }

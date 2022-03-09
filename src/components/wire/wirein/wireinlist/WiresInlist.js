@@ -777,7 +777,8 @@ function WiresInlist(props) {
       let bsErrMsg = wireObj.businessErrorMsg;
       let bfIdentifier = wireObj.beneficiaryIdentifier;
       if(bsErrMsg!==null && bsErrMsg!=="" && bsErrMsg!==undefined){
-        if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("beneficiarynotnavigatoracc") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
+        //if(bsErrMsg.toLowerCase().includes("failed on allowed country list") || bsErrMsg.toLowerCase().includes("failed on corporate limit check") || bsErrMsg.toLowerCase().includes("beneficiarynotnavigatoracc") || bsErrMsg.toLowerCase().includes("failed on consumer limit check")){
+        if(bsErrMsg.toLowerCase().includes("warning-") && !bsErrMsg.toLowerCase().includes("error-")){
           flagOverride = true;
         } else {
           flagOverride = false;

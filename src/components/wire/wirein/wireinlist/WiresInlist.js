@@ -808,7 +808,8 @@ function WiresInlist(props) {
       }
     }*/
     if(flagOverride===false){
-      alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
+      //alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
+      alert("Selected wires must not contain 'ERROR' & must contain 'WARNING' in businessErrorMsg. Please unselect to proceed with override.");
       return false;
     }
 

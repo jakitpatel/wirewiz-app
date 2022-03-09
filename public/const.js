@@ -68,8 +68,8 @@ if(env==="DEVLOCAL"){
         WireOfacWires_Url         : API_URL+"v_wireOfacList",
         WireOutOfacWires_Url      : API_URL+"v_wireoutOfacList",
         WireOutPost4_Url          : API_URL+"wirePost4",
-        FedPendingList_Url        : API_URL+"v_fedPendingList",
-        FedPendingSummary_Url     : API_URL+"v_fedPendingSummary"
+        FedPendingList_Url        : API_URL+"v_wireoutFedPendingList",
+        FedPendingSummary_Url     : API_URL+"v_wireoutFedPendingSummary"
     }
 } else {
     // For DEV & Production Env
@@ -126,7 +126,7 @@ if(env==="DEVLOCAL"){
         WireOfacWires_Url         : API_URL_DB+"_table/v_wireOfacList",
         WireOutOfacWires_Url      : API_URL_DB+"_table/v_wireoutOfacList",
         WireOutPost4_Url          : API_URL+"wirePost4",
-        FedPendingList_Url        : API_URL_DB+"_table/v_fedPendingList",
-        FedPendingSummary_Url     : API_URL_DB+"_table/v_fedPendingSummary"
+        FedPendingList_Url        : API_URL_DB+"_table/v_wireoutFedPendingList",
+        FedPendingSummary_Url     : API_URL_DB+"_table/v_wireoutFedPendingSummary"
     }
 }

@@ -828,7 +828,8 @@ function WiresInlist(props) {
       let wireObj = modWireData[k];
       delete wireObj.status;
       /////
-      if(wireObj.businessErrorMsg.includes("Account in beneficiaryFI")){
+      let bsErrMsg = wireObj.businessErrorMsg;
+      if(bsErrMsg.toLowerCase().includes("account in beneficiaryfi")){
         wireObj.originToBeneficiaryInfo1  = wireObj.beneficiaryIdentifier;
         wireObj.beneficiaryIdentifier     = wireObj.beneficiaryFIIdentifier;
       } else {

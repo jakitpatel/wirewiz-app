@@ -331,7 +331,9 @@ function WiresInlist(props) {
     if(batchRec.fromView && batchRec.fromView==="wireInManual"){
       modObj = {
         status:3,
-        wireID:modifiedRec.wireID,
+        wireID : modifiedRec.wireID,
+        beneficiaryIdentifier : modifiedRec.beneficiaryIdentifier,
+        beneficiaryFIIdentifier : modifiedRec.beneficiaryFIIdentifier,
         businessErrorMsg:modifiedRec.businessErrorMsg/*,
         beneficiaryName : modifiedRec.beneficiaryName,
         vAcc : modifiedRec.vAcc*/
@@ -656,6 +658,8 @@ function WiresInlist(props) {
     for(let k=0; k<modWireData.length;k++){
       let wireObj = modWireData[k];
       delete wireObj.businessErrorMsg;
+      delete wireObj.beneficiaryFIIdentifier;
+      delete wireObj.beneficiaryIdentifier;
       /*let tmpWireObj = {};
       tmpWireObj.status = 3;
       tmpWireObj.wireID = wireDetailsObj.wireID;
@@ -823,6 +827,15 @@ function WiresInlist(props) {
     for(let k=0; k<modWireData.length;k++){
       let wireObj = modWireData[k];
       delete wireObj.status;
+      /////
+      if(wireObj.businessErrorMsg.includes("Account in beneficiaryFI")){
+        wireObj.originToBeneficiaryInfo1  = wireObj.beneficiaryIdentifier;
+        wireObj.beneficiaryIdentifier     = wireObj.beneficiaryFIIdentifier;
+      } else {
+        delete wireObj.beneficiaryIdentifier;
+      }
+      delete wireObj.beneficiaryFIIdentifier;
+      ////
       delete wireObj.businessErrorMsg;
       /*let tmpWireObj = {};
       tmpWireObj.status = 3;

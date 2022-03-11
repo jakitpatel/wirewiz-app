@@ -68,6 +68,7 @@ if(env==="DEVLOCAL"){
         WireOfacWires_Url         : API_URL+"v_wireOfacList",
         WireOutOfacWires_Url      : API_URL+"v_wireoutOfacList",
         WireOutPost4_Url          : API_URL+"wirePost4",
+        WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL+"v_wireoutFedPendingList",
         FedPendingSummary_Url     : API_URL+"v_wireoutFedPendingSummary"
     }
@@ -126,6 +127,7 @@ if(env==="DEVLOCAL"){
         WireOfacWires_Url         : API_URL_DB+"_table/v_wireOfacList",
         WireOutOfacWires_Url      : API_URL_DB+"_table/v_wireoutOfacList",
         WireOutPost4_Url          : API_URL+"wirePost4",
+        WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL_DB+"_table/v_wireoutFedPendingList",
         FedPendingSummary_Url     : API_URL_DB+"_table/v_wireoutFedPendingSummary"
     }

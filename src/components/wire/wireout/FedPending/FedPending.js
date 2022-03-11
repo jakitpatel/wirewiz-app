@@ -331,10 +331,8 @@ function FedPending(props) {
     } else {
       data.resource.push({"FED": true},{"FISERV":true});
     }*/
+    data.resource.push({"FED": false},{"FISERV":true});
     let url = WireOutPost4_Url;
-    if(env==="DEVLOCAL"){
-      url = WireOutPost4_Url;
-    }
     try {
       //setSending(!sending);
       setSending(true);

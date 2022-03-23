@@ -12,7 +12,7 @@ import { css } from "@emotion/core";
 import ClipLoader from "react-spinners/ClipLoader";
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} from './../../../const';
-const {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL} = window.constVar;
+const {API_KEY, WireinPosted_Url, WirePost2Fiserv_Url, env, API_URL, ExecServiceLock_Url} = window.constVar;
 
 function WireinPosted(props) {
   let history = useHistory();
@@ -461,6 +461,7 @@ function WireinPosted(props) {
       }
     };
     let data = {
+      "service"   : "wirePost3",
       "direction":"wireIn",
       "resource": [{"wirePostID": wireInObj.wirePostID}/*,{"Account"   : wireInObj.Account}*/]
     };
@@ -468,9 +469,7 @@ function WireinPosted(props) {
       data.Auto = postAutoFlag;
     }
     let url = WirePost2Fiserv_Url;
-    if(env==="DEVLOCAL"){
-      url = WirePost2Fiserv_Url;
-    }
+    url = ExecServiceLock_Url;
     try {
       //setSending(!sending);
       setSending(true);

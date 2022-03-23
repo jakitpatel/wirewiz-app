@@ -9,7 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl, download} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForPosting_Url, API_URL,env, WireOutPost4_Url, WireOutPost5_Url} = window.constVar;
+const {API_KEY, WireoutForPosting_Url, API_URL,env, WireOutPost4_Url, WireOutPost5_Url, ExecServiceLock_Url} = window.constVar;
 
 function Posting(props) {
   const [loading, setLoading] = useState(true);
@@ -473,12 +473,16 @@ function Posting(props) {
     } else {
       data.resource.push({"FED": true},{"FISERV":true});
     }*/
+    let serviceVal = "wirePost4";
     let url = WireOutPost4_Url;
     if(action === "sendtofed"){
       data.resource.push({"FED": false},{"FISERV":true});
       url = WireOutPost5_Url;
+      serviceVal = "wirePost5";
     }
- 
+    url = ExecServiceLock_Url;
+    data.service = serviceVal;
+
     try {
       //setSending(!sending);
       setSending(true);

@@ -44,8 +44,8 @@ if(env==="DEVLOCAL"){
         WireinManual_Url : API_URL+"v_wireManual",
         WireinPosted_Url : API_URL+"v_wirePost3",
         //WireInExport_Url : API_URL+"wirePost",
-        WireInExport_Url : API_URL+"wirepost2ofac",
-        WirePost2Fiserv_Url    : API_URL+"wirePost2",
+        WireInExport_Url : API_URL+"wirepost2ofac3",
+        WirePost2Fiserv_Url    : API_URL+"wirePost3",
         WireinPostedActual_Url : API_URL+"v_wirePosted3",
         WireinManualResolved_Url : API_URL+"v_wireManualResolved",
         WirePost2_Url            : API_URL+"wirePost3",
@@ -70,7 +70,8 @@ if(env==="DEVLOCAL"){
         WireOutPost4_Url          : API_URL+"wirePost4",
         WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL+"v_wireoutFedPendingList",
-        FedPendingSummary_Url     : API_URL+"v_wireoutFedPendingSummary"
+        FedPendingSummary_Url     : API_URL+"v_wireoutFedPendingSummary",
+        ExecServiceLock_Url       : API_URL+"execServiceWithLock"
     }
 } else {
     // For DEV & Production Env
@@ -98,9 +99,7 @@ if(env==="DEVLOCAL"){
     	Wirein_Url      : API_URL_DB+"_table/v_wireOfacSummary",
         WireinManual_Url : API_URL_DB+"_table/v_wireManual",
  //       WireinPosted_Url : API_URL_DB+"_table/v_wirePost",
-          WireinPosted_Url : API_URL_DB+"_table/v_wirePostSummary",
-        //WireInExport_Url : API_URL+"wirePost",
- //       WireInExport_Url : API_URL+"wirepost2ofac",
+        WireinPosted_Url : API_URL_DB+"_table/v_wirePostSummary",
         WireInExport_Url : API_URL+"wirepost2ofac3",
         WirePost2Fiserv_Url    : API_URL+"wirePost3",
   //      WireinPostedActual_Url : API_URL_DB+"_table/v_wirePosted",
@@ -129,6 +128,7 @@ if(env==="DEVLOCAL"){
         WireOutPost4_Url          : API_URL+"wirePost4",
         WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL_DB+"_table/v_wireoutFedPendingList",
-        FedPendingSummary_Url     : API_URL_DB+"_table/v_wireoutFedPendingSummary"
+        FedPendingSummary_Url     : API_URL_DB+"_table/v_wireoutFedPendingSummary",
+        ExecServiceLock_Url       : API_URL+"execServiceWithLock"
     }
 }

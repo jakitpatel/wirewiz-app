@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ClipLoader from "react-spinners/ClipLoader";
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions';
 //import {API_KEY, Wirein_Url, WireInExport_Url, env} from './../../../const';
-const {API_KEY, Wirein_Url, WireInExport_Url, env} = window.constVar;
+const {API_KEY, Wirein_Url, WireInExport_Url, env, ExecServiceLock_Url} = window.constVar;
 
 function Wirein(props) {
   let history = useHistory();
@@ -319,14 +319,13 @@ function Wirein(props) {
       dataArr = modWireData;
     }
     let data = {
-      "resource": [],//dataArr,
-      "direction":"wireIn",
-      "Auto":true
+      "resource"  : [],//dataArr,
+      "direction" : "wireIn",
+      "Auto"      : true,
+      "service"   : "wirepost2ofac3"
     };
-    let url = WireInExport_Url;
-    if(env==="DEVLOCAL"){
-      url = WireInExport_Url;
-    }
+    //let url = WireInExport_Url;
+    let url = ExecServiceLock_Url;
     try {
       //setSending(!sending);
       setSending(true);
@@ -360,13 +359,12 @@ function Wirein(props) {
       dataArr = modWireData;
     }
     let data = {
-      "resource": [],//dataArr,
-      "direction":"wireIn"
+      "resource"  : [],//dataArr,
+      "direction" : "wireIn",
+      "service"   : "wirepost2ofac3" 
     };
     let url = WireInExport_Url;
-    if(env==="DEVLOCAL"){
-      url = WireInExport_Url;
-    }
+    url = ExecServiceLock_Url;
     try {
       //setSending(!sending);
       setSending(true);

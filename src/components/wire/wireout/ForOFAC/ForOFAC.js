@@ -9,7 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import DateRangeColumnFilter from './../../../Filter/DateRangeColumnFilter';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 //import {API_KEY, WireinManualResolved_Url, env, API_URL, Wire_tbl_Url} from './../../../../const';
-const {API_KEY, WireoutForOFAC_Url, WireInExport_Url, env} = window.constVar;
+const {API_KEY, WireoutForOFAC_Url, WireInExport_Url, env, ExecServiceLock_Url} = window.constVar;
 
 function ForOFAC(props) {
   const [loading, setLoading] = useState(true);
@@ -241,15 +241,14 @@ function ForOFAC(props) {
     let data = {
       //"resource": [{"wireBatchId": wireInObj.wirePostID}],
       "resource": [{"wirePostID": wireInObj.wirePostID}],
-      "direction":"wireOut"
+      "direction":"wireOut",
+      "service"   : "wirepost2ofac3"
     };
     if(expType==="auto"){
       data.Auto = true;
     }
     let url = WireInExport_Url;
-    if(env==="DEVLOCAL"){
-      url = WireInExport_Url;
-    }
+    url = ExecServiceLock_Url;
     try {
       //setSending(!sending);
       setSending(true);

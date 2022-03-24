@@ -132,7 +132,7 @@ function Posting(props) {
         );
       }
     },
-    {
+    /*{
       Header: "SendToFed",
       show : true, 
       width: 80,
@@ -168,7 +168,7 @@ function Posting(props) {
           </button>
         );
       }
-    },
+    },*/
     /*{
       Header: "PostAuto",
       show : true, 
@@ -474,13 +474,13 @@ function Posting(props) {
       data.resource.push({"FED": true},{"FISERV":true});
     }*/
     let serviceVal = "wirePost4";
-    let url = WireOutPost4_Url;
+    //let url = WireOutPost4_Url;
     if(action === "sendtofed"){
       data.resource.push({"FED": false},{"FISERV":true});
-      url = WireOutPost5_Url;
+      //url = WireOutPost5_Url;
       serviceVal = "wirePost5";
     }
-    url = ExecServiceLock_Url;
+    let url = ExecServiceLock_Url;
     data.service = serviceVal;
 
     try {

@@ -13,7 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
-const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url, WireOutOfacWires_Url} = window.constVar;
+const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url, WireOutOfacWires_Url, ExecServiceLock_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -91,7 +91,7 @@ function WiresInlist(props) {
   } else if(batchRec.fromView && batchRec.fromView==="wireInPosted"){
     chkHeaderTitle = "excludeFISERV";
     fieldNameAccessor = "excludeFISERV";
-  } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+  } else if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
     chkHeaderTitle = "Select";
     fieldNameAccessor = "resolve";
   } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
@@ -114,7 +114,7 @@ function WiresInlist(props) {
 
   let columnDefs = [];
   //if(batchRec.fromView && (batchRec.fromView==="wireIn" || batchRec.fromView==="wireInPosted")){
-  if(batchRec.fromView && (batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutPosting")){
+  if(batchRec.fromView && (batchRec.fromView==="wireInPosted" || batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual" || batchRec.fromView==="wireOutPosting")){
     columnDefs.push(selectBox);
   }
   columnDefs.push(
@@ -263,7 +263,7 @@ function WiresInlist(props) {
     }*/
     );
   
-  if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+  if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
       let recType = batchRec.type;
       if(recType==="businessError"){
         columnDefs.push({
@@ -328,7 +328,7 @@ function WiresInlist(props) {
     if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
       modObj.excludeFISERV = value;
     } 
-    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
       modObj = {
         status:3,
         wireID : modifiedRec.wireID,
@@ -393,7 +393,7 @@ function WiresInlist(props) {
         if(batchRec.fromView && batchRec.fromView==="wireIn"){
           //let filterUrl = "((direction = 'wirein') and (vACC is not null) and (wirePostID is NULL) and (excludeOFAC is NULL) and (excludeFISERV is NULL) and (errorMsg is NULL) and ((businessErrorMsg is NULL) or ((businessErrorMsg is not NULL) and (overrideFlag = 1))))";
           //url += "&filter="+encodeURIComponent(filterUrl);
-        } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+        } else if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
           let recType = batchRec.type;
           let filterUrl = batchRec.filter;
           /*
@@ -677,15 +677,22 @@ function WiresInlist(props) {
       wireObj.resolveBy = getShortName();
       //wiresResourceArr.push(tmpWireObj);
     }
-    let data = {
-      "resource": modWireData
-    };
-    let url = Wire_tbl_Url;
-    if(env==="DEVLOCAL"){
-      url = Wire_tbl_Url;
+    let dirVal = "wireOut";
+    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      dirVal = "wireIn";
     }
+    console.log(batchRec.fromView);
+    let data = {
+      "direction" : dirVal, 
+      "service"   : "wire",
+      "operation" : "PUT",
+      "resource"  : modWireData
+    };
+    //let url = Wire_tbl_Url;
+    let url = ExecServiceLock_Url;
+    console.log(url);
     try {
-      let res = await axios.put(url, data, options);
+      let res = await axios.post(url, data, options);
       console.log(res.data);
       setModWireData([]);
       setIsRefresh(!isRefresh);
@@ -864,15 +871,22 @@ function WiresInlist(props) {
       delete wireObj.vAcc;
       */
     }
-    let data = {
-      "resource": modWireData
-    };
-    let url = Wire_tbl_Url;
-    if(env==="DEVLOCAL"){
-      url = Wire_tbl_Url;
+    let dirVal = "wireOut";
+    if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+      dirVal = "wireIn";
     }
+    console.log(batchRec.fromView);
+    let data = {
+      "direction" : dirVal, 
+      "service"   : "wire",
+      "operation" : "PUT",
+      "resource"  : modWireData
+    };
+    //let url = Wire_tbl_Url;
+    let url = ExecServiceLock_Url;
+    console.log(url);
     try {
-      let res = await axios.put(url, data, options);
+      let res = await axios.post(url, data, options);
       //let res1 = await axios.post(wireOverrideNamesUrl, wireOverrideNames, options);
       console.log(res.data);
       setModWireData([]);
@@ -911,7 +925,7 @@ function WiresInlist(props) {
 
   let showResolveSection = false;
   let showOverrideSection = false;
-  if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+  if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
     if(wires.length>0){
       showResolveSection = true;
       let recType = batchRec.type;
@@ -951,7 +965,7 @@ function WiresInlist(props) {
       headerTitle += " - Posted - "+wirePostID;
     } else if(batchRec.fromView && batchRec.fromView==="wireBatch"){
       headerTitle += " - Batch "+batchRec.wireBatchID+" - from "+batchRec.userID;
-    } else if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    } else if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
       let type = batchRec.type;
       let account = batchRec.account;
       headerTitle += " - Manual - "+type+" - "+account;

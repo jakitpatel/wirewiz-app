@@ -41,7 +41,7 @@ function WireoutManual(props) {
         //console.log("Edit");
         //console.log(obj.row);
         let wireInRecordObj = obj.row.original;
-        wireInRecordObj.fromView = "wireInManual";
+        wireInRecordObj.fromView = "wireOutManual";
         return (
           <Link
             to={{

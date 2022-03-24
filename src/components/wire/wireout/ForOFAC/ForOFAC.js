@@ -247,8 +247,9 @@ function ForOFAC(props) {
     if(expType==="auto"){
       data.Auto = true;
     }
-    let url = WireInExport_Url;
-    url = ExecServiceLock_Url;
+    //let url = WireInExport_Url;
+    let url = ExecServiceLock_Url;
+    console.log(url);
     try {
       //setSending(!sending);
       setSending(true);
@@ -258,7 +259,7 @@ function ForOFAC(props) {
       setSending(false);
       setIsRefresh(!isRefresh);
     } catch (error) {
-      console.error(error) // from creation or business logic
+      console.error(error); // from creation or business logic
       //setSending(!sending);
       setSending(false);
     }  

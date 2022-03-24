@@ -363,8 +363,9 @@ function Wirein(props) {
       "direction" : "wireIn",
       "service"   : "wirepost2ofac3" 
     };
-    let url = WireInExport_Url;
-    url = ExecServiceLock_Url;
+    //let url = WireInExport_Url;
+    let url = ExecServiceLock_Url;
+    console.log(url);
     try {
       //setSending(!sending);
       setSending(true);

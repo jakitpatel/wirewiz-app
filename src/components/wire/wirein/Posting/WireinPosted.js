@@ -468,8 +468,9 @@ function WireinPosted(props) {
     if(postAutoFlag){
       data.Auto = postAutoFlag;
     }
-    let url = WirePost2Fiserv_Url;
-    url = ExecServiceLock_Url;
+    //let url = WirePost2Fiserv_Url;
+    let url = ExecServiceLock_Url;
+    console.log(url);
     try {
       //setSending(!sending);
       setSending(true);

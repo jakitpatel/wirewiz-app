@@ -694,8 +694,12 @@ function WiresInlist(props) {
     try {
       let res = await axios.post(url, data, options);
       console.log(res.data);
-      setModWireData([]);
-      setIsRefresh(!isRefresh);
+      if(res.data.error){
+        alert(res.data.error.message);
+      } else {
+        setModWireData([]);
+        setIsRefresh(!isRefresh);
+      }
       //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);
@@ -889,8 +893,12 @@ function WiresInlist(props) {
       let res = await axios.post(url, data, options);
       //let res1 = await axios.post(wireOverrideNamesUrl, wireOverrideNames, options);
       console.log(res.data);
-      setModWireData([]);
-      setIsRefresh(!isRefresh);
+      if(res.data.error){
+        alert(res.data.error.message);
+      } else {
+        setModWireData([]);
+        setIsRefresh(!isRefresh);
+      }
       //setIsRefresh(!isRefresh);
     } catch (error) {
       console.log(error.response);

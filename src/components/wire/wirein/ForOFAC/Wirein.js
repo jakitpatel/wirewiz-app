@@ -338,8 +338,8 @@ function Wirein(props) {
         setIsRefresh(!isRefresh);
       }
     } catch (error) {
+      console.log(error);
       console.log(error.response);
-      setSending(false);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
           let res = error.response.data;
@@ -347,6 +347,7 @@ function Wirein(props) {
       } else {
         alert(error);
       }
+      setSending(false);
     }    
   }
 
@@ -387,15 +388,17 @@ function Wirein(props) {
         setIsRefresh(!isRefresh);
       }
     } catch (error) {
-      console.error(error) // from creation or business logic
-      setSending(false);
+      console.log(error); // from creation or business logic
+      console.log(error.response);
       if (401 === error.response.status) {
         // handle error: inform user, go to login, etc
         let res = error.response.data;
         alert(res.error.message);
       } else {
+        console.log("Error : "+error);
         alert(error);
       }
+      setSending(false);
     }    
   }
 

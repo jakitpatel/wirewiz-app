@@ -262,8 +262,7 @@ function ForOFAC(props) {
         setIsRefresh(!isRefresh);
       }
     } catch (error) {
-      console.error(error); // from creation or business logic
-      setSending(false);
+      console.log(error); // from creation or business logic
       if (401 === error.response.status) {
         // handle error: inform user, go to login, etc
         let res = error.response.data;
@@ -271,6 +270,7 @@ function ForOFAC(props) {
       } else {
         alert(error);
       }
+      setSending(false);
     }  
   }
 

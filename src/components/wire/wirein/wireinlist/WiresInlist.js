@@ -702,8 +702,8 @@ function WiresInlist(props) {
       }
       //setIsRefresh(!isRefresh);
     } catch (error) {
+      console.log(error);
       console.log(error.response);
-      //setIsRefresh(!isRefresh);
       //setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
@@ -901,9 +901,8 @@ function WiresInlist(props) {
       }
       //setIsRefresh(!isRefresh);
     } catch (error) {
+      console.log(error);
       console.log(error.response);
-      //setIsRefresh(!isRefresh);
-      //setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
           // handle error: inform user, go to login, etc
           let res = error.response.data;

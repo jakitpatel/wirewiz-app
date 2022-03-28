@@ -128,14 +128,18 @@ function WireDetailForm(props) {
                       </div>
                   )
                 } else if(key==="textWireMsg"){
-                  let valueSt = "";
-                  if(value !== null && value !== ""){
+                  if(value===null){
+                    value = "";
+                  }
+                  //let valueSt = "";
+                  /*if(value !== null && value !== ""){
                     let msgArr = value.split("{");
                     for (let i = 1; i < msgArr.length; i++) {
+                      //msgArr[i] = "{"+msgArr[i] + "\n";
                       msgArr[i] = "{"+msgArr[i] + "\n";
                     }
                     valueSt = msgArr.join("");
-                  }
+                  }*/
                   return (
                     <div key={key} className={`${defClassName}-12`}>
                       <div className="form-group row">
@@ -145,7 +149,7 @@ function WireDetailForm(props) {
                             className="form-control" 
                             minRows={1}
                             name="textWireMsg"
-                            value={valueSt}
+                            value={value}
                             readOnly
                             />
                         </div>

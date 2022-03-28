@@ -92,8 +92,11 @@ function WireDetailForm(props) {
   console.log(wireDetailsObj);
   let defClassName = "col";
   //console.log("printAct : "+printAct);
+  let minRowsVal = 1;
   if(printAct===false){
     defClassName += "-sm";
+  } else {
+    minRowsVal = 10;
   }
   //console.log(defClassName);
   return (
@@ -140,14 +143,19 @@ function WireDetailForm(props) {
                     }
                     valueSt = msgArr.join("");
                   }*/
+                  if(value===null || value===""){
+                    minRowsVal = 1;
+                  }
                   return (
                     <div key={key} className={`${defClassName}-12`}>
                       <div className="form-group row">
                         <label className={`${defClassName}-2 col-form-label`}>textWireMsg</label>
                         <div className={`${defClassName}-10`}>
-                            <TextareaAutosize 
+                            <TextareaAutosize
+                            style={{overflowY:"hidden", overflow: "hidden"}}
                             className="form-control" 
-                            minRows={1}
+                            minRows={minRowsVal}
+                            maxRows={10}
                             name="textWireMsg"
                             value={value}
                             readOnly

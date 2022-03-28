@@ -348,7 +348,7 @@ function WireDetails(props) {
               <div style={{ clear:"both"}}></div>
             </div>
             <WireDetailForm printAct={false} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
-            <div style={{ overflow: "hidden", height: "0px" }}>
+            <div style={{ overflow: "hidden", height:"0px" }}>
               <WireDetailForm printAct={true} refPropWithAnotherName={componentRef} formMode={props.disType} custstate={wireDetailsObj} oncustinputchange={handleChange} />
             </div>
           </div>

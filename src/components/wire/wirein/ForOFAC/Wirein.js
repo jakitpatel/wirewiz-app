@@ -331,13 +331,22 @@ function Wirein(props) {
       setSending(true);
       let res = await axios.post(url, data, options);
       console.log(res.data);
-      //setSending(!sending);
       setSending(false);
-      setIsRefresh(!isRefresh);
+      if(res.data.error){
+        alert(res.data.error.message);
+      } else {
+        setIsRefresh(!isRefresh);
+      }
     } catch (error) {
-      console.error(error) // from creation or business logic
-      //setSending(!sending);
+      console.log(error.response);
       setSending(false);
+      if (401 === error.response.status) {
+          // handle error: inform user, go to login, etc
+          let res = error.response.data;
+          alert(res.error.message);
+      } else {
+        alert(error);
+      }
     }    
   }
 
@@ -371,13 +380,22 @@ function Wirein(props) {
       setSending(true);
       let res = await axios.post(url, data, options);
       console.log(res.data);
-      //setSending(!sending);
       setSending(false);
-      setIsRefresh(!isRefresh);
+      if(res.data.error){
+        alert(res.data.error.message);
+      } else {
+        setIsRefresh(!isRefresh);
+      }
     } catch (error) {
       console.error(error) // from creation or business logic
-      //setSending(!sending);
       setSending(false);
+      if (401 === error.response.status) {
+        // handle error: inform user, go to login, etc
+        let res = error.response.data;
+        alert(res.error.message);
+      } else {
+        alert(error);
+      }
     }    
   }
 

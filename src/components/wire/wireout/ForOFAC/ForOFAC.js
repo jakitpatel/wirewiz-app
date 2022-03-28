@@ -268,7 +268,9 @@ function ForOFAC(props) {
         let res = error.response.data;
         alert(res.error.message);
       } else {
-        alert(error);
+        let res = error.response.data;
+        console.log("Error message: "+res.error.message);
+        alert(res.error.message);
       }
       setSending(false);
     }  

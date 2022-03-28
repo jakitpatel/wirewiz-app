@@ -706,11 +706,13 @@ function WiresInlist(props) {
       console.log(error.response);
       //setIsRefresh(!isRefresh);
       if (401 === error.response.status) {
-          // handle error: inform user, go to login, etc
-          let res = error.response.data;
-          alert(res.error.message);
+        // handle error: inform user, go to login, etc
+        let res = error.response.data;
+        alert(res.error.message);
       } else {
-        alert(error);
+        let res = error.response.data;
+        console.log("Error message: "+res.error.message);
+        alert(res.error.message);
       }
     }
   }
@@ -904,11 +906,13 @@ function WiresInlist(props) {
       console.log(error);
       console.log(error.response);
       if (401 === error.response.status) {
-          // handle error: inform user, go to login, etc
-          let res = error.response.data;
-          alert(res.error.message);
+        // handle error: inform user, go to login, etc
+        let res = error.response.data;
+        alert(res.error.message);
       } else {
-        alert(error);
+        let res = error.response.data;
+        console.log("Error message: "+res.error.message);
+        alert(res.error.message);
       }
     }
   }

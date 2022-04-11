@@ -842,11 +842,13 @@ function WiresInlist(props) {
       delete wireObj.status;
       /////
       let bsErrMsg = wireObj.businessErrorMsg;
-      if(bsErrMsg.toLowerCase().includes("account in beneficiaryfi")){
-        wireObj.originToBeneficiaryInfo1  = wireObj.beneficiaryIdentifier;
-        wireObj.beneficiaryIdentifier     = wireObj.beneficiaryFIIdentifier;
-      } else {
-        delete wireObj.beneficiaryIdentifier;
+      if(bsErrMsg){
+        if(bsErrMsg.toLowerCase().includes("account in beneficiaryfi")){
+          wireObj.originToBeneficiaryInfo1  = wireObj.beneficiaryIdentifier;
+          wireObj.beneficiaryIdentifier     = wireObj.beneficiaryFIIdentifier;
+        } else {
+          delete wireObj.beneficiaryIdentifier;
+        }
       }
       delete wireObj.beneficiaryFIIdentifier;
       ////

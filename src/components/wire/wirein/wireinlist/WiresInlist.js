@@ -816,14 +816,14 @@ function WiresInlist(props) {
           }
       }*/
     }
-    /*if(batchRec.fromView && batchRec.fromView==="wireInManual"){
+    if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
       console.log("batchRec.fromView : "+batchRec.fromView);
       let recType = batchRec.type;
       console.log("batchRec.type : "+recType);
-      if(recType==="branch" || recType==="lending"){
+      if(recType==="excluded"){
         flagOverride = true;
       }
-    }*/
+    }
     if(flagOverride===false){
       //alert("Selected wire does not contain country list or limit check in businessErrorMsg. Please unselect to proceed with override.");
       alert("Selected wires must not contain 'ERROR' & must contain 'WARNING' in businessErrorMsg. Please unselect to proceed with override.");

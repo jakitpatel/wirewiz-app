@@ -1,7 +1,7 @@
 {
   "name": "wireapp",
   "homepage": "https://devnycweb01.comfed.local/wireapp",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.1.5",

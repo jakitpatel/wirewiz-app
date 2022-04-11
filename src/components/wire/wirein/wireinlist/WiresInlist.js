@@ -868,6 +868,15 @@ function WiresInlist(props) {
       //wireObj.completeDateTime = datefull;
       wireObj.overrideFlag = 1;
       wireObj.overrideBy = getShortName();
+
+      /// Only for Record Type Excluded
+      if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
+        let recType = batchRec.type;
+        if(recType==="excluded"){
+          wireObj.excludeFISERV = null;
+        }
+      }
+      
       //wiresResourceArr.push(tmpWireObj);
       /*
       let wireOverrideObj = {

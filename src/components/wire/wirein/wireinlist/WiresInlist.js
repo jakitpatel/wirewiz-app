@@ -942,7 +942,7 @@ function WiresInlist(props) {
       let recType = batchRec.type;
       //console.log("recType : "+recType);
       //if(recType==="businessError" || recType==="branch" || recType==="lending"){
-      if(recType==="businessError"){
+      if(recType==="businessError" || recType==="excluded"){
         showOverrideSection = true;
       }
     }

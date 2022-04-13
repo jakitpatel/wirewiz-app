@@ -96,7 +96,7 @@ function WireDetailForm(props) {
   if(printAct===false){
     defClassName += "-sm";
   } else {
-    minRowsVal = 10;
+    minRowsVal = 25;
   }
   //console.log(defClassName);
   return (
@@ -131,20 +131,23 @@ function WireDetailForm(props) {
                       </div>
                   )
                 } else if(key==="textWireMsg"){
-                  if(value===null){
-                    value = "";
-                  }
-                  //let valueSt = "";
-                  /*if(value !== null && value !== ""){
+                  let valueSt = "";
+                  let cnt = 0;
+                  if(value !== null && value !== ""){
                     let msgArr = value.split("{");
                     for (let i = 1; i < msgArr.length; i++) {
                       //msgArr[i] = "{"+msgArr[i] + "\n";
                       msgArr[i] = "{"+msgArr[i] + "\n";
+                      cnt = cnt + 1;
                     }
                     valueSt = msgArr.join("");
-                  }*/
+                  }
                   if(value===null || value===""){
                     minRowsVal = 1;
+                    valueSt = "";
+                  }
+                  if(printAct!==false && cnt > 0){
+                    minRowsVal = cnt + 8;
                   }
                   return (
                     <div key={key} className={`${defClassName}-12`}>
@@ -155,9 +158,9 @@ function WireDetailForm(props) {
                             style={{overflowY:"hidden", overflow: "hidden"}}
                             className="form-control" 
                             minRows={minRowsVal}
-                            maxRows={10}
+                            maxRows={35}
                             name="textWireMsg"
-                            value={value}
+                            value={valueSt}
                             readOnly
                             />
                         </div>

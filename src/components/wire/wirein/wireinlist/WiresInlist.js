@@ -42,6 +42,7 @@ function WiresInlist(props) {
   const [modWireData, setModWireData] = React.useState([]);
 
   const [resolveText, setResolveText] = useState("Sent to Branch");
+  const [rejectReason, setRejectReason] = useState("Return - exceeds daily wire limit");
 
   const dispatch = useDispatch();
 
@@ -675,6 +676,7 @@ function WiresInlist(props) {
       wireObj.completeDateTime = datefull;
       wireObj.resolveMsg = resolveText;
       wireObj.resolveBy = getShortName();
+      wireObj.rejectReason = rejectReason;
       //wiresResourceArr.push(tmpWireObj);
     }
     let dirVal = "wireOut";
@@ -947,6 +949,7 @@ function WiresInlist(props) {
 
   let showResolveSection = false;
   let showOverrideSection = false;
+  let showRejectSection = false;
   if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
     if(wires.length>0){
       showResolveSection = true;
@@ -955,6 +958,9 @@ function WiresInlist(props) {
       //if(recType==="businessError" || recType==="branch" || recType==="lending"){
       if(recType==="businessError" || recType==="excluded"){
         showOverrideSection = true;
+        if(resolveText === "Generate Reject"){
+          showRejectSection = true;
+        }
       }
     }
   }
@@ -1056,6 +1062,22 @@ function WiresInlist(props) {
       <h4 style={{float:"right", padding: "0.5rem 1rem"}} > Submitting... </h4>
   </>
   ) : null;
+
+  let selectRejectCmp = wireWriteVal === true ? ( 
+    <>
+        <select className={`form-control`} value={rejectReason}
+          onChange={e => {
+            setRejectReason(e.target.value);
+          }}
+        >
+        <option value="Return - exceeds daily wire limit">Return - exceeds daily wire limit</option>
+        <option value="Return - refused by receiver">Return - refused by receiver</option>
+        <option value="Return - bene a/c number incorrect">Return - bene a/c number incorrect</option>
+        <option value="Return - inactive account">Return - inactive account</option>
+      </select>
+    </>
+    ) : null;
+
   let selectCmp = wireWriteVal === true ? ( 
     <>
         <select className={`form-control`} value={resolveText}
@@ -1120,6 +1142,13 @@ function WiresInlist(props) {
                   </button>
                   <div style={{float:"right"}}>
                     {selectCmp}
+                  </div>
+                </>
+                }
+                {showRejectSection &&
+                <>
+                  <div style={{float:"right", marginRight:"5px"}}>
+                    {selectRejectCmp}
                   </div>
                 </>
                 }

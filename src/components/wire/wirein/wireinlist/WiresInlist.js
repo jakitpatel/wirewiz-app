@@ -43,6 +43,8 @@ function WiresInlist(props) {
 
   const [resolveText, setResolveText] = useState("Sent to Branch");
   const [rejectReason, setRejectReason] = useState("Return - exceeds daily wire limit");
+  const [showRejectOption, setShowRejectOption] = useState(true);
+  const [rejectReasonCustom, setRejectReasonCustom] = useState("Return - ");
 
   const dispatch = useDispatch();
 
@@ -656,6 +658,10 @@ function WiresInlist(props) {
         'X-DreamFactory-Session-Token': session_token
       }
     };
+    let rejectReasonVal = rejectReason;
+    if(showRejectOption === false){
+      rejectReasonVal = rejectReasonCustom;
+    }
     for(let k=0; k<modWireData.length;k++){
       let wireObj = modWireData[k];
       delete wireObj.businessErrorMsg;
@@ -676,7 +682,7 @@ function WiresInlist(props) {
       wireObj.completeDateTime = datefull;
       wireObj.resolveMsg = resolveText;
       wireObj.resolveBy = getShortName();
-      wireObj.rejectReason = rejectReason;
+      wireObj.rejectReason = rejectReasonVal;
       //wiresResourceArr.push(tmpWireObj);
     }
     let dirVal = "wireOut";
@@ -1067,13 +1073,21 @@ function WiresInlist(props) {
     <>
         <select className={`form-control`} value={rejectReason}
           onChange={e => {
+            console.log(e.target.value);
             setRejectReason(e.target.value);
+            if (e.target.value === "Return - Enter Text") { 
+              setShowRejectOption(false);
+            } else { 
+              setShowRejectOption(true); 
+            }
           }}
         >
         <option value="Return - exceeds daily wire limit">Return - exceeds daily wire limit</option>
         <option value="Return - refused by receiver">Return - refused by receiver</option>
         <option value="Return - bene a/c number incorrect">Return - bene a/c number incorrect</option>
         <option value="Return - inactive account">Return - inactive account</option>
+        <option value="Return - Unable to apply">Return - Unable to apply</option>
+        <option value="Return - Enter Text">Return - Enter Text</option>
       </select>
     </>
     ) : null;
@@ -1113,6 +1127,22 @@ function WiresInlist(props) {
       </select>
       </>
     );
+  let inputRejectCmp = (
+    <div className="input-group">
+      <input
+        className="form-control"
+        id="rejectReason"
+        value={rejectReasonCustom}
+        type="text"
+        onChange={(e) => setRejectReasonCustom(e.target.value)}
+        placeholder="Return - "
+      />
+      <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={() => {
+        setShowRejectOption(true);
+        setRejectReason("Return - exceeds daily wire limit");
+      }}></button>
+      </div>
+  );
   return (
     <React.Fragment>
       <div className="container" style={{marginLeft:"0px", width:"100%", maxWidth:"100%"}}>
@@ -1148,7 +1178,16 @@ function WiresInlist(props) {
                 {showRejectSection &&
                 <>
                   <div style={{float:"right", marginRight:"5px"}}>
-                    {selectRejectCmp}
+                    {showRejectOption && 
+                    <>
+                      {selectRejectCmp}
+                    </>
+                    }
+                    {!showRejectOption && 
+                      <>
+                        {inputRejectCmp}
+                      </>
+                    }
                   </div>
                 </>
                 }

@@ -964,7 +964,7 @@ function WiresInlist(props) {
       //if(recType==="businessError" || recType==="branch" || recType==="lending"){
       if(recType==="businessError" || recType==="excluded"){
         showOverrideSection = true;
-        if(resolveText === "Generate Reject"){
+        if(resolveText === "Generate Reject" && recType==="businessError"){
           showRejectSection = true;
         }
       }

@@ -42,7 +42,7 @@ function WiresInlist(props) {
   const [modWireData, setModWireData] = React.useState([]);
 
   const [resolveText, setResolveText] = useState("Sent to Branch");
-  const [rejectReason, setRejectReason] = useState("Return - exceeds daily wire limit");
+  const [rejectReason, setRejectReason] = useState("Auto Generated");
   const [showRejectOption, setShowRejectOption] = useState(true);
   const [rejectReasonCustom, setRejectReasonCustom] = useState("Return - ");
 
@@ -1082,6 +1082,7 @@ function WiresInlist(props) {
             }
           }}
         >
+        <option value="Auto Generated">Auto Generated</option>
         <option value="Return - exceeds daily wire limit">Return - exceeds daily wire limit</option>
         <option value="Return - refused by receiver">Return - refused by receiver</option>
         <option value="Return - bene a/c number incorrect">Return - bene a/c number incorrect</option>
@@ -1139,7 +1140,7 @@ function WiresInlist(props) {
       />
       <button className="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={() => {
         setShowRejectOption(true);
-        setRejectReason("Return - exceeds daily wire limit");
+        setRejectReason("Auto Generated");
       }}></button>
       </div>
   );

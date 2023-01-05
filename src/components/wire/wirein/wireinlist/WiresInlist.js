@@ -880,10 +880,13 @@ function WiresInlist(props) {
       /// Only for Record Type Excluded
       if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
         let recType = batchRec.type;
-        if(recType==="excluded" || recType==="excludedFromPosting"){
+        if(recType==="excluded"){
           wireObj.excludeFISERV = null;
         } else if(recType==="excludedFromOFAC"){
           wireObj.excludeOFAC = null;
+        } else if(recType==="excludedFromPosting"){
+          wireObj.excludeFED = null;
+          wireObj.excludeFISERV = null;
         }
       }
       

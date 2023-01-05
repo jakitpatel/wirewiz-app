@@ -828,7 +828,7 @@ function WiresInlist(props) {
       console.log("batchRec.fromView : "+batchRec.fromView);
       let recType = batchRec.type;
       console.log("batchRec.type : "+recType);
-      if(recType==="excluded"){
+      if(recType==="excluded" || recType==="excludedFromOFAC" || recType==="excludedFromPosting"){
         flagOverride = true;
       }
     }
@@ -880,8 +880,10 @@ function WiresInlist(props) {
       /// Only for Record Type Excluded
       if(batchRec.fromView && (batchRec.fromView==="wireInManual" || batchRec.fromView==="wireOutManual")){
         let recType = batchRec.type;
-        if(recType==="excluded"){
+        if(recType==="excluded" || recType==="excludedFromPosting"){
           wireObj.excludeFISERV = null;
+        } else if(recType==="excludedFromOFAC"){
+          wireObj.excludeOFAC = null;
         }
       }
       
@@ -962,7 +964,7 @@ function WiresInlist(props) {
       let recType = batchRec.type;
       //console.log("recType : "+recType);
       //if(recType==="businessError" || recType==="branch" || recType==="lending"){
-      if(recType==="businessError" || recType==="excluded"){
+      if(recType==="businessError" || recType==="excluded" || recType==="excludedFromOFAC" || recType==="excludedFromPosting"){
         showOverrideSection = true;
         if(resolveText === "Generate Reject" && recType==="businessError"){
           showRejectSection = true;

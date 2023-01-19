@@ -180,6 +180,23 @@ function WireBatch(props) {
           </button>
         );
       }
+    },
+    {
+      name: "totalBatch",
+      field: "totalBatch",
+      Header: "Total Batch",
+      accessor: "totalBatch",
+      width:190,
+      Cell: props => {
+        if(props.value===null || props.value===undefined) {
+          return null;
+        }
+        return (
+          <div style={{textAlign: "right"}}>
+          {new Intl.NumberFormat('en-US',{ style: 'currency', currency: 'USD' }).format(props.value)}
+          </div>
+        )
+      }
     }
   ];
   /*

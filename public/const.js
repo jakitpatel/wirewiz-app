@@ -71,7 +71,8 @@ if(env==="DEVLOCAL"){
         WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL+"v_wireoutFedPendingList",
         FedPendingSummary_Url     : API_URL+"v_wireoutFedPendingSummary",
-        ExecServiceLock_Url       : API_URL+"execServiceWithLock"
+        ExecServiceLock_Url       : API_URL+"execServiceWithLock",
+        WireOutPostList_Url       : API_URL+"v_wireoutPostList"
     }
 } else {
     // For DEV & Production Env
@@ -129,6 +130,7 @@ if(env==="DEVLOCAL"){
         WireOutPost5_Url          : API_URL+"wirePost5",
         FedPendingList_Url        : API_URL_DB+"_table/v_wireoutFedPendingList",
         FedPendingSummary_Url     : API_URL_DB+"_table/v_wireoutFedPendingSummary",
-        ExecServiceLock_Url       : API_URL+"execServiceWithLock"
+        ExecServiceLock_Url       : API_URL+"execServiceWithLock",
+        WireOutPostList_Url       : API_URL_DB+"_table/v_wireoutPostList"
     }
 }

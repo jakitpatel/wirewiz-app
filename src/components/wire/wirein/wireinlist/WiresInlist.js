@@ -13,7 +13,7 @@ import ReactTooltip from 'react-tooltip';
 import {buildSortByUrl, buildPageUrl, buildFilterUrl} from './../../../Functions/functions.js';
 import SelectColumnFilter from './../../../Filter/SelectColumnFilter';
 //import {API_KEY, Wires_Url, Wire_tbl_Url, WireDictionary_Url, WireExport_Url, env, WirePost2Fiserv_Url} from './../../../../const';
-const {API_KEY, Wires_Url,WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url, WireOutOfacWires_Url, ExecServiceLock_Url} = window.constVar;
+const {API_KEY, Wires_Url,WireOutPostList_Url, WiresGroup_Url, Wire_tbl_Url, WireOfacWires_Url, WireExport_Url, env, WirePost2Fiserv_Url, WireOutOfacWires_Url, ExecServiceLock_Url} = window.constVar;
 
 function WiresInlist(props) {
   let history = useHistory();
@@ -390,6 +390,8 @@ function WiresInlist(props) {
         url = WireOfacWires_Url;
       } else if(batchRec.fromView && batchRec.fromView==="wireOutOFAC"){
         url = WireOutOfacWires_Url;
+      } else if(batchRec.fromView && batchRec.fromView==="wireOutPosting"){
+        url = WireOutPostList_Url;
       }
       url += buildPageUrl(pageSize,pageIndex);
       if(batchRec){
